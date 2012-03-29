@@ -5,7 +5,7 @@ Version:          2012.1
 # The Release is in form 0.X.tag as per:
 #   http://fedoraproject.org/wiki/Packaging:NamingGuidelines#Pre-Release_packages
 # So for prereleases always increment X
-Release:          0.9.rc1%{?dist}
+Release:          0.10.rc1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -374,8 +374,9 @@ fi
 %endif
 
 %changelog
-* Mon Mar 26 2012 Pádraig Brady <P@draigBrady.com> 2012.1-???
+* Thu Mar 29 2012 Russell Bryant <rbryant@redhat.com> 2012.1-0.10.rc1
 - Remove the outdated nova-debug tool
+- CVE-2012-1585 openstack-nova: Long server names grow nova-api log files significantly
 
 * Mon Mar 26 2012 Mark McLoughlin <markmc@redhat.com> - 2012.1-0.9.rc1
 - Avoid killing dnsmasq on network service shutdown (#805947)
