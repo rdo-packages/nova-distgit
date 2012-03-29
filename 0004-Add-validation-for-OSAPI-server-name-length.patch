@@ -1,0 +1,88 @@
+From d4a0a4c35ab5da866ec75404551793f0952f85d5 Mon Sep 17 00:00:00 2001
+From: Dan Prince <dprince@redhat.com>
+Date: Fri, 23 Mar 2012 15:03:19 -0400
+Subject: [PATCH] Add validation for OSAPI server name length.
+
+Fixes LP Bug #962515.
+
+Change-Id: Iee895604f8e9101a341a5909fc5ba2dd8e708b4b
+---
+ nova/api/openstack/compute/servers.py            |    4 ++
+ nova/tests/api/openstack/compute/test_servers.py |   42 ++++++++++++++++++++++
+ 2 files changed, 46 insertions(+), 0 deletions(-)
+
+diff --git a/nova/api/openstack/compute/servers.py b/nova/api/openstack/compute/servers.py
+index e6a8fdc..8ca49b6 100644
+--- a/nova/api/openstack/compute/servers.py
++++ b/nova/api/openstack/compute/servers.py
+@@ -505,6 +505,10 @@ class Controller(wsgi.Controller):
+             msg = _("Server name is an empty string")
+             raise exc.HTTPBadRequest(explanation=msg)
+ 
++        if not len(value) < 256:
++            msg = _("Server name must be less than 256 characters.")
++            raise exc.HTTPBadRequest(explanation=msg)
++
+     def _get_injected_files(self, personality):
+         """
+         Create a list of injected files from the personality attribute
+diff --git a/nova/tests/api/openstack/compute/test_servers.py b/nova/tests/api/openstack/compute/test_servers.py
+index 59d7c8a..238afa3 100644
+--- a/nova/tests/api/openstack/compute/test_servers.py
++++ b/nova/tests/api/openstack/compute/test_servers.py
+@@ -891,6 +891,17 @@ class ServersControllerTest(test.TestCase):
+         self.assertEqual(res_dict['server']['id'], FAKE_UUID)
+         self.assertEqual(res_dict['server']['name'], 'server_test')
+ 
++    def test_update_server_name_too_long(self):
++        self.stubs.Set(nova.db, 'instance_get',
++                fakes.fake_instance_get(name='server_test'))
++        req = fakes.HTTPRequest.blank('/v2/fake/servers/%s' % FAKE_UUID)
++        req.method = 'PUT'
++        req.content_type = 'application/json'
++        body = {'server': {'name': 'x' * 256}}
++        req.body = json.dumps(body)
++        self.assertRaises(webob.exc.HTTPBadRequest, self.controller.update,
++                            req, FAKE_UUID, body)
++
+     def test_update_server_access_ipv4(self):
+         self.stubs.Set(nova.db, 'instance_get',
+                 fakes.fake_instance_get(access_ipv4='0.0.0.0'))
+@@ -1643,6 +1654,37 @@ class ServersControllerCreateTest(test.TestCase):
+         self.assertRaises(webob.exc.HTTPBadRequest, self.controller.create,
+                             req, body)
+ 
++    def test_create_instance_name_too_long(self):
++        # proper local hrefs must start with 'http://localhost/v2/'
++        image_uuid = '76fa36fc-c930-4bf3-8c8a-ea2a2420deb6'
++        image_href = 'http://localhost/v2/images/%s' % image_uuid
++        flavor_ref = 'http://localhost/123/flavors/3'
++        body = {
++            'server': {
++                'name': 'X' * 256,
++                'imageRef': image_href,
++                'flavorRef': flavor_ref,
++                'metadata': {
++                    'hello': 'world',
++                    'open': 'stack',
++                },
++                'personality': [
++                    {
++                        "path": "/etc/banner.txt",
++                        "contents": "MQ==",
++                    },
++
++                ],
++            },
++        }
++
++        req = fakes.HTTPRequest.blank('/v2/fake/servers')
++        req.method = 'POST'
++        req.body = json.dumps(body)
++        req.headers["content-type"] = "application/json"
++        self.assertRaises(webob.exc.HTTPBadRequest, self.controller.create,
++                            req, body)
++
+     def test_create_instance(self):
+         # proper local hrefs must start with 'http://localhost/v2/'
+         image_uuid = '76fa36fc-c930-4bf3-8c8a-ea2a2420deb6'

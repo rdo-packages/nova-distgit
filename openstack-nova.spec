@@ -36,6 +36,7 @@ Source23:         openstack-nova-db-setup
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-fix-useexisting-deprecation-warnings.patch
 Patch0003: 0003-ensure-atomic-manipulation-of-libvirt-disk-images.patch
+Patch0004: 0004-Add-validation-for-OSAPI-server-name-length.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -174,6 +175,7 @@ This package contains documentation files for nova.
 %patch0001 -p1
 %patch0002 -p1
 %patch0003 -p1
+%patch0004 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
