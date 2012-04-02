@@ -303,7 +303,7 @@ fi
 
 %preun
 if [ $1 -eq 0 ] ; then
-    for svc in api cert compute network objectstore scheduler volume direct-api ajax-console-proxy vncproxy; do
+    for svc in api cert compute network objectstore scheduler volume direct-api vncproxy; do
         /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
         /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
     done
@@ -313,7 +313,7 @@ fi
 /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 if [ $1 -ge 1 ] ; then
     # Package upgrade, not uninstall
-    for svc in api cert compute network objectstore scheduler volume direct-api ajax-console-proxy vncproxy; do
+    for svc in api cert compute network objectstore scheduler volume direct-api vncproxy; do
         /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
     done
 fi
