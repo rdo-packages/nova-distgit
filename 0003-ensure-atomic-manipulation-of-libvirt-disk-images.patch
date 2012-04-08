@@ -1,4 +1,4 @@
-From 0ce9eb5dabd84f7566d54ad5c16b807d73c9274d Mon Sep 17 00:00:00 2001
+From 3e4b550eca091904f73f3dd4602f40e7fe3ae888 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?P=C3=A1draig=20Brady?= <pbrady@redhat.com>
 Date: Fri, 16 Mar 2012 03:43:49 +0000
 Subject: [PATCH] ensure atomic manipulation of libvirt disk images
@@ -10,7 +10,7 @@ anywhere in the path from glance, through the libvirt image cache.
 These could cause subsequent operational errors either
 directly or indirectly through disk wastage.
 
-* nova/utils.py: Add a new remove_on_error() context manager
+* nova/utils.py: Add a new remove_path_on_error() context manager
 that is used to remove the passed PATH on a raised exception.
 * nova/virt/images.py: Ensure temporary downloaded and
 converted images are protected.
@@ -25,7 +25,7 @@ Change-Id: I81a5407665a6998128c0dee41387ef00ebddeb4d
  3 files changed, 57 insertions(+), 49 deletions(-)
 
 diff --git a/nova/utils.py b/nova/utils.py
-index ef2b329..6b3ca10 100644
+index 819929a..7188d98 100644
 --- a/nova/utils.py
 +++ b/nova/utils.py
 @@ -21,6 +21,7 @@
@@ -58,12 +58,12 @@ index ef2b329..6b3ca10 100644
              return
          else:
              raise
-@@ -1340,6 +1341,18 @@ def logging_error(message):
+@@ -1344,6 +1345,18 @@ def logging_error(message):
              LOG.exception(message)
  
  
 +@contextlib.contextmanager
-+def remove_on_error(path):
++def remove_path_on_error(path):
 +    """Protect code that wants to operate on PATH atomically.
 +    Any exception will cause PATH to be removed.
 +    """
@@ -78,7 +78,7 @@ index ef2b329..6b3ca10 100644
      """Return a path to a particular device.
  
 diff --git a/nova/virt/images.py b/nova/virt/images.py
-index 1e0ae0a..2c0b12c 100644
+index 1e0ae0a..626f3ff 100644
 --- a/nova/virt/images.py
 +++ b/nova/virt/images.py
 @@ -51,18 +51,10 @@ def fetch(context, image_href, path, _user_id, _project_id):
@@ -86,7 +86,7 @@ index 1e0ae0a..2c0b12c 100644
      (image_service, image_id) = nova.image.get_image_service(context,
                                                               image_href)
 -    try:
-+    with utils.remove_on_error(path):
++    with utils.remove_path_on_error(path):
          with open(path, "wb") as image_file:
              metadata = image_service.get(context, image_id, image_file)
 -    except Exception:
@@ -130,7 +130,7 @@ index 1e0ae0a..2c0b12c 100644
 -        data = _qemu_img_info(staged)
 -        if data.get('file format', None) != "raw":
 -            os.unlink(staged)
-+    with utils.remove_on_error(path_tmp):
++    with utils.remove_path_on_error(path_tmp):
 +        data = _qemu_img_info(path_tmp)
 +
 +        fmt = data.get("file format")
@@ -149,7 +149,7 @@ index 1e0ae0a..2c0b12c 100644
 +        if fmt != "raw" and FLAGS.force_raw_images:
 +            staged = "%s.converted" % path
 +            LOG.debug("%s was %s, converting to raw" % (image_href, fmt))
-+            with utils.remove_on_error(staged):
++            with utils.remove_path_on_error(staged):
 +                out, err = utils.execute('qemu-img', 'convert', '-O', 'raw',
 +                                         path_tmp, staged)
 +
@@ -169,48 +169,48 @@ index 1e0ae0a..2c0b12c 100644
  
      return metadata
 diff --git a/nova/virt/libvirt/connection.py b/nova/virt/libvirt/connection.py
-index 3aabfde..ea94e1e 100644
+index 5379eac..0c78453 100644
 --- a/nova/virt/libvirt/connection.py
 +++ b/nova/virt/libvirt/connection.py
-@@ -1028,7 +1028,8 @@ class LibvirtConnection(driver.ComputeDriver):
+@@ -1076,7 +1076,8 @@ class LibvirtConnection(driver.ComputeDriver):
              @utils.synchronized(fname)
              def call_if_not_exists(base, fn, *args, **kwargs):
                  if not os.path.exists(base):
 -                    fn(target=base, *args, **kwargs)
-+                    with utils.remove_on_error(base):
++                    with utils.remove_path_on_error(base):
 +                        fn(target=base, *args, **kwargs)
  
              if cow or not generating:
                  call_if_not_exists(base, fn, *args, **kwargs)
-@@ -1044,8 +1045,9 @@ class LibvirtConnection(driver.ComputeDriver):
+@@ -1092,8 +1093,9 @@ class LibvirtConnection(driver.ComputeDriver):
                          size_gb = size / (1024 * 1024 * 1024)
                          cow_base += "_%d" % size_gb
                          if not os.path.exists(cow_base):
 -                            libvirt_utils.copy_image(base, cow_base)
 -                            disk.extend(cow_base, size)
-+                            with utils.remove_on_error(cow_base):
++                            with utils.remove_path_on_error(cow_base):
 +                                libvirt_utils.copy_image(base, cow_base)
 +                                disk.extend(cow_base, size)
                      libvirt_utils.create_cow_image(cow_base, target)
                  elif not generating:
                      libvirt_utils.copy_image(base, target)
-@@ -1055,7 +1057,8 @@ class LibvirtConnection(driver.ComputeDriver):
+@@ -1103,7 +1105,8 @@ class LibvirtConnection(driver.ComputeDriver):
                      if size:
                          disk.extend(target, size)
  
 -            copy_and_extend(cow, generating, base, target, size)
-+            with utils.remove_on_error(target):
++            with utils.remove_path_on_error(target):
 +                copy_and_extend(cow, generating, base, target, size)
  
      @staticmethod
      def _create_local(target, local_size, unit='G',
-@@ -1215,8 +1218,9 @@ class LibvirtConnection(driver.ComputeDriver):
+@@ -1273,8 +1276,9 @@ class LibvirtConnection(driver.ComputeDriver):
                                project_id=instance['project_id'],)
          elif config_drive:
              label = 'config'
 -            self._create_local(basepath('disk.config'), 64, unit='M',
 -                               fs_format='msdos', label=label)  # 64MB
-+            with utils.remove_on_error(basepath('disk.config')):
++            with utils.remove_path_on_error(basepath('disk.config')):
 +                self._create_local(basepath('disk.config'), 64, unit='M',
 +                                   fs_format='msdos', label=label)  # 64MB
  

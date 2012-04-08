@@ -1,0 +1,75 @@
+From 9653d687f4a388273964c610a6c8cbb34052f7c7 Mon Sep 17 00:00:00 2001
+From: Yun Mao <yunmao@gmail.com>
+Date: Tue, 3 Apr 2012 11:17:50 -0400
+Subject: [PATCH] Fixed bug 962840, added a test case.
+
+eventlet.tpool.Proxy doesn't work with old-style class in __str__()
+or __repr__() calls. See bug #962840 for details.
+We perform a monkey patch to replace those two instance methods.
+
+Change-Id: Ia51bbd3e71cad7df45da5b3b27eef70f9d9e9002
+
+Conflicts:
+
+	nova/tests/test_libvirt.py
+---
+ nova/tests/test_libvirt.py      |   19 +++++++++++++++++++
+ nova/virt/libvirt/connection.py |   18 ++++++++++++++++++
+ 2 files changed, 37 insertions(+), 0 deletions(-)
+
+diff --git a/nova/tests/test_libvirt.py b/nova/tests/test_libvirt.py
+index 4ce91cb..5a476a4 100644
+--- a/nova/tests/test_libvirt.py
++++ b/nova/tests/test_libvirt.py
+@@ -2369,3 +2369,22 @@ class LibvirtConnectionTestCase(test.TestCase):
+ 
+             ref = self.libvirtconnection.finish_revert_migration(ins_ref, None)
+             self.assertTrue(isinstance(ref, eventlet.event.Event))
++
++
++class LibvirtNonblockingTestCase(test.TestCase):
++    """Test libvirt_nonblocking option"""
++
++    def setUp(self):
++        super(LibvirtNonblockingTestCase, self).setUp()
++        self.flags(libvirt_nonblocking=True, libvirt_uri="test:///default")
++
++    def tearDown(self):
++        super(LibvirtNonblockingTestCase, self).tearDown()
++
++    @test.skip_if(missing_libvirt(), "Test requires libvirt")
++    def test_connection_to_primitive(self):
++        """Test bug 962840"""
++        import nova.virt.libvirt.connection
++        connection = nova.virt.libvirt.connection.get_connection('')
++        utils.to_primitive(connection._conn, convert_instances=True)
++>>>>>>> bc173ec... Fixed bug 962840, added a test case.
+diff --git a/nova/virt/libvirt/connection.py b/nova/virt/libvirt/connection.py
+index 0c78453..2ade19a 100644
+--- a/nova/virt/libvirt/connection.py
++++ b/nova/virt/libvirt/connection.py
+@@ -170,6 +170,24 @@ flags.DECLARE('live_migration_retry_count', 'nova.compute.manager')
+ flags.DECLARE('vncserver_proxyclient_address', 'nova.vnc')
+ 
+ 
++def patch_tpool_proxy():
++    """eventlet.tpool.Proxy doesn't work with old-style class in __str__()
++    or __repr__() calls. See bug #962840 for details.
++    We perform a monkey patch to replace those two instance methods.
++    """
++    def str_method(self):
++        return str(self._obj)
++
++    def repr_method(self):
++        return repr(self._obj)
++
++    tpool.Proxy.__str__ = str_method
++    tpool.Proxy.__repr__ = repr_method
++
++
++patch_tpool_proxy()
++
++
+ def get_connection(read_only):
+     # These are loaded late so that there's no need to install these
+     # libraries when not using libvirt.

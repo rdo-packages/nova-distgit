@@ -1,4 +1,4 @@
-From 77af841f5a2e249b4ede21f393b5464b8b750226 Mon Sep 17 00:00:00 2001
+From 013d88f18b4482cff75779da4fae0bf571db78d1 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?P=C3=A1draig=20Brady?= <pbrady@redhat.com>
 Date: Fri, 6 Jan 2012 12:16:34 +0000
 Subject: [PATCH] Ensure we don't access the net when building docs

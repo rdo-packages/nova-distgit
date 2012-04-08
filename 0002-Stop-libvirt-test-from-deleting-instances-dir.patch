@@ -1,0 +1,66 @@
+From b11b54b6afa5ff1091e59155971abf8bfb9df6cb Mon Sep 17 00:00:00 2001
+From: Vishvananda Ishaya <vishvananda@gmail.com>
+Date: Thu, 5 Apr 2012 17:00:25 -0700
+Subject: [PATCH] Stop libvirt test from deleting instances dir
+
+ * fixes bug 974293
+
+Change-Id: Id41ab20193a70246ad2e3e1cc18edf47059d312d
+---
+ nova/tests/test_libvirt.py |   37 ++++++++++++-------------------------
+ 1 files changed, 12 insertions(+), 25 deletions(-)
+
+diff --git a/nova/tests/test_libvirt.py b/nova/tests/test_libvirt.py
+index 6b0f668..4ce91cb 100644
+--- a/nova/tests/test_libvirt.py
++++ b/nova/tests/test_libvirt.py
+@@ -2148,25 +2148,8 @@ class LibvirtConnectionTestCase(test.TestCase):
+     """Test for nova.virt.libvirt.connection.LibvirtConnection."""
+     def setUp(self):
+         super(LibvirtConnectionTestCase, self).setUp()
+-
+         self.libvirtconnection = connection.LibvirtConnection(read_only=True)
+ 
+-        self.temp_path = os.path.join(flags.FLAGS.instances_path,
+-                                      'instance-00000001/', '')
+-        try:
+-            os.makedirs(self.temp_path)
+-        except Exception:
+-            print 'testcase init error'
+-            pass
+-
+-    def tearDown(self):
+-        super(LibvirtConnectionTestCase, self).tearDown()
+-
+-        try:
+-            shutil.rmtree(flags.FLAGS.instances_path)
+-        except Exception:
+-            pass
+-
+     def _create_instance(self, params=None):
+         """Create a test instance"""
+         if not params:
+@@ -2374,11 +2357,15 @@ class LibvirtConnectionTestCase(test.TestCase):
+         self.stubs.Set(self.libvirtconnection, '_create_new_domain',
+                        fake_create_new_domain)
+ 
+-        ins_ref = self._create_instance()
+-        libvirt_xml_path = os.path.join(flags.FLAGS.instances_path,
+-                                        ins_ref['name'], 'libvirt.xml')
+-        f = open(libvirt_xml_path, 'w')
+-        f.close()
+-
+-        ref = self.libvirtconnection.finish_revert_migration(ins_ref, None)
+-        self.assertTrue(isinstance(ref, eventlet.event.Event))
++        with utils.tempdir() as tmpdir:
++            self.flags(instances_path=tmpdir)
++            ins_ref = self._create_instance()
++            os.mkdir(os.path.join(tmpdir, ins_ref['name']))
++            libvirt_xml_path = os.path.join(tmpdir,
++                                            ins_ref['name'],
++                                            'libvirt.xml')
++            f = open(libvirt_xml_path, 'w')
++            f.close()
++
++            ref = self.libvirtconnection.finish_revert_migration(ins_ref, None)
++            self.assertTrue(isinstance(ref, eventlet.event.Event))
