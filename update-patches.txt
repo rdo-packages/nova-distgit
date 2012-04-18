@@ -55,6 +55,8 @@ git log --oneline # to pick sha of commit _before_ first commit to consider reba
 git rebase --onto essex-3 69fcb2df # use --interactive if want to edit/delete commits
     First, rewinding head to replay your work on top of it...
     Applying: Ensure we don't access the net when building docs
+Note more generally rebase --onto a branch rather than a tag, for e.g.:
+    git rebase -i --onto remotes/openstack/stable/essex bbb021c8
 
 2. Pick new patches after essex-3
 
