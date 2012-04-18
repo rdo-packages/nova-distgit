@@ -23,6 +23,11 @@ git status -uno --porcelain | grep . && {
     exit 1
 }
 
+filterdiff /dev/null || {
+    echo "Please install patchutils" >&2
+    exit 1
+}
+
 spec=$(fedpkg gimmespec)
 branch=$(git branch | awk '/^\* / {print $2}')
 patches_branch="${branch}-patches"
@@ -40,6 +45,15 @@ git commit -m "Updated patches from ${patches_branch}" ${orig_patches}
 #
 git checkout "${patches_branch}"
 new_patches=$(git format-patch --no-signature -N "${patches_base}")
+
+#
+# Filter non dist files from the patches as otherwise
+# `patch` will prompt/fail for the non existent files
+#
+for patch in $new_patches; do
+    filterdiff -x '*/.*' $patch > $patch.$$
+    mv $patch.$$ $patch
+done
 
 #
 # Switch back to the original branch and add the patches
