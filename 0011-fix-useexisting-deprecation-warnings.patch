@@ -1,4 +1,4 @@
-From 11b750a44399f42a6cf6d4e94ee72752fa098021 Mon Sep 17 00:00:00 2001
+From a2760a769da807184deb0f45ea6ec5f84afd5251 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?P=C3=A1draig=20Brady?= <pbrady@redhat.com>
 Date: Thu, 8 Mar 2012 16:32:30 +0000
 Subject: [PATCH] fix useexisting deprecation warnings

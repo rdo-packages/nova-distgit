@@ -1,0 +1,306 @@
+From 84db03cf67e8708cfaeac29508d805115c582cc6 Mon Sep 17 00:00:00 2001
+From: Vishvananda Ishaya <vishvananda@gmail.com>
+Date: Mon, 9 Apr 2012 22:11:10 -0700
+Subject: [PATCH] Fix errors in os-networks extension
+
+ * Makes sure the uuid is returned as id if it exists
+ * Simplifies db get for manager.get_networks
+ * Removes direct db access from manager which was breaking test
+ * Updates tests to verify the new logic
+ * Makes sure Remote NotFounds are turned into 404s
+   (The RemoteError blocks can be removed once
+    https://review.openstack.org/5749 lands)
+ * Fixes bug 977712
+ * Fixes bug 977723
+
+Change-Id: I6aa815960782c7ae5165aeebd83bdaaa62c19b04
+---
+ nova/api/openstack/compute/contrib/networks.py     |   21 +++++++++++-
+ nova/network/manager.py                            |   17 +++------
+ .../api/openstack/compute/contrib/test_networks.py |   34 +++++++++++++-------
+ nova/tests/fake_network.py                         |    3 ++
+ nova/tests/network/test_manager.py                 |   28 ++++++++--------
+ 5 files changed, 65 insertions(+), 38 deletions(-)
+
+diff --git a/nova/api/openstack/compute/contrib/networks.py b/nova/api/openstack/compute/contrib/networks.py
+index 32a4af5..ac99c8c 100644
+--- a/nova/api/openstack/compute/contrib/networks.py
++++ b/nova/api/openstack/compute/contrib/networks.py
+@@ -24,6 +24,7 @@ from nova import exception
+ from nova import flags
+ from nova import log as logging
+ import nova.network.api
++from nova.rpc import common
+ 
+ 
+ FLAGS = flags.FLAGS
+@@ -40,7 +41,10 @@ def network_dict(network):
+                   'netmask', 'injected', 'cidr', 'vpn_public_address',
+                   'multi_host', 'dns1', 'host', 'gateway_v6', 'netmask_v6',
+                   'created_at')
+-        return dict((field, network[field]) for field in fields)
++        result = dict((field, network[field]) for field in fields)
++        if 'uuid' in network:
++            result['id'] = network['uuid']
++        return result
+     else:
+         return {}
+ 
+@@ -72,6 +76,11 @@ class NetworkController(object):
+             self.network_api.disassociate(context, network_id)
+         except exception.NetworkNotFound:
+             raise exc.HTTPNotFound(_("Network not found"))
++        except common.RemoteError as ex:
++            if ex.exc_type in ["NetworkNotFound", "NetworkNotFoundForUUID"]:
++                raise exc.HTTPNotFound(_("Network not found"))
++            else:
++                raise
+         return exc.HTTPAccepted()
+ 
+     def index(self, req):
+@@ -89,6 +98,11 @@ class NetworkController(object):
+             network = self.network_api.get(context, id)
+         except exception.NetworkNotFound:
+             raise exc.HTTPNotFound(_("Network not found"))
++        except common.RemoteError as ex:
++            if ex.exc_type in ["NetworkNotFound", "NetworkNotFoundForUUID"]:
++                raise exc.HTTPNotFound(_("Network not found"))
++            else:
++                raise
+         return {'network': network_dict(network)}
+ 
+     def delete(self, req, id):
+@@ -99,6 +113,11 @@ class NetworkController(object):
+             self.network_api.delete(context, id)
+         except exception.NetworkNotFound:
+             raise exc.HTTPNotFound(_("Network not found"))
++        except common.RemoteError as ex:
++            if ex.exc_type in ["NetworkNotFound", "NetworkNotFoundForUUID"]:
++                raise exc.HTTPNotFound(_("Network not found"))
++            else:
++                raise
+         return exc.HTTPAccepted()
+ 
+     def create(self, req, id, body=None):
+diff --git a/nova/network/manager.py b/nova/network/manager.py
+index 8b89e26..9ecc6e2 100644
+--- a/nova/network/manager.py
++++ b/nova/network/manager.py
+@@ -55,7 +55,6 @@ import netaddr
+ 
+ from nova.compute import api as compute_api
+ from nova import context
+-from nova import db
+ from nova import exception
+ from nova import flags
+ from nova import ipv6
+@@ -1414,15 +1413,16 @@ class NetworkManager(manager.SchedulerDependentManager):
+             require_disassociated=True):
+ 
+         # Prefer uuid but we'll also take cidr for backwards compatibility
++        elevated = context.elevated()
+         if uuid:
+-            network = db.network_get_by_uuid(context.elevated(), uuid)
++            network = self.db.network_get_by_uuid(elevated, uuid)
+         elif fixed_range:
+-            network = db.network_get_by_cidr(context.elevated(), fixed_range)
++            network = self.db.network_get_by_cidr(elevated, fixed_range)
+ 
+         if require_disassociated and network.project_id is not None:
+             raise ValueError(_('Network must be disassociated from project %s'
+                                ' before delete') % network.project_id)
+-        db.network_delete_safe(context, network.id)
++        self.db.network_delete_safe(context, network.id)
+ 
+     @property
+     def _bottom_reserved_ips(self):  # pylint: disable=R0201
+@@ -1559,12 +1559,7 @@ class NetworkManager(manager.SchedulerDependentManager):
+ 
+     @wrap_check_policy
+     def get_network(self, context, network_uuid):
+-        networks = self._get_networks_by_uuids(context, [network_uuid])
+-        try:
+-            network = networks[0]
+-        except (IndexError, TypeError):
+-            raise exception.NetworkNotFound(network_id=network_uuid)
+-
++        network = self.db.network_get_by_uuid(context.elevated(), network_uuid)
+         return dict(network.iteritems())
+ 
+     @wrap_check_policy
+@@ -1848,7 +1843,7 @@ class VlanManager(RPCAllocateFixedIP, FloatingIP, NetworkManager):
+             net = {}
+             address = FLAGS.vpn_ip
+             net['vpn_public_address'] = address
+-            network = db.network_update(context, network['id'], net)
++            network = self.db.network_update(context, network['id'], net)
+         else:
+             address = network['vpn_public_address']
+         network['dhcp_server'] = self._get_dhcp_ip(context, network)
+diff --git a/nova/tests/api/openstack/compute/contrib/test_networks.py b/nova/tests/api/openstack/compute/contrib/test_networks.py
+index 78c8ad3..c0580c6 100644
+--- a/nova/tests/api/openstack/compute/contrib/test_networks.py
++++ b/nova/tests/api/openstack/compute/contrib/test_networks.py
+@@ -20,6 +20,7 @@ import webob
+ 
+ from nova.api.openstack.compute.contrib import networks
+ from nova import exception
++from nova.rpc import common
+ from nova import test
+ from nova.tests.api.openstack import fakes
+ 
+@@ -28,7 +29,8 @@ FAKE_NETWORKS = [
+     {
+         'bridge': 'br100', 'vpn_public_port': 1000,
+         'dhcp_start': '10.0.0.3', 'bridge_interface': 'eth0',
+-        'updated_at': '2011-08-16 09:26:13.048257', 'id': 1,
++        'updated_at': '2011-08-16 09:26:13.048257',
++        'id': 1, 'uuid': '20c8acc0-f747-4d71-a389-46d078ebf047',
+         'cidr_v6': None, 'deleted_at': None,
+         'gateway': '10.0.0.1', 'label': 'mynet_0',
+         'project_id': '1234',
+@@ -68,21 +70,21 @@ class FakeNetworkAPI(object):
+             if network['id'] == network_id:
+                 del self.networks[0]
+                 return True
+-        raise exception.NetworkNotFound()
++        raise exception.NetworkNotFoundForUUID()
+ 
+     #NOTE(bcwaldon): this does nothing other than check for existance
+     def disassociate(self, context, network_id):
+         for i, network in enumerate(self.networks):
+-            if network['id'] == network_id:
++            if network.get('uuid') == network_id:
+                 return True
+-        raise exception.NetworkNotFound()
++        raise common.RemoteError(type(exception.NetworkNotFound()).__name__)
+ 
+     def get_all(self, context):
+         return self.networks
+ 
+     def get(self, context, network_id):
+         for network in self.networks:
+-            if network['id'] == network_id:
++            if network.get('uuid') == network_id:
+                 return network
+         raise exception.NetworkNotFound()
+ 
+@@ -99,11 +101,15 @@ class NetworksTest(test.TestCase):
+     def test_network_list_all(self):
+         req = fakes.HTTPRequest.blank('/v2/1234/os-networks')
+         res_dict = self.controller.index(req)
+-        self.assertEquals(res_dict, {'networks': FAKE_NETWORKS})
++        expected = copy.deepcopy(FAKE_NETWORKS)
++        expected[0]['id'] = expected[0]['uuid']
++        del expected[0]['uuid']
++        self.assertEquals(res_dict, {'networks': expected})
+ 
+     def test_network_disassociate(self):
+-        req = fakes.HTTPRequest.blank('/v2/1234/os-networks/1/action')
+-        res = self.controller.action(req, 1, {'disassociate': None})
++        uuid = FAKE_NETWORKS[0]['uuid']
++        req = fakes.HTTPRequest.blank('/v2/1234/os-networks/%s/action' % uuid)
++        res = self.controller.action(req, uuid, {'disassociate': None})
+         self.assertEqual(res.status_int, 202)
+ 
+     def test_network_disassociate_not_found(self):
+@@ -113,9 +119,12 @@ class NetworksTest(test.TestCase):
+                           req, 100, {'disassociate': None})
+ 
+     def test_network_get(self):
+-        req = fakes.HTTPRequest.blank('/v2/1234/os-networks/1')
+-        res_dict = self.controller.show(req, 1)
+-        expected = {'network': FAKE_NETWORKS[0]}
++        uuid = FAKE_NETWORKS[0]['uuid']
++        req = fakes.HTTPRequest.blank('/v2/1234/os-networks/%s' % uuid)
++        res_dict = self.controller.show(req, uuid)
++        expected = {'network': copy.deepcopy(FAKE_NETWORKS[0])}
++        expected['network']['id'] = expected['network']['uuid']
++        del expected['network']['uuid']
+         self.assertEqual(res_dict, expected)
+ 
+     def test_network_get_not_found(self):
+@@ -124,7 +133,8 @@ class NetworksTest(test.TestCase):
+                           self.controller.show, req, 100)
+ 
+     def test_network_delete(self):
+-        req = fakes.HTTPRequest.blank('/v2/1234/os-networks/1')
++        uuid = FAKE_NETWORKS[0]['uuid']
++        req = fakes.HTTPRequest.blank('/v2/1234/os-networks/%s' % uuid)
+         res = self.controller.delete(req, 1)
+         self.assertEqual(res.status_int, 202)
+ 
+diff --git a/nova/tests/fake_network.py b/nova/tests/fake_network.py
+index 9d0a5b9..03ad472 100644
+--- a/nova/tests/fake_network.py
++++ b/nova/tests/fake_network.py
+@@ -120,6 +120,9 @@ class FakeNetworkManager(network_manager.NetworkManager):
+         def network_get(self, context, network_id):
+             return {'cidr_v6': '2001:db8:69:%x::/64' % network_id}
+ 
++        def network_get_by_uuid(self, context, network_uuid):
++            raise exception.NetworkNotFoundForUUID()
++
+         def network_get_all(self, context):
+             raise exception.NoNetworksFound()
+ 
+diff --git a/nova/tests/network/test_manager.py b/nova/tests/network/test_manager.py
+index 50d49b1..3b33296 100644
+--- a/nova/tests/network/test_manager.py
++++ b/nova/tests/network/test_manager.py
+@@ -1266,10 +1266,9 @@ class CommonNetworkTestCase(test.TestCase):
+     def test_get_network(self):
+         manager = fake_network.FakeNetworkManager()
+         fake_context = context.RequestContext('user', 'project')
+-        self.mox.StubOutWithMock(manager.db, 'network_get_all_by_uuids')
+-        manager.db.network_get_all_by_uuids(
+-                mox.IgnoreArg(),
+-                mox.IgnoreArg()).AndReturn(networks)
++        self.mox.StubOutWithMock(manager.db, 'network_get_by_uuid')
++        manager.db.network_get_by_uuid(mox.IgnoreArg(),
++                                       mox.IgnoreArg()).AndReturn(networks[0])
+         self.mox.ReplayAll()
+         uuid = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+         network = manager.get_network(fake_context, uuid)
+@@ -1278,9 +1277,10 @@ class CommonNetworkTestCase(test.TestCase):
+     def test_get_network_not_found(self):
+         manager = fake_network.FakeNetworkManager()
+         fake_context = context.RequestContext('user', 'project')
+-        self.mox.StubOutWithMock(manager.db, 'network_get_all_by_uuids')
+-        manager.db.network_get_all_by_uuids(mox.IgnoreArg(),
+-                                            mox.IgnoreArg()).AndReturn([])
++        self.mox.StubOutWithMock(manager.db, 'network_get_by_uuid')
++        manager.db.network_get_by_uuid(
++                mox.IgnoreArg(),
++                mox.IgnoreArg()).AndRaise(exception.NetworkNotFoundForUUID)
+         self.mox.ReplayAll()
+         uuid = 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee'
+         self.assertRaises(exception.NetworkNotFound,
+@@ -1302,10 +1302,9 @@ class CommonNetworkTestCase(test.TestCase):
+     def test_disassociate_network(self):
+         manager = fake_network.FakeNetworkManager()
+         fake_context = context.RequestContext('user', 'project')
+-        self.mox.StubOutWithMock(manager.db, 'network_get_all_by_uuids')
+-        manager.db.network_get_all_by_uuids(
+-                mox.IgnoreArg(),
+-                mox.IgnoreArg()).AndReturn(networks)
++        self.mox.StubOutWithMock(manager.db, 'network_get_by_uuid')
++        manager.db.network_get_by_uuid(mox.IgnoreArg(),
++                                       mox.IgnoreArg()).AndReturn(networks[0])
+         self.mox.ReplayAll()
+         uuid = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
+         manager.disassociate_network(fake_context, uuid)
+@@ -1313,9 +1312,10 @@ class CommonNetworkTestCase(test.TestCase):
+     def test_disassociate_network_not_found(self):
+         manager = fake_network.FakeNetworkManager()
+         fake_context = context.RequestContext('user', 'project')
+-        self.mox.StubOutWithMock(manager.db, 'network_get_all_by_uuids')
+-        manager.db.network_get_all_by_uuids(mox.IgnoreArg(),
+-                                            mox.IgnoreArg()).AndReturn([])
++        self.mox.StubOutWithMock(manager.db, 'network_get_by_uuid')
++        manager.db.network_get_by_uuid(
++                mox.IgnoreArg(),
++                mox.IgnoreArg()).AndRaise(exception.NetworkNotFoundForUUID)
+         self.mox.ReplayAll()
+         uuid = 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee'
+         self.assertRaises(exception.NetworkNotFound,

@@ -1,0 +1,28 @@
+From b1d11b8d517733c052c524319c9a153fbb495153 Mon Sep 17 00:00:00 2001
+From: Adam Gandelman <adamg@canonical.com>
+Date: Wed, 11 Apr 2012 15:12:51 -0700
+Subject: [PATCH] Use project_id in ec2.cloud._format_image()
+
+The previous change (2f8250ce2b) reverted an earlier change verbatim
+that broke image publication using deprecated auth.  As it turns out,
+image metadata formatting in EC2 should use project_id with
+deprecated_auth, not owner_id as it once was in the past.
+
+Change-Id: I0e3bad0149577e71a97916398f665566b529a696
+---
+ nova/api/ec2/cloud.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/nova/api/ec2/cloud.py b/nova/api/ec2/cloud.py
+index 88590db..16df626 100644
+--- a/nova/api/ec2/cloud.py
++++ b/nova/api/ec2/cloud.py
+@@ -1400,7 +1400,7 @@ class CloudController(object):
+             i['ramdiskId'] = ec2utils.image_ec2_id(ramdisk_id, 'ari')
+ 
+         if FLAGS.auth_strategy == 'deprecated':
+-            i['imageOwnerId'] = image['properties'].get('owner_id')
++            i['imageOwnerId'] = image['properties'].get('project_id')
+         else:
+             i['imageOwnerId'] = image.get('owner')
+ 

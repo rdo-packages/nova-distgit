@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2012.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -32,10 +32,15 @@ Source23:         openstack-nova-db-setup
 #
 Patch0001: 0001-fix-bug-where-nova-ignores-glance-host-in-imageref.patch
 Patch0002: 0002-Stop-libvirt-test-from-deleting-instances-dir.patch
-Patch0003: 0003-ensure-atomic-manipulation-of-libvirt-disk-images.patch
+Patch0003: 0003-Allow-unprivileged-RADOS-users-to-access-rbd-volumes.patch
 Patch0004: 0004-Fixed-bug-962840-added-a-test-case.patch
-Patch0005: 0005-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0006: 0006-fix-useexisting-deprecation-warnings.patch
+Patch0005: 0005-Fix-errors-in-os-networks-extension.patch
+Patch0006: 0006-Create-compute.api.BaseAPI-for-compute-APIs-to-use.patch
+Patch0007: 0007-Populate-image-properties-with-project_id-again.patch
+Patch0008: 0008-Use-project_id-in-ec2.cloud._format_image.patch
+Patch0009: 0009-ensure-atomic-manipulation-of-libvirt-disk-images.patch
+Patch0010: 0010-Ensure-we-don-t-access-the-net-when-building-docs.patch
+Patch0011: 0011-fix-useexisting-deprecation-warnings.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -177,6 +182,11 @@ This package contains documentation files for nova.
 %patch0004 -p1
 %patch0005 -p1
 %patch0006 -p1
+%patch0007 -p1
+%patch0008 -p1
+%patch0009 -p1
+%patch0010 -p1
+%patch0011 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -375,6 +385,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 18 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-2
+- Sync up with Essex stable branch
+
 * Sun Apr  8 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-1
 - Update to Essex release
 

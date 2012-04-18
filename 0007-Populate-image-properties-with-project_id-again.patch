@@ -1,0 +1,50 @@
+From 6e988ed75c5ba507d79818bc24a1bd2f8250ce2b Mon Sep 17 00:00:00 2001
+From: Adam Gandelman <adamg@canonical.com>
+Date: Tue, 10 Apr 2012 16:44:27 -0700
+Subject: [PATCH] Populate image properties with project_id again
+
+This allows ec2 image publishing to function on Essex for users
+who are still using deprecated auth.  This isn't targetted toward
+master and is proposed to stable/essex for the sake of aiding
+users transition to Keystone during upgrades from diablo +
+deprecated_auth.
+
+Fixes bug 977765
+
+Change-Id: I809b669e88fe25234569d0c744d14aff6bbd4713
+---
+ nova/api/ec2/cloud.py |    6 +++++-
+ nova/image/s3.py      |    3 +++
+ 2 files changed, 8 insertions(+), 1 deletions(-)
+
+diff --git a/nova/api/ec2/cloud.py b/nova/api/ec2/cloud.py
+index 8e187d6..88590db 100644
+--- a/nova/api/ec2/cloud.py
++++ b/nova/api/ec2/cloud.py
+@@ -1398,7 +1398,11 @@ class CloudController(object):
+         ramdisk_id = image['properties'].get('ramdisk_id')
+         if ramdisk_id:
+             i['ramdiskId'] = ec2utils.image_ec2_id(ramdisk_id, 'ari')
+-        i['imageOwnerId'] = image.get('owner')
++
++        if FLAGS.auth_strategy == 'deprecated':
++            i['imageOwnerId'] = image['properties'].get('owner_id')
++        else:
++            i['imageOwnerId'] = image.get('owner')
+ 
+         img_loc = image['properties'].get('image_location')
+         if img_loc:
+diff --git a/nova/image/s3.py b/nova/image/s3.py
+index fdf9555..36cf818 100644
+--- a/nova/image/s3.py
++++ b/nova/image/s3.py
+@@ -232,6 +232,9 @@ class S3ImageService(object):
+         properties = metadata['properties']
+         properties['architecture'] = arch
+ 
++        if FLAGS.auth_strategy == 'deprecated':
++            properties['project_id'] = context.project_id
++
+         def _translate_dependent_image_id(image_key, image_id):
+             image_uuid = ec2utils.ec2_id_to_glance_id(context, image_id)
+             properties[image_key] = image_uuid

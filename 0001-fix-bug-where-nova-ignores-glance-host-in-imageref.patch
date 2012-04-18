@@ -1,4 +1,4 @@
-From 59c4ef7d2fc30b42b0c8fcf4a118409772cbf336 Mon Sep 17 00:00:00 2001
+From 155c7b2a8f05e75a9b08764bb4f9404c26036f99 Mon Sep 17 00:00:00 2001
 From: Mike Lundy <mike@pistoncloud.com>
 Date: Wed, 4 Apr 2012 11:38:54 -0700
 Subject: [PATCH] fix bug where nova ignores glance host in imageref

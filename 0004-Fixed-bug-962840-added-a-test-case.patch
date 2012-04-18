@@ -1,4 +1,4 @@
-From 9653d687f4a388273964c610a6c8cbb34052f7c7 Mon Sep 17 00:00:00 2001
+From 3b14c746910abf95e8136e409085873fd6ac970d Mon Sep 17 00:00:00 2001
 From: Yun Mao <yunmao@gmail.com>
 Date: Tue, 3 Apr 2012 11:17:50 -0400
 Subject: [PATCH] Fixed bug 962840, added a test case.
@@ -8,20 +8,16 @@ or __repr__() calls. See bug #962840 for details.
 We perform a monkey patch to replace those two instance methods.
 
 Change-Id: Ia51bbd3e71cad7df45da5b3b27eef70f9d9e9002
-
-Conflicts:
-
-	nova/tests/test_libvirt.py
 ---
- nova/tests/test_libvirt.py      |   19 +++++++++++++++++++
+ nova/tests/test_libvirt.py      |   18 ++++++++++++++++++
  nova/virt/libvirt/connection.py |   18 ++++++++++++++++++
- 2 files changed, 37 insertions(+), 0 deletions(-)
+ 2 files changed, 36 insertions(+), 0 deletions(-)
 
 diff --git a/nova/tests/test_libvirt.py b/nova/tests/test_libvirt.py
-index 4ce91cb..5a476a4 100644
+index ad4bb06..cdc9121 100644
 --- a/nova/tests/test_libvirt.py
 +++ b/nova/tests/test_libvirt.py
-@@ -2369,3 +2369,22 @@ class LibvirtConnectionTestCase(test.TestCase):
+@@ -2420,3 +2420,21 @@ class LibvirtConnectionTestCase(test.TestCase):
  
              ref = self.libvirtconnection.finish_revert_migration(ins_ref, None)
              self.assertTrue(isinstance(ref, eventlet.event.Event))
@@ -43,9 +39,8 @@ index 4ce91cb..5a476a4 100644
 +        import nova.virt.libvirt.connection
 +        connection = nova.virt.libvirt.connection.get_connection('')
 +        utils.to_primitive(connection._conn, convert_instances=True)
-+>>>>>>> bc173ec... Fixed bug 962840, added a test case.
 diff --git a/nova/virt/libvirt/connection.py b/nova/virt/libvirt/connection.py
-index 0c78453..2ade19a 100644
+index 5379eac..888be92 100644
 --- a/nova/virt/libvirt/connection.py
 +++ b/nova/virt/libvirt/connection.py
 @@ -170,6 +170,24 @@ flags.DECLARE('live_migration_retry_count', 'nova.compute.manager')
