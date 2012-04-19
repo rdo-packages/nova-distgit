@@ -23,6 +23,7 @@ Source17:         openstack-nova-direct-api.service
 Source18:         openstack-nova-xvpvncproxy.service
 Source19:         openstack-nova-console.service
 Source20:         openstack-nova-consoleauth.service
+Source25:         openstack-nova-metadata-api.service
 
 Source21:         nova-polkit.pkla
 Source22:         nova-ifc-template
@@ -272,6 +273,7 @@ install -p -D -m 755 %{SOURCE17} %{buildroot}%{_unitdir}/openstack-nova-direct-a
 install -p -D -m 755 %{SOURCE18} %{buildroot}%{_unitdir}/openstack-nova-xvpvncproxy.service
 install -p -D -m 755 %{SOURCE19} %{buildroot}%{_unitdir}/openstack-nova-console.service
 install -p -D -m 755 %{SOURCE20} %{buildroot}%{_unitdir}/openstack-nova-consoleauth.service
+install -p -D -m 755 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata-api.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -398,6 +400,7 @@ fi
 - Support more flexible guest image file injection
 - Enforce quota on security group rules (#814275, CVE-2012-2101)
 - Provide startup scripts for the Essex VNC services
+- Provide a startup script for the separated metadata api service
 
 * Sun Apr  8 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-1
 - Update to Essex release
