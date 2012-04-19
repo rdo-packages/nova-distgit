@@ -42,6 +42,7 @@ Patch0009: 0009-ensure-atomic-manipulation-of-libvirt-disk-images.patch
 Patch0010: 0010-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0011: 0011-fix-useexisting-deprecation-warnings.patch
 Patch0012: 0012-support-a-configurable-libvirt-injection-partition.patch
+Patch0013: 0013-enforce-quota-on-security-group-rules.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -189,6 +190,7 @@ This package contains documentation files for nova.
 %patch0010 -p1
 %patch0011 -p1
 %patch0012 -p1
+%patch0013 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -390,6 +392,7 @@ fi
 * Wed Apr 18 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-2
 - Sync up with Essex stable branch
 - Support more flexible guest image file injection
+- Enforce quota on security group rules (#814275, CVE-2012-2101)
 
 * Sun Apr  8 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-1
 - Update to Essex release

@@ -1,0 +1,477 @@
+From 8ed501ea6d75228b3490a7c0176cd2f7501d0180 Mon Sep 17 00:00:00 2001
+From: Dan Prince <dprince@redhat.com>
+Date: Thu, 19 Apr 2012 14:57:16 +0100
+Subject: [PATCH] enforce quota on security group rules
+
+There is no limit on the number of security group rules a user can create.
+By creating a very large set of rules, an unreasonable number of
+iptables rules will be created on compute nodes, resulting in a denial
+of service.
+---
+ nova/api/ec2/cloud.py                              |   12 +++++++
+ nova/api/openstack/compute/contrib/quotas.py       |    2 +-
+ .../openstack/compute/contrib/security_groups.py   |   12 +++++++
+ nova/db/api.py                                     |   10 ++++++
+ nova/db/sqlalchemy/api.py                          |   16 +++++++++
+ nova/quota.py                                      |   34 ++++++++++++++++++++
+ nova/tests/api/ec2/test_cloud.py                   |   25 ++++++++++++++
+ .../api/openstack/compute/contrib/test_quotas.py   |   29 ++++++++++++++---
+ .../compute/contrib/test_security_groups.py        |   31 ++++++++++++++++++
+ nova/tests/test_quota.py                           |   28 ++++++++++++++++
+ 10 files changed, 193 insertions(+), 6 deletions(-)
+
+diff --git a/nova/api/ec2/cloud.py b/nova/api/ec2/cloud.py
+index 16df626..9e2a22e 100644
+--- a/nova/api/ec2/cloud.py
++++ b/nova/api/ec2/cloud.py
+@@ -42,6 +42,7 @@ from nova.image import s3
+ from nova import log as logging
+ from nova import network
+ from nova.rpc import common as rpc_common
++from nova import quota
+ from nova import utils
+ from nova import volume
+ 
+@@ -727,6 +728,13 @@ class CloudController(object):
+                     raise exception.EC2APIError(err % values_for_rule)
+                 postvalues.append(values_for_rule)
+ 
++        allowed = quota.allowed_security_group_rules(context,
++                                                   security_group['id'],
++                                                   1)
++        if allowed < 1:
++            msg = _("Quota exceeded, too many security group rules.")
++            raise exception.EC2APIError(msg)
++
+         rule_ids = []
+         for values_for_rule in postvalues:
+             security_group_rule = db.security_group_rule_create(
+@@ -784,6 +792,10 @@ class CloudController(object):
+             msg = _('group %s already exists')
+             raise exception.EC2APIError(msg % group_name)
+ 
++        if quota.allowed_security_groups(context, 1) < 1:
++            msg = _("Quota exceeded, too many security groups.")
++            raise exception.EC2APIError(msg)
++
+         group = {'user_id': context.user_id,
+                  'project_id': context.project_id,
+                  'name': group_name,
+diff --git a/nova/api/openstack/compute/contrib/quotas.py b/nova/api/openstack/compute/contrib/quotas.py
+index 53e8264..6db3d92 100644
+--- a/nova/api/openstack/compute/contrib/quotas.py
++++ b/nova/api/openstack/compute/contrib/quotas.py
+@@ -31,7 +31,7 @@ authorize = extensions.extension_authorizer('compute', 'quotas')
+ 
+ quota_resources = ['metadata_items', 'injected_file_content_bytes',
+         'volumes', 'gigabytes', 'ram', 'floating_ips', 'instances',
+-        'injected_files', 'cores']
++        'injected_files', 'cores', 'security_groups', 'security_group_rules']
+ 
+ 
+ class QuotaTemplate(xmlutil.TemplateBuilder):
+diff --git a/nova/api/openstack/compute/contrib/security_groups.py b/nova/api/openstack/compute/contrib/security_groups.py
+index 0d85c7b..281cc8c 100644
+--- a/nova/api/openstack/compute/contrib/security_groups.py
++++ b/nova/api/openstack/compute/contrib/security_groups.py
+@@ -31,6 +31,7 @@ from nova import db
+ from nova import exception
+ from nova import flags
+ from nova import log as logging
++from nova import quota
+ from nova import utils
+ 
+ 
+@@ -289,6 +290,10 @@ class SecurityGroupController(SecurityGroupControllerBase):
+         group_name = group_name.strip()
+         group_description = group_description.strip()
+ 
++        if quota.allowed_security_groups(context, 1) < 1:
++            msg = _("Quota exceeded, too many security groups.")
++            raise exc.HTTPBadRequest(explanation=msg)
++
+         LOG.audit(_("Create Security Group %s"), group_name, context=context)
+         self.compute_api.ensure_default_security_group(context)
+         if db.security_group_exists(context, context.project_id, group_name):
+@@ -376,6 +381,13 @@ class SecurityGroupRulesController(SecurityGroupControllerBase):
+             msg = _('This rule already exists in group %s') % parent_group_id
+             raise exc.HTTPBadRequest(explanation=msg)
+ 
++        allowed = quota.allowed_security_group_rules(context,
++                                                   parent_group_id,
++                                                   1)
++        if allowed < 1:
++            msg = _("Quota exceeded, too many security group rules.")
++            raise exc.HTTPBadRequest(explanation=msg)
++
+         security_group_rule = db.security_group_rule_create(context, values)
+         self.sgh.trigger_security_group_rule_create_refresh(
+             context, [security_group_rule['id']])
+diff --git a/nova/db/api.py b/nova/db/api.py
+index b51e1e1..27f80f6 100644
+--- a/nova/db/api.py
++++ b/nova/db/api.py
+@@ -1118,6 +1118,11 @@ def security_group_destroy(context, security_group_id):
+     return IMPL.security_group_destroy(context, security_group_id)
+ 
+ 
++def security_group_count_by_project(context, project_id):
++    """Count number of security groups in a project."""
++    return IMPL.security_group_count_by_project(context, project_id)
++
++
+ ####################
+ 
+ 
+@@ -1149,6 +1154,11 @@ def security_group_rule_get(context, security_group_rule_id):
+     return IMPL.security_group_rule_get(context, security_group_rule_id)
+ 
+ 
++def security_group_rule_count_by_group(context, security_group_id):
++    """Count rules in a given security group."""
++    return IMPL.security_group_rule_count_by_group(context, security_group_id)
++
++
+ ###################
+ 
+ 
+diff --git a/nova/db/sqlalchemy/api.py b/nova/db/sqlalchemy/api.py
+index 69e44cd..f2c3062 100644
+--- a/nova/db/sqlalchemy/api.py
++++ b/nova/db/sqlalchemy/api.py
+@@ -2813,6 +2813,13 @@ def security_group_destroy(context, security_group_id):
+                         'updated_at': literal_column('updated_at')})
+ 
+ 
++@require_context
++def security_group_count_by_project(context, project_id):
++    authorize_project_context(context, project_id)
++    return model_query(context, models.SecurityGroup, read_deleted="no").\
++                   filter_by(project_id=project_id).\
++                   count()
++
+ ###################
+ 
+ 
+@@ -2871,6 +2878,14 @@ def security_group_rule_destroy(context, security_group_rule_id):
+         security_group_rule.delete(session=session)
+ 
+ 
++@require_context
++def security_group_rule_count_by_group(context, security_group_id):
++    return model_query(context, models.SecurityGroupIngressRule,
++                   read_deleted="no").\
++                   filter_by(parent_group_id=security_group_id).\
++                   count()
++
++#
+ ###################
+ 
+ 
+@@ -3018,6 +3033,7 @@ def user_update(context, user_id, values):
+         user_ref.save(session=session)
+ 
+ 
++#
+ ###################
+ 
+ 
+diff --git a/nova/quota.py b/nova/quota.py
+index fc49de0..12dd146 100644
+--- a/nova/quota.py
++++ b/nova/quota.py
+@@ -54,6 +54,12 @@ quota_opts = [
+     cfg.IntOpt('quota_max_injected_file_path_bytes',
+                default=255,
+                help='number of bytes allowed per injected file path'),
++    cfg.IntOpt('quota_security_groups',
++               default=10,
++               help='number of security groups per project'),
++    cfg.IntOpt('quota_security_group_rules',
++               default=20,
++               help='number of security rules per security group'),
+     ]
+ 
+ FLAGS = flags.FLAGS
+@@ -72,6 +78,8 @@ def _get_default_quotas():
+         'injected_files': FLAGS.quota_max_injected_files,
+         'injected_file_content_bytes':
+             FLAGS.quota_max_injected_file_content_bytes,
++        'security_groups': FLAGS.quota_security_groups,
++        'security_group_rules': FLAGS.quota_security_group_rules,
+     }
+     # -1 in the quota flags means unlimited
+     for key in defaults.keys():
+@@ -152,6 +160,32 @@ def allowed_floating_ips(context, requested_floating_ips):
+     return min(requested_floating_ips, allowed_floating_ips)
+ 
+ 
++def allowed_security_groups(context, requested_security_groups):
++    """Check quota and return min(requested, allowed) security groups."""
++    project_id = context.project_id
++    context = context.elevated()
++    used_sec_groups = db.security_group_count_by_project(context, project_id)
++    quota = get_project_quotas(context, project_id)
++    allowed_sec_groups = _get_request_allotment(requested_security_groups,
++                                                  used_sec_groups,
++                                                  quota['security_groups'])
++    return min(requested_security_groups, allowed_sec_groups)
++
++
++def allowed_security_group_rules(context, security_group_id,
++        requested_rules):
++    """Check quota and return min(requested, allowed) sec group rules."""
++    project_id = context.project_id
++    context = context.elevated()
++    used_rules = db.security_group_rule_count_by_group(context,
++                                                            security_group_id)
++    quota = get_project_quotas(context, project_id)
++    allowed_rules = _get_request_allotment(requested_rules,
++                                              used_rules,
++                                              quota['security_group_rules'])
++    return min(requested_rules, allowed_rules)
++
++
+ def _calculate_simple_quota(context, resource, requested):
+     """Check quota for resource; return min(requested, allowed)."""
+     quota = get_project_quotas(context, context.project_id)
+diff --git a/nova/tests/api/ec2/test_cloud.py b/nova/tests/api/ec2/test_cloud.py
+index 9ddc730..427509c 100644
+--- a/nova/tests/api/ec2/test_cloud.py
++++ b/nova/tests/api/ec2/test_cloud.py
+@@ -271,6 +271,18 @@ class CloudTestCase(test.TestCase):
+         delete = self.cloud.delete_security_group
+         self.assertTrue(delete(self.context, 'testgrp'))
+ 
++    def test_security_group_quota_limit(self):
++        self.flags(quota_security_groups=10)
++        for i in range(1, 10):
++            name = 'test name %i' % i
++            descript = 'test description %i' % i
++            create = self.cloud.create_security_group
++            result = create(self.context, name, descript)
++
++        # 11'th group should fail
++        self.assertRaises(exception.EC2APIError,
++                          create, self.context, 'foo', 'bar')
++
+     def test_delete_security_group_by_id(self):
+         sec = db.security_group_create(self.context,
+                                        {'project_id': self.context.project_id,
+@@ -436,6 +448,19 @@ class CloudTestCase(test.TestCase):
+         self.assertRaises(exception.EC2APIError, authz, self.context,
+                           group_name=sec['name'], **kwargs)
+ 
++    def test_security_group_ingress_quota_limit(self):
++        self.flags(quota_security_group_rules=20)
++        kwargs = {'project_id': self.context.project_id, 'name': 'test'}
++        sec_group = db.security_group_create(self.context, kwargs)
++        authz = self.cloud.authorize_security_group_ingress
++        for i in range(100, 120):
++            kwargs = {'to_port': i, 'from_port': i, 'ip_protocol': 'tcp'}
++            authz(self.context, group_id=sec_group['id'], **kwargs)
++
++        kwargs = {'to_port': 121, 'from_port': 121, 'ip_protocol': 'tcp'}
++        self.assertRaises(exception.EC2APIError, authz, self.context,
++                              group_id=sec_group['id'], **kwargs)
++
+     def _test_authorize_security_group_no_ports_with_source_group(self, proto):
+         kwargs = {'project_id': self.context.project_id, 'name': 'test'}
+         sec = db.security_group_create(self.context, kwargs)
+diff --git a/nova/tests/api/openstack/compute/contrib/test_quotas.py b/nova/tests/api/openstack/compute/contrib/test_quotas.py
+index 9808717..8f7084a 100644
+--- a/nova/tests/api/openstack/compute/contrib/test_quotas.py
++++ b/nova/tests/api/openstack/compute/contrib/test_quotas.py
+@@ -28,7 +28,8 @@ def quota_set(id):
+     return {'quota_set': {'id': id, 'metadata_items': 128, 'volumes': 10,
+             'gigabytes': 1000, 'ram': 51200, 'floating_ips': 10,
+             'instances': 10, 'injected_files': 5, 'cores': 20,
+-            'injected_file_content_bytes': 10240}}
++            'injected_file_content_bytes': 10240,
++            'security_groups': 10, 'security_group_rules': 20}}
+ 
+ 
+ def quota_set_list():
+@@ -52,7 +53,10 @@ class QuotaSetsTest(test.TestCase):
+             'metadata_items': 128,
+             'gigabytes': 1000,
+             'injected_files': 5,
+-            'injected_file_content_bytes': 10240}
++            'injected_file_content_bytes': 10240,
++            'security_groups': 10,
++            'security_group_rules': 20,
++            }
+ 
+         quota_set = quotas.QuotaSetsController()._format_quota_set('1234',
+                                                             raw_quota_set)
+@@ -68,6 +72,8 @@ class QuotaSetsTest(test.TestCase):
+         self.assertEqual(qs['metadata_items'], 128)
+         self.assertEqual(qs['injected_files'], 5)
+         self.assertEqual(qs['injected_file_content_bytes'], 10240)
++        self.assertEqual(qs['security_groups'], 10)
++        self.assertEqual(qs['security_group_rules'], 20)
+ 
+     def test_quotas_defaults(self):
+         uri = '/v2/fake_tenant/os-quota-sets/fake_tenant/defaults'
+@@ -85,7 +91,10 @@ class QuotaSetsTest(test.TestCase):
+                     'floating_ips': 10,
+                     'metadata_items': 128,
+                     'injected_files': 5,
+-                    'injected_file_content_bytes': 10240}}
++                    'injected_file_content_bytes': 10240,
++                    'security_groups': 10,
++                    'security_group_rules': 20,
++                    }}
+ 
+         self.assertEqual(res_dict, expected)
+ 
+@@ -106,7 +115,9 @@ class QuotaSetsTest(test.TestCase):
+                               'ram': 51200, 'volumes': 10,
+                               'gigabytes': 1000, 'floating_ips': 10,
+                               'metadata_items': 128, 'injected_files': 5,
+-                              'injected_file_content_bytes': 10240}}
++                              'injected_file_content_bytes': 10240,
++                              'security_groups': 10,
++                              'security_group_rules': 20}}
+ 
+         req = fakes.HTTPRequest.blank('/v2/fake4/os-quota-sets/update_me',
+                                       use_admin_context=True)
+@@ -119,7 +130,9 @@ class QuotaSetsTest(test.TestCase):
+                               'ram': 51200, 'volumes': 10,
+                               'gigabytes': 1000, 'floating_ips': 10,
+                               'metadata_items': 128, 'injected_files': 5,
+-                              'injected_file_content_bytes': 10240}}
++                              'injected_file_content_bytes': 10240,
++                              'security_groups': 10,
++                              'security_group_rules': 20}}
+ 
+         req = fakes.HTTPRequest.blank('/v2/fake4/os-quota-sets/update_me')
+         self.assertRaises(webob.exc.HTTPForbidden, self.controller.update,
+@@ -143,6 +156,8 @@ class QuotaXMLSerializerTest(test.TestCase):
+                 floating_ips=60,
+                 instances=70,
+                 injected_files=80,
++                security_groups=10,
++                security_group_rules=20,
+                 cores=90))
+         text = self.serializer.serialize(exemplar)
+ 
+@@ -166,6 +181,8 @@ class QuotaXMLSerializerTest(test.TestCase):
+                 floating_ips='60',
+                 instances='70',
+                 injected_files='80',
++                security_groups='10',
++                security_group_rules='20',
+                 cores='90'))
+         intext = ("<?xml version='1.0' encoding='UTF-8'?>\n"
+                   '<quota_set>'
+@@ -178,6 +195,8 @@ class QuotaXMLSerializerTest(test.TestCase):
+                   '<floating_ips>60</floating_ips>'
+                   '<instances>70</instances>'
+                   '<injected_files>80</injected_files>'
++                  '<security_groups>10</security_groups>'
++                  '<security_group_rules>20</security_group_rules>'
+                   '<cores>90</cores>'
+                   '</quota_set>')
+ 
+diff --git a/nova/tests/api/openstack/compute/contrib/test_security_groups.py b/nova/tests/api/openstack/compute/contrib/test_security_groups.py
+index 0cf66ec..8cc4cc6 100644
+--- a/nova/tests/api/openstack/compute/contrib/test_security_groups.py
++++ b/nova/tests/api/openstack/compute/contrib/test_security_groups.py
+@@ -25,12 +25,15 @@ from nova.api.openstack.compute.contrib import security_groups
+ from nova.api.openstack import wsgi
+ import nova.db
+ from nova import exception
++from nova import flags
+ from nova import test
+ from nova.tests.api.openstack import fakes
+ 
+ 
+ FAKE_UUID = 'a47ae74e-ab08-447f-8eee-ffd43fc46c16'
+ 
++FLAGS = flags.FLAGS
++
+ 
+ class AttrDict(dict):
+     def __getattr__(self, k):
+@@ -219,6 +222,18 @@ class TestSecurityGroups(test.TestCase):
+         self.assertRaises(webob.exc.HTTPBadRequest, self.controller.create,
+                           req, {'security_group': sg})
+ 
++    def test_create_security_group_quota_limit(self):
++        req = fakes.HTTPRequest.blank('/v2/fake/os-security-groups')
++        for num in range(1, FLAGS.quota_security_groups):
++            name = 'test%s' % num
++            sg = security_group_template(name=name)
++            res_dict = self.controller.create(req, {'security_group': sg})
++            self.assertEqual(res_dict['security_group']['name'], name)
++
++        sg = security_group_template()
++        self.assertRaises(webob.exc.HTTPBadRequest, self.controller.create,
++                          req, {'security_group': sg})
++
+     def test_get_security_group_list(self):
+         groups = []
+         for i, name in enumerate(['default', 'test']):
+@@ -894,6 +909,22 @@ class TestSecurityGroupRules(test.TestCase):
+         self.assertRaises(webob.exc.HTTPNotFound, self.controller.delete,
+                           req, '22222222222222')
+ 
++    def test_create_rule_quota_limit(self):
++        req = fakes.HTTPRequest.blank('/v2/fake/os-security-group-rules')
++        for num in range(100, 100 + FLAGS.quota_security_group_rules):
++            rule = {
++                'ip_protocol': 'tcp', 'from_port': num,
++                'to_port': num, 'parent_group_id': '2', 'group_id': '1'
++            }
++            self.controller.create(req, {'security_group_rule': rule})
++
++        rule = {
++            'ip_protocol': 'tcp', 'from_port': '121', 'to_port': '121',
++            'parent_group_id': '2', 'group_id': '1'
++        }
++        self.assertRaises(webob.exc.HTTPBadRequest, self.controller.create,
++                          req, {'security_group_rule': rule})
++
+ 
+ class TestSecurityGroupRulesXMLDeserializer(unittest.TestCase):
+ 
+diff --git a/nova/tests/test_quota.py b/nova/tests/test_quota.py
+index 28c92ca..8cc5577 100644
+--- a/nova/tests/test_quota.py
++++ b/nova/tests/test_quota.py
+@@ -235,6 +235,34 @@ class QuotaTestCase(test.TestCase):
+         floating_ips = quota.allowed_floating_ips(self.context, 101)
+         self.assertEqual(floating_ips, 101)
+ 
++    def test_unlimited_security_groups(self):
++        self.flags(quota_security_groups=10)
++        security_groups = quota.allowed_security_groups(self.context, 100)
++        self.assertEqual(security_groups, 10)
++        db.quota_create(self.context, self.project_id, 'security_groups', None)
++        security_groups = quota.allowed_security_groups(self.context, 100)
++        self.assertEqual(security_groups, 100)
++        security_groups = quota.allowed_security_groups(self.context, 101)
++        self.assertEqual(security_groups, 101)
++
++    def test_unlimited_security_group_rules(self):
++
++        def fake_security_group_rule_count_by_group(context, sec_group_id):
++            return 0
++
++        self.stubs.Set(db, 'security_group_rule_count_by_group',
++                       fake_security_group_rule_count_by_group)
++
++        self.flags(quota_security_group_rules=20)
++        rules = quota.allowed_security_group_rules(self.context, 1234, 100)
++        self.assertEqual(rules, 20)
++        db.quota_create(self.context, self.project_id, 'security_group_rules',
++                        None)
++        rules = quota.allowed_security_group_rules(self.context, 1234, 100)
++        self.assertEqual(rules, 100)
++        rules = quota.allowed_security_group_rules(self.context, 1234, 101)
++        self.assertEqual(rules, 101)
++
+     def test_unlimited_metadata_items(self):
+         self.flags(quota_metadata_items=10)
+         items = quota.allowed_metadata_items(self.context, 100)
