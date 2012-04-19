@@ -44,7 +44,7 @@ git commit -m "Updated patches from ${patches_branch}" ${orig_patches}
 # Check out the ${branch}-patches branch and format the patches
 #
 git checkout "${patches_branch}"
-new_patches=$(git format-patch --no-signature -N "${patches_base}")
+new_patches=$(git format-patch --no-renames --no-signature -N "${patches_base}")
 
 #
 # Filter non dist files from the patches as otherwise
