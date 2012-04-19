@@ -194,7 +194,7 @@ This package contains documentation files for nova.
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
-find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/d' {} \;
+find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
 %build
 %{__python} setup.py build
