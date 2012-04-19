@@ -1,0 +1,80 @@
+From fe56b346bb01559248a1ea3c59c2a4baf95f3646 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?P=C3=A1draig=20Brady?= <pbrady@redhat.com>
+Date: Wed, 18 Apr 2012 23:27:31 +0100
+Subject: [PATCH] support a configurable libvirt injection partition
+
+This is useful if all guest images have the same structure,
+and the root partition is not the first partition.
+
+This is also handy to enable inspection in libguestfs,
+which can handle disparate and complicated image layouts.
+
+In future we may change to a StrOpt to support
+searching by partition label.
+
+Change-Id: Ie94d61bec8fe4b41d6d2d6d3efa9a4364cf027fe
+
+Conflicts:
+
+	nova/virt/libvirt/connection.py
+---
+ nova/virt/disk/mount.py         |    6 ++++--
+ nova/virt/libvirt/connection.py |   12 ++++++++----
+ 2 files changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/nova/virt/disk/mount.py b/nova/virt/disk/mount.py
+index 4fb5dda..11959b2 100644
+--- a/nova/virt/disk/mount.py
++++ b/nova/virt/disk/mount.py
+@@ -58,7 +58,9 @@ class Mount(object):
+         """Map partitions of the device to the file system namespace."""
+         assert(os.path.exists(self.device))
+ 
+-        if self.partition:
++        if self.partition == -1:
++            self.error = _('partition search unsupported with %s') % self.mode
++        elif self.partition:
+             map_path = '/dev/mapper/%sp%s' % (os.path.basename(self.device),
+                                               self.partition)
+             assert(not os.path.exists(map_path))
+@@ -73,7 +75,7 @@ class Mount(object):
+             # so given we only use it when we expect a partitioned image, fail
+             if not os.path.exists(map_path):
+                 if not err:
+-                    err = _('no partitions found')
++                    err = _('partition %s not found') % self.partition
+                 self.error = _('Failed to map partitions: %s') % err
+             else:
+                 self.mapped_device = map_path
+diff --git a/nova/virt/libvirt/connection.py b/nova/virt/libvirt/connection.py
+index 2ade19a..5a9db4e 100644
+--- a/nova/virt/libvirt/connection.py
++++ b/nova/virt/libvirt/connection.py
+@@ -105,6 +105,11 @@ libvirt_opts = [
+                 default=False,
+                 help='Inject the admin password at boot time, '
+                      'without an agent.'),
++    cfg.IntOpt('libvirt_inject_partition',
++                default=1,
++                help='The partition to inject to : '
++                     '-1 => inspect (libguestfs only), 0 => not partitioned, '
++                     '>0 => partition number'),
+     cfg.BoolOpt('use_usb_tablet',
+                 default=True,
+                 help='Sync virtual and real mouse cursors in Windows VMs'),
+@@ -1271,12 +1276,11 @@ class LibvirtConnection(driver.ComputeDriver):
+                               cow=FLAGS.use_cow_images,
+                               swap_mb=swap_mb)
+ 
+-        # For now, we assume that if we're not using a kernel, we're using a
+-        # partitioned disk image where the target partition is the first
+-        # partition
+         target_partition = None
+         if not instance['kernel_id']:
+-            target_partition = "1"
++            target_partition = FLAGS.libvirt_inject_partition
++            if target_partition == 0:
++                target_partition = None
+ 
+         config_drive_id = instance.get('config_drive_id')
+         config_drive = instance.get('config_drive')
