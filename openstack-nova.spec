@@ -396,7 +396,7 @@ fi
 
 %changelog
 * Wed Apr 27 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-3
-- reference new new Essex services at installation
+- Reference new Essex services at installation
 
 * Wed Apr 18 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-2
 - Sync up with Essex stable branch
