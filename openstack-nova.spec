@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2012.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -324,7 +324,7 @@ fi
 
 %preun
 if [ $1 -eq 0 ] ; then
-    for svc in api cert compute network objectstore scheduler volume direct-api vncproxy; do
+    for svc in api cert compute network objectstore scheduler volume direct-api metadata-api console consoleauth xvpvncproxy; do
         /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
         /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
     done
@@ -334,7 +334,7 @@ fi
 /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 if [ $1 -ge 1 ] ; then
     # Package upgrade, not uninstall
-    for svc in api cert compute network objectstore scheduler volume direct-api vncproxy; do
+    for svc in api cert compute network objectstore scheduler volume direct-api metadata-api console consoleauth xvpvncproxy; do
         /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
     done
 fi
@@ -395,6 +395,9 @@ fi
 %endif
 
 %changelog
+* Wed Apr 27 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-3
+- reference new new Essex services at installation
+
 * Wed Apr 18 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-2
 - Sync up with Essex stable branch
 - Support more flexible guest image file injection
