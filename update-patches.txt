@@ -87,6 +87,11 @@ git checkout master
 
 git commit --amend -a
 fedpkg prep # to be sure to be sure the patches apply
+# Note the patches generated may be fine for git apply,
+# but not for the standard patch invoked by rpm.
+# git handles duplicate hunks for example, so you
+# may have to edit some of the patches to remove
+# the already applied hunks and --amend again.
 git push
 
 5. Push updated master-patches back to github
