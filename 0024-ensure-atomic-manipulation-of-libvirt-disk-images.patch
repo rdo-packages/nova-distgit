@@ -1,4 +1,4 @@
-From 5f41789556eb850732ebaa2fe3f175209ce2c198 Mon Sep 17 00:00:00 2001
+From 6a3eabcd01981c6ccead47e2b610bd82b5d6be80 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?P=C3=A1draig=20Brady?= <pbrady@redhat.com>
 Date: Fri, 16 Mar 2012 03:43:49 +0000
 Subject: [PATCH] ensure atomic manipulation of libvirt disk images
@@ -169,10 +169,10 @@ index 1e0ae0a..626f3ff 100644
  
      return metadata
 diff --git a/nova/virt/libvirt/connection.py b/nova/virt/libvirt/connection.py
-index 888be92..2ade19a 100644
+index 31e6511..dc16d05 100644
 --- a/nova/virt/libvirt/connection.py
 +++ b/nova/virt/libvirt/connection.py
-@@ -1094,7 +1094,8 @@ class LibvirtConnection(driver.ComputeDriver):
+@@ -1105,7 +1105,8 @@ class LibvirtConnection(driver.ComputeDriver):
              @utils.synchronized(fname)
              def call_if_not_exists(base, fn, *args, **kwargs):
                  if not os.path.exists(base):
@@ -182,7 +182,7 @@ index 888be92..2ade19a 100644
  
              if cow or not generating:
                  call_if_not_exists(base, fn, *args, **kwargs)
-@@ -1110,8 +1111,9 @@ class LibvirtConnection(driver.ComputeDriver):
+@@ -1121,8 +1122,9 @@ class LibvirtConnection(driver.ComputeDriver):
                          size_gb = size / (1024 * 1024 * 1024)
                          cow_base += "_%d" % size_gb
                          if not os.path.exists(cow_base):
@@ -194,7 +194,7 @@ index 888be92..2ade19a 100644
                      libvirt_utils.create_cow_image(cow_base, target)
                  elif not generating:
                      libvirt_utils.copy_image(base, target)
-@@ -1121,7 +1123,8 @@ class LibvirtConnection(driver.ComputeDriver):
+@@ -1132,7 +1134,8 @@ class LibvirtConnection(driver.ComputeDriver):
                      if size:
                          disk.extend(target, size)
  
@@ -204,7 +204,7 @@ index 888be92..2ade19a 100644
  
      @staticmethod
      def _create_local(target, local_size, unit='G',
-@@ -1291,8 +1294,9 @@ class LibvirtConnection(driver.ComputeDriver):
+@@ -1305,8 +1308,9 @@ class LibvirtConnection(driver.ComputeDriver):
                                project_id=instance['project_id'],)
          elif config_drive:
              label = 'config'
@@ -214,5 +214,5 @@ index 888be92..2ade19a 100644
 +                self._create_local(basepath('disk.config'), 64, unit='M',
 +                                   fs_format='msdos', label=label)  # 64MB
  
-         if instance['key_data']:
+         if FLAGS.libvirt_inject_key and instance['key_data']:
              key = str(instance['key_data'])

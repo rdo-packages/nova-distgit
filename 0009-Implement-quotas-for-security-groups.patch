@@ -1,12 +1,11 @@
-From 8ed501ea6d75228b3490a7c0176cd2f7501d0180 Mon Sep 17 00:00:00 2001
+From a67db4586f70ed881d65e80035b2a25be195ce64 Mon Sep 17 00:00:00 2001
 From: Dan Prince <dprince@redhat.com>
-Date: Thu, 19 Apr 2012 14:57:16 +0100
-Subject: [PATCH] enforce quota on security group rules
+Date: Wed, 11 Apr 2012 21:21:02 -0400
+Subject: [PATCH] Implement quotas for security groups.
 
-There is no limit on the number of security group rules a user can create.
-By creating a very large set of rules, an unreasonable number of
-iptables rules will be created on compute nodes, resulting in a denial
-of service.
+Fixes LP Bug #969545 for Essex.
+
+Change-Id: I3c6a34b43f0e997b45d5e0f97faadd6720bf7752
 ---
  nova/api/ec2/cloud.py                              |   12 +++++++
  nova/api/openstack/compute/contrib/quotas.py       |    2 +-

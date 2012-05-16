@@ -1,0 +1,50 @@
+From 26dc6b75c73f10c2da7628ce59e225d1006d9d1c Mon Sep 17 00:00:00 2001
+From: Mandar Vaze <mandar.vaze@vertex.co.in>
+Date: Wed, 11 Apr 2012 01:43:22 -0700
+Subject: [PATCH] QuantumManager will start dnsmasq during startup. Fixes bug
+ 977759
+
+Added _setup_network_on_host method, which calls update_dhcp
+if quantum_use_dhcp is set.
+
+Change-Id: I193212037873001a03da7b7a484f61a5c13b5de8
+---
+ Authors                         |    1 +
+ nova/network/quantum/manager.py |   17 +++++++++++++++++
+ 2 files changed, 18 insertions(+), 0 deletions(-)
+
+diff --git a/nova/network/quantum/manager.py b/nova/network/quantum/manager.py
+index eb0f389..498b5f0 100644
+--- a/nova/network/quantum/manager.py
++++ b/nova/network/quantum/manager.py
+@@ -88,6 +88,7 @@ class QuantumManager(manager.FloatingIP, manager.FlatManager):
+     def init_host(self):
+         # Initialize general L3 networking
+         self.l3driver.initialize()
++        super(QuantumManager, self).init_host()
+         # Initialize floating ip support (only works for nova ipam currently)
+         if FLAGS.quantum_ipam_lib == 'nova.network.quantum.nova_ipam_lib':
+             LOG.debug("Initializing FloatingIP support")
+@@ -107,6 +108,22 @@ class QuantumManager(manager.FloatingIP, manager.FlatManager):
+         for c in cidrs:
+             self.l3driver.initialize_network(c)
+ 
++    # Similar to FlatDHCPMananger, except we check for quantum_use_dhcp flag
++    # before we try to update_dhcp
++    def _setup_network_on_host(self, context, network):
++        """Sets up network on this host."""
++        network['dhcp_server'] = self._get_dhcp_ip(context, network)
++        self.l3driver.initialize_gateway(network)
++
++        if FLAGS.quantum_use_dhcp and not FLAGS.fake_network:
++            dev = self.driver.get_dev(network)
++            self.driver.update_dhcp(context, dev, network)
++            if FLAGS.use_ipv6:
++                self.driver.update_ra(context, dev, network)
++                gateway = utils.get_my_linklocal(dev)
++                self.db.network_update(context, network['id'],
++                                       {'gateway_v6': gateway})
++
+     def _update_network_host(self, context, net_uuid):
+         """Set the host column in the networks table: note that this won't
+            work with multi-host but QuantumManager doesn't support that

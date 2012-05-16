@@ -1,0 +1,38 @@
+From e5e890f3117c792544d6a87d887543d502d1cb55 Mon Sep 17 00:00:00 2001
+From: Russell Bryant <rbryant@redhat.com>
+Date: Tue, 1 May 2012 18:29:04 -0400
+Subject: [PATCH] Fix nova.tests.test_nova_rootwrap on Fedora 17.
+
+Fix bug 992916
+
+This patch resolves a unit test failure on Fedora 17.  The root cause is
+that 'sleep' is '/usr/bin/sleep' instead of '/bin/sleep'.  Update the
+test to allow that.
+
+Change-Id: I5c8e04baec7159a8c10c9beb96cff58fd383e71c
+---
+ nova/tests/test_nova_rootwrap.py |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/nova/tests/test_nova_rootwrap.py b/nova/tests/test_nova_rootwrap.py
+index ca2626b..4cd6818 100644
+--- a/nova/tests/test_nova_rootwrap.py
++++ b/nova/tests/test_nova_rootwrap.py
+@@ -69,7 +69,7 @@ class RootwrapTestCase(test.TestCase):
+         p = subprocess.Popen(["/bin/sleep", "5"])
+         f = filters.KillFilter("/bin/kill", "root",
+                                ["-ALRM"],
+-                               ["/bin/sleep"])
++                               ["/bin/sleep", "/usr/bin/sleep"])
+         usercmd = ['kill', '-9', p.pid]
+         # Incorrect signal should fail
+         self.assertFalse(f.match(usercmd))
+@@ -79,7 +79,7 @@ class RootwrapTestCase(test.TestCase):
+ 
+         f = filters.KillFilter("/bin/kill", "root",
+                                ["-9", ""],
+-                               ["/bin/sleep"])
++                               ["/bin/sleep", "/usr/bin/sleep"])
+         usercmd = ['kill', '-9', os.getpid()]
+         # Our own PID does not match /bin/sleep, so it should fail
+         self.assertFalse(f.match(usercmd))

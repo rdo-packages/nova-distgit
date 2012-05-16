@@ -1,4 +1,4 @@
-From fe56b346bb01559248a1ea3c59c2a4baf95f3646 Mon Sep 17 00:00:00 2001
+From 862cb7a4bad82f7347f495ad3a91df31cad79214 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?P=C3=A1draig=20Brady?= <pbrady@redhat.com>
 Date: Wed, 18 Apr 2012 23:27:31 +0100
 Subject: [PATCH] support a configurable libvirt injection partition
@@ -47,13 +47,13 @@ index 4fb5dda..11959b2 100644
              else:
                  self.mapped_device = map_path
 diff --git a/nova/virt/libvirt/connection.py b/nova/virt/libvirt/connection.py
-index 2ade19a..5a9db4e 100644
+index dc16d05..81fd587 100644
 --- a/nova/virt/libvirt/connection.py
 +++ b/nova/virt/libvirt/connection.py
-@@ -105,6 +105,11 @@ libvirt_opts = [
-                 default=False,
-                 help='Inject the admin password at boot time, '
-                      'without an agent.'),
+@@ -108,6 +108,11 @@ libvirt_opts = [
+     cfg.BoolOpt('libvirt_inject_key',
+                 default=True,
+                 help='Inject the ssh public key at boot time'),
 +    cfg.IntOpt('libvirt_inject_partition',
 +                default=1,
 +                help='The partition to inject to : '
@@ -62,7 +62,7 @@ index 2ade19a..5a9db4e 100644
      cfg.BoolOpt('use_usb_tablet',
                  default=True,
                  help='Sync virtual and real mouse cursors in Windows VMs'),
-@@ -1271,12 +1276,11 @@ class LibvirtConnection(driver.ComputeDriver):
+@@ -1285,12 +1290,11 @@ class LibvirtConnection(driver.ComputeDriver):
                                cow=FLAGS.use_cow_images,
                                swap_mb=swap_mb)
  

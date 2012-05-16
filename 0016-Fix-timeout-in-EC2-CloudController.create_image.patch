@@ -1,0 +1,29 @@
+From 1209af45525ed5a58d620a9da92939d39a3d2d9f Mon Sep 17 00:00:00 2001
+From: Eoghan Glynn <eglynn@redhat.com>
+Date: Fri, 27 Apr 2012 15:11:57 +0100
+Subject: [PATCH] Fix timeout in EC2 CloudController.create_image()
+
+Fixes bug 989764
+
+The timeout bounding the wait for the instance to stop is intended
+to be 1 hour, but the code incorrectly specifies 60 hours instead
+(no practical client is going to wait that long for a response).
+
+Change-Id: I7aa4b539393df15f3b2c950cf7aeca4691ed3d73
+---
+ nova/api/ec2/cloud.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/nova/api/ec2/cloud.py b/nova/api/ec2/cloud.py
+index 9e2a22e..52def33 100644
+--- a/nova/api/ec2/cloud.py
++++ b/nova/api/ec2/cloud.py
+@@ -1614,7 +1614,7 @@ class CloudController(object):
+                 # NOTE(yamahata): timeout and error. 1 hour for now for safety.
+                 #                 Is it too short/long?
+                 #                 Or is there any better way?
+-                timeout = 1 * 60 * 60 * 60
++                timeout = 1 * 60 * 60
+                 if time.time() > start_time + timeout:
+                     raise exception.EC2APIError(
+                         _('Couldn\'t stop instance with in %d sec') % timeout)

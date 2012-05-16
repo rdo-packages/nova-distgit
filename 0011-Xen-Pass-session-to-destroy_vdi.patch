@@ -1,0 +1,25 @@
+From 6c68ef55d966e6c8a2591886535a1590a6da72ad Mon Sep 17 00:00:00 2001
+From: Renuka Apte <renuka.apte@citrix.com>
+Date: Wed, 25 Apr 2012 15:55:14 -0700
+Subject: [PATCH] Xen: Pass session to destroy_vdi
+
+fixes bug 988615
+
+Change-Id: I34c59ff536abfdff9221cdb3d9ecc45d1e7a1a90
+---
+ nova/virt/xenapi/volumeops.py |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/nova/virt/xenapi/volumeops.py b/nova/virt/xenapi/volumeops.py
+index 2f3aafb..8333c08 100644
+--- a/nova/virt/xenapi/volumeops.py
++++ b/nova/virt/xenapi/volumeops.py
+@@ -63,7 +63,7 @@ class VolumeOps(object):
+         if vdi_ref is None:
+             raise exception.Error(_('Could not find VDI ref'))
+ 
+-        vm_utils.VMHelper.destroy_vdi(vdi_ref)
++        vm_utils.VMHelper.destroy_vdi(self._session, vdi_ref)
+ 
+     def create_sr(self, label, params):
+         LOG.debug(_("Creating SR %s") % label)

@@ -1,0 +1,179 @@
+From 7028d66ae97c68f888a2bbf2d3b431702f72b4c5 Mon Sep 17 00:00:00 2001
+From: Mandar Vaze <mandar.vaze@vertex.co.in>
+Date: Thu, 5 Apr 2012 01:33:34 -0700
+Subject: [PATCH] Introduced flag base_dir_name. Fixes bug 973194
+
+rebased from master.
+
+If user faces locking related problem when two nova-compute hosts
+sharing same disk area via nfs, try to download same image into
+cache concurrently - Then base_dir_name can be set to "_base_$my_ip" in
+nova.conf
+
+Default value for base_dir_name is "_base" thus retaining existing
+behavior.
+
+Change-Id: Icff10ed75ba83f7256731614dc9e01e578b347a4
+---
+ Authors                         |    1 +
+ nova/compute/manager.py         |    6 ++++++
+ nova/tests/test_imagecache.py   |    8 +++++---
+ nova/tests/test_libvirt.py      |    7 ++++---
+ nova/virt/libvirt/connection.py |    3 ++-
+ nova/virt/libvirt/imagecache.py |    6 ++++--
+ 6 files changed, 22 insertions(+), 9 deletions(-)
+
+diff --git a/Authors b/Authors
+index a229313..b9ad28b 100644
+--- a/Authors
++++ b/Authors
+@@ -122,6 +122,7 @@ Likitha Shetty <likitha.shetty@citrix.com>
+ Loganathan Parthipan <parthipan@hp.com>
+ Lorin Hochstein <lorin@nimbisservices.com>
+ Lvov Maxim <usrleon@gmail.com>
++Mandar Vaze <mandar.vaze@vertex.co.in>
+ Mandell Degerness <mdegerne@gmail.com>
+ Mark McClain <mark.mcclain@dreamhost.com>
+ Mark McLoughlin <markmc@redhat.com>
+diff --git a/nova/compute/manager.py b/nova/compute/manager.py
+index 48e135b..053e80e 100644
+--- a/nova/compute/manager.py
++++ b/nova/compute/manager.py
+@@ -28,6 +28,7 @@ terminating it.
+ **Related Flags**
+ 
+ :instances_path:  Where instances are kept on disk
++:base_dir_name:  Where cached images are stored under instances_path
+ :compute_driver:  Name of class that is used to handle virtualization, loaded
+                   by :func:`nova.utils.import_object`
+ 
+@@ -72,6 +73,11 @@ compute_opts = [
+     cfg.StrOpt('instances_path',
+                default='$state_path/instances',
+                help='where instances are stored on disk'),
++    cfg.StrOpt('base_dir_name',
++               default='_base',
++               help="where cached images are stored under $instances_path"
++                    "This is NOT full path - just a folder name"
++                    "For per-compute-host cached images, Set to _base_$my_ip"),
+     cfg.StrOpt('compute_driver',
+                default='nova.virt.connection.get_connection',
+                help='Driver to use for controlling virtualization'),
+diff --git a/nova/tests/test_imagecache.py b/nova/tests/test_imagecache.py
+index 9cf4003..f1d5aa5 100644
+--- a/nova/tests/test_imagecache.py
++++ b/nova/tests/test_imagecache.py
+@@ -36,6 +36,7 @@ from nova.virt.libvirt import utils as virtutils
+ 
+ 
+ flags.DECLARE('instances_path', 'nova.compute.manager')
++flags.DECLARE('base_dir_name', 'nova.compute.manager')
+ FLAGS = flags.FLAGS
+ 
+ LOG = log.getLogger(__name__)
+@@ -155,7 +156,7 @@ class ImageCacheManagerTestCase(test.TestCase):
+         self.stubs.Set(virtutils, 'get_disk_backing_file',
+                        lambda x: 'e97222e91fc4241f49a7f520d1dcf446751129b3_sm')
+ 
+-        found = os.path.join(FLAGS.instances_path, '_base',
++        found = os.path.join(FLAGS.instances_path, FLAGS.base_dir_name,
+                              'e97222e91fc4241f49a7f520d1dcf446751129b3_sm')
+ 
+         image_cache_manager = imagecache.ImageCacheManager()
+@@ -177,7 +178,7 @@ class ImageCacheManagerTestCase(test.TestCase):
+                        lambda x: ('e97222e91fc4241f49a7f520d1dcf446751129b3_'
+                                   '10737418240'))
+ 
+-        found = os.path.join(FLAGS.instances_path, '_base',
++        found = os.path.join(FLAGS.instances_path, FLAGS.base_dir_name,
+                              'e97222e91fc4241f49a7f520d1dcf446751129b3_'
+                              '10737418240')
+ 
+@@ -198,7 +199,7 @@ class ImageCacheManagerTestCase(test.TestCase):
+         self.stubs.Set(virtutils, 'get_disk_backing_file',
+                        lambda x: 'e97222e91fc4241f49a7f520d1dcf446751129b3_sm')
+ 
+-        found = os.path.join(FLAGS.instances_path, '_base',
++        found = os.path.join(FLAGS.instances_path, FLAGS.base_dir_name,
+                              'e97222e91fc4241f49a7f520d1dcf446751129b3_sm')
+ 
+         image_cache_manager = imagecache.ImageCacheManager()
+@@ -521,6 +522,7 @@ class ImageCacheManagerTestCase(test.TestCase):
+         hashed_42 = '92cfceb39d57d914ed8b14d0e37643de0797ae56'
+ 
+         self.flags(instances_path='/instance_path')
++        self.flags(base_dir_name='_base')
+         self.flags(remove_unused_base_images=True)
+ 
+         base_file_list = ['00000001',
+diff --git a/nova/tests/test_libvirt.py b/nova/tests/test_libvirt.py
+index cdc9121..f12cad4 100644
+--- a/nova/tests/test_libvirt.py
++++ b/nova/tests/test_libvirt.py
+@@ -322,7 +322,7 @@ class CacheConcurrencyTestCase(test.TestCase):
+         self.flags(instances_path='nova.compute.manager')
+ 
+         def fake_exists(fname):
+-            basedir = os.path.join(FLAGS.instances_path, '_base')
++            basedir = os.path.join(FLAGS.instances_path, FLAGS.base_dir_name)
+             if fname == basedir:
+                 return True
+             return False
+@@ -1317,9 +1317,10 @@ class LibvirtConnTestCase(test.TestCase):
+         if os.path.isdir(path):
+             shutil.rmtree(path)
+ 
+-        path = os.path.join(FLAGS.instances_path, '_base')
++        path = os.path.join(FLAGS.instances_path, FLAGS.base_dir_name)
+         if os.path.isdir(path):
+-            shutil.rmtree(os.path.join(FLAGS.instances_path, '_base'))
++            shutil.rmtree(os.path.join(FLAGS.instances_path,
++                                       FLAGS.base_dir_name))
+ 
+     def test_get_host_ip_addr(self):
+         conn = connection.LibvirtConnection(False)
+diff --git a/nova/virt/libvirt/connection.py b/nova/virt/libvirt/connection.py
+index 5facc10..f1e5680 100644
+--- a/nova/virt/libvirt/connection.py
++++ b/nova/virt/libvirt/connection.py
+@@ -1090,7 +1090,8 @@ class LibvirtConnection(driver.ComputeDriver):
+ 
+         generating = 'image_id' not in kwargs
+         if not os.path.exists(target):
+-            base_dir = os.path.join(FLAGS.instances_path, '_base')
++            base_dir = os.path.join(FLAGS.instances_path, FLAGS.base_dir_name)
++
+             if not os.path.exists(base_dir):
+                 libvirt_utils.ensure_tree(base_dir)
+             base = os.path.join(base_dir, fname)
+diff --git a/nova/virt/libvirt/imagecache.py b/nova/virt/libvirt/imagecache.py
+index f92376a..adf8214 100644
+--- a/nova/virt/libvirt/imagecache.py
++++ b/nova/virt/libvirt/imagecache.py
+@@ -58,6 +58,7 @@ imagecache_opts = [
+     ]
+ 
+ flags.DECLARE('instances_path', 'nova.compute.manager')
++flags.DECLARE('base_dir_name', 'nova.compute.manager')
+ FLAGS = flags.FLAGS
+ FLAGS.register_opts(imagecache_opts)
+ 
+@@ -178,7 +179,8 @@ class ImageCacheManager(object):
+                                'backing': backing_file})
+ 
+                     backing_path = os.path.join(FLAGS.instances_path,
+-                                                '_base', backing_file)
++                                                FLAGS.base_dir_name,
++                                                backing_file)
+                     if not backing_path in inuse_images:
+                         inuse_images.append(backing_path)
+ 
+@@ -372,7 +374,7 @@ class ImageCacheManager(object):
+         # created, but may remain from previous versions.
+         self._reset_state()
+ 
+-        base_dir = os.path.join(FLAGS.instances_path, '_base')
++        base_dir = os.path.join(FLAGS.instances_path, FLAGS.base_dir_name)
+         if not os.path.exists(base_dir):
+             LOG.debug(_('Skipping verification, no base directory at %s'),
+                       base_dir)

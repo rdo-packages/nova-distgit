@@ -1,0 +1,103 @@
+From 21e918a8f6e0fd144287ff7fc2ab3d262ac9edd7 Mon Sep 17 00:00:00 2001
+From: Joe Gordon <jogo@cloudscaling.com>
+Date: Fri, 13 Apr 2012 15:12:04 -0400
+Subject: [PATCH] Fix bug 983206 : _try_convert parsing string
+
+* _try_convert in ec2utils.py didn't handle strings starting with "0x"
+* Added tests to cover bug
+* Add better float support
+* remove unused complex number support
+
+Change-Id: I382d36f4a8671bcceccfa1ebdbae89a9d2aca207
+(cherry picked from commit c95162e52899618fc269fb536f6a2d3b26b7794d)
+---
+ nova/api/ec2/ec2utils.py |   35 +++++++++++------------------------
+ nova/tests/test_api.py   |   12 ++++++++++++
+ 2 files changed, 23 insertions(+), 24 deletions(-)
+
+diff --git a/nova/api/ec2/ec2utils.py b/nova/api/ec2/ec2utils.py
+index 1a6bb96..0f4aeb0 100644
+--- a/nova/api/ec2/ec2utils.py
++++ b/nova/api/ec2/ec2utils.py
+@@ -166,6 +166,10 @@ def _try_convert(value):
+     *             try conversion to int, float, complex, fallback value
+ 
+     """
++    def _negative_zero(value):
++        epsilon = 1e-7
++        return 0 if abs(value) < epsilon else value
++
+     if len(value) == 0:
+         return ''
+     if value == 'None':
+@@ -175,31 +179,14 @@ def _try_convert(value):
+         return True
+     if lowered_value == 'false':
+         return False
+-    valueneg = value[1:] if value[0] == '-' else value
+-    if valueneg == '0':
+-        return 0
+-    if valueneg == '':
+-        return value
+-    if valueneg[0] == '0':
+-        if valueneg[1] in 'xX':
+-            return int(value, 16)
+-        elif valueneg[1] in 'bB':
+-            return int(value, 2)
+-        else:
+-            try:
+-                return int(value, 8)
+-            except ValueError:
+-                pass
+-    try:
+-        return int(value)
+-    except ValueError:
+-        pass
+-    try:
+-        return float(value)
+-    except ValueError:
+-        pass
++    for prefix, base in [('0x', 16), ('0b', 2), ('0', 8), ('', 10)]:
++        try:
++            if lowered_value.startswith((prefix, "-" + prefix)):
++                return int(lowered_value, base)
++        except ValueError:
++            pass
+     try:
+-        return complex(value)
++        return _negative_zero(float(value))
+     except ValueError:
+         return value
+ 
+diff --git a/nova/tests/test_api.py b/nova/tests/test_api.py
+index baaee98..a52319f 100644
+--- a/nova/tests/test_api.py
++++ b/nova/tests/test_api.py
+@@ -96,8 +96,10 @@ class XmlConversionTestCase(test.TestCase):
+         conv = ec2utils._try_convert
+         self.assertEqual(conv('None'), None)
+         self.assertEqual(conv('True'), True)
++        self.assertEqual(conv('TRUE'), True)
+         self.assertEqual(conv('true'), True)
+         self.assertEqual(conv('False'), False)
++        self.assertEqual(conv('FALSE'), False)
+         self.assertEqual(conv('false'), False)
+         self.assertEqual(conv('0'), 0)
+         self.assertEqual(conv('42'), 42)
+@@ -107,6 +109,16 @@ class XmlConversionTestCase(test.TestCase):
+         self.assertEqual(conv('-0x57'), -0x57)
+         self.assertEqual(conv('-'), '-')
+         self.assertEqual(conv('-0'), 0)
++        self.assertEqual(conv('0.0'), 0.0)
++        self.assertEqual(conv('1e-8'), 0.0)
++        self.assertEqual(conv('-1e-8'), 0.0)
++        self.assertEqual(conv('0xDD8G'), '0xDD8G')
++        self.assertEqual(conv('0XDD8G'), '0XDD8G')
++        self.assertEqual(conv('-stringy'), '-stringy')
++        self.assertEqual(conv('stringy'), 'stringy')
++        self.assertEqual(conv('add'), 'add')
++        self.assertEqual(conv('remove'), 'remove')
++        self.assertEqual(conv(''), '')
+ 
+ 
+ class Ec2utilsTestCase(test.TestCase):

@@ -1,0 +1,61 @@
+From facb936f0bfc6c78fdce93785078e78223b0ddf7 Mon Sep 17 00:00:00 2001
+From: Dan Prince <dprince@redhat.com>
+Date: Wed, 28 Mar 2012 22:00:11 -0400
+Subject: [PATCH] Update KillFilter to handle 'deleted' exe's.
+
+Updates KillFilter so that it handles the case where the executable
+linked to by /proc/PID/exe is updated or deleted.
+
+Fixes LP Bug #967931.
+
+Also added a unit test to test that 'deleted' exe's are
+filtered correctly.
+
+(cherry picked from commit b24c11b and commit 3d28e3d)
+
+Change-Id: I368a01383bf62b64b7579d573b8b84640dec03ae
+---
+ nova/rootwrap/filters.py         |    4 ++++
+ nova/tests/test_nova_rootwrap.py |   14 ++++++++++++++
+ 2 files changed, 18 insertions(+), 0 deletions(-)
+
+diff --git a/nova/rootwrap/filters.py b/nova/rootwrap/filters.py
+index a8fd513..a51ecae 100755
+--- a/nova/rootwrap/filters.py
++++ b/nova/rootwrap/filters.py
+@@ -117,6 +117,10 @@ class KillFilter(CommandFilter):
+                 return False
+         try:
+             command = os.readlink("/proc/%d/exe" % int(args[1]))
++            # NOTE(dprince): /proc/PID/exe may have ' (deleted)' on
++            # the end if an executable is updated or deleted
++            if command.endswith(" (deleted)"):
++                command = command[:command.rindex(" ")]
+             if command not in self.args[1]:
+                 # Affected executable not in accepted list
+                 return False
+diff --git a/nova/tests/test_nova_rootwrap.py b/nova/tests/test_nova_rootwrap.py
+index ee687ea..ca2626b 100644
+--- a/nova/tests/test_nova_rootwrap.py
++++ b/nova/tests/test_nova_rootwrap.py
+@@ -103,6 +103,20 @@ class RootwrapTestCase(test.TestCase):
+         usercmd = ['kill', 'notapid']
+         self.assertFalse(f.match(usercmd))
+ 
++    def test_KillFilter_deleted_exe(self):
++        """Makes sure deleted exe's are killed correctly"""
++        # See bug #967931.
++        def fake_readlink(blah):
++            return '/bin/commandddddd (deleted)'
++
++        f = filters.KillFilter("/bin/kill", "root",
++                               [""],
++                               ["/bin/commandddddd"])
++        usercmd = ['kill', 1234]
++        # Providing no signal should work
++        self.stubs.Set(os, 'readlink', fake_readlink)
++        self.assertTrue(f.match(usercmd))
++
+     def test_ReadFileFilter(self):
+         goodfn = '/good/file.name'
+         f = filters.ReadFileFilter(goodfn)

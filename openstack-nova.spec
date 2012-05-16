@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2012.1
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -41,11 +41,26 @@ Patch0005: 0005-Fix-errors-in-os-networks-extension.patch
 Patch0006: 0006-Create-compute.api.BaseAPI-for-compute-APIs-to-use.patch
 Patch0007: 0007-Populate-image-properties-with-project_id-again.patch
 Patch0008: 0008-Use-project_id-in-ec2.cloud._format_image.patch
-Patch0009: 0009-ensure-atomic-manipulation-of-libvirt-disk-images.patch
-Patch0010: 0010-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0011: 0011-fix-useexisting-deprecation-warnings.patch
-Patch0012: 0012-support-a-configurable-libvirt-injection-partition.patch
-Patch0013: 0013-enforce-quota-on-security-group-rules.patch
+Patch0009: 0009-Implement-quotas-for-security-groups.patch
+Patch0010: 0010-Delete-fixed_ips-when-network-is-deleted.patch
+Patch0011: 0011-Xen-Pass-session-to-destroy_vdi.patch
+Patch0012: 0012-add-libvirt_inject_key-flag.patch
+Patch0013: 0013-Cloudpipe-tap-vpn-not-always-working.patch
+Patch0014: 0014-Don-t-leak-RPC-connections-on-timeouts-or-other-exce.patch
+Patch0015: 0015-Fixes-bug-987335.patch
+Patch0016: 0016-Fix-timeout-in-EC2-CloudController.create_image.patch
+Patch0017: 0017-Update-KillFilter-to-handle-deleted-exe-s.patch
+Patch0018: 0018-Get-unit-tests-functional-in-OS-X.patch
+Patch0019: 0019-Introduced-flag-base_dir_name.-Fixes-bug-973194.patch
+Patch0020: 0020-Fix-bug-983206-_try_convert-parsing-string.patch
+Patch0021: 0021-QuantumManager-will-start-dnsmasq-during-startup.-Fi.patch
+Patch0022: 0022-Fixes-bug-952176.patch
+Patch0023: 0023-Fix-nova.tests.test_nova_rootwrap-on-Fedora-17.patch
+Patch0024: 0024-ensure-atomic-manipulation-of-libvirt-disk-images.patch
+Patch0025: 0025-Ensure-we-don-t-access-the-net-when-building-docs.patch
+Patch0026: 0026-fix-useexisting-deprecation-warnings.patch
+Patch0027: 0027-support-a-configurable-libvirt-injection-partition.patch
+Patch0028: 0028-handle-updated-qemu-img-info-output.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -193,6 +208,21 @@ This package contains documentation files for nova.
 %patch0011 -p1
 %patch0012 -p1
 %patch0013 -p1
+%patch0014 -p1
+%patch0015 -p1
+%patch0016 -p1
+%patch0017 -p1
+%patch0018 -p1
+%patch0019 -p1
+%patch0020 -p1
+%patch0021 -p1
+%patch0022 -p1
+%patch0023 -p1
+%patch0024 -p1
+%patch0025 -p1
+%patch0026 -p1
+%patch0027 -p1
+%patch0028 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -394,6 +424,10 @@ fi
 %endif
 
 %changelog
+* Wed May 16 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-5
+- Sync up with Essex stable branch
+- Handle updated qemu-img info output
+
 * Wed May 09 2012 Alan Pevec <apevec@redhat.com> - 2012.1-4
 - Remove the socat dependency no longer needed by Essex
 

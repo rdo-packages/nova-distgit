@@ -1,0 +1,33 @@
+From 5ab505191c3600fc4f4b7b128a04f5c9c8f74bc1 Mon Sep 17 00:00:00 2001
+From: Peng Yong <ppyy@pubyun.com>
+Date: Mon, 2 Apr 2012 23:36:20 +0800
+Subject: [PATCH] add libvirt_inject_key flag fix bug #971640
+
+Change-Id: I48efc5babdd9b233342a33c87c461aabf5f5915b
+---
+ nova/virt/libvirt/connection.py |    5 ++++-
+ 1 files changed, 4 insertions(+), 1 deletions(-)
+
+diff --git a/nova/virt/libvirt/connection.py b/nova/virt/libvirt/connection.py
+index 888be92..1a00db6 100644
+--- a/nova/virt/libvirt/connection.py
++++ b/nova/virt/libvirt/connection.py
+@@ -105,6 +105,9 @@ libvirt_opts = [
+                 default=False,
+                 help='Inject the admin password at boot time, '
+                      'without an agent.'),
++    cfg.BoolOpt('libvirt_inject_key',
++                default=True,
++                help='Inject the ssh public key at boot time'),
+     cfg.BoolOpt('use_usb_tablet',
+                 default=True,
+                 help='Sync virtual and real mouse cursors in Windows VMs'),
+@@ -1294,7 +1297,7 @@ class LibvirtConnection(driver.ComputeDriver):
+             self._create_local(basepath('disk.config'), 64, unit='M',
+                                fs_format='msdos', label=label)  # 64MB
+ 
+-        if instance['key_data']:
++        if FLAGS.libvirt_inject_key and instance['key_data']:
+             key = str(instance['key_data'])
+         else:
+             key = None

@@ -1,0 +1,28 @@
+From 9e9a554cba9e52430c2b2857bed744aba2ff8f9e Mon Sep 17 00:00:00 2001
+From: MotoKen <motokentsai@gmail.com>
+Date: Mon, 9 Apr 2012 10:33:55 +0800
+Subject: [PATCH] Fixes bug 952176
+
+Checks if value is string or not before decode.
+
+Change-Id: I3f839770fdd7b00223ce02b95b2a265d903fa00e
+---
+ bin/nova-manage |    4 +++-
+ 1 files changed, 3 insertions(+), 1 deletions(-)
+
+diff --git a/bin/nova-manage b/bin/nova-manage
+index c0009bc..f5491bc 100755
+--- a/bin/nova-manage
++++ b/bin/nova-manage
+@@ -1721,8 +1721,10 @@ def main():
+     for k, v in fn_kwargs.items():
+         if v is None:
+             del fn_kwargs[k]
+-        else:
++        elif isinstance(v, basestring):
+             fn_kwargs[k] = v.decode('utf-8')
++        else:
++            fn_kwargs[k] = v
+ 
+     fn_args = [arg.decode('utf-8') for arg in fn_args]
+ 
