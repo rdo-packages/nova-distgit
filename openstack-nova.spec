@@ -27,7 +27,6 @@ Source25:         openstack-nova-metadata-api.service
 
 Source21:         nova-polkit.pkla
 Source22:         nova-ifc-template
-Source23:         openstack-nova-db-setup
 Source24:         nova-sudoers
 
 #
@@ -69,6 +68,7 @@ BuildRequires:    python-distutils-extra >= 2.18
 BuildRequires:    python-netaddr
 BuildRequires:    python-lockfile
 
+Requires:         openstack-utils
 Requires:         python-nova = %{version}-%{release}
 
 Requires:         python-paste
@@ -323,9 +323,6 @@ install -p -D -m 644 %{SOURCE22} %{buildroot}%{_datarootdir}/nova/interfaces.tem
 install -d -m 755 %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d
 install -p -D -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/50-nova.pkla
 
-# Install database setup helper script.
-install -p -D -m 755 %{SOURCE23} %{buildroot}%{_bindir}/openstack-nova-db-setup
-
 # Remove unneeded in production stuff
 rm -f %{buildroot}%{_bindir}/nova-debug
 rm -fr %{buildroot}%{python_sitelib}/nova/tests/
@@ -382,7 +379,6 @@ fi
 %dir %attr(0755, nova, root) %{_localstatedir}/run/nova
 
 %{_bindir}/nova-*
-%{_bindir}/openstack-nova-db-setup
 %{_unitdir}/openstack-nova-*.service
 %{_datarootdir}/nova
 %{_mandir}/man1/nova*.1.gz
@@ -427,6 +423,7 @@ fi
 * Wed May 16 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-5
 - Sync up with Essex stable branch
 - Handle updated qemu-img info output
+- Remove redundant and outdated openstack-nova-db-setup
 
 * Wed May 09 2012 Alan Pevec <apevec@redhat.com> - 2012.1-4
 - Remove the socat dependency no longer needed by Essex
