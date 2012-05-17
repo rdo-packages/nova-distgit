@@ -64,25 +64,18 @@ Patch0028: 0028-handle-updated-qemu-img-info-output.patch
 BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    python-setuptools
-BuildRequires:    python-distutils-extra >= 2.18
 BuildRequires:    python-netaddr
 BuildRequires:    python-lockfile
 
 Requires:         openstack-utils
 Requires:         python-nova = %{version}-%{release}
 
-Requires:         python-paste
-Requires:         python-paste-deploy
-
 Requires:         bridge-utils
 Requires:         dnsmasq-utils
 Requires:         libguestfs-mount >= 1.7.17
 # The fuse dependency should be added to libguestfs-mount
 Requires:         fuse
-Requires:         libvirt-python
 Requires:         libvirt >= 0.8.7
-Requires:         libxml2-python
-Requires:         python-cheetah
 Requires:         MySQL-python
 
 Requires:         euca2ools
@@ -114,11 +107,10 @@ Requires:         curl
 Requires:         python-crypto
 Requires:         libvirt-python
 Requires:         python-anyjson
-Requires:         python-IPy
 Requires:         python-boto
+Requires:         python-cheetah
 # TODO: make these messaging libs optional
 Requires:         python-qpid
-Requires:         python-carrot
 Requires:         python-kombu
 Requires:         python-amqplib
 Requires:         python-daemon
@@ -128,13 +120,10 @@ Requires:         python-gflags
 Requires:         python-iso8601
 Requires:         python-lockfile
 Requires:         python-lxml
-Requires:         python-mox
-Requires:         python-redis
+Requires:         python-memcached
+Requires:         python-paramiko
 Requires:         python-routes
 Requires:         python-sqlalchemy
-Requires:         python-tornado
-Requires:         python-twisted-core
-Requires:         python-twisted-web
 Requires:         python-webob
 Requires:         python-netaddr
 # TODO: remove the following dependency which is minimal
@@ -167,22 +156,15 @@ Requires:         %{name} = %{version}-%{release}
 BuildRequires:    systemd-units
 BuildRequires:    python-sphinx
 BuildRequires:    graphviz
-BuildRequires:    python-distutils-extra
 
-BuildRequires:    python-nose
 # Required to build module documents
-BuildRequires:    python-IPy
 BuildRequires:    python-boto
 BuildRequires:    python-eventlet
-BuildRequires:    python-gflags
 BuildRequires:    python-routes
 BuildRequires:    python-sqlalchemy
-BuildRequires:    python-tornado
-BuildRequires:    python-twisted-core
-BuildRequires:    python-twisted-web
 BuildRequires:    python-webob
 # while not strictly required, quiets the build down when building docs.
-BuildRequires:    python-carrot, python-mox, python-suds, bpython, python-memcached, python-migrate, python-iso8601
+BuildRequires:    python-migrate, python-iso8601
 
 %description      doc
 OpenStack Compute (codename Nova) is open source software designed to
@@ -421,7 +403,7 @@ fi
 
 %changelog
 * Wed May 16 2012 Alan Pevec <apevec@redhat.com> - 2012.1-6
-- Remove m2crypto dependency no loner needed by Essex
+- Remove m2crypto and other dependencies no loner needed by Essex
 
 * Wed May 16 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-5
 - Sync up with Essex stable branch
