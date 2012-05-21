@@ -1,5 +1,7 @@
-git checkout master
-git remote add -f fedora-openstack git@github.com:fedora-openstack/nova.git
+1. Once off locale repo setup:
+
+  git checkout master
+  git remote add -f fedora-openstack git@github.com:fedora-openstack/nova.git
     Updating fedora-openstack
     warning: no common commits
     remote: Counting objects: 81335, done.
@@ -13,9 +15,9 @@ git remote add -f fedora-openstack git@github.com:fedora-openstack/nova.git
     From github.com:fedora-openstack/nova
     * [new tag]         2011.3     -> 2011.3
     * [new tag]         2011.3.1   -> 2011.3.1
-git branch master-patches fedora-openstack/master
+  git branch master-patches fedora-openstack/master
     Branch master-patches set up to track remote branch master from fedora-openstack.
-git remote add -f openstack git://github.com/openstack/nova.git
+  git remote add -f openstack git://github.com/openstack/nova.git
     Updating openstack
     remote: Counting objects: 15159, done.
     remote: Compressing objects: 100% (3992/3992), done.
@@ -40,8 +42,9 @@ git remote add -f openstack git://github.com/openstack/nova.git
     * [new tag]         essex-1    -> essex-1
 
 
+2. Patch set update process
 
-Here is how I updated the fedora-openstack/master branch to essex-3 + ...
+Here showing how I updated fedora-openstack/master branch to essex-3 + ...
 
 0. Ensure up to date
 
@@ -52,11 +55,10 @@ git fetch --all
 git checkout master-patches
     Switched to branch 'master-patches'
 git log --oneline # to pick sha of commit _before_ first commit to consider rebasing
-git rebase --onto essex-3 69fcb2df # use --interactive if want to edit/delete commits
-    First, rewinding head to replay your work on top of it...
-    Applying: Ensure we don't access the net when building docs
-Note more generally rebase --onto a branch rather than a tag, for e.g.:
-    git rebase -i --onto remotes/openstack/stable/essex bbb021c8
+# You can either rebase the patch branch onto a branch or a tag
+git rebase --onto essex-3 69fcb2df
+git rebase --onto remotes/openstack/stable/essex bbb021c8
+# use the --interactive rebase option if want to edit/delete commits etc.
 
 2. Pick new patches after essex-3
 
@@ -101,6 +103,6 @@ git push fedora-openstack +master-patches:master
 
 The same process applies for fedora-openstack/f16-patches.
 Note el6 patches are not yet maintained in git, so
-for now just merge from f16 (diablo).
+for now just merge from f17 (essex).
 Note f17 patches are not yet maintained in git, so
 for now just merge from master (essex).
