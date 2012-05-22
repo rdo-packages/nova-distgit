@@ -18,6 +18,8 @@
 #   $> git push fedora-openstack +master-patches:master
 #
 
+set -e # exit on failure
+
 git status -uno --porcelain | grep . && {
     echo "The repo is not clean. Aborting" >&2
     exit 1
@@ -72,6 +74,8 @@ sed -i '/^\(Patch\|%patch\)[0-9][0-9]*/d' "${spec}"
 patches_list=$(mktemp)
 patches_apply=$(mktemp)
 
+trap "rm '${patches_list}' '${patches_apply}'" EXIT
+
 i=1;
 for p in ${new_patches}; do
     printf "Patch%.4d: %s\n" "${i}" "${p}" >> "${patches_list}"
@@ -81,8 +85,6 @@ done
 
 sed -i -e "/# patches_base/ { N; r ${patches_list}" -e "}" "${spec}"
 sed -i -e "/%setup -q / { N; r ${patches_apply}" -e "}" "${spec}"
-
-rm "${patches_list}" "${patches_apply}"
 
 #
 # Update the original commit to include the new set of patches
