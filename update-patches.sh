@@ -40,7 +40,7 @@ orig_patches=$(awk '/^Patch[0-9][0-9]*:/ { print $2 }' "${spec}")
 # Create a commit which removes all the patches
 #
 git rm ${orig_patches}
-git commit -m "Updated patches from ${patches_branch}" ${orig_patches}
+git commit --allow-empty -m "Updated patches from ${patches_branch}" ${orig_patches}
 
 #
 # Check out the ${branch}-patches branch and format the patches
