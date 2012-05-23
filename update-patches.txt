@@ -1,4 +1,4 @@
-1. Once off locale repo setup:
+I. Once off local repo setup:
 
   git checkout master
   git remote add -f fedora-openstack git@github.com:fedora-openstack/nova.git
@@ -42,15 +42,15 @@
     * [new tag]         essex-1    -> essex-1
 
 
-2. Patch set update process
+II. Patch set update process
 
 Here showing how I updated fedora-openstack/master branch to essex-3 + ...
 
-0. Ensure up to date
+1. Ensure up to date
 
 git fetch --all
 
-1. Rebase our patches onto essex-3
+2. Rebase our patches onto essex-3
 
 git checkout master-patches
     Switched to branch 'master-patches'
@@ -60,14 +60,14 @@ git rebase --onto essex-3 69fcb2df
 git rebase --onto remotes/openstack/stable/essex bbb021c8
 # use the --interactive rebase option if want to edit/delete commits etc.
 
-2. Pick new patches after essex-3
+3. Pick new patches after essex-3
 
 git log remotes/openstack/master # to find sha of other commits
 git cherry-pick ed6e3efc
     [master-patches 126e601] fix `nova-manage image convert` exception
 # You can also cherry pick commits from gerrit by copy and pasting the cherry-pick commands from there
 
-3. Update the patches on master
+4. Update the patches on master
 
 git checkout master
     Switched to branch 'master'
@@ -85,7 +85,7 @@ git checkout master
      3 files changed, 30 insertions(+), 1 deletions(-)
      create mode 100644 0002-fix-nova-manage-image-convert-exception.patch
 
-4. Update changelog and version in spec file as appropriate and push
+5. Update changelog and version in spec file as appropriate and push
 
 git commit --amend -a
 fedpkg prep # to be sure to be sure the patches apply
@@ -96,7 +96,7 @@ fedpkg prep # to be sure to be sure the patches apply
 # the already applied hunks and --amend again.
 git push
 
-5. Push updated master-patches back to github
+6. Push updated master-patches back to github
 (note the '+' below to allow non fast-forward updates)
 
 git push fedora-openstack +master-patches:master
