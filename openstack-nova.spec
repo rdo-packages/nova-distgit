@@ -1,14 +1,14 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 
 Name:             openstack-nova
-Version:          2012.1
-Release:          6%{?dist}
+Version:          2012.2
+Release:          0.1.f1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/essex/2012.1/+download/nova-2012.1.tar.gz
+Source0:          http://launchpad.net/nova/folsom/folsom-1/+download/nova-2012.2~f1.tar.gz
 Source1:          nova.conf
 Source6:          nova.logrotate
 
@@ -19,7 +19,6 @@ Source13:         openstack-nova-network.service
 Source14:         openstack-nova-objectstore.service
 Source15:         openstack-nova-scheduler.service
 Source16:         openstack-nova-volume.service
-Source17:         openstack-nova-direct-api.service
 Source18:         openstack-nova-xvpvncproxy.service
 Source19:         openstack-nova-console.service
 Source20:         openstack-nova-consoleauth.service
@@ -30,36 +29,10 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
 #
-# patches_base=2012.1
+# patches_base=folsom-1
 #
-Patch0001: 0001-fix-bug-where-nova-ignores-glance-host-in-imageref.patch
-Patch0002: 0002-Stop-libvirt-test-from-deleting-instances-dir.patch
-Patch0003: 0003-Allow-unprivileged-RADOS-users-to-access-rbd-volumes.patch
-Patch0004: 0004-Fixed-bug-962840-added-a-test-case.patch
-Patch0005: 0005-Fix-errors-in-os-networks-extension.patch
-Patch0006: 0006-Create-compute.api.BaseAPI-for-compute-APIs-to-use.patch
-Patch0007: 0007-Populate-image-properties-with-project_id-again.patch
-Patch0008: 0008-Use-project_id-in-ec2.cloud._format_image.patch
-Patch0009: 0009-Implement-quotas-for-security-groups.patch
-Patch0010: 0010-Delete-fixed_ips-when-network-is-deleted.patch
-Patch0011: 0011-Xen-Pass-session-to-destroy_vdi.patch
-Patch0012: 0012-add-libvirt_inject_key-flag.patch
-Patch0013: 0013-Cloudpipe-tap-vpn-not-always-working.patch
-Patch0014: 0014-Don-t-leak-RPC-connections-on-timeouts-or-other-exce.patch
-Patch0015: 0015-Fixes-bug-987335.patch
-Patch0016: 0016-Fix-timeout-in-EC2-CloudController.create_image.patch
-Patch0017: 0017-Update-KillFilter-to-handle-deleted-exe-s.patch
-Patch0018: 0018-Get-unit-tests-functional-in-OS-X.patch
-Patch0019: 0019-Introduced-flag-base_dir_name.-Fixes-bug-973194.patch
-Patch0020: 0020-Fix-bug-983206-_try_convert-parsing-string.patch
-Patch0021: 0021-QuantumManager-will-start-dnsmasq-during-startup.-Fi.patch
-Patch0022: 0022-Fixes-bug-952176.patch
-Patch0023: 0023-Fix-nova.tests.test_nova_rootwrap-on-Fedora-17.patch
-Patch0024: 0024-ensure-atomic-manipulation-of-libvirt-disk-images.patch
-Patch0025: 0025-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0026: 0026-fix-useexisting-deprecation-warnings.patch
-Patch0027: 0027-support-a-configurable-libvirt-injection-partition.patch
-Patch0028: 0028-handle-updated-qemu-img-info-output.patch
+Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
+Patch0002: 0002-fix-useexisting-deprecation-warnings.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -116,7 +89,6 @@ Requires:         python-amqplib
 Requires:         python-daemon
 Requires:         python-eventlet
 Requires:         python-greenlet
-Requires:         python-gflags
 Requires:         python-iso8601
 Requires:         python-lockfile
 Requires:         python-lxml
@@ -179,32 +151,6 @@ This package contains documentation files for nova.
 
 %patch0001 -p1
 %patch0002 -p1
-%patch0003 -p1
-%patch0004 -p1
-%patch0005 -p1
-%patch0006 -p1
-%patch0007 -p1
-%patch0008 -p1
-%patch0009 -p1
-%patch0010 -p1
-%patch0011 -p1
-%patch0012 -p1
-%patch0013 -p1
-%patch0014 -p1
-%patch0015 -p1
-%patch0016 -p1
-%patch0017 -p1
-%patch0018 -p1
-%patch0019 -p1
-%patch0020 -p1
-%patch0021 -p1
-%patch0022 -p1
-%patch0023 -p1
-%patch0024 -p1
-%patch0025 -p1
-%patch0026 -p1
-%patch0027 -p1
-%patch0028 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -242,9 +188,9 @@ install -p -D -m 644 build/man/*.1 %{buildroot}%{_mandir}/man1/
 
 popd
 
-# Give stack, instance-usage-audit and clear_rabbit_queues a reasonable prefix
-mv %{buildroot}%{_bindir}/stack %{buildroot}%{_bindir}/nova-stack
+# Give {instance,volume}-usage-audit and clear_rabbit_queues a reasonable prefix
 mv %{buildroot}%{_bindir}/instance-usage-audit %{buildroot}%{_bindir}/nova-instance-usage-audit
+mv %{buildroot}%{_bindir}/volume-usage-audit %{buildroot}%{_bindir}/nova-volume-usage-audit
 mv %{buildroot}%{_bindir}/clear_rabbit_queues %{buildroot}%{_bindir}/nova-clear-rabbit-queues
 
 # Setup directories
@@ -280,7 +226,6 @@ install -p -D -m 755 %{SOURCE13} %{buildroot}%{_unitdir}/openstack-nova-network.
 install -p -D -m 755 %{SOURCE14} %{buildroot}%{_unitdir}/openstack-nova-objectstore.service
 install -p -D -m 755 %{SOURCE15} %{buildroot}%{_unitdir}/openstack-nova-scheduler.service
 install -p -D -m 755 %{SOURCE16} %{buildroot}%{_unitdir}/openstack-nova-volume.service
-install -p -D -m 755 %{SOURCE17} %{buildroot}%{_unitdir}/openstack-nova-direct-api.service
 install -p -D -m 755 %{SOURCE18} %{buildroot}%{_unitdir}/openstack-nova-xvpvncproxy.service
 install -p -D -m 755 %{SOURCE19} %{buildroot}%{_unitdir}/openstack-nova-console.service
 install -p -D -m 755 %{SOURCE20} %{buildroot}%{_unitdir}/openstack-nova-consoleauth.service
@@ -298,7 +243,6 @@ install -d -m 755 %{buildroot}%{_localstatedir}/run/nova
 # Install template files
 install -p -D -m 644 nova/auth/novarc.template %{buildroot}%{_datarootdir}/nova/novarc.template
 install -p -D -m 644 nova/cloudpipe/client.ovpn.template %{buildroot}%{_datarootdir}/nova/client.ovpn.template
-install -p -D -m 644 nova/virt/libvirt.xml.template %{buildroot}%{_datarootdir}/nova/libvirt.xml.template
 install -p -D -m 644 nova/virt/interfaces.template %{buildroot}%{_datarootdir}/nova/interfaces.template
 install -p -D -m 644 %{SOURCE22} %{buildroot}%{_datarootdir}/nova/interfaces.template
 
@@ -332,7 +276,7 @@ fi
 
 %preun
 if [ $1 -eq 0 ] ; then
-    for svc in api cert compute network objectstore scheduler volume direct-api metadata-api console consoleauth xvpvncproxy; do
+    for svc in api cert compute network objectstore scheduler volume metadata-api console consoleauth xvpvncproxy; do
         /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
         /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
     done
@@ -342,7 +286,7 @@ fi
 /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 if [ $1 -ge 1 ] ; then
     # Package upgrade, not uninstall
-    for svc in api cert compute network objectstore scheduler volume direct-api metadata-api console consoleauth xvpvncproxy; do
+    for svc in api cert compute network objectstore scheduler volume metadata-api console consoleauth xvpvncproxy; do
         /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
     done
 fi
@@ -402,6 +346,9 @@ fi
 %endif
 
 %changelog
+* Tue May 29 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.1.f1
+- Update to folsom milestone 1
+
 * Wed May 16 2012 Alan Pevec <apevec@redhat.com> - 2012.1-6
 - Remove m2crypto and other dependencies no loner needed by Essex
 

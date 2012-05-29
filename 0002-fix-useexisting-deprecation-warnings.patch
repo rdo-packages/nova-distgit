@@ -1,0 +1,25 @@
+From 5879d62063e7d699e76cdda2ce2b4ed5c2d9d428 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?P=C3=A1draig=20Brady?= <pbrady@redhat.com>
+Date: Tue, 29 May 2012 12:50:03 +0100
+Subject: [PATCH] fix useexisting deprecation warnings
+
+Fixes deprecation warnings when using sqlalchemy >= 0.7.0
+Fixes bug 941951
+
+Change-Id: Iaa57153f99c60c67a14c1dca849188937bdc5dee
+---
+ .../versions/087_add_uuid_to_bw_usage_cache.py     |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/nova/db/sqlalchemy/migrate_repo/versions/087_add_uuid_to_bw_usage_cache.py b/nova/db/sqlalchemy/migrate_repo/versions/087_add_uuid_to_bw_usage_cache.py
+index 1c4ac26..c9b9feb 100644
+--- a/nova/db/sqlalchemy/migrate_repo/versions/087_add_uuid_to_bw_usage_cache.py
++++ b/nova/db/sqlalchemy/migrate_repo/versions/087_add_uuid_to_bw_usage_cache.py
+@@ -53,6 +53,6 @@ def downgrade(migrate_engine):
+         Column('last_refreshed', DateTime(timezone=False)),
+         Column('bw_in', BigInteger()),
+         Column('bw_out', BigInteger()),
+-        useexisting=True)
++        extend_existing=True)
+ 
+     bw_usage_cache.drop_column('uuid')
