@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2012.2
-Release:          0.1.f1%{?dist}
+Release:          0.2.f1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -33,6 +33,7 @@ Source24:         nova-sudoers
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-fix-useexisting-deprecation-warnings.patch
+Patch0003: 0003-Fix-up-protocol-case-handling-for-security-groups.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -151,6 +152,7 @@ This package contains documentation files for nova.
 
 %patch0001 -p1
 %patch0002 -p1
+%patch0003 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -346,6 +348,9 @@ fi
 %endif
 
 %changelog
+* Wed Jun 06 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.2.f1
+- Fix up protocol case handling for security groups (CVE-2012-2654)
+
 * Tue May 29 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.1.f1
 - Update to folsom milestone 1
 

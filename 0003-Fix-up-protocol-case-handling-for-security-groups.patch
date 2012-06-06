@@ -1,0 +1,62 @@
+From d5f955368da8d858de87e504c5ec20685024a51d Mon Sep 17 00:00:00 2001
+From: Vishvananda Ishaya <vishvananda@gmail.com>
+Date: Wed, 6 Jun 2012 13:25:04 -0400
+Subject: [PATCH] Fix up protocol case handling for security groups.
+
+Fix bug 985184.
+
+When creating security group rules, any case for the protocol was
+accepted as input, such as TCP, Tcp, tcp, etc., and was stored in the
+database as specified.  However, unless specified as all lowercase, the
+code to apply the rules would break and result in some rules not being
+applied.
+
+Change-Id: I6c723d371579eb37a94bd484d39beeb773668ed4
+(cherry picked from commit ff06c7c885dc94ed7c828e8cdbb8b5d850a7e654)
+---
+ nova/api/ec2/cloud.py                              |    2 +-
+ .../openstack/compute/contrib/security_groups.py   |    2 +-
+ nova/virt/firewall.py                              |    4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/nova/api/ec2/cloud.py b/nova/api/ec2/cloud.py
+index b077d55..c3bc823 100644
+--- a/nova/api/ec2/cloud.py
++++ b/nova/api/ec2/cloud.py
+@@ -595,7 +595,7 @@ class CloudController(object):
+                       to_port=to_port, msg="For ICMP, the"
+                                            " type:code must be valid")
+ 
+-            values['protocol'] = ip_protocol
++            values['protocol'] = ip_protocol.lower()
+             values['from_port'] = from_port
+             values['to_port'] = to_port
+         else:
+diff --git a/nova/api/openstack/compute/contrib/security_groups.py b/nova/api/openstack/compute/contrib/security_groups.py
+index 2a48869..21f050a 100644
+--- a/nova/api/openstack/compute/contrib/security_groups.py
++++ b/nova/api/openstack/compute/contrib/security_groups.py
+@@ -498,7 +498,7 @@ class SecurityGroupRulesController(SecurityGroupControllerBase):
+                       to_port=to_port, msg="For ICMP, the"
+                                            " type:code must be valid")
+ 
+-            values['protocol'] = ip_protocol
++            values['protocol'] = ip_protocol.lower()
+             values['from_port'] = from_port
+             values['to_port'] = to_port
+         else:
+diff --git a/nova/virt/firewall.py b/nova/virt/firewall.py
+index aa05a22..af0986a 100644
+--- a/nova/virt/firewall.py
++++ b/nova/virt/firewall.py
+@@ -302,8 +302,8 @@ class IptablesFirewallDriver(FirewallDriver):
+                 else:
+                     fw_rules = ipv6_rules
+ 
+-                protocol = rule.protocol
+-                if version == 6 and rule.protocol == 'icmp':
++                protocol = rule.protocol.lower()
++                if version == 6 and protocol == 'icmp':
+                     protocol = 'icmpv6'
+ 
+                 args = ['-j ACCEPT']
