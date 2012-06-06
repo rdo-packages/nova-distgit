@@ -186,11 +186,6 @@ install -p -D -m 644 build/man/*.1 %{buildroot}%{_mandir}/man1/
 
 popd
 
-# Give {instance,volume}-usage-audit and clear_rabbit_queues a reasonable prefix
-mv %{buildroot}%{_bindir}/instance-usage-audit %{buildroot}%{_bindir}/nova-instance-usage-audit
-mv %{buildroot}%{_bindir}/volume-usage-audit %{buildroot}%{_bindir}/nova-volume-usage-audit
-mv %{buildroot}%{_bindir}/clear_rabbit_queues %{buildroot}%{_bindir}/nova-clear-rabbit-queues
-
 # Setup directories
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/buckets
