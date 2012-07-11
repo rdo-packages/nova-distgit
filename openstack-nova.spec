@@ -344,12 +344,6 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 # docs generation requires everything to be installed first
 export PYTHONPATH="$( pwd ):$PYTHONPATH"
 
-# TODO: possibly remove call to
-# manually auto-generate to work around sphinx-build segfault
-# This was not required on python-sphinx-1.0.7 at least
-# but it's relatively quick at least
-doc/generate_autodoc_index.sh
-
 pushd doc
 
 %if 0%{?with_doc}
@@ -416,7 +410,6 @@ install -p -D -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/logrotate.d/openstack
 install -d -m 755 %{buildroot}%{_localstatedir}/run/nova
 
 # Install template files
-install -p -D -m 644 nova/auth/novarc.template %{buildroot}%{_datarootdir}/nova/novarc.template
 install -p -D -m 644 nova/cloudpipe/client.ovpn.template %{buildroot}%{_datarootdir}/nova/client.ovpn.template
 install -p -D -m 644 nova/virt/interfaces.template %{buildroot}%{_datarootdir}/nova/interfaces.template
 install -p -D -m 644 %{SOURCE22} %{buildroot}%{_datarootdir}/nova/interfaces.template
