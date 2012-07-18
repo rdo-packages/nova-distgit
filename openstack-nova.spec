@@ -348,6 +348,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 18 2012 Pádraig Brady <P@draigBrady.com> - ???
+- Enable auto cleanup of old cached instance images
+
 * Wed Jun 08 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.3.f1
 - Enable libguestfs image inspection
 
