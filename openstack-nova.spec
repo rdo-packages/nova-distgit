@@ -351,9 +351,6 @@ fi
 * Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2012.2-0.4.f1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
-* Wed Jul 18 2012 Pádraig Brady <P@draigBrady.com> - ???
-- Enable auto cleanup of old cached instance images
-
 * Wed Jun 08 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.3.f1
 - Enable libguestfs image inspection
 
