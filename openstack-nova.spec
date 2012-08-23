@@ -2,13 +2,13 @@
 
 Name:             openstack-nova
 Version:          2012.2
-Release:          0.4.f1%{?dist}
+Release:          0.1.f3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/folsom/folsom-1/+download/nova-2012.2~f1.tar.gz
+Source0:          http://launchpad.net/nova/folsom/folsom-1/+download/nova-2012.2~f3.tar.gz
 Source1:          nova.conf
 Source6:          nova.logrotate
 
@@ -29,11 +29,9 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
 #
-# patches_base=folsom-1
+# patches_base=folsom-3
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0002: 0002-fix-useexisting-deprecation-warnings.patch
-Patch0003: 0003-Fix-up-protocol-case-handling-for-security-groups.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -151,8 +149,6 @@ This package contains documentation files for nova.
 %setup -q -n nova-%{version}
 
 %patch0001 -p1
-%patch0002 -p1
-%patch0003 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -348,6 +344,9 @@ fi
 %endif
 
 %changelog
+* Thu Aug 23 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.1.f3
+- Update to folsom milestone 3
+
 * Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2012.2-0.4.f1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 

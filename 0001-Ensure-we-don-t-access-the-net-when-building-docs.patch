@@ -1,4 +1,4 @@
-From b1707ce900149be87ec03f0156b27bbdf9ff05d4 Mon Sep 17 00:00:00 2001
+From 83de9eb2b8dd1b9eea559341f696b80251cc586b Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?P=C3=A1draig=20Brady?= <pbrady@redhat.com>
 Date: Fri, 6 Jan 2012 12:16:34 +0000
 Subject: [PATCH] Ensure we don't access the net when building docs
@@ -11,7 +11,7 @@ Change-Id: I9d02fb4053a8106672aded1614a2850e21603eb2
  1 files changed, 1 insertions(+), 1 deletions(-)
 
 diff --git a/doc/source/conf.py b/doc/source/conf.py
-index 8ced294..7df59cd 100644
+index 78feba4..c248667 100644
 --- a/doc/source/conf.py
 +++ b/doc/source/conf.py
 @@ -25,7 +25,7 @@ sys.path.insert(0, os.path.abspath('./'))
@@ -21,5 +21,5 @@ index 8ced294..7df59cd 100644
 -extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'ext.nova_todo', 'sphinx.ext.coverage', 'sphinx.ext.pngmath', 'sphinx.ext.ifconfig','sphinx.ext.graphviz']
 +extensions = ['sphinx.ext.autodoc', 'ext.nova_todo', 'sphinx.ext.coverage', 'sphinx.ext.pngmath', 'sphinx.ext.ifconfig','sphinx.ext.graphviz']
  
- # autodoc generation is a bit aggressive and a nuisance when doing heavy text edit cycles.
- # execute "export SPHINX_DEBUG=1" in your terminal to disable
+ todo_include_todos = True
+ 
