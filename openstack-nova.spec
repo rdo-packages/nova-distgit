@@ -97,8 +97,7 @@ Requires:         python-routes
 Requires:         python-sqlalchemy
 Requires:         python-webob
 Requires:         python-netaddr
-# TODO: remove the following dependency which is minimal
-Requires:         python-glance
+Requires:         python-glanceclient >= 1:0
 Requires:         python-novaclient
 Requires:         python-paste-deploy
 Requires:         python-migrate
