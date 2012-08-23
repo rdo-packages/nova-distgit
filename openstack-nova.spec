@@ -642,7 +642,6 @@ fi
 
 %files compute
 %{_bindir}/nova-compute
-%{_bindir}/nova-instance-usage-audit
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
 
@@ -654,6 +653,7 @@ fi
 
 %files volume
 %{_bindir}/nova-volume
+%{_bindir}/nova-volume-usage-audit
 %{_unitdir}/openstack-nova-volume.service
 %{_datarootdir}/nova/rootwrap/volume.filters
 
