@@ -41,6 +41,22 @@ I. Once off local repo setup:
     From git://github.com/openstack/nova
     * [new tag]         essex-1    -> essex-1
 
+  # There are also github repos for smokestack packages
+  # which could be good to reference or pull from for
+  # updates to official packages, as they'll generally
+  # have changes specific to the latest upstream:
+
+  git remote add -f fedora-smokestack git@github.com:fedora-openstack/openstack>
+    Updating fedora-smokestack
+    remote: Counting objects: 71, done.
+    remote: Compressing objects: 100% (51/51), done.
+    remote: Total 60 (delta 39), reused 29 (delta 8)
+    Unpacking objects: 100% (60/60), done.
+    From github.com:fedora-openstack/openstack-nova
+     * [new branch]      el6        -> fedora-smokestack/el6
+     * [new branch]      essex      -> fedora-smokestack/essex
+     * [new branch]      master     -> fedora-smokestack/master
+
 
 II. Patch set update process
 
