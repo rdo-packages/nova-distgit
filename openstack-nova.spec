@@ -625,6 +625,8 @@ fi
 %dir %attr(0755, nova, root) %{_localstatedir}/run/nova
 
 %{_bindir}/nova-clear-rabbit-queues
+# TODO. zmq-receiver may need its own service?
+%{_bindir}/nova-rpc-zmq-receiver
 %{_bindir}/nova-manage
 %{_bindir}/nova-rootwrap
 
