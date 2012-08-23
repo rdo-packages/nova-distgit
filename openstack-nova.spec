@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2012.2
-Release:          0.1.f3%{?dist}
+Release:          0.5.f3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -716,7 +716,7 @@ fi
 %endif
 
 %changelog
-* Thu Aug 23 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.1.f3
+* Thu Aug 23 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.5.f3
 - Update to folsom milestone 3
 
 * Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2012.2-0.4.f1
