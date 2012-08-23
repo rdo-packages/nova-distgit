@@ -96,6 +96,7 @@ Requires:         python-sqlalchemy
 Requires:         python-webob
 Requires:         python-netaddr
 Requires:         python-glanceclient >= 1:0
+Requires:         python-quantumclient >= 1:2
 Requires:         python-novaclient
 Requires:         python-paste-deploy
 Requires:         python-migrate
