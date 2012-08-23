@@ -47,7 +47,7 @@ Requires:         dnsmasq-utils
 Requires:         libguestfs-mount >= 1.7.17
 # The fuse dependency should be added to libguestfs-mount
 Requires:         fuse
-Requires:         libvirt >= 0.8.7
+Requires:         libvirt >= 0.9.6
 Requires:         MySQL-python
 
 Requires:         euca2ools
