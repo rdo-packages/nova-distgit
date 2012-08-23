@@ -45,8 +45,6 @@ Requires:         python-nova = %{version}-%{release}
 Requires:         bridge-utils
 Requires:         dnsmasq-utils
 Requires:         libguestfs-mount >= 1.7.17
-# The fuse dependency should be added to libguestfs-mount
-Requires:         fuse
 Requires:         libvirt >= 0.9.6
 Requires:         MySQL-python
 
