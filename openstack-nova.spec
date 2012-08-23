@@ -37,7 +37,6 @@ BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
-BuildRequires:    python-lockfile
 
 Requires:         openstack-utils
 Requires:         python-nova = %{version}-%{release}
@@ -74,7 +73,6 @@ Group:            Applications/System
 Requires:         vconfig
 Requires:         PyXML
 Requires:         curl
-Requires:         python-crypto
 Requires:         libvirt-python
 Requires:         python-anyjson
 Requires:         python-boto
@@ -83,11 +81,9 @@ Requires:         python-cheetah
 Requires:         python-qpid
 Requires:         python-kombu
 Requires:         python-amqplib
-Requires:         python-daemon
 Requires:         python-eventlet
 Requires:         python-greenlet
 Requires:         python-iso8601
-Requires:         python-lockfile
 Requires:         python-lxml
 Requires:         python-memcached
 Requires:         python-paramiko
