@@ -335,6 +335,8 @@ find . \( -name .gitignore -o -name .placeholder \) -delete
 
 find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
+sed -i '/setuptools_git/d' setup.py
+
 %build
 %{__python} setup.py build
 
