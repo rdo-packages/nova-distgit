@@ -60,7 +60,7 @@ hardware and hypervisor agnostic, currently supporting a variety of
 standard hardware configurations and seven major hypervisors.
 
 %package common
-Summary:          Components common to all OpenStack services
+Summary:          Components common to all OpenStack Nova services
 Group:            Applications/System
 
 Requires:         openstack-utils
