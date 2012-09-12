@@ -38,6 +38,7 @@ BuildRequires:    intltool
 BuildRequires:    python-sphinx
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
+BuildRequires:    openstack-utils
 
 Requires:         openstack-nova-compute = %{version}-%{release}
 Requires:         openstack-nova-cert = %{version}-%{release}
@@ -339,6 +340,15 @@ sed -i '/setuptools_git/d' setup.py
 
 %build
 %{__python} setup.py build
+
+# Move authtoken configuration out of paste.ini
+openstack-config --del etc/nova/api-paste.ini filter:authtoken admin_tenant_name
+openstack-config --del etc/nova/api-paste.ini filter:authtoken admin_user
+openstack-config --del etc/nova/api-paste.ini filter:authtoken admin_password
+openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_host
+openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_port
+openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_protocol
+openstack-config --del etc/nova/api-paste.ini filter:authtoken signing_dirname
 
 %install
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
