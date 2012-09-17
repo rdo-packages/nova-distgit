@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2012.2
-Release:          0.6.f3%{?dist}
+Release:          0.7.f3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -727,6 +727,9 @@ fi
 %endif
 
 %changelog
+* Mon Sep 17 2012 Alan Pevec <apevec@redhat.com> - 2012.2-0.7.f3
+- Remove user config from paste ini files
+
 * Mon Aug 27 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.6.f3
 - Update to folsom milestone 3
 
