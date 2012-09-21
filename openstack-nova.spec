@@ -2,13 +2,13 @@
 
 Name:             openstack-nova
 Version:          2012.2
-Release:          0.7.f3%{?dist}
+Release:          0.8.rc1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/folsom/folsom-1/+download/nova-2012.2~f3.tar.gz
+Source0:          http://launchpad.net/nova/folsom/folsom-rc1/+download/nova-2012.2~rc1.tar.gz
 Source1:          nova.conf
 Source6:          nova.logrotate
 
@@ -29,7 +29,7 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
 #
-# patches_base=folsom-3
+# patches_base=folsom-rc1
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 
@@ -727,6 +727,9 @@ fi
 %endif
 
 %changelog
+* Fri Sep 21 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.8.f3
+- Update to folsom rc1
+
 * Mon Sep 17 2012 Alan Pevec <apevec@redhat.com> - 2012.2-0.7.f3
 - Remove user config from paste ini files
 
