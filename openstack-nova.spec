@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2012.2
-Release:          0.8.rc1%{?dist}
+Release:          0.9.rc1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -732,7 +732,9 @@ fi
 %endif
 
 %changelog
-* Fri Sep 21 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.8.f3
+* Mon Sep 24 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.9.rc1
+
+* Fri Sep 21 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.8.rc1
 - Update to folsom rc1
 - Fix to ensure that tgt configuration is honored
 
