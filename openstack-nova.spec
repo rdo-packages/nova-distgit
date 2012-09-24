@@ -26,6 +26,7 @@ Source20:         openstack-nova-consoleauth.service
 Source25:         openstack-nova-metadata-api.service
 
 Source21:         nova-polkit.pkla
+Source23:         nova-polkit.rules
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
@@ -433,8 +434,12 @@ install -p -D -m 644 %{SOURCE22} %{buildroot}%{_datarootdir}/nova/interfaces.tem
 mkdir -p %{buildroot}%{_datarootdir}/nova/rootwrap/
 install -p -D -m 644 etc/nova/rootwrap.d/* %{buildroot}%{_datarootdir}/nova/rootwrap/
 
+# Older format. Remove when we no longer want to support Fedora 17 with master branch packages
 install -d -m 755 %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d
 install -p -D -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/50-nova.pkla
+# Newer format since Fedora 18
+install -d -m 755 %{buildroot}%{_sysconfdir}/polkit-1/rules.d
+install -p -D -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/polkit-1/rules.d/50-nova.rules
 
 # Remove unneeded in production stuff
 rm -f %{buildroot}%{_bindir}/nova-debug
@@ -640,6 +645,7 @@ fi
 %config(noreplace) %{_sysconfdir}/logrotate.d/openstack-nova
 %config(noreplace) %{_sysconfdir}/sudoers.d/nova
 %config(noreplace) %{_sysconfdir}/polkit-1/localauthority/50-local.d/50-nova.pkla
+%config(noreplace) %{_sysconfdir}/polkit-1/rules.d/50-nova.rules
 
 %dir %attr(0755, nova, root) %{_localstatedir}/log/nova
 %dir %attr(0755, nova, root) %{_localstatedir}/run/nova
@@ -733,6 +739,7 @@ fi
 
 %changelog
 * Mon Sep 24 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.9.rc1
+- Support newer polkit config format to allow communication with libvirtd
 
 * Fri Sep 21 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.8.rc1
 - Update to folsom rc1
