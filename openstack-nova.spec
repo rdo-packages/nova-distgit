@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2012.2
-Release:          0.9.rc1%{?dist}
+Release:          0.10.rc1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -738,7 +738,7 @@ fi
 %endif
 
 %changelog
-* Mon Sep 24 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.9.rc1
+* Wed Sep 26 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.10.rc1
 - Support newer polkit config format to allow communication with libvirtd
 
 * Fri Sep 21 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.8.rc1
