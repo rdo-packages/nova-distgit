@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2012.2
-Release:          0.10.rc1%{?dist}
+Release:          0.11.rc1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -738,12 +738,12 @@ fi
 %endif
 
 %changelog
-* Wed Sep 26 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.10.rc1
+* Wed Sep 26 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.11.rc1
 - Support newer polkit config format to allow communication with libvirtd
+- Fix to ensure that tgt configuration is honored
 
 * Fri Sep 21 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.8.rc1
 - Update to folsom rc1
-- Fix to ensure that tgt configuration is honored
 
 * Mon Sep 17 2012 Alan Pevec <apevec@redhat.com> - 2012.2-0.7.f3
 - Remove user config from paste ini files
