@@ -2,13 +2,14 @@
 
 Name:             openstack-nova
 Version:          2012.2
-Release:          0.11.rc1%{?dist}
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/folsom/folsom-rc1/+download/nova-2012.2~rc1.tar.gz
+Source0:          http://launchpad.net/nova/folsom/%{version}/+download/nova-%{version}.tar.gz
+
 Source1:          nova.conf
 Source3:          nova-tgt.conf
 Source6:          nova.logrotate
@@ -31,7 +32,7 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
 #
-# patches_base=folsom-rc1
+# patches_base=2012.2
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 
@@ -738,6 +739,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 27 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-1
+- Update to folsom final
+
 * Wed Sep 26 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-0.11.rc1
 - Support newer polkit config format to allow communication with libvirtd
 - Fix to ensure that tgt configuration is honored
