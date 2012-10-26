@@ -448,9 +448,7 @@ rm -fr %{buildroot}%{python_sitelib}/run_tests.*
 rm -f %{buildroot}%{_bindir}/nova-combined
 rm -f %{buildroot}/usr/share/doc/nova/README*
 
-# TODO. On F18 branch of novnc package, move the openstack-nova-novncproxy
-# subpackage to the openstack-nova-console subpackage here, and have
-# it provide openstack-nova-novncproxy
+# We currently use the equivalent file from the novnc package
 rm -f %{buildroot}%{_bindir}/nova-novncproxy
 
 %pre common
