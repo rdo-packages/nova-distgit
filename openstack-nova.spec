@@ -428,7 +428,6 @@ install -d -m 755 %{buildroot}%{_localstatedir}/run/nova
 
 # Install template files
 install -p -D -m 644 nova/cloudpipe/client.ovpn.template %{buildroot}%{_datarootdir}/nova/client.ovpn.template
-install -p -D -m 644 nova/virt/interfaces.template %{buildroot}%{_datarootdir}/nova/interfaces.template
 install -p -D -m 644 %{SOURCE22} %{buildroot}%{_datarootdir}/nova/interfaces.template
 
 # Install rootwrap files in /usr/share/nova/rootwrap
