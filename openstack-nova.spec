@@ -124,6 +124,7 @@ Requires:         openstack-nova-common = %{version}-%{release}
 Requires:         vconfig
 Requires:         radvd
 Requires:         bridge-utils
+Requires:         dnsmasq
 Requires:         dnsmasq-utils
 
 %description network
@@ -272,7 +273,6 @@ Requires:         python-qpid
 Requires:         python-kombu
 Requires:         python-amqplib
 
-Requires:         python-daemon
 Requires:         python-eventlet
 Requires:         python-greenlet
 Requires:         python-iso8601
