@@ -265,7 +265,8 @@ Summary:          Nova Python libraries
 Group:            Applications/System
 
 Requires:         openssl
-Requires:         openssh # for ssh-keygen
+# Require openssh for ssh-keygen
+Requires:         openssh
 Requires:         sudo
 
 Requires:         MySQL-python
