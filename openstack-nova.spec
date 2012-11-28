@@ -1,14 +1,14 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 
 Name:             openstack-nova
-Version:          2012.2
-Release:          1%{?dist}
+Version:          2013.1
+Release:          0.1.g1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/folsom/%{version}/+download/nova-%{version}.tar.gz
+Source0:          http://launchpad.net/nova/grizzly/grizzly-1/+download/nova-2013.1~g1.tar.gz
 
 Source1:          nova.conf
 Source3:          nova-tgt.conf
@@ -32,7 +32,7 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
 #
-# patches_base=2012.2
+# patches_base=grizzly-1
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 
@@ -740,6 +740,9 @@ fi
 %endif
 
 %changelog
+* Wed Nov 28 2012 Nikola Đipanov <ndipanov@redhat.com> 2013.1-0.1.g1
+- Update to Grizzlt milestone 1
+
 * Thu Sep 27 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-1
 - Update to folsom final
 
