@@ -67,7 +67,6 @@ standard hardware configurations and seven major hypervisors.
 Summary:          Components common to all OpenStack Nova services
 Group:            Applications/System
 
-Requires:         openstack-utils
 Requires:         python-nova = %{version}-%{release}
 
 Requires(post):   systemd-units
@@ -98,7 +97,7 @@ Requires:         curl
 Requires:         iscsi-initiator-utils
 Requires:         iptables iptables-ipv6
 Requires:         vconfig
-Requires:         libguestfs-mount >= 1.7.17
+Requires:         python-libguestfs
 Requires:         libvirt >= 0.9.6
 Requires:         libvirt-python
 Requires:         openssh-clients
@@ -463,10 +462,6 @@ exit 0
 
 %pre compute
 usermod -a -G qemu nova
-# Add nova to the fuse group (if present) to support guestmount
-if getent group fuse >/dev/null; then
-  usermod -a -G fuse nova
-fi
 exit 0
 
 %post compute
@@ -722,7 +717,11 @@ fi
 
 %changelog
 * Wed Nov 28 2012 Nikola Đipanov <ndipanov@redhat.com> 2013.1-0.1.g1
-- Update to Grizzlt milestone 1
+- Update to Grizzly milestone 1
+- Remove volume subpackage - removed from Grizzly
+- Add the conductor subpackage - new service added in Grizzly
+- Depend on python-libguestfs instead of libguestfs-mount
+- Don't add the nova user to the group fuse
 
 * Thu Sep 27 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-1
 - Update to folsom final
