@@ -24,6 +24,7 @@ Source18:         openstack-nova-xvpvncproxy.service
 Source19:         openstack-nova-console.service
 Source20:         openstack-nova-consoleauth.service
 Source25:         openstack-nova-metadata-api.service
+Source26:         openstack-nova-conductor.service
 
 Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
@@ -48,6 +49,7 @@ Requires:         openstack-nova-scheduler = %{version}-%{release}
 Requires:         openstack-nova-api = %{version}-%{release}
 Requires:         openstack-nova-network = %{version}-%{release}
 Requires:         openstack-nova-objectstore = %{version}-%{release}
+Requires:         openstack-nova-conductor = %{version}-%{release}
 Requires:         openstack-nova-console = %{version}-%{release}
 
 
@@ -199,6 +201,24 @@ standard hardware configurations and seven major hypervisors.
 
 This package contains the Nova services providing programmatic access.
 
+%package conductor
+Summary:          OpenStack Nova Conductor services
+Group:            Applications/System
+
+Requires:         openstack-nova-common = %{version}-%{release}
+
+%description conductor
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform. It gives you the
+software, control panels, and APIs required to orchestrate a cloud,
+including running instances, managing networks, and controlling access
+through users and projects. OpenStack Compute strives to be both
+hardware and hypervisor agnostic, currently supporting a variety of
+standard hardware configurations and seven major hypervisors.
+
+This package contains the Nova services providing database access for
+the compute service
 
 %package objectstore
 Summary:          OpenStack Nova simple object store service
@@ -398,6 +418,7 @@ install -p -D -m 755 %{SOURCE18} %{buildroot}%{_unitdir}/openstack-nova-xvpvncpr
 install -p -D -m 755 %{SOURCE19} %{buildroot}%{_unitdir}/openstack-nova-console.service
 install -p -D -m 755 %{SOURCE20} %{buildroot}%{_unitdir}/openstack-nova-consoleauth.service
 install -p -D -m 755 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata-api.service
+install -p -D -m 755 %{SOURCE26} %{buildroot}%{_unitdir}/openstack-nova-conductor.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -469,6 +490,11 @@ if [ $1 -eq 1 ] ; then
     /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 fi
 %post api
+if [ $1 -eq 1 ] ; then
+    # Initial installation
+    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
+fi
+%post conductor
 if [ $1 -eq 1 ] ; then
     # Initial installation
     /bin/systemctl daemon-reload >/dev/null 2>&1 || :
@@ -578,7 +604,7 @@ fi
 /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 if [ $1 -ge 1 ] ; then
     # Package upgrade, not uninstall
-    for svc in objectstore; do
+    for svc in conductor; do
         /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
     done
 fi
@@ -632,6 +658,7 @@ fi
 %{_bindir}/nova-compute
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
+%config(noreplace) %{_sysconfdir}/tgt/conf.d/nova.conf
 
 %files network
 %{_bindir}/nova-network
@@ -667,6 +694,10 @@ fi
 %{_bindir}/nova-api*
 %{_unitdir}/openstack-nova-*api.service
 %{_datarootdir}/nova/rootwrap/api-metadata.filters
+
+%files conductor
+%{_bindir}/nova-conductor
+%{_unitdir}/openstack-nova-conductor.service
 
 %files objectstore
 %{_bindir}/nova-objectstore
