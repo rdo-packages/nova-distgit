@@ -602,11 +602,11 @@ if [ $1 -ge 1 ] ; then
         /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
     done
 fi
-%postun conductor
+%postun objectstore
 /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 if [ $1 -ge 1 ] ; then
     # Package upgrade, not uninstall
-    for svc in conductor; do
+    for svc in objectstore; do
         /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
     done
 fi
