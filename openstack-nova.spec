@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.1
-Release:          0.1.g1%{?dist}
+Release:          0.2.g1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -731,6 +731,9 @@ fi
 %endif
 
 %changelog
+* Thu Nov 29 2012 Nikola Đipanov <ndipanov@redhat.com> 2013.1-0.2.g1
+-Fix a few spec file issues introduced by the Grizzly update
+
 * Wed Nov 28 2012 Nikola Đipanov <ndipanov@redhat.com> 2013.1-0.1.g1
 - Update to Grizzly milestone 1
 - Remove volume subpackage - removed from Grizzly
