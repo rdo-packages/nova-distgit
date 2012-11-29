@@ -547,6 +547,13 @@ if [ $1 -eq 0 ] ; then
         /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
     done
 fi
+%preun conductor
+if [ $1 -eq 0 ] ; then
+    for svc in conductor; do
+        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
+        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
+    done
+fi
 %preun console
 if [ $1 -eq 0 ] ; then
     for svc in console consoleauth xvpvncproxy; do
@@ -595,7 +602,15 @@ if [ $1 -ge 1 ] ; then
         /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
     done
 fi
-%postun objectstore
+%postun conductor
+/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+if [ $1 -ge 1 ] ; then
+    # Package upgrade, not uninstall
+    for svc in conductor; do
+        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
+    done
+fi
+%postun conductor
 /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 if [ $1 -ge 1 ] ; then
     # Package upgrade, not uninstall
@@ -722,6 +737,7 @@ fi
 - Add the conductor subpackage - new service added in Grizzly
 - Depend on python-libguestfs instead of libguestfs-mount
 - Don't add the nova user to the group fuse
+- Removes openstack-utils from requirements for nova-common
 
 * Thu Sep 27 2012 Pádraig Brady <pbrady@redhat.com> - 2012.2-1
 - Update to folsom final
