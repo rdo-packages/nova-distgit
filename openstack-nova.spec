@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.1
-Release:          0.2.g1%{?dist}
+Release:          0.3.g1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -353,7 +353,7 @@ openstack-config --del etc/nova/api-paste.ini filter:authtoken admin_password
 openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_host
 openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_port
 openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_protocol
-openstack-config --del etc/nova/api-paste.ini filter:authtoken signing_dirname
+openstack-config --del etc/nova/api-paste.ini filter:authtoken signing_dir
 
 %install
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
@@ -731,6 +731,9 @@ fi
 %endif
 
 %changelog
+* Thu Dec 06 2012 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-0.3.g1
+- signing_dir renamed from incorrect signing_dirname in default nova.conf
+
 * Thu Nov 29 2012 Nikola Đipanov <ndipanov@redhat.com> 2013.1-0.2.g1
 -Fix a few spec file issues introduced by the Grizzly update
 
