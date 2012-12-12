@@ -343,6 +343,8 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
 sed -i '/setuptools_git/d' setup.py
 
+sed -i s/LOCALBRANCH:LOCALREVISION/%{release}/ nova/version.py
+
 %build
 %{__python} setup.py build
 
