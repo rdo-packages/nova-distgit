@@ -2,13 +2,13 @@
 
 Name:             openstack-nova
 Version:          2013.1
-Release:          0.3.g1%{?dist}
+Release:          0.4.g2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/grizzly/grizzly-1/+download/nova-2013.1~g1.tar.gz
+Source0:          http://launchpad.net/nova/grizzly/grizzly-1/+download/nova-2013.1~g2.tar.gz
 
 Source1:          nova.conf
 Source3:          nova-tgt.conf
@@ -25,6 +25,7 @@ Source19:         openstack-nova-console.service
 Source20:         openstack-nova-consoleauth.service
 Source25:         openstack-nova-metadata-api.service
 Source26:         openstack-nova-conductor.service
+Source27:         openstack-nova-cells.service
 
 Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
@@ -32,7 +33,7 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
 #
-# patches_base=grizzly-1
+# patches_base=grizzly-2
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 
@@ -51,6 +52,7 @@ Requires:         openstack-nova-network = %{version}-%{release}
 Requires:         openstack-nova-objectstore = %{version}-%{release}
 Requires:         openstack-nova-conductor = %{version}-%{release}
 Requires:         openstack-nova-console = %{version}-%{release}
+Requires:         openstack-nova-cells = %{version}-%{release}
 
 
 %description
@@ -257,6 +259,24 @@ standard hardware configurations and seven major hypervisors.
 This package contains the Nova services providing
 console access services to Virtual Machines.
 
+%package cells
+Summary:          OpenStack Nova Cells services
+Group:            Applications/System
+
+Requires:         openstack-nova-common = %{version}-%{release}
+
+%description cells
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform. It gives you the
+software, control panels, and APIs required to orchestrate a cloud,
+including running instances, managing networks, and controlling access
+through users and projects. OpenStack Compute strives to be both
+hardware and hypervisor agnostic, currently supporting a variety of
+standard hardware configurations and seven major hypervisors.
+
+This package contains the Nova Cells service providing additional 
+scaling and (geographic) distribution for compute services.
 
 %package -n       python-nova
 Summary:          Nova Python libraries
@@ -284,6 +304,7 @@ Requires:         python-anyjson
 Requires:         python-boto
 Requires:         python-cheetah
 Requires:         python-ldap
+Requires:         python-stevedore
 
 Requires:         python-memcached
 
@@ -408,6 +429,14 @@ install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/root
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
 install -p -D -m 640 etc/nova/policy.json %{buildroot}%{_sysconfdir}/nova/policy.json
 
+# Install version info file
+cat > %{buildroot}%{_sysconfdir}/nova/release <<EOF
+[Nova]
+vendor = Fedora Project
+product = OpenStack Nova
+package = %{release}
+EOF
+
 # Install initscripts for Nova services
 install -p -D -m 755 %{SOURCE10} %{buildroot}%{_unitdir}/openstack-nova-api.service
 install -p -D -m 755 %{SOURCE11} %{buildroot}%{_unitdir}/openstack-nova-cert.service
@@ -420,6 +449,7 @@ install -p -D -m 755 %{SOURCE19} %{buildroot}%{_unitdir}/openstack-nova-console.
 install -p -D -m 755 %{SOURCE20} %{buildroot}%{_unitdir}/openstack-nova-consoleauth.service
 install -p -D -m 755 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata-api.service
 install -p -D -m 755 %{SOURCE26} %{buildroot}%{_unitdir}/openstack-nova-conductor.service
+install -p -D -m 755 %{SOURCE27} %{buildroot}%{_unitdir}/openstack-nova-cells.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -507,6 +537,12 @@ if [ $1 -eq 1 ] ; then
     /bin/systemctl daemon-reload >/dev/null 2>&1 || :
 fi
 
+%post cells
+if [ $1 -eq 1 ] ; then
+    # Initial installation
+    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
+fi
+
 %preun compute
 if [ $1 -eq 0 ] ; then
     for svc in compute; do
@@ -559,6 +595,13 @@ fi
 %preun console
 if [ $1 -eq 0 ] ; then
     for svc in console consoleauth xvpvncproxy; do
+        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
+        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
+    done
+fi
+%preun cells
+if [ $1 -eq 0 ] ; then
+    for svc in cells; do
         /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
         /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
     done
@@ -628,6 +671,14 @@ if [ $1 -ge 1 ] ; then
         /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
     done
 fi
+%postun cells
+/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+if [ $1 -ge 1 ] ; then
+    # Package upgrade, not uninstall
+    for svc in cells; do
+        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
+    done
+fi
 
 %files
 %doc LICENSE
@@ -636,6 +687,7 @@ fi
 %files common
 %doc LICENSE
 %dir %{_sysconfdir}/nova
+%{_sysconfdir}/nova/release
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova.conf
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/api-paste.ini
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/rootwrap.conf
@@ -668,6 +720,8 @@ fi
 
 %files compute
 %{_bindir}/nova-compute
+%{_bindir}/nova-baremetal-deploy-helper
+%{_bindir}/nova-baremetal-manage
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
 %config(noreplace) %{_sysconfdir}/tgt/conf.d/nova.conf
@@ -721,6 +775,10 @@ fi
 %{_unitdir}/openstack-nova-console*.service
 %{_unitdir}/openstack-nova-xvpvncproxy.service
 
+%files cells
+%{_bindir}/nova-cells
+%{_unitdir}/openstack-nova-cells.service
+
 %files -n python-nova
 %defattr(-,root,root,-)
 %doc LICENSE
@@ -733,6 +791,12 @@ fi
 %endif
 
 %changelog
+* Fri Jan 11 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-0.4.g2
+- Update to Grizzly milestone 2
+- Add the version info file
+- Add python-stevedore dependency
+- Add the cells subpackage and service file
+
 * Thu Dec 06 2012 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-0.3.g1
 - signing_dir renamed from incorrect signing_dirname in default nova.conf
 
