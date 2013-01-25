@@ -404,7 +404,6 @@ popd
 # Setup directories
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/buckets
-install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/images
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/instances
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/keys
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/networks
@@ -712,7 +711,6 @@ fi
 %defattr(-, nova, nova, -)
 %dir %{_sharedstatedir}/nova
 %dir %{_sharedstatedir}/nova/buckets
-%dir %{_sharedstatedir}/nova/images
 %dir %{_sharedstatedir}/nova/instances
 %dir %{_sharedstatedir}/nova/keys
 %dir %{_sharedstatedir}/nova/networks
