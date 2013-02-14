@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.1
-Release:          0.4.g2%{?dist}
+Release:          0.5.g2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -789,6 +789,9 @@ fi
 %endif
 
 %changelog
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2013.1-0.5.g2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Fri Jan 11 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-0.4.g2
 - Update to Grizzly milestone 2
 - Add the version info file
