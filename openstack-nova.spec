@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.1
-Release:          0.7.g3%{?dist}
+Release:          0.8.g3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -796,6 +796,9 @@ fi
 %endif
 
 %changelog
+* Thu Feb 28 2013 Dan Prince <dprince@redhat.com> - 2013.1-0.8.g3
+- Use LIBGUESTFS_ATTACH_METHOD=appliance to allow injection to work
+
 * Tue Feb 26 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-0.7.g3
 - Fix dependency issues caused by the Milestone 3 update
 
