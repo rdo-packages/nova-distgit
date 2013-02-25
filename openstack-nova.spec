@@ -2,13 +2,13 @@
 
 Name:             openstack-nova
 Version:          2013.1
-Release:          0.5.g2%{?dist}
+Release:          0.6.g3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/grizzly/grizzly-1/+download/nova-2013.1~g2.tar.gz
+Source0:          https://launchpad.net/nova/grizzly/grizzly-3/+download/nova-2013.1.g3.tar.gz
 
 Source1:          nova.conf
 Source3:          nova-tgt.conf
@@ -33,7 +33,7 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
 #
-# patches_base=grizzly-2
+# patches_base=2013.1.g3
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 
@@ -354,7 +354,7 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}
+%setup -q -n nova-%{version}.g3
 
 %patch0001 -p1
 
@@ -770,6 +770,7 @@ fi
 %files console
 %{_bindir}/nova-console*
 %{_bindir}/nova-xvpvncproxy
+%{_bindir}/nova-spicehtml5proxy
 %{_unitdir}/openstack-nova-console*.service
 %{_unitdir}/openstack-nova-xvpvncproxy.service
 
@@ -781,7 +782,7 @@ fi
 %defattr(-,root,root,-)
 %doc LICENSE
 %{python_sitelib}/nova
-%{python_sitelib}/nova-%{version}-*.egg-info
+%{python_sitelib}/nova-%{version}*.egg-info
 
 %if 0%{?with_doc}
 %files doc
@@ -789,6 +790,9 @@ fi
 %endif
 
 %changelog
+* Mon Feb 25 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-0.6.g3
+- Update to Grizzly milestone 3
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2013.1-0.5.g2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
