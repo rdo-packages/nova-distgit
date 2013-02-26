@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.1
-Release:          0.6.g3%{?dist}
+Release:          0.7.g3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -26,6 +26,7 @@ Source20:         openstack-nova-consoleauth.service
 Source25:         openstack-nova-metadata-api.service
 Source26:         openstack-nova-conductor.service
 Source27:         openstack-nova-cells.service
+Source28:         openstack-nova-spicehtml5proxy.service
 
 Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
@@ -245,6 +246,7 @@ Summary:          OpenStack Nova console access services
 Group:            Applications/System
 
 Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         python-websockify
 
 %description console
 OpenStack Compute (codename Nova) is open source software designed to
@@ -318,6 +320,8 @@ Requires:         python-webob
 Requires:         python-glanceclient >= 1:0
 Requires:         python-quantumclient >= 1:2
 Requires:         python-novaclient
+Requires:         python-oslo-config
+Requires:         python-pyasn1
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
@@ -449,6 +453,7 @@ install -p -D -m 755 %{SOURCE20} %{buildroot}%{_unitdir}/openstack-nova-consolea
 install -p -D -m 755 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata-api.service
 install -p -D -m 755 %{SOURCE26} %{buildroot}%{_unitdir}/openstack-nova-conductor.service
 install -p -D -m 755 %{SOURCE27} %{buildroot}%{_unitdir}/openstack-nova-cells.service
+install -p -D -m 755 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtml5proxy.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -773,6 +778,7 @@ fi
 %{_bindir}/nova-spicehtml5proxy
 %{_unitdir}/openstack-nova-console*.service
 %{_unitdir}/openstack-nova-xvpvncproxy.service
+%{_unitdir}/openstack-nova-spicehtml5proxy.service
 
 %files cells
 %{_bindir}/nova-cells
@@ -790,6 +796,9 @@ fi
 %endif
 
 %changelog
+* Tue Feb 26 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-0.7.g3
+- Fix dependency issues caused by the Milestone 3 update
+
 * Mon Feb 25 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-0.6.g3
 - Update to Grizzly milestone 3
 
