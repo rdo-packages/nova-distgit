@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.1
-Release:          0.8.g3%{?dist}
+Release:          0.9.g3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -334,8 +334,6 @@ This package contains the nova Python library.
 %package doc
 Summary:          Documentation for OpenStack Compute
 Group:            Documentation
-
-Requires:         %{name} = %{version}-%{release}
 
 BuildRequires:    systemd-units
 BuildRequires:    graphviz
@@ -796,6 +794,9 @@ fi
 %endif
 
 %changelog
+* Tue Mar 12 2013 Pádraig Brady - 2013.1-0.9.g3
+- Allow openstack-nova-doc to be installed in isolation
+
 * Thu Feb 28 2013 Dan Prince <dprince@redhat.com> - 2013.1-0.8.g3
 - Use LIBGUESTFS_ATTACH_METHOD=appliance to allow injection to work
 
