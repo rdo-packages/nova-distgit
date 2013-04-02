@@ -2,13 +2,13 @@
 
 Name:             openstack-nova
 Version:          2013.1
-Release:          0.11.rc1%{?dist}
+Release:          0.12.rc2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://launchpad.net/nova/grizzly/grizzly-rc1/+download/nova-2013.1.rc1.tar.gz
+Source0:          https://launchpad.net/nova/grizzly/grizzly-rc2/+download/nova-2013.1.rc2.tar.gz
 
 Source1:          nova.conf
 Source6:          nova.logrotate
@@ -33,7 +33,7 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
 #
-# patches_base=2013.1.rc1
+# patches_base=2013.1.rc2
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 
@@ -355,7 +355,7 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}.rc1
+%setup -q -n nova-%{version}.rc2
 
 %patch0001 -p1
 
@@ -790,6 +790,9 @@ fi
 %endif
 
 %changelog
+* Tue Apr 02 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-0.12.rc2
+- Update to Grizzly rc2
+
 * Fri Mar 22 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-0.11.rc1
 - Update to Grizzly rc1
 
