@@ -1,0 +1,116 @@
+From f711f9db519c0c7981025993212607a2d601c50b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?P=C3=A1draig=20Brady?= <pbrady@redhat.com>
+Date: Fri, 29 Mar 2013 16:50:24 +0000
+Subject: [PATCH] improve handling of an empty dnsmasq --domain
+
+Currently all domains passed through the dnsmasq --domain option,
+are single quoted.  It's not fully understood how dnsmasq handles
+single quotes in this situation, so it's safer to just avoid the
+--domain option in this case.
+
+Fixes bug: 1161506
+Fixes bug: 1167447
+Change-Id: I8ecd996676189f53908abd48fee81132091ee820
+Cherry-picked: 24b9731af34fbc2fb17c849cb8cdb5c7a10db77d
+---
+ nova/network/linux_net.py            |    6 +++-
+ nova/tests/network/test_linux_net.py |   55 +++++++++++++++++++---------------
+ 2 files changed, 36 insertions(+), 25 deletions(-)
+
+diff --git a/nova/network/linux_net.py b/nova/network/linux_net.py
+index 24babf1..ccbe46d 100644
+--- a/nova/network/linux_net.py
++++ b/nova/network/linux_net.py
+@@ -1015,7 +1015,6 @@ def restart_dhcp(context, dev, network_ref):
+            '--strict-order',
+            '--bind-interfaces',
+            '--conf-file=%s' % CONF.dnsmasq_config_file,
+-           '--domain=\'%s\'' % CONF.dhcp_domain,
+            '--pid-file=%s' % _dhcp_file(dev, 'pid'),
+            '--listen-address=%s' % network_ref['dhcp_server'],
+            '--except-interface=lo',
+@@ -1029,6 +1028,11 @@ def restart_dhcp(context, dev, network_ref):
+            '--dhcp-script=%s' % CONF.dhcpbridge,
+            '--leasefile-ro']
+ 
++    # dnsmasq currently gives an error for an empty domain,
++    # rather than ignoring.  So only specify it if defined.
++    if CONF.dhcp_domain:
++        cmd.append('--domain=%s' % CONF.dhcp_domain)
++
+     dns_servers = set(CONF.dns_server)
+     if CONF.use_network_dns_servers:
+         if network_ref.get('dns1'):
+diff --git a/nova/tests/network/test_linux_net.py b/nova/tests/network/test_linux_net.py
+index ab8b00a..1295055 100644
+--- a/nova/tests/network/test_linux_net.py
++++ b/nova/tests/network/test_linux_net.py
+@@ -484,7 +484,6 @@ class LinuxNetworkTestCase(test.TestCase):
+                        'dns1': '8.8.4.4',
+                        'dhcp_start': '1.0.0.2',
+                        'dhcp_server': '10.0.0.1'}
+-        executes = []
+ 
+         def fake_execute(*args, **kwargs):
+             executes.append(args)
+@@ -496,29 +495,37 @@ class LinuxNetworkTestCase(test.TestCase):
+         self.stubs.Set(linux_net, 'write_to_file', lambda *a, **kw: None)
+         self.stubs.Set(linux_net, '_dnsmasq_pid_for', lambda *a, **kw: None)
+         dev = 'br100'
+-        linux_net.restart_dhcp(self.context, dev, network_ref)
+-        expected = ['env',
+-          'CONFIG_FILE=%s' % jsonutils.dumps(CONF.dhcpbridge_flagfile),
+-          'NETWORK_ID=fake',
+-          'dnsmasq',
+-          '--strict-order',
+-          '--bind-interfaces',
+-          '--conf-file=%s' % CONF.dnsmasq_config_file,
+-          '--domain=\'%s\'' % CONF.dhcp_domain,
+-          '--pid-file=%s' % linux_net._dhcp_file(dev, 'pid'),
+-          '--listen-address=%s' % network_ref['dhcp_server'],
+-          '--except-interface=lo',
+-          "--dhcp-range=set:%s,%s,static,%s,%ss" % (network_ref['label'],
+-                                                   network_ref['dhcp_start'],
+-                                                   network_ref['netmask'],
+-                                                   CONF.dhcp_lease_time),
+-          '--dhcp-lease-max=256',
+-          '--dhcp-hostsfile=%s' % linux_net._dhcp_file(dev, 'conf'),
+-          '--dhcp-script=%s' % CONF.dhcpbridge,
+-          '--leasefile-ro']
+-        if extra_expected:
+-            expected += extra_expected
+-        self.assertEqual([tuple(expected)], executes)
++
++        default_domain = CONF.dhcp_domain
++        for domain in ('', default_domain):
++            executes = []
++            CONF.dhcp_domain = domain
++            linux_net.restart_dhcp(self.context, dev, network_ref)
++            expected = ['env',
++            'CONFIG_FILE=%s' % jsonutils.dumps(CONF.dhcpbridge_flagfile),
++            'NETWORK_ID=fake',
++            'dnsmasq',
++            '--strict-order',
++            '--bind-interfaces',
++            '--conf-file=%s' % CONF.dnsmasq_config_file,
++            '--pid-file=%s' % linux_net._dhcp_file(dev, 'pid'),
++            '--listen-address=%s' % network_ref['dhcp_server'],
++            '--except-interface=lo',
++            "--dhcp-range=set:%s,%s,static,%s,%ss" % (network_ref['label'],
++                                                    network_ref['dhcp_start'],
++                                                    network_ref['netmask'],
++                                                    CONF.dhcp_lease_time),
++            '--dhcp-lease-max=256',
++            '--dhcp-hostsfile=%s' % linux_net._dhcp_file(dev, 'conf'),
++            '--dhcp-script=%s' % CONF.dhcpbridge,
++            '--leasefile-ro']
++
++            if CONF.dhcp_domain:
++                expected.append('--domain=%s' % CONF.dhcp_domain)
++
++            if extra_expected:
++                expected += extra_expected
++            self.assertEqual([tuple(expected)], executes)
+ 
+     def test_dnsmasq_execute(self):
+         self._test_dnsmasq_execute()

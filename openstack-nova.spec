@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -36,6 +36,7 @@ Source24:         nova-sudoers
 # patches_base=2013.1
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
+Patch0002: 0002-improve-handling-of-an-empty-dnsmasq-domain.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -358,6 +359,7 @@ This package contains documentation files for nova.
 %setup -q -n nova-%{version}
 
 %patch0001 -p1
+%patch0002 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -790,6 +792,8 @@ fi
 %endif
 
 %changelog
+* Thu Apr 11 2013 Nikola Đipanov <pbrady@redhat.com> - 2013.1-2
+- Fix nova network dnsmasq invocation failure #951144
 
 * Mon Apr 08 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-1
 - Update to Grizzly final
