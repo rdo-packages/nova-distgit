@@ -1,8 +1,8 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 
 Name:             openstack-nova
-Version:          2013.1
-Release:          3%{?dist}
+Version:          2013.1.1
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -33,10 +33,9 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
 #
-# patches_base=2013.1
+# patches_base=2013.1.1
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0002: 0002-improve-handling-of-an-empty-dnsmasq-domain.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -360,7 +359,6 @@ This package contains documentation files for nova.
 %setup -q -n nova-%{version}
 
 %patch0001 -p1
-%patch0002 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -793,6 +791,9 @@ fi
 %endif
 
 %changelog
+* Mon May 13 2013 Pádraig Brady <pbrady@redhat.com> - 2013.1.1-1
+- Update to stable/grizzly 2013.1.1 release
+
 * Fri May 10 2013 Pádraig Brady <pbrady@redhat.com> - 2013.1-3
 - Make openstack-nova-network depend on ebtables #961567
 
