@@ -8,7 +8,7 @@ Summary:          OpenStack Compute (nova)
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://launchpad.net/nova/grizzly/2013.1/+download/nova-2013.1.tar.gz
+Source0:          https://launchpad.net/nova/grizzly/2013.1/+download/nova-%{version}.tar.gz
 
 Source1:          nova.conf
 Source6:          nova.logrotate
