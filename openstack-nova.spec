@@ -793,7 +793,7 @@ fi
 %endif
 
 %changelog
-* Mon Apr 08 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-2
+* Fri May 17 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-2
 - Check QCOW2 image size during root disk creation (CVE-2013-2096)
 
 * Mon May 13 2013 Pádraig Brady <pbrady@redhat.com> - 2013.1.1-1
