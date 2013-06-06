@@ -1,14 +1,14 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 
 Name:             openstack-nova
-Version:          2013.1.1
-Release:          2%{?dist}
+Version:          2013.2
+Release:          0.1.h1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://launchpad.net/nova/grizzly/2013.1/+download/nova-%{version}.tar.gz
+Source0:	  https://launchpad.net/nova/havana/havana-1/+download/nova-%{version}.b1.tar.gz
 
 Source1:          nova.conf
 Source6:          nova.logrotate
@@ -33,10 +33,10 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 
 #
-# patches_base=2013.1.1
+# patches_base=2013.2.b1
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0002: 0002-Check-QCOW2-image-size-during-root-disk-creation.patch
+Patch0002: 0002-Remove-a-run-time-dep-on-python-pbr.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -44,6 +44,8 @@ BuildRequires:    python-sphinx
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
 BuildRequires:    openstack-utils
+BuildRequires:    python-pbr
+BuildRequires:    python-d2to1
 
 Requires:         openstack-nova-compute = %{version}-%{release}
 Requires:         openstack-nova-cert = %{version}-%{release}
@@ -357,7 +359,7 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}
+%setup -q -n nova-%{version}.b1
 
 %patch0001 -p1
 %patch0002 -p1
@@ -367,8 +369,6 @@ find . \( -name .gitignore -o -name .placeholder \) -delete
 find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
 sed -i '/setuptools_git/d' setup.py
-
-sed -i s/LOCALBRANCH:LOCALREVISION/%{release}/ nova/version.py
 
 %build
 %{__python} setup.py build
@@ -793,6 +793,11 @@ fi
 %endif
 
 %changelog
+* Fri Jun 7 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.1.h1
+- Update to Havana milestone 1
+- Add a build-time dep on python-d2to1
+- Add a build-time dep on python-pbr
+
 * Fri May 17 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.1-2
 - Check QCOW2 image size during root disk creation (CVE-2013-2096)
 
