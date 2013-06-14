@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.2.h1%{?dist}
+Release:          0.3.h1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -36,7 +36,7 @@ Source24:         nova-sudoers
 # patches_base=2013.2.b1
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0002: 0002-Remove-a-runtime-dep-on-python-pbr-package.patch
+Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -371,6 +371,7 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
 sed -i '/setuptools_git/d' setup.py
 sed -i s/REDHATNOVAVERSION/%{version}/ nova/version.py
+sed -i s/REDHATNOVARELEASE/%{release}/ nova/version.py
 
 %build
 %{__python} setup.py build
@@ -795,6 +796,9 @@ fi
 %endif
 
 %changelog
+* Fri Jun 14 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.3.h1
+- Fix an issue with the version string
+
 * Mon Jun 10 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.2.h1
 - Add a runtime dep on python-six
 - Fix verision reporting
