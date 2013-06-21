@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.4.h1%{?dist}
+Release:          0.5.h1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -26,6 +26,7 @@ Source25:         openstack-nova-metadata-api.service
 Source26:         openstack-nova-conductor.service
 Source27:         openstack-nova-cells.service
 Source28:         openstack-nova-spicehtml5proxy.service
+Source29:         openstack-nova-novncproxy.service
 
 Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
@@ -56,6 +57,7 @@ Requires:         openstack-nova-objectstore = %{version}-%{release}
 Requires:         openstack-nova-conductor = %{version}-%{release}
 Requires:         openstack-nova-console = %{version}-%{release}
 Requires:         openstack-nova-cells = %{version}-%{release}
+Requires:         openstack-nova-novncproxy = %{version}-%{release}
 
 
 %description
@@ -283,6 +285,28 @@ standard hardware configurations and seven major hypervisors.
 This package contains the Nova Cells service providing additional 
 scaling and (geographic) distribution for compute services.
 
+%package novncproxy
+Summary:          OpenStack Nova noVNC proxy service
+Group:            Applications/System
+
+Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         novnc
+Requires: 	  python-websockify
+
+
+%description novncproxy
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform. It gives you the
+software, control panels, and APIs required to orchestrate a cloud,
+including running instances, managing networks, and controlling access
+through users and projects. OpenStack Compute strives to be both
+hardware and hypervisor agnostic, currently supporting a variety of
+standard hardware configurations and seven major hypervisors.
+
+This package contains the Nova noVNC Proxy service that can proxy 
+VNC traffic over browser websockets connections.
+
 %package -n       python-nova
 Summary:          Nova Python libraries
 Group:            Applications/System
@@ -459,6 +483,7 @@ install -p -D -m 755 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata
 install -p -D -m 755 %{SOURCE26} %{buildroot}%{_unitdir}/openstack-nova-conductor.service
 install -p -D -m 755 %{SOURCE27} %{buildroot}%{_unitdir}/openstack-nova-cells.service
 install -p -D -m 755 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtml5proxy.service
+install -p -D -m 755 %{SOURCE29} %{buildroot}%{_unitdir}/openstack-nova-novncproxy.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -490,9 +515,6 @@ rm -fr %{buildroot}%{python_sitelib}/nova/tests/
 rm -fr %{buildroot}%{python_sitelib}/run_tests.*
 rm -f %{buildroot}%{_bindir}/nova-combined
 rm -f %{buildroot}/usr/share/doc/nova/README*
-
-# We currently use the equivalent file from the novnc package
-rm -f %{buildroot}%{_bindir}/nova-novncproxy
 
 %pre common
 getent group nova >/dev/null || groupadd -r nova --gid 162
@@ -615,6 +637,13 @@ if [ $1 -eq 0 ] ; then
         /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
     done
 fi
+%preun novncproxy
+if [ $1 -eq 0 ] ; then
+    for svc in novncproxy; do
+        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
+        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
+    done
+fi
 
 %postun compute
 /bin/systemctl daemon-reload >/dev/null 2>&1 || :
@@ -685,6 +714,14 @@ fi
 if [ $1 -ge 1 ] ; then
     # Package upgrade, not uninstall
     for svc in cells; do
+        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
+    done
+fi
+%postun novncproxy
+/bin/systemctl daemon-reload >/dev/null 2>&1 || :
+if [ $1 -ge 1 ] ; then
+    # Package upgrade, not uninstall
+    for svc in novncproxy; do
         /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
     done
 fi
@@ -788,6 +825,10 @@ fi
 %{_bindir}/nova-cells
 %{_unitdir}/openstack-nova-cells.service
 
+%files novncproxy
+%{_bindir}/nova-novncproxy
+%{_unitdir}/openstack-nova-novncproxy.service
+
 %files -n python-nova
 %defattr(-,root,root,-)
 %doc LICENSE
@@ -800,6 +841,9 @@ fi
 %endif
 
 %changelog
+* Mon Jun 24 2013 Nikola Đipanov<ndipanov@redhat.com> - 2013.2-0.5.h1
+- Add the novncproxy subpackage (moved from the novnc package)
+
 * Mon Jun 24 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.4.h1
 - Remove requirements file to be more flexible with dep versions
 
