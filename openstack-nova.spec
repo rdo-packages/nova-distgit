@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.3.h1%{?dist}
+Release:          0.4.h1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -372,6 +372,10 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 sed -i '/setuptools_git/d' setup.py
 sed -i s/REDHATNOVAVERSION/%{version}/ nova/version.py
 sed -i s/REDHATNOVARELEASE/%{release}/ nova/version.py
+
+# Remove the requirements file so that pbr hooks don't add it 
+# to distutils requiers_dist config
+rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
 %build
 %{__python} setup.py build
@@ -796,6 +800,9 @@ fi
 %endif
 
 %changelog
+* Mon Jun 24 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.4.h1
+- Remove requirements file to be more flexible with dep versions
+
 * Fri Jun 14 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.3.h1
 - Fix an issue with the version string
 
