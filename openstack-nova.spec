@@ -32,6 +32,7 @@ Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
+Source30:         openstack-nova-novncproxy.sysconfig
 
 #
 # patches_base=2013.2.b1
@@ -509,6 +510,10 @@ install -p -D -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/polkit-1/localauthor
 install -d -m 755 %{buildroot}%{_sysconfdir}/polkit-1/rules.d
 install -p -D -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/polkit-1/rules.d/50-nova.rules
 
+# Install novncproxy service options template
+install -d %{buildroot}%{_sysconfdir}/sysconfig
+install -p -m 0644 %{SOURCE30} %{buildroot}%{_sysconfdir}/sysconfig/openstack-nova-novncproxy
+
 # Remove unneeded in production stuff
 rm -f %{buildroot}%{_bindir}/nova-debug
 rm -fr %{buildroot}%{python_sitelib}/nova/tests/
@@ -828,6 +833,7 @@ fi
 %files novncproxy
 %{_bindir}/nova-novncproxy
 %{_unitdir}/openstack-nova-novncproxy.service
+%config(noreplace) %{_sysconfdir}/sysconfig/openstack-nova-novncproxy
 
 %files -n python-nova
 %defattr(-,root,root,-)
