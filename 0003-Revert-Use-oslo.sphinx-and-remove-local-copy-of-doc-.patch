@@ -1,0 +1,1500 @@
+From a8f62cb5797f4a87660abefe1561617c80dea337 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?P=C3=A1draig=20Brady?= <P@draigBrady.com>
+Date: Mon, 22 Jul 2013 03:30:48 +0100
+Subject: [PATCH] Revert "Use oslo.sphinx and remove local copy of doc theme"
+
+This reverts commit 47500553d99aec5ce108cd7c0b48d8e44a17aa57.
+---
+ doc/source/_static/basic.css          |  416 +++++++++++++++++++++++++++++++++
+ doc/source/_static/default.css        |  230 ++++++++++++++++++
+ doc/source/_static/header-line.gif    |  Bin 0 -> 48 bytes
+ doc/source/_static/header_bg.jpg      |  Bin 0 -> 3738 bytes
+ doc/source/_static/jquery.tweet.js    |  154 ++++++++++++
+ doc/source/_static/nature.css         |  245 +++++++++++++++++++
+ doc/source/_static/openstack_logo.png |  Bin 0 -> 3670 bytes
+ doc/source/_static/tweaks.css         |   94 ++++++++
+ doc/source/_theme/layout.html         |   83 +++++++
+ doc/source/_theme/theme.conf          |    4 +
+ doc/source/conf.py                    |    8 +-
+ test-requirements.txt                 |    1 -
+ 12 files changed, 1229 insertions(+), 6 deletions(-)
+ create mode 100644 doc/source/_static/basic.css
+ create mode 100644 doc/source/_static/default.css
+ create mode 100644 doc/source/_static/header-line.gif
+ create mode 100644 doc/source/_static/header_bg.jpg
+ create mode 100644 doc/source/_static/jquery.tweet.js
+ create mode 100644 doc/source/_static/nature.css
+ create mode 100644 doc/source/_static/openstack_logo.png
+ create mode 100644 doc/source/_static/tweaks.css
+ create mode 100644 doc/source/_theme/layout.html
+ create mode 100644 doc/source/_theme/theme.conf
+
+diff --git a/doc/source/_static/basic.css b/doc/source/_static/basic.css
+new file mode 100644
+index 0000000..d909ce3
+--- /dev/null
++++ b/doc/source/_static/basic.css
+@@ -0,0 +1,416 @@
++/**
++ * Sphinx stylesheet -- basic theme
++ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ */
++
++/* -- main layout ----------------------------------------------------------- */
++
++div.clearer {
++    clear: both;
++}
++
++/* -- relbar ---------------------------------------------------------------- */
++
++div.related {
++    width: 100%;
++    font-size: 90%;
++}
++
++div.related h3 {
++    display: none;
++}
++
++div.related ul {
++    margin: 0;
++    padding: 0 0 0 10px;
++    list-style: none;
++}
++
++div.related li {
++    display: inline;
++}
++
++div.related li.right {
++    float: right;
++    margin-right: 5px;
++}
++
++/* -- sidebar --------------------------------------------------------------- */
++
++div.sphinxsidebarwrapper {
++    padding: 10px 5px 0 10px;
++}
++
++div.sphinxsidebar {
++    float: left;
++    width: 230px;
++    margin-left: -100%;
++    font-size: 90%;
++}
++
++div.sphinxsidebar ul {
++    list-style: none;
++}
++
++div.sphinxsidebar ul ul,
++div.sphinxsidebar ul.want-points {
++    margin-left: 20px;
++    list-style: square;
++}
++
++div.sphinxsidebar ul ul {
++    margin-top: 0;
++    margin-bottom: 0;
++}
++
++div.sphinxsidebar form {
++    margin-top: 10px;
++}
++
++div.sphinxsidebar input {
++    border: 1px solid #98dbcc;
++    font-family: sans-serif;
++    font-size: 1em;
++}
++
++img {
++    border: 0;
++}
++
++/* -- search page ----------------------------------------------------------- */
++
++ul.search {
++    margin: 10px 0 0 20px;
++    padding: 0;
++}
++
++ul.search li {
++    padding: 5px 0 5px 20px;
++    background-image: url(file.png);
++    background-repeat: no-repeat;
++    background-position: 0 7px;
++}
++
++ul.search li a {
++    font-weight: bold;
++}
++
++ul.search li div.context {
++    color: #888;
++    margin: 2px 0 0 30px;
++    text-align: left;
++}
++
++ul.keywordmatches li.goodmatch a {
++    font-weight: bold;
++}
++
++/* -- index page ------------------------------------------------------------ */
++
++table.contentstable {
++    width: 90%;
++}
++
++table.contentstable p.biglink {
++    line-height: 150%;
++}
++
++a.biglink {
++    font-size: 1.3em;
++}
++
++span.linkdescr {
++    font-style: italic;
++    padding-top: 5px;
++    font-size: 90%;
++}
++
++/* -- general index --------------------------------------------------------- */
++
++table.indextable td {
++    text-align: left;
++    vertical-align: top;
++}
++
++table.indextable dl, table.indextable dd {
++    margin-top: 0;
++    margin-bottom: 0;
++}
++
++table.indextable tr.pcap {
++    height: 10px;
++}
++
++table.indextable tr.cap {
++    margin-top: 10px;
++    background-color: #f2f2f2;
++}
++
++img.toggler {
++    margin-right: 3px;
++    margin-top: 3px;
++    cursor: pointer;
++}
++
++/* -- general body styles --------------------------------------------------- */
++
++a.headerlink {
++    visibility: hidden;
++}
++
++h1:hover > a.headerlink,
++h2:hover > a.headerlink,
++h3:hover > a.headerlink,
++h4:hover > a.headerlink,
++h5:hover > a.headerlink,
++h6:hover > a.headerlink,
++dt:hover > a.headerlink {
++    visibility: visible;
++}
++
++div.body p.caption {
++    text-align: inherit;
++}
++
++div.body td {
++    text-align: left;
++}
++
++.field-list ul {
++    padding-left: 1em;
++}
++
++.first {
++}
++
++p.rubric {
++    margin-top: 30px;
++    font-weight: bold;
++}
++
++/* -- sidebars -------------------------------------------------------------- */
++
++div.sidebar {
++    margin: 0 0 0.5em 1em;
++    border: 1px solid #ddb;
++    padding: 7px 7px 0 7px;
++    background-color: #ffe;
++    width: 40%;
++    float: right;
++}
++
++p.sidebar-title {
++    font-weight: bold;
++}
++
++/* -- topics ---------------------------------------------------------------- */
++
++div.topic {
++    border: 1px solid #ccc;
++    padding: 7px 7px 0 7px;
++    margin: 10px 0 10px 0;
++}
++
++p.topic-title {
++    font-size: 1.1em;
++    font-weight: bold;
++    margin-top: 10px;
++}
++
++/* -- admonitions ----------------------------------------------------------- */
++
++div.admonition {
++    margin-top: 10px;
++    margin-bottom: 10px;
++    padding: 7px;
++}
++
++div.admonition dt {
++    font-weight: bold;
++}
++
++div.admonition dl {
++    margin-bottom: 0;
++}
++
++p.admonition-title {
++    margin: 0px 10px 5px 0px;
++    font-weight: bold;
++}
++
++div.body p.centered {
++    text-align: center;
++    margin-top: 25px;
++}
++
++/* -- tables ---------------------------------------------------------------- */
++
++table.docutils {
++    border: 0;
++    border-collapse: collapse;
++}
++
++table.docutils td, table.docutils th {
++    padding: 1px 8px 1px 0;
++    border-top: 0;
++    border-left: 0;
++    border-right: 0;
++    border-bottom: 1px solid #aaa;
++}
++
++table.field-list td, table.field-list th {
++    border: 0 !important;
++}
++
++table.footnote td, table.footnote th {
++    border: 0 !important;
++}
++
++th {
++    text-align: left;
++    padding-right: 5px;
++}
++
++/* -- other body styles ----------------------------------------------------- */
++
++dl {
++    margin-bottom: 15px;
++}
++
++dd p {
++    margin-top: 0px;
++}
++
++dd ul, dd table {
++    margin-bottom: 10px;
++}
++
++dd {
++    margin-top: 3px;
++    margin-bottom: 10px;
++    margin-left: 30px;
++}
++
++dt:target, .highlight {
++    background-color: #fbe54e;
++}
++
++dl.glossary dt {
++    font-weight: bold;
++    font-size: 1.1em;
++}
++
++.field-list ul {
++    margin: 0;
++    padding-left: 1em;
++}
++
++.field-list p {
++    margin: 0;
++}
++
++.refcount {
++    color: #060;
++}
++
++.optional {
++    font-size: 1.3em;
++}
++
++.versionmodified {
++    font-style: italic;
++}
++
++.system-message {
++    background-color: #fda;
++    padding: 5px;
++    border: 3px solid red;
++}
++
++.footnote:target  {
++    background-color: #ffa
++}
++
++.line-block {
++    display: block;
++    margin-top: 1em;
++    margin-bottom: 1em;
++}
++
++.line-block .line-block {
++    margin-top: 0;
++    margin-bottom: 0;
++    margin-left: 1.5em;
++}
++
++/* -- code displays --------------------------------------------------------- */
++
++pre {
++    overflow: auto;
++}
++
++td.linenos pre {
++    padding: 5px 0px;
++    border: 0;
++    background-color: transparent;
++    color: #aaa;
++}
++
++table.highlighttable {
++    margin-left: 0.5em;
++}
++
++table.highlighttable td {
++    padding: 0 0.5em 0 0.5em;
++}
++
++tt.descname {
++    background-color: transparent;
++    font-weight: bold;
++    font-size: 1.2em;
++}
++
++tt.descclassname {
++    background-color: transparent;
++}
++
++tt.xref, a tt {
++    background-color: transparent;
++    font-weight: bold;
++}
++
++h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
++    background-color: transparent;
++}
++
++/* -- math display ---------------------------------------------------------- */
++
++img.math {
++    vertical-align: middle;
++}
++
++div.body div.math p {
++    text-align: center;
++}
++
++span.eqno {
++    float: right;
++}
++
++/* -- printout stylesheet --------------------------------------------------- */
++
++@media print {
++    div.document,
++    div.documentwrapper,
++    div.bodywrapper {
++        margin: 0 !important;
++        width: 100%;
++    }
++
++    div.sphinxsidebar,
++    div.related,
++    div.footer,
++    #top-link {
++        display: none;
++    }
++}
+diff --git a/doc/source/_static/default.css b/doc/source/_static/default.css
+new file mode 100644
+index 0000000..c8091ec
+--- /dev/null
++++ b/doc/source/_static/default.css
+@@ -0,0 +1,230 @@
++/**
++ * Sphinx stylesheet -- default theme
++ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ */
++
++@import url("basic.css");
++
++/* -- page layout ----------------------------------------------------------- */
++
++body {
++    font-family: sans-serif;
++    font-size: 100%;
++    background-color: #11303d;
++    color: #000;
++    margin: 0;
++    padding: 0;
++}
++
++div.document {
++    background-color: #1c4e63;
++}
++
++div.documentwrapper {
++    float: left;
++    width: 100%;
++}
++
++div.bodywrapper {
++    margin: 0 0 0 230px;
++}
++
++div.body {
++    background-color: #ffffff;
++    color: #000000;
++    padding: 0 20px 30px 20px;
++}
++
++div.footer {
++    color: #ffffff;
++    width: 100%;
++    padding: 9px 0 9px 0;
++    text-align: center;
++    font-size: 75%;
++}
++
++div.footer a {
++    color: #ffffff;
++    text-decoration: underline;
++}
++
++div.related {
++    background-color: #133f52;
++    line-height: 30px;
++    color: #ffffff;
++}
++
++div.related a {
++    color: #ffffff;
++}
++
++div.sphinxsidebar {
++}
++
++div.sphinxsidebar h3 {
++    font-family: 'Trebuchet MS', sans-serif;
++    color: #ffffff;
++    font-size: 1.4em;
++    font-weight: normal;
++    margin: 0;
++    padding: 0;
++}
++
++div.sphinxsidebar h3 a {
++    color: #ffffff;
++}
++
++div.sphinxsidebar h4 {
++    font-family: 'Trebuchet MS', sans-serif;
++    color: #ffffff;
++    font-size: 1.3em;
++    font-weight: normal;
++    margin: 5px 0 0 0;
++    padding: 0;
++}
++
++div.sphinxsidebar p {
++    color: #ffffff;
++}
++
++div.sphinxsidebar p.topless {
++    margin: 5px 10px 10px 10px;
++}
++
++div.sphinxsidebar ul {
++    margin: 10px;
++    padding: 0;
++    color: #ffffff;
++}
++
++div.sphinxsidebar a {
++    color: #98dbcc;
++}
++
++div.sphinxsidebar input {
++    border: 1px solid #98dbcc;
++    font-family: sans-serif;
++    font-size: 1em;
++}
++
++/* -- body styles ----------------------------------------------------------- */
++
++a {
++    color: #355f7c;
++    text-decoration: none;
++}
++
++a:hover {
++    text-decoration: underline;
++}
++
++div.body p, div.body dd, div.body li {
++    text-align: left;
++    line-height: 130%;
++}
++
++div.body h1,
++div.body h2,
++div.body h3,
++div.body h4,
++div.body h5,
++div.body h6 {
++    font-family: 'Trebuchet MS', sans-serif;
++    background-color: #f2f2f2;
++    font-weight: normal;
++    color: #20435c;
++    border-bottom: 1px solid #ccc;
++    margin: 20px -20px 10px -20px;
++    padding: 3px 0 3px 10px;
++}
++
++div.body h1 { margin-top: 0; font-size: 200%; }
++div.body h2 { font-size: 160%; }
++div.body h3 { font-size: 140%; }
++div.body h4 { font-size: 120%; }
++div.body h5 { font-size: 110%; }
++div.body h6 { font-size: 100%; }
++
++a.headerlink {
++    color: #c60f0f;
++    font-size: 0.8em;
++    padding: 0 4px 0 4px;
++    text-decoration: none;
++}
++
++a.headerlink:hover {
++    background-color: #c60f0f;
++    color: white;
++}
++
++div.body p, div.body dd, div.body li {
++    text-align: left;
++    line-height: 130%;
++}
++
++div.admonition p.admonition-title + p {
++    display: inline;
++}
++
++div.admonition p {
++    margin-bottom: 5px;
++}
++
++div.admonition pre {
++    margin-bottom: 5px;
++}
++
++div.admonition ul, div.admonition ol {
++    margin-bottom: 5px;
++}
++
++div.note {
++    background-color: #eee;
++    border: 1px solid #ccc;
++}
++
++div.seealso {
++    background-color: #ffc;
++    border: 1px solid #ff6;
++}
++
++div.topic {
++    background-color: #eee;
++}
++
++div.warning {
++    background-color: #ffe4e4;
++    border: 1px solid #f66;
++}
++
++p.admonition-title {
++    display: inline;
++}
++
++p.admonition-title:after {
++    content: ":";
++}
++
++pre {
++    padding: 5px;
++    background-color: #eeffcc;
++    color: #333333;
++    line-height: 120%;
++    border: 1px solid #ac9;
++    border-left: none;
++    border-right: none;
++}
++
++tt {
++    background-color: #ecf0f3;
++    padding: 0 1px 0 1px;
++    font-size: 0.95em;
++}
++
++.warning tt {
++    background: #efc2c2;
++}
++
++.note tt {
++    background: #d6d6d6;
++}
+diff --git a/doc/source/_static/header-line.gif b/doc/source/_static/header-line.gif
+new file mode 100644
+index 0000000000000000000000000000000000000000..3601730e03488b7b5f92dc992d23ad753357c167
+GIT binary patch
+literal 48
+zcmZ?wbhEHbWMg1uXkcVG`smgF|Nj+#vM@3*Ff!;c00Bsbfr-7RpY8O^Kn4bD08FwB
+Aga7~l
+
+literal 0
+HcmV?d00001
+
+diff --git a/doc/source/_static/header_bg.jpg b/doc/source/_static/header_bg.jpg
+new file mode 100644
+index 0000000000000000000000000000000000000000..f788c41c26481728fa4329c17c87bde36001adc1
+GIT binary patch
+literal 3738
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/doc/source/_static/jquery.tweet.js b/doc/source/_static/jquery.tweet.js
+new file mode 100644
+index 0000000..79bf0bd
+--- /dev/null
++++ b/doc/source/_static/jquery.tweet.js
+@@ -0,0 +1,154 @@
++(function($) {
++
++  $.fn.tweet = function(o){
++    var s = {
++      username: ["seaofclouds"],              // [string]   required, unless you want to display our tweets. :) it can be an array, just do ["username1","username2","etc"]
++      list: null,                              //[string]   optional name of list belonging to username
++      avatar_size: null,                      // [integer]  height and width of avatar if displayed (48px max)
++      count: 3,                               // [integer]  how many tweets to display?
++      intro_text: null,                       // [string]   do you want text BEFORE your your tweets?
++      outro_text: null,                       // [string]   do you want text AFTER your tweets?
++      join_text:  null,                       // [string]   optional text in between date and tweet, try setting to "auto"
++      auto_join_text_default: "i said,",      // [string]   auto text for non verb: "i said" bullocks
++      auto_join_text_ed: "i",                 // [string]   auto text for past tense: "i" surfed
++      auto_join_text_ing: "i am",             // [string]   auto tense for present tense: "i was" surfing
++      auto_join_text_reply: "i replied to",   // [string]   auto tense for replies: "i replied to" @someone "with"
++      auto_join_text_url: "i was looking at", // [string]   auto tense for urls: "i was looking at" http:...
++      loading_text: null,                     // [string]   optional loading text, displayed while tweets load
++      query: null                             // [string]   optional search query
++    };
++
++    if(o) $.extend(s, o);
++
++    $.fn.extend({
++      linkUrl: function() {
++        var returning = [];
++        var regexp = /((ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?)/gi;
++        this.each(function() {
++          returning.push(this.replace(regexp,"<a href=\"$1\">$1</a>"));
++        });
++        return $(returning);
++      },
++      linkUser: function() {
++        var returning = [];
++        var regexp = /[\@]+([A-Za-z0-9-_]+)/gi;
++        this.each(function() {
++          returning.push(this.replace(regexp,"<a href=\"http://twitter.com/$1\">@$1</a>"));
++        });
++        return $(returning);
++      },
++      linkHash: function() {
++        var returning = [];
++        var regexp = / [\#]+([A-Za-z0-9-_]+)/gi;
++        this.each(function() {
++          returning.push(this.replace(regexp, ' <a href="http://search.twitter.com/search?q=&tag=$1&lang=all&from='+s.username.join("%2BOR%2B")+'">#$1</a>'));
++        });
++        return $(returning);
++      },
++      capAwesome: function() {
++        var returning = [];
++        this.each(function() {
++          returning.push(this.replace(/\b(awesome)\b/gi, '<span class="awesome">$1</span>'));
++        });
++        return $(returning);
++      },
++      capEpic: function() {
++        var returning = [];
++        this.each(function() {
++          returning.push(this.replace(/\b(epic)\b/gi, '<span class="epic">$1</span>'));
++        });
++        return $(returning);
++      },
++      makeHeart: function() {
++        var returning = [];
++        this.each(function() {
++          returning.push(this.replace(/(&lt;)+[3]/gi, "<tt class='heart'>&#x2665;</tt>"));
++        });
++        return $(returning);
++      }
++    });
++
++    function relative_time(time_value) {
++      var parsed_date = Date.parse(time_value);
++      var relative_to = (arguments.length > 1) ? arguments[1] : new Date();
++      var delta = parseInt((relative_to.getTime() - parsed_date) / 1000);
++      var pluralize = function (singular, n) {
++        return '' + n + ' ' + singular + (n == 1 ? '' : 's');
++      };
++      if(delta < 60) {
++      return 'less than a minute ago';
++      } else if(delta < (45*60)) {
++      return 'about ' + pluralize("minute", parseInt(delta / 60)) + ' ago';
++      } else if(delta < (24*60*60)) {
++      return 'about ' + pluralize("hour", parseInt(delta / 3600)) + ' ago';
++      } else {
++      return 'about ' + pluralize("day", parseInt(delta / 86400)) + ' ago';
++      }
++    }
++
++    function build_url() {
++      var proto = ('https:' == document.location.protocol ? 'https:' : 'http:');
++      if (s.list) {
++        return proto+"//api.twitter.com/1/"+s.username[0]+"/lists/"+s.list+"/statuses.json?per_page="+s.count+"&callback=?";
++      } else if (s.query == null && s.username.length == 1) {
++        return proto+'//twitter.com/status/user_timeline/'+s.username[0]+'.json?count='+s.count+'&callback=?';
++      } else {
++        var query = (s.query || 'from:'+s.username.join('%20OR%20from:'));
++        return proto+'//search.twitter.com/search.json?&q='+query+'&rpp='+s.count+'&callback=?';
++      }
++    }
++
++    return this.each(function(){
++      var list = $('<ul class="tweet_list">').appendTo(this);
++      var intro = '<p class="tweet_intro">'+s.intro_text+'</p>';
++      var outro = '<p class="tweet_outro">'+s.outro_text+'</p>';
++      var loading = $('<p class="loading">'+s.loading_text+'</p>');
++
++      if(typeof(s.username) == "string"){
++        s.username = [s.username];
++      }
++
++      if (s.loading_text) $(this).append(loading);
++      $.getJSON(build_url(), function(data){
++        if (s.loading_text) loading.remove();
++        if (s.intro_text) list.before(intro);
++        $.each((data.results || data), function(i,item){
++          // auto join text based on verb tense and content
++          if (s.join_text == "auto") {
++            if (item.text.match(/^(@([A-Za-z0-9-_]+)) .*/i)) {
++              var join_text = s.auto_join_text_reply;
++            } else if (item.text.match(/(^\w+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&\?\/.=]+) .*/i)) {
++              var join_text = s.auto_join_text_url;
++            } else if (item.text.match(/^((\w+ed)|just) .*/im)) {
++              var join_text = s.auto_join_text_ed;
++            } else if (item.text.match(/^(\w*ing) .*/i)) {
++              var join_text = s.auto_join_text_ing;
++            } else {
++              var join_text = s.auto_join_text_default;
++            }
++          } else {
++            var join_text = s.join_text;
++          };
++
++          var from_user = item.from_user || item.user.screen_name;
++          var profile_image_url = item.profile_image_url || item.user.profile_image_url;
++          var join_template = '<span class="tweet_join"> '+join_text+' </span>';
++          var join = ((s.join_text) ? join_template : ' ');
++          var avatar_template = '<a class="tweet_avatar" href="http://twitter.com/'+from_user+'"><img src="'+profile_image_url+'" height="'+s.avatar_size+'" width="'+s.avatar_size+'" alt="'+from_user+'\'s avatar" title="'+from_user+'\'s avatar" border="0"/></a>';
++          var avatar = (s.avatar_size ? avatar_template : '');
++          var date = '<a href="http://twitter.com/'+from_user+'/statuses/'+item.id+'" title="view tweet on twitter">'+relative_time(item.created_at)+'</a>';
++          var text = '<span class="tweet_text">' +$([item.text]).linkUrl().linkUser().linkHash().makeHeart().capAwesome().capEpic()[0]+ '</span>';
++
++          // until we create a template option, arrange the items below to alter a tweet's display.
++          list.append('<li>' + avatar + date + join + text + '</li>');
++
++          list.children('li:first').addClass('tweet_first');
++          list.children('li:odd').addClass('tweet_even');
++          list.children('li:even').addClass('tweet_odd');
++        });
++        if (s.outro_text) list.after(outro);
++      });
++
++    });
++  };
++})(jQuery);
+\ No newline at end of file
+diff --git a/doc/source/_static/nature.css b/doc/source/_static/nature.css
+new file mode 100644
+index 0000000..a98bd42
+--- /dev/null
++++ b/doc/source/_static/nature.css
+@@ -0,0 +1,245 @@
++/*
++ * nature.css_t
++ * ~~~~~~~~~~~~
++ *
++ * Sphinx stylesheet -- nature theme.
++ *
++ * :copyright: Copyright 2007-2011 by the Sphinx team, see AUTHORS.
++ * :license: BSD, see LICENSE for details.
++ *
++ */
++ 
++@import url("basic.css");
++ 
++/* -- page layout ----------------------------------------------------------- */
++ 
++body {
++    font-family: Arial, sans-serif;
++    font-size: 100%;
++    background-color: #111;
++    color: #555;
++    margin: 0;
++    padding: 0;
++}
++
++div.documentwrapper {
++    float: left;
++    width: 100%;
++}
++
++div.bodywrapper {
++    margin: 0 0 0 {{ theme_sidebarwidth|toint }}px;
++}
++
++hr {
++    border: 1px solid #B1B4B6;
++}
++ 
++div.document {
++    background-color: #eee;
++}
++ 
++div.body {
++    background-color: #ffffff;
++    color: #3E4349;
++    padding: 0 30px 30px 30px;
++    font-size: 0.9em;
++}
++ 
++div.footer {
++    color: #555;
++    width: 100%;
++    padding: 13px 0;
++    text-align: center;
++    font-size: 75%;
++}
++ 
++div.footer a {
++    color: #444;
++    text-decoration: underline;
++}
++ 
++div.related {
++    background-color: #6BA81E;
++    line-height: 32px;
++    color: #fff;
++    text-shadow: 0px 1px 0 #444;
++    font-size: 0.9em;
++}
++ 
++div.related a {
++    color: #E2F3CC;
++}
++ 
++div.sphinxsidebar {
++    font-size: 0.75em;
++    line-height: 1.5em;
++}
++
++div.sphinxsidebarwrapper{
++    padding: 20px 0;
++}
++ 
++div.sphinxsidebar h3,
++div.sphinxsidebar h4 {
++    font-family: Arial, sans-serif;
++    color: #222;
++    font-size: 1.2em;
++    font-weight: normal;
++    margin: 0;
++    padding: 5px 10px;
++    background-color: #ddd;
++    text-shadow: 1px 1px 0 white
++}
++
++div.sphinxsidebar h4{
++    font-size: 1.1em;
++}
++ 
++div.sphinxsidebar h3 a {
++    color: #444;
++}
++ 
++ 
++div.sphinxsidebar p {
++    color: #888;
++    padding: 5px 20px;
++}
++ 
++div.sphinxsidebar p.topless {
++}
++ 
++div.sphinxsidebar ul {
++    margin: 10px 20px;
++    padding: 0;
++    color: #000;
++}
++ 
++div.sphinxsidebar a {
++    color: #444;
++}
++ 
++div.sphinxsidebar input {
++    border: 1px solid #ccc;
++    font-family: sans-serif;
++    font-size: 1em;
++}
++
++div.sphinxsidebar input[type=text]{
++    margin-left: 20px;
++}
++ 
++/* -- body styles ----------------------------------------------------------- */
++ 
++a {
++    color: #005B81;
++    text-decoration: none;
++}
++ 
++a:hover {
++    color: #E32E00;
++    text-decoration: underline;
++}
++ 
++div.body h1,
++div.body h2,
++div.body h3,
++div.body h4,
++div.body h5,
++div.body h6 {
++    font-family: Arial, sans-serif;
++    background-color: #BED4EB;
++    font-weight: normal;
++    color: #212224;
++    margin: 30px 0px 10px 0px;
++    padding: 5px 0 5px 10px;
++    text-shadow: 0px 1px 0 white
++}
++ 
++div.body h1 { border-top: 20px solid white; margin-top: 0; font-size: 200%; }
++div.body h2 { font-size: 150%; background-color: #C8D5E3; }
++div.body h3 { font-size: 120%; background-color: #D8DEE3; }
++div.body h4 { font-size: 110%; background-color: #D8DEE3; }
++div.body h5 { font-size: 100%; background-color: #D8DEE3; }
++div.body h6 { font-size: 100%; background-color: #D8DEE3; }
++ 
++a.headerlink {
++    color: #c60f0f;
++    font-size: 0.8em;
++    padding: 0 4px 0 4px;
++    text-decoration: none;
++}
++ 
++a.headerlink:hover {
++    background-color: #c60f0f;
++    color: white;
++}
++ 
++div.body p, div.body dd, div.body li {
++    line-height: 1.5em;
++}
++ 
++div.admonition p.admonition-title + p {
++    display: inline;
++}
++
++div.highlight{
++    background-color: white;
++}
++
++div.note {
++    background-color: #eee;
++    border: 1px solid #ccc;
++}
++ 
++div.seealso {
++    background-color: #ffc;
++    border: 1px solid #ff6;
++}
++ 
++div.topic {
++    background-color: #eee;
++}
++ 
++div.warning {
++    background-color: #ffe4e4;
++    border: 1px solid #f66;
++}
++ 
++p.admonition-title {
++    display: inline;
++}
++ 
++p.admonition-title:after {
++    content: ":";
++}
++ 
++pre {
++    padding: 10px;
++    background-color: White;
++    color: #222;
++    line-height: 1.2em;
++    border: 1px solid #C6C9CB;
++    font-size: 1.1em;
++    margin: 1.5em 0 1.5em 0;
++    -webkit-box-shadow: 1px 1px 1px #d8d8d8;
++    -moz-box-shadow: 1px 1px 1px #d8d8d8;
++}
++ 
++tt {
++    background-color: #ecf0f3;
++    color: #222;
++    /* padding: 1px 2px; */
++    font-size: 1.1em;
++    font-family: monospace;
++}
++
++.viewcode-back {
++    font-family: Arial, sans-serif;
++}
++
++div.viewcode-block:target {
++    background-color: #f4debf;
++    border-top: 1px solid #ac9;
++    border-bottom: 1px solid #ac9;
++}
+diff --git a/doc/source/_static/openstack_logo.png b/doc/source/_static/openstack_logo.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..146faec5cfe3773824f4caf39e4480e4974d10df
+GIT binary patch
+literal 3670
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/doc/source/_static/tweaks.css b/doc/source/_static/tweaks.css
+new file mode 100644
+index 0000000..3f3fb3f
+--- /dev/null
++++ b/doc/source/_static/tweaks.css
+@@ -0,0 +1,94 @@
++body {
++  background: #fff url(../_static/header_bg.jpg) top left no-repeat;
++}
++
++#header {
++  width: 950px;
++  margin: 0 auto;
++  height: 102px;
++}
++
++#header h1#logo {
++  background: url(../_static/openstack_logo.png) top left no-repeat;
++  display: block;
++  float: left;
++  text-indent: -9999px;
++  width: 175px;
++  height: 55px;
++}
++
++#navigation {
++  background: url(../_static/header-line.gif) repeat-x 0 bottom;
++  display: block;
++  float: left;
++  margin: 27px 0 0 25px;
++  padding: 0;
++}
++
++#navigation li{
++  float: left;
++  display: block;
++  margin-right: 25px;
++}
++
++#navigation li a {
++  display: block;
++  font-weight: normal;
++  text-decoration: none;
++  background-position: 50% 0;
++  padding: 20px 0 5px;
++  color: #353535;
++  font-size: 14px;
++}
++
++#navigation li a.current, #navigation li a.section {
++  border-bottom: 3px solid #cf2f19;
++  color: #cf2f19;
++}
++
++div.related {
++  background-color: #cde2f8;
++  border: 1px solid #b0d3f8;
++}
++
++div.related a {
++  color: #4078ba;
++  text-shadow: none;
++}
++
++div.sphinxsidebarwrapper {
++  padding-top: 0;
++}
++
++pre {
++  color: #555;
++}
++
++div.documentwrapper h1, div.documentwrapper h2, div.documentwrapper h3, div.documentwrapper h4, div.documentwrapper h5, div.documentwrapper h6 {
++  font-family: 'PT Sans', sans-serif !important;
++  color: #264D69;
++  border-bottom: 1px dotted #C5E2EA;
++  padding: 0;
++  background: none;
++  padding-bottom: 5px;
++}
++
++div.documentwrapper h3 {
++  color: #CF2F19;
++}
++
++a.headerlink {
++  color: #fff !important;
++  margin-left: 5px;
++  background: #CF2F19 !important;
++}
++
++div.body {
++  margin-top: -25px;
++  margin-left: 230px;
++}
++
++div.document {
++  width: 960px;
++  margin: 0 auto;
++}
+\ No newline at end of file
+diff --git a/doc/source/_theme/layout.html b/doc/source/_theme/layout.html
+new file mode 100644
+index 0000000..750b782
+--- /dev/null
++++ b/doc/source/_theme/layout.html
+@@ -0,0 +1,83 @@
++{% extends "basic/layout.html" %}
++{% set css_files = css_files + ['_static/tweaks.css'] %}
++{% set script_files = script_files + ['_static/jquery.tweet.js'] %}
++
++{%- macro sidebar() %}
++      {%- if not embedded %}{% if not theme_nosidebar|tobool %}
++      <div class="sphinxsidebar">
++        <div class="sphinxsidebarwrapper">
++          {%- block sidebarlogo %}
++          {%- if logo %}
++            <p class="logo"><a href="{{ pathto(master_doc) }}">
++              <img class="logo" src="{{ pathto('_static/' + logo, 1) }}" alt="Logo"/>
++            </a></p>
++          {%- endif %}
++          {%- endblock %}
++          {%- block sidebartoc %}
++          {%- if display_toc %}
++            <h3><a href="{{ pathto(master_doc) }}">{{ _('Table Of Contents') }}</a></h3>
++            {{ toc }}
++          {%- endif %}
++          {%- endblock %}
++          {%- block sidebarrel %}
++          {%- if prev %}
++            <h4>{{ _('Previous topic') }}</h4>
++            <p class="topless"><a href="{{ prev.link|e }}"
++                                  title="{{ _('previous chapter') }}">{{ prev.title }}</a></p>
++          {%- endif %}
++          {%- if next %}
++            <h4>{{ _('Next topic') }}</h4>
++            <p class="topless"><a href="{{ next.link|e }}"
++                                  title="{{ _('next chapter') }}">{{ next.title }}</a></p>
++          {%- endif %}
++          {%- endblock %}
++          {%- block sidebarsourcelink %}
++          {%- if show_source and has_source and sourcename %}
++            <h3>{{ _('This Page') }}</h3>
++            <ul class="this-page-menu">
++              <li><a href="{{ pathto('_sources/' + sourcename, true)|e }}"
++                     rel="nofollow">{{ _('Show Source') }}</a></li>
++            </ul>
++          {%- endif %}
++          {%- endblock %}
++          {%- if customsidebar %}
++          {% include customsidebar %}
++          {%- endif %}
++          {%- block sidebarsearch %}
++          {%- if pagename != "search" %}
++          <div id="searchbox" style="display: none">
++            <h3>{{ _('Quick search') }}</h3>
++              <form class="search" action="{{ pathto('search') }}" method="get">
++                <input type="text" name="q" size="18" />
++                <input type="submit" value="{{ _('Go') }}" />
++                <input type="hidden" name="check_keywords" value="yes" />
++                <input type="hidden" name="area" value="default" />
++              </form>
++              <p class="searchtip" style="font-size: 90%">
++              {{ _('Enter search terms or a module, class or function name.') }}
++              </p>
++          </div>
++          <script type="text/javascript">$('#searchbox').show(0);</script>
++          {%- endif %}
++          {%- endblock %}
++        </div>
++      </div>
++      {%- endif %}{% endif %}
++{%- endmacro %}
++
++{% block relbar1 %}{% endblock relbar1 %}
++
++{% block header %}
++  <div id="header">
++    <h1 id="logo"><a href="http://www.openstack.org/">OpenStack</a></h1>
++    <ul id="navigation">
++      <li><a href="http://www.openstack.org/" title="Go to the Home page" class="link">Home</a></li>
++      <li><a href="http://www.openstack.org/projects/" title="Go to the OpenStack Projects page">Projects</a></li>
++      <li><a href="http://www.openstack.org/user-stories/" title="Go to the User Stories page" class="link">User Stories</a></li>
++      <li><a href="http://www.openstack.org/community/" title="Go to the Community page" class="link">Community</a></li>
++      <li><a href="http://www.openstack.org/blog/" title="Go to the OpenStack Blog">Blog</a></li>
++      <li><a href="http://wiki.openstack.org/" title="Go to the OpenStack Wiki">Wiki</a></li>
++      <li><a href="http://docs.openstack.org/" title="Go to OpenStack Documentation" class="current">Documentation</a></li>
++    </ul>
++  </div>
++{% endblock %}
+\ No newline at end of file
+diff --git a/doc/source/_theme/theme.conf b/doc/source/_theme/theme.conf
+new file mode 100644
+index 0000000..1cc4004
+--- /dev/null
++++ b/doc/source/_theme/theme.conf
+@@ -0,0 +1,4 @@
++[theme]
++inherit = basic
++stylesheet = nature.css
++pygments_style = tango
+diff --git a/doc/source/conf.py b/doc/source/conf.py
+index 43e972e..d2063e2 100644
+--- a/doc/source/conf.py
++++ b/doc/source/conf.py
+@@ -32,9 +32,7 @@ extensions = ['sphinx.ext.autodoc',
+               'sphinx.ext.coverage',
+               'sphinx.ext.pngmath',
+               'sphinx.ext.ifconfig',
+-              'sphinx.ext.graphviz',
+-              'oslo.sphinx',
+-              ]
++              'sphinx.ext.graphviz']
+ 
+ todo_include_todos = True
+ 
+@@ -165,8 +163,8 @@ man_pages = [
+ 
+ # The theme to use for HTML and HTML Help pages.  Major themes that come with
+ # Sphinx are currently 'default' and 'sphinxdoc'.
+-# html_theme_path = ["."]
+-# html_theme = '_theme'
++html_theme_path = ["."]
++html_theme = '_theme'
+ 
+ # Theme options are theme-specific and customize the look and feel of a theme
+ # further.  For a list of options available for each theme, see the
+diff --git a/test-requirements.txt b/test-requirements.txt
+index 10df081..ff9d2b4 100644
+--- a/test-requirements.txt
++++ b/test-requirements.txt
+@@ -15,6 +15,5 @@ pylint==0.25.2
+ python-subunit
+ setuptools_git>=0.4
+ sphinx>=1.1.2
+-oslo.sphinx
+ testrepository>=0.0.13
+ testtools>=0.9.27
