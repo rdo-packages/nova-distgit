@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.7.b2%{?dist}
+Release:          0.8.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -347,7 +347,7 @@ Requires:         python-routes
 Requires:         python-webob
 
 Requires:         python-glanceclient >= 1:0
-Requires:         python-quantumclient >= 1:2
+Requires:         python-neutronclient
 Requires:         python-novaclient
 Requires:         python-oslo-config
 Requires:         python-pyasn1
@@ -849,7 +849,7 @@ fi
 %endif
 
 %changelog
-* Sun Jul 22 2013 Pádraig Brady <pbrady@redhat.com> - 2013.2-0.7.b2
+* Sun Jul 22 2013 Pádraig Brady <pbrady@redhat.com> - 2013.2-0.8.b2
 - Update to Havana milestone 2
 
 * Mon Jun 24 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.6.b1
