@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.9.b2%{?dist}
+Release:          0.10.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -10,7 +10,7 @@ License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
 Source0:	  https://launchpad.net/nova/havana/havana-1/+download/nova-%{version}.b2.tar.gz
 
-Source1:          nova.conf
+Source1:          nova-dist.conf
 Source6:          nova.logrotate
 
 Source10:         openstack-nova-api.service
@@ -415,6 +415,52 @@ openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_host
 openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_port
 openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_protocol
 openstack-config --del etc/nova/api-paste.ini filter:authtoken signing_dir
+openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_version
+
+
+echo '
+#
+# Options to be passed to keystoneclient.auth_token middleware
+# NOTE: These options are not defined in nova but in keystoneclient
+#
+[keystone_authtoken]
+
+# the name of the admin tenant (string value)
+#admin_tenant_name=
+
+# the keystone admin username (string value)
+#admin_user=
+
+# the keystone admin password (string value)
+#admin_password=
+
+# the keystone host (string value)
+#auth_host=
+
+# the keystone port (integer value)
+#auth_port=
+
+# protocol to be used for auth requests http/https (string value)
+#auth_protocol=
+
+# Workaround for https://bugs.launchpad.net/nova/+bug/1154809
+#auth_version=
+
+# signing_dir is configurable, but the default behavior of the authtoken
+# middleware should be sufficient.  It will create a temporary directory
+# in the home directory for the user the nova process is running as.
+#signing_dir=/var/lib/nova/keystone-signing
+' >> etc/nova/nova.conf.sample
+
+# Programmatically update defaults in sample config
+# which is installed at /etc/nova/nova.conf
+# TODO: Make this more robust
+# Note it only edits the first occurance, so assumes a section ordering in sample
+# and also doesn't support multi-valued variables like dhcpbridge_flagfile.
+while read name eq value; do
+  test "$name" && test "$value" || continue
+  sed -i "0,/^# *$name=/{s!^# *$name=.*!#$name=$value!}" etc/nova/nova.conf.sample
+done < %{SOURCE1}
 
 %install
 %{__python} setup.py install -O1 --skip-build --root %{buildroot}
@@ -459,7 +505,8 @@ touch %{buildroot}%{_sharedstatedir}/nova/CA/private/cakey.pem
 
 # Install config files
 install -d -m 755 %{buildroot}%{_sysconfdir}/nova
-install -p -D -m 640 %{SOURCE1} %{buildroot}%{_sysconfdir}/nova/nova.conf
+install -p -D -m 640 %{SOURCE1} %{buildroot}%{_datadir}/nova/nova-dist.conf
+install -p -D -m 640 etc/nova/nova.conf.sample  %{buildroot}%{_sysconfdir}/nova/nova.conf
 install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/rootwrap.conf
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
 install -p -D -m 640 etc/nova/policy.json %{buildroot}%{_sysconfdir}/nova/policy.json
@@ -741,6 +788,7 @@ fi
 %doc LICENSE
 %dir %{_sysconfdir}/nova
 %{_sysconfdir}/nova/release
+%attr(-, root, nova) %{_datadir}/nova/nova-dist.conf
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova.conf
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/api-paste.ini
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/rootwrap.conf
@@ -849,6 +897,9 @@ fi
 %endif
 
 %changelog
+* Wed Aug 07 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-0.10.b2
+- Create a nova-dist.conf file with default values under /usr/share
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2013.2-0.9.b2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 

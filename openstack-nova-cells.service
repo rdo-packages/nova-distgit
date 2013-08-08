@@ -5,7 +5,7 @@ After=syslog.target network.target
 [Service]
 Type=simple
 User=nova
-ExecStart=/usr/bin/nova-cells --config-file /etc/nova/nova.conf --logfile /var/log/nova/cells.log
+ExecStart=/usr/bin/nova-cells --logfile /var/log/nova/cells.log
 
 [Install]
 WantedBy=multi-user.target

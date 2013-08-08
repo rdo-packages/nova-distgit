@@ -5,7 +5,7 @@ After=syslog.target network.target
 [Service]
 Type=simple
 User=nova
-ExecStart=/usr/bin/nova-network --config-file /etc/nova/nova.conf --logfile /var/log/nova/network.log
+ExecStart=/usr/bin/nova-network --logfile /var/log/nova/network.log
 
 # Don't kill dnsmasq on shutdown (#805947)
 KillMode=process

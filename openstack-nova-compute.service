@@ -6,7 +6,7 @@ After=syslog.target network.target
 Environment=LIBGUESTFS_ATTACH_METHOD=appliance
 Type=simple
 User=nova
-ExecStart=/usr/bin/nova-compute --config-file /etc/nova/nova.conf --logfile /var/log/nova/compute.log
+ExecStart=/usr/bin/nova-compute --logfile /var/log/nova/compute.log
 
 [Install]
 WantedBy=multi-user.target
