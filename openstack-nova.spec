@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.11.b2%{?dist}
+Release:          0.12.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -897,6 +897,9 @@ fi
 %endif
 
 %changelog
+* Tue Aug 27 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-0.12.b2
+- Add the second dhcpbridge-flagfile to nova-dist.conf 
+
 * Tue Aug 27 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-0.11.b2
 - Change the default config to poll for DB connection indefinitely
 
