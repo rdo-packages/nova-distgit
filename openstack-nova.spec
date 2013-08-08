@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.13.b2%{?dist}
+Release:          0.14.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -897,6 +897,9 @@ fi
 %endif
 
 %changelog
+* Tue Aug 27 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-0.14.b2
+* Set auth_version=v2.0 in nova-dist.conf to avoid http://pad.lv/1154809
+
 * Tue Aug 27 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-0.13.b2
 - Remove Folsom release deprecated config options from nova-dist.conf
 
