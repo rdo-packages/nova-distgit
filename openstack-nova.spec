@@ -2,13 +2,13 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.14.b2%{?dist}
+Release:          0.15.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:	  https://launchpad.net/nova/havana/havana-1/+download/nova-%{version}.b2.tar.gz
+Source0:	  https://launchpad.net/nova/havana/havana-2/+download/nova-%{version}.b2.tar.gz
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
@@ -897,8 +897,11 @@ fi
 %endif
 
 %changelog
+* Tue Aug 27 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.15.b2
+- Fix the tarball download link (SOURCE0)
+
 * Tue Aug 27 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-0.14.b2
-* Set auth_version=v2.0 in nova-dist.conf to avoid http://pad.lv/1154809
+- Set auth_version=v2.0 in nova-dist.conf to avoid http://pad.lv/1154809
 
 * Tue Aug 27 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-0.13.b2
 - Remove Folsom release deprecated config options from nova-dist.conf
