@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.17.b3%{?dist}
+Release:          0.18.b3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -899,6 +899,9 @@ fi
 %endif
 
 %changelog
+* Mon Sep 09 2013 Pádraig Brady <pbrady@redhat.com> - 2013.2-0.18.b3
+- Avoid deprecated options in distribution config files
+
 * Mon Sep 09 2013 Dan Prince <dprince@redhat.com> - 2013.2-0.17.b3
 - Add dependency on python-babel
 - Add dependency on python-jinja2
