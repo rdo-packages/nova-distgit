@@ -1,0 +1,90 @@
+From d8a90df043df32254f3274dbab12da94dc0fa02e Mon Sep 17 00:00:00 2001
+From: Roman Podolyaka <rpodolyaka@mirantis.com>
+Date: Fri, 6 Sep 2013 15:27:07 +0300
+Subject: [PATCH] Fix compute_node_get_all() for Nova Baremetal
+
+Change Ie5ef00c974b810336787e88c78c93c15ca2890d3 introduced
+a regression leading to KeyError when a new baremetal node
+is scheduled. This is due to the fact, that the mentioned
+change assumes, that ComputeNode <--> Service is a 1-1
+relationship, which is not true for Nova Baremetal driver.
+
+This patch fixes the tables join in compute_node_get_all()
+DB API method to work with 1-M relationship between ComputeNode
+and Service models.
+
+Closes-Bug: #1221620
+
+Change-Id: I7c218d06f63cc2bf7d0e358f2f76366601179b0c
+---
+ nova/db/sqlalchemy/api.py    | 15 ++++++++++-----
+ nova/tests/db/test_db_api.py | 27 +++++++++++++++++++++++++++
+ 2 files changed, 37 insertions(+), 5 deletions(-)
+
+diff --git a/nova/db/sqlalchemy/api.py b/nova/db/sqlalchemy/api.py
+index 70dfdc5..903b31f 100644
+--- a/nova/db/sqlalchemy/api.py
++++ b/nova/db/sqlalchemy/api.py
+@@ -554,14 +554,19 @@ def compute_node_get_all(context, no_date_fields):
+         stat_rows = conn.execute(stat_query).fetchall()
+ 
+     # NOTE(msdubov): Transferring sqla.RowProxy objects to dicts.
+-    compute_nodes = [dict(proxy.items()) for proxy in compute_node_rows]
+-    services = [dict(proxy.items()) for proxy in service_rows]
+     stats = [dict(proxy.items()) for proxy in stat_rows]
+ 
+     # Join ComputeNode & Service manually.
+-    # NOTE(msdubov): ComputeNodes and Services map 1-to-1.
+-    for node, service in itertools.izip(compute_nodes, services):
+-        node['service'] = service
++    services = {}
++    for proxy in service_rows:
++        services[proxy['id']] = dict(proxy.items())
++
++    compute_nodes = []
++    for proxy in compute_node_rows:
++        node = dict(proxy.items())
++        node['service'] = services.get(proxy['service_id'])
++
++        compute_nodes.append(node)
+ 
+     # Join ComputeNode & ComputeNodeStat manually.
+     # NOTE(msdubov): ComputeNode and ComputeNodeStat map 1-to-Many.
+diff --git a/nova/tests/db/test_db_api.py b/nova/tests/db/test_db_api.py
+index 370e192..2d5b892 100644
+--- a/nova/tests/db/test_db_api.py
++++ b/nova/tests/db/test_db_api.py
+@@ -5261,6 +5261,33 @@ class ComputeNodeTestCase(test.TestCase, ModelsObjectComparatorMixin):
+             new_stats = self._stats_as_dict(node['stats'])
+             self._stats_equal(self.stats, new_stats)
+ 
++    def test_compute_node_get_all_mult_compute_nodes_one_service_entry(self):
++        service_data = self.service_dict.copy()
++        service_data['host'] = 'host2'
++        service = db.service_create(self.ctxt, service_data)
++
++        existing_node = dict(self.item.iteritems())
++        existing_node['service'] = dict(self.service.iteritems())
++        expected = [existing_node]
++
++        for name in ['bm_node1', 'bm_node2']:
++            compute_node_data = self.compute_node_dict.copy()
++            compute_node_data['service_id'] = service['id']
++            compute_node_data['stats'] = self.stats
++            compute_node_data['hypervisor_hostname'] = 'bm_node_1'
++            node = db.compute_node_create(self.ctxt, compute_node_data)
++
++            node = dict(node.iteritems())
++            node['service'] = dict(service.iteritems())
++
++            expected.append(node)
++
++        result = sorted(db.compute_node_get_all(self.ctxt, False),
++                        key=lambda n: n['hypervisor_hostname'])
++
++        self._assertEqualListsOfObjects(expected, result,
++                                        ignored_keys=['stats'])
++
+     def test_compute_node_get(self):
+         compute_node_id = self.item['id']
+         node = db.compute_node_get(self.ctxt, compute_node_id)
