@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.19.b3%{?dist}
+Release:          0.20.b3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -115,6 +115,7 @@ Requires:         rsync
 Requires:         lvm2
 Requires:         python-cinderclient
 Requires(pre):    qemu-kvm
+Requires:         genisoimage
 
 %description compute
 OpenStack Compute (codename Nova) is open source software designed to
@@ -901,6 +902,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 12 2013 Pádraig Brady <pbrady@redhat.com> - 2013.2-0.20.b3
+- Depend on genisoimage to support creating guest config drives
+
 * Mon Sep 09 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.19.b3
 - Fix compute_node_get_all() for Nova Baremetal
 
