@@ -2,13 +2,13 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          0.20.b3%{?dist}
+Release:          0.23.rc1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:	  https://launchpad.net/nova/havana/havana-3/+download/nova-%{version}.b3.tar.gz
+Source0 	  https://launchpad.net/nova/havana/havana-rc1/+download/nova-%{version}.rc1.tar.gz
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
@@ -35,12 +35,11 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2013.2.b3
+# patches_base=2013.2.rc1
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
 Patch0003: 0003-Revert-Use-oslo.sphinx-and-remove-local-copy-of-doc-.patch
-Patch0004: 0004-Fix-compute_node_get_all-for-Nova-Baremetal.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -390,12 +389,11 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}.b3
+%setup -q -n nova-%{version}.rc1
 
 %patch0001 -p1
 %patch0002 -p1
 %patch0003 -p1
-%patch0004 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -902,6 +900,9 @@ fi
 %endif
 
 %changelog
+* Thu Oct 03 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.23.rc1
+- Update to Havana rc1
+
 * Thu Sep 12 2013 Pádraig Brady <pbrady@redhat.com> - 2013.2-0.20.b3
 - Depend on genisoimage to support creating guest config drives
 
