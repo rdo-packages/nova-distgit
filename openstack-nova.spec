@@ -902,6 +902,7 @@ fi
 %changelog
 * Wed Oct 23 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-2
 - Depend on python-oslo-config >= 1:1.2.0 so it gets upgraded automatically - rhbz#1014835
+- remove signing_dir from nova-dist.conf to use the default - rhbz#957485
 
 * Thu Oct 17 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-1
 - Update to Havana final
