@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -350,7 +350,7 @@ Requires:         python-webob
 Requires:         python-glanceclient >= 1:0
 Requires:         python-neutronclient
 Requires:         python-novaclient
-Requires:         python-oslo-config
+Requires:         python-oslo-config >= 1:1.2.0
 Requires:         python-pyasn1
 Requires:         python-six
 Requires:         python-babel
@@ -900,6 +900,9 @@ fi
 %endif
 
 %changelog
+* Wed Oct 23 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-2
+- Depend on python-oslo-config >= 1:1.2.0 so it gets upgraded automatically - rhbz#1014835
+
 * Thu Oct 17 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-1
 - Update to Havana final
 
