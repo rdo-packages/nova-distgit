@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -40,6 +40,7 @@ Source30:         openstack-nova-novncproxy.sysconfig
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
 Patch0003: 0003-Revert-Use-oslo.sphinx-and-remove-local-copy-of-doc-.patch
+Patch0004: 0004-Pass-volume_api-to-get_encryption_metadata.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -395,6 +396,7 @@ This package contains documentation files for nova.
 %patch0001 -p1
 %patch0002 -p1
 %patch0003 -p1
+%patch0004 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -901,6 +903,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 18 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-3
+- Remove cert and scheduler hard dependency on cinderclient - rhbz#1031679
+
 * Wed Oct 23 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-2
 - Depend on python-oslo-config >= 1:1.2.0 so it gets upgraded automatically - rhbz#1014835
 - remove signing_dir from nova-dist.conf to use the default - rhbz#957485

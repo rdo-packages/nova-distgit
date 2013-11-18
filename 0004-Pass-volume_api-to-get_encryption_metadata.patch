@@ -1,0 +1,113 @@
+From bfa3e2a9518ac38243c46c08af05ff20cde2fef4 Mon Sep 17 00:00:00 2001
+From: Xavier Queralt <xqueralt@redhat.com>
+Date: Wed, 30 Oct 2013 10:28:43 +0100
+Subject: [PATCH] Pass volume_api to get_encryption_metadata
+
+The module encryptors was creating a volume API instance in the module
+scope which caused all the modules importing it to depend on
+cinderclient.
+
+This was affecting scheduler and cert services which at some point import
+the compute manager module only to access their config options. It makes
+no sense to force scheduler and cert services to require cinderclient.
+
+This patch makes the callers of get_encryption_metadata to pass the
+volume api object to this method to prevent this dependency.
+
+Closes-Bug: #1246103
+Change-Id: I9eb4ae3754fa2a5ac646560a62477d6ed672e272
+(cherry picked from commit a3aeace9afd5c533f040452f33482fdb55d93927)
+---
+ nova/compute/manager.py            | 10 ++++++----
+ nova/virt/libvirt/driver.py        | 12 ++++++------
+ nova/volume/encryptors/__init__.py |  8 ++------
+ 3 files changed, 14 insertions(+), 16 deletions(-)
+
+diff --git a/nova/compute/manager.py b/nova/compute/manager.py
+index a6259d0..3d6a09c 100644
+--- a/nova/compute/manager.py
++++ b/nova/compute/manager.py
+@@ -3659,8 +3659,9 @@ class ComputeManager(manager.SchedulerDependentManager):
+         if 'serial' not in connection_info:
+             connection_info['serial'] = volume_id
+ 
+-        encryption = encryptors.get_encryption_metadata(context, volume_id,
+-                                                        connection_info)
++        encryption = encryptors.get_encryption_metadata(
++            context, self.volume_api, volume_id, connection_info)
++
+         try:
+             self.driver.attach_volume(context,
+                                       connection_info,
+@@ -3717,8 +3718,9 @@ class ComputeManager(manager.SchedulerDependentManager):
+                 LOG.warn(_('Detaching volume from unknown instance'),
+                          context=context, instance=instance)
+ 
+-            encryption = encryptors.get_encryption_metadata(context, volume_id,
+-                                                            connection_info)
++            encryption = encryptors.get_encryption_metadata(
++                context, self.volume_api, volume_id, connection_info)
++
+             self.driver.detach_volume(connection_info,
+                                       instance,
+                                       mp,
+diff --git a/nova/virt/libvirt/driver.py b/nova/virt/libvirt/driver.py
+index 6e07d95..2d95dc8 100644
+--- a/nova/virt/libvirt/driver.py
++++ b/nova/virt/libvirt/driver.py
+@@ -914,9 +914,9 @@ class LibvirtDriver(driver.ComputeDriver):
+             if ('data' in connection_info and
+                     'volume_id' in connection_info['data']):
+                 volume_id = connection_info['data']['volume_id']
+-                encryption = \
+-                    encryptors.get_encryption_metadata(context, volume_id,
+-                                                       connection_info)
++                encryption = encryptors.get_encryption_metadata(
++                    context, self._volume_api, volume_id, connection_info)
++
+                 if encryption:
+                     # The volume must be detached from the VM before
+                     # disconnecting it from its encryptor. Otherwise, the
+@@ -3191,9 +3191,9 @@ class LibvirtDriver(driver.ComputeDriver):
+                         {'connection_info': jsonutils.dumps(connection_info)})
+ 
+                 volume_id = connection_info['data']['volume_id']
+-                encryption = \
+-                        encryptors.get_encryption_metadata(context, volume_id,
+-                                                           connection_info)
++                encryption = encryptors.get_encryption_metadata(
++                    context, self._volume_api, volume_id, connection_info)
++
+                 if encryption:
+                     encryptor = self._get_volume_encryptor(connection_info,
+                                                            encryption)
+diff --git a/nova/volume/encryptors/__init__.py b/nova/volume/encryptors/__init__.py
+index b492eab..6f77635 100644
+--- a/nova/volume/encryptors/__init__.py
++++ b/nova/volume/encryptors/__init__.py
+@@ -19,7 +19,6 @@
+ from nova.openstack.common.gettextutils import _
+ from nova.openstack.common import importutils
+ from nova.openstack.common import log as logging
+-from nova import volume
+ from nova.volume.encryptors import nop
+ 
+ 
+@@ -49,15 +48,12 @@ def get_volume_encryptor(connection_info, **kwargs):
+     return encryptor
+ 
+ 
+-_volume_api = volume.API()
+-
+-
+-def get_encryption_metadata(context, volume_id, connection_info):
++def get_encryption_metadata(context, volume_api, volume_id, connection_info):
+     metadata = {}
+     if ('data' in connection_info and
+             connection_info['data'].get('encrypted', False)):
+         try:
+-            metadata = _volume_api.get_volume_encryption_metadata(context,
++            metadata = volume_api.get_volume_encryption_metadata(context,
+                                                                  volume_id)
+         except Exception as e:
+             LOG.error(_("Failed to retrieve encryption metadata for "
