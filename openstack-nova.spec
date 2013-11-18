@@ -106,6 +106,7 @@ Requires:         openstack-nova-common = %{version}-%{release}
 Requires:         curl
 Requires:         iscsi-initiator-utils
 Requires:         iptables iptables-ipv6
+Requires:         ipmitool
 Requires:         vconfig
 Requires:         python-libguestfs
 Requires:         libvirt >= 0.9.6
@@ -905,6 +906,7 @@ fi
 %changelog
 * Tue Nov 18 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-3
 - Remove cert and scheduler hard dependency on cinderclient - rhbz#1031679
+- Require ipmitool for baremetal driver - rhbz#1022243
 
 * Wed Oct 23 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-2
 - Depend on python-oslo-config >= 1:1.2.0 so it gets upgraded automatically - rhbz#1014835
