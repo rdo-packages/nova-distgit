@@ -41,6 +41,7 @@ Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
 Patch0003: 0003-Revert-Use-oslo.sphinx-and-remove-local-copy-of-doc-.patch
 Patch0004: 0004-Pass-volume_api-to-get_encryption_metadata.patch
+Patch0005: 0005-ensure-we-don-t-boot-oversized-images.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -398,6 +399,7 @@ This package contains documentation files for nova.
 %patch0002 -p1
 %patch0003 -p1
 %patch0004 -p1
+%patch0005 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -907,6 +909,7 @@ fi
 * Tue Nov 18 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-3
 - Remove cert and scheduler hard dependency on cinderclient - rhbz#1031679
 - Require ipmitool for baremetal driver - rhbz#1022243
+- Ensure we don't boot oversized images (CVE-2013-0326)
 
 * Wed Oct 23 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-2
 - Depend on python-oslo-config >= 1:1.2.0 so it gets upgraded automatically - rhbz#1014835
