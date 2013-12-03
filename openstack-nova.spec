@@ -906,7 +906,7 @@ fi
 %endif
 
 %changelog
-* Tue Nov 03 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-4
+* Tue Dec 03 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-4
 - Fix the CVE number references from the latest change
 
 * Tue Nov 18 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-3
