@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2013.2
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -906,10 +906,13 @@ fi
 %endif
 
 %changelog
+* Tue Nov 03 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-4
+- Fix the CVE number references from the latest change
+
 * Tue Nov 18 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-3
 - Remove cert and scheduler hard dependency on cinderclient - rhbz#1031679
 - Require ipmitool for baremetal driver - rhbz#1022243
-- Ensure we don't boot oversized images (CVE-2013-0326)
+- Ensure we don't boot oversized images (CVE-2013-4463 and CVE-2013-2096)
 
 * Wed Oct 23 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-2
 - Depend on python-oslo-config >= 1:1.2.0 so it gets upgraded automatically - rhbz#1014835
