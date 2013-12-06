@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.2.b1%{?dist}
+Release:          0.3.b1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -901,6 +901,9 @@ fi
 %endif
 
 %changelog
+* Tue Dec 17 2013 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.3.b1
+- Rotate log files by size rather than by age - rhbz#867747
+
 * Mon Dec 16 2013 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.2.b1
 - Add python-oslo-sphinx to build requirements
 
