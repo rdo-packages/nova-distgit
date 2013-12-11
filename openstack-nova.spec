@@ -1,14 +1,14 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 
 Name:             openstack-nova
-Version:          2013.2
-Release:          4%{?dist}
+Version:          2014.1
+Release:          0.1.b1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://launchpad.net/nova/havana/%{version}/+download/nova-%{version}.tar.gz
+Source0:          https://launchpad.net/nova/icehouse/icehouse-1/+download/nova-%{version}.b1.tar.gz
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
@@ -35,13 +35,11 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2013.2
+# patches_base=2014.1.b1
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
 Patch0003: 0003-Revert-Use-oslo.sphinx-and-remove-local-copy-of-doc-.patch
-Patch0004: 0004-Pass-volume_api-to-get_encryption_metadata.patch
-Patch0005: 0005-ensure-we-don-t-boot-oversized-images.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -393,13 +391,11 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}
+%setup -q -n nova-%{version}.b1
 
 %patch0001 -p1
 %patch0002 -p1
 %patch0003 -p1
-%patch0004 -p1
-%patch0005 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -906,10 +902,13 @@ fi
 %endif
 
 %changelog
+* Mon Dec 16 2013 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.1.b1
+- Update to Icehouse milestone 1
+
 * Tue Dec 03 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-4
 - Fix the CVE number references from the latest change
 
-* Tue Nov 18 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-3
+* Mon Nov 18 2013 Xavier Queralt <xqueralt@redhat.com> - 2013.2-3
 - Remove cert and scheduler hard dependency on cinderclient - rhbz#1031679
 - Require ipmitool for baremetal driver - rhbz#1022243
 - Ensure we don't boot oversized images (CVE-2013-4463 and CVE-2013-2096)
@@ -965,7 +964,7 @@ fi
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2013.2-0.9.b2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
-* Sun Jul 22 2013 Pádraig Brady <pbrady@redhat.com> - 2013.2-0.8.b2
+* Mon Jul 22 2013 Pádraig Brady <pbrady@redhat.com> - 2013.2-0.8.b2
 - Update to Havana milestone 2
 
 * Mon Jun 24 2013 Nikola Đipanov <ndipanov@redhat.com> - 2013.2-0.6.b1
@@ -1064,7 +1063,7 @@ fi
 * Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2012.2-0.4.f1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
-* Wed Jun 08 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.3.f1
+* Fri Jun 08 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.3.f1
 - Enable libguestfs image inspection
 
 * Wed Jun 06 2012 Pádraig Brady <P@draigBrady.com> - 2012.2-0.2.f1
@@ -1084,7 +1083,7 @@ fi
 * Wed May 09 2012 Alan Pevec <apevec@redhat.com> - 2012.1-4
 - Remove the socat dependency no longer needed by Essex
 
-* Wed Apr 27 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-3
+* Fri Apr 27 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-3
 - Reference new Essex services at installation
 
 * Wed Apr 18 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-2
@@ -1114,10 +1113,10 @@ fi
 - Suppress deprecation warnings with db sync at install (#801302)
 - Avoid and cater for missing libvirt instance images (#801791)
 
-* Fri Mar  6 2012 Alan Pevec <apevec@redhat.com> - 2012.1-0.7.e4
+* Tue Mar  6 2012 Alan Pevec <apevec@redhat.com> - 2012.1-0.7.e4
 - Fixup permissions on nova config files
 
-* Fri Mar  6 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-0.6.e4
+* Tue Mar  6 2012 Pádraig Brady <P@draigBrady.com> - 2012.1-0.6.e4
 - Depend on bridge-utils
 - Support fully transparent handling of the new ini config file
 
@@ -1189,7 +1188,7 @@ fi
 - Don't require the fuse group (#770927)
 - Require the fuse package (to avoid #767852)
 
-* Tue Dec 14 2011 Pádraig Brady <P@draigBrady.com> - 2011.3-13
+* Wed Dec 14 2011 Pádraig Brady <P@draigBrady.com> - 2011.3-13
 - Sanitize EC2 manifests and image tarballs (#767236, CVE 2011-4596)
 - update libguestfs support
 
