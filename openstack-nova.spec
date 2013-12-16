@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.1.b1%{?dist}
+Release:          0.2.b1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -39,11 +39,11 @@ Source30:         openstack-nova-novncproxy.sysconfig
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
-Patch0003: 0003-Revert-Use-oslo.sphinx-and-remove-local-copy-of-doc-.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    python-sphinx
+BuildRequires:    python-oslo-sphinx
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
 BuildRequires:    openstack-utils
@@ -395,7 +395,6 @@ This package contains documentation files for nova.
 
 %patch0001 -p1
 %patch0002 -p1
-%patch0003 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -902,6 +901,9 @@ fi
 %endif
 
 %changelog
+* Mon Dec 16 2013 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.2.b1
+- Add python-oslo-sphinx to build requirements
+
 * Mon Dec 16 2013 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.1.b1
 - Update to Icehouse milestone 1
 
