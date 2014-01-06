@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.3.b1%{?dist}
+Release:          0.4.b1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -354,7 +354,7 @@ Requires:         python-neutronclient
 Requires:         python-novaclient
 Requires:         python-oslo-config >= 1:1.2.0
 Requires:         python-pyasn1
-Requires:         python-six
+Requires:         python-six >= 1.4.1
 Requires:         python-babel
 Requires:         python-jinja2
 
@@ -901,6 +901,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 06 2013 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.4.b1
+- Set python-six min version to ensure updated
+
 * Tue Dec 17 2013 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.3.b1
 - Rotate log files by size rather than by age - rhbz#867747
 
