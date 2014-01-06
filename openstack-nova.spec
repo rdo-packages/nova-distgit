@@ -901,7 +901,7 @@ fi
 %endif
 
 %changelog
-* Mon Jan 06 2013 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.4.b1
+* Mon Jan 06 2014 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.4.b1
 - Set python-six min version to ensure updated
 
 * Tue Dec 17 2013 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.3.b1
