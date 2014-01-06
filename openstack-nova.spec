@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.4.b1%{?dist}
+Release:          0.5.b1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -411,56 +411,18 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 %build
 %{__python} setup.py build
 
-# Move authtoken configuration out of paste.ini
-openstack-config --del etc/nova/api-paste.ini filter:authtoken admin_tenant_name
-openstack-config --del etc/nova/api-paste.ini filter:authtoken admin_user
-openstack-config --del etc/nova/api-paste.ini filter:authtoken admin_password
-openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_host
-openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_port
-openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_protocol
-openstack-config --del etc/nova/api-paste.ini filter:authtoken signing_dir
-openstack-config --del etc/nova/api-paste.ini filter:authtoken auth_version
-
-
-echo '
-#
-# Options to be passed to keystoneclient.auth_token middleware
-# NOTE: These options are not defined in nova but in keystoneclient
-#
-[keystone_authtoken]
-
-# the name of the admin tenant (string value)
-#admin_tenant_name=
-
-# the keystone admin username (string value)
-#admin_user=
-
-# the keystone admin password (string value)
-#admin_password=
-
-# the keystone host (string value)
-#auth_host=
-
-# the keystone port (integer value)
-#auth_port=
-
-# protocol to be used for auth requests http/https (string value)
-#auth_protocol=
-
-# Workaround for https://bugs.launchpad.net/nova/+bug/1154809
-#auth_version=
-
-# signing_dir is configurable, but the default behavior of the authtoken
-# middleware should be sufficient.  It will create a temporary directory
-# in the home directory for the user the nova process is running as.
-#signing_dir=/var/lib/nova/keystone-signing
-' >> etc/nova/nova.conf.sample
-
 # Programmatically update defaults in sample config
 # which is installed at /etc/nova/nova.conf
-# TODO: Make this more robust
-# Note it only edits the first occurance, so assumes a section ordering in sample
-# and also doesn't support multi-valued variables like dhcpbridge_flagfile.
+
+#  First we ensure all values are commented in appropriate format.
+#  Since icehouse, there was an uncommented keystone_authtoken section
+#  at the end of the file which mimics but also conflicted with our
+#  distro editing that had been done for many releases.
+sed -i '/^[^#[]/{s/^/#/; s/ //g}; /^#[^ ]/s/ = /=/' etc/nova/nova.conf.sample
+
+#  TODO: Make this more robust
+#  Note it only edits the first occurance, so assumes a section ordering in sample
+#  and also doesn't support multi-valued variables like dhcpbridge_flagfile.
 while read name eq value; do
   test "$name" && test "$value" || continue
   sed -i "0,/^# *$name=/{s!^# *$name=.*!#$name=$value!}" etc/nova/nova.conf.sample
@@ -901,6 +863,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 06 2014 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.5.b1
+- Avoid [keystone_authtoken] config corruption in nova.conf
+
 * Mon Jan 06 2014 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.4.b1
 - Set python-six min version to ensure updated
 
