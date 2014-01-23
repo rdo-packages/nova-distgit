@@ -2,13 +2,13 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.5.b1%{?dist}
+Release:          0.6.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://launchpad.net/nova/icehouse/icehouse-1/+download/nova-%{version}.b1.tar.gz
+Source0:          https://launchpad.net/nova/icehouse/icehouse-2/+download/nova-%{version}.b2.tar.gz
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
@@ -35,10 +35,10 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2014.1.b1
+# patches_base=2014.1.b2
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
+Patch0002: 0002-libvirt-Fix-root-disk-leak-in-live-mig.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -77,6 +77,8 @@ Summary:          Components common to all OpenStack Nova services
 Group:            Applications/System
 
 Requires:         python-nova = %{version}-%{release}
+Requires:         python-keystoneclient
+Requires:         python-oslo-rootwrap
 
 Requires(post):   systemd-units
 Requires(preun):  systemd-units
@@ -391,7 +393,7 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}.b1
+%setup -q -n nova-%{version}.b2
 
 %patch0001 -p1
 %patch0002 -p1
@@ -863,6 +865,11 @@ fi
 %endif
 
 %changelog
+* Fri Jan 24 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.6.b2
+- Update to Icehouse milestone 2
+- Require python-keystoneclient for api-paste - rhbz#909113
+- Fix root disk leak in live migration - CVE-2013-7130
+
 * Mon Jan 06 2014 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.5.b1
 - Avoid [keystone_authtoken] config corruption in nova.conf
 
