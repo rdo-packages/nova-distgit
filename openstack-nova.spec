@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.6.b2%{?dist}
+Release:          0.7.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -38,7 +38,8 @@ Source30:         openstack-nova-novncproxy.sysconfig
 # patches_base=2014.1.b2
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0002: 0002-libvirt-Fix-root-disk-leak-in-live-mig.patch
+Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
+Patch0003: 0003-libvirt-Fix-root-disk-leak-in-live-mig.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -397,6 +398,7 @@ This package contains documentation files for nova.
 
 %patch0001 -p1
 %patch0002 -p1
+%patch0003 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -865,6 +867,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 24 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.7.b2
+- Restore pbr patch dropped in the last version by mistake
+
 * Fri Jan 24 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.6.b2
 - Update to Icehouse milestone 2
 - Require python-keystoneclient for api-paste - rhbz#909113
