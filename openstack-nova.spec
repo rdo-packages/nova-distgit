@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.8.b2%{?dist}
+Release:          0.9.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -49,6 +49,7 @@ BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
 BuildRequires:    python-pbr
 BuildRequires:    python-d2to1
+BuildRequires:    python-six
 
 Requires:         openstack-nova-compute = %{version}-%{release}
 Requires:         openstack-nova-cert = %{version}-%{release}
@@ -866,6 +867,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 24 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.9.b2
+- Add build requirement on python-six
+
 * Mon Jan 27 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.8.b2
 - Fix the patch for CVE-2013-7130 which was not backported properly
 
