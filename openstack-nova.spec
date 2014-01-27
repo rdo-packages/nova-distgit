@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.7.b2%{?dist}
+Release:          0.8.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -867,6 +867,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 27 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.8.b2
+- Fix the patch for CVE-2013-7130 which was not backported properly
+
 * Fri Jan 24 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.7.b2
 - Restore pbr patch dropped in the last version by mistake
 
