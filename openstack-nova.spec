@@ -47,7 +47,6 @@ BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-sphinx
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
-BuildRequires:    openstack-utils
 BuildRequires:    python-pbr
 BuildRequires:    python-d2to1
 
