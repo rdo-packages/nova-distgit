@@ -867,7 +867,7 @@ fi
 %endif
 
 %changelog
-* Fri Jan 24 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.9.b2
+* Fri Jan 29 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.9.b2
 - Add build requirement on python-six
 
 * Mon Jan 27 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.8.b2
