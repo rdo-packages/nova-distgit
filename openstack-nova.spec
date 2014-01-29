@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.9.b2%{?dist}
+Release:          0.10.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -109,7 +109,6 @@ Requires:         curl
 Requires:         iscsi-initiator-utils
 Requires:         iptables iptables-ipv6
 Requires:         ipmitool
-Requires:         vconfig
 Requires:         python-libguestfs
 Requires:         libvirt >= 0.9.6
 Requires:         libvirt-python
@@ -139,7 +138,6 @@ Summary:          OpenStack Nova Network control service
 Group:            Applications/System
 
 Requires:         openstack-nova-common = %{version}-%{release}
-Requires:         vconfig
 Requires:         radvd
 Requires:         bridge-utils
 Requires:         dnsmasq
@@ -867,7 +865,10 @@ fi
 %endif
 
 %changelog
-* Fri Jan 29 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.9.b2
+* Wed Jan 29 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.10.b2
+- Remove unneeded requirement on vconfig
+
+* Wed Jan 29 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.9.b2
 - Add build requirement on python-six
 
 * Mon Jan 27 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.8.b2
