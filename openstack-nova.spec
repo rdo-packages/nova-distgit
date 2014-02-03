@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.10.b2%{?dist}
+Release:          0.11.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -412,6 +412,9 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
 %build
 %{__python} setup.py build
+
+# Avoid http://bugzilla.redhat.com/1059815. Remove when that is closed
+sed -i 's|group/name|group;name|; s|\[DEFAULT\]/|DEFAULT;|' etc/nova/nova.conf.sample
 
 # Programmatically update defaults in sample config
 # which is installed at /etc/nova/nova.conf
@@ -865,6 +868,9 @@ fi
 %endif
 
 %changelog
+* Mon Feb 03 2014 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.11.b2
+- Avoid commented [DEFAULT] config issue in nova.conf
+
 * Wed Jan 29 2014 Xavier Queralt <xqueralt@redhat.com> - 2014.1-0.10.b2
 - Remove unneeded requirement on vconfig
 
