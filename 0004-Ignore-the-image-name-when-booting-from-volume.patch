@@ -1,0 +1,89 @@
+From 5b59de3b3bf12d702a4928a9e2635f32b9c37a85 Mon Sep 17 00:00:00 2001
+From: Xavier Queralt <xqueralt@redhat.com>
+Date: Mon, 3 Mar 2014 09:37:53 +0100
+Subject: [PATCH] Ignore the image name when booting from volume
+
+In 0185d2445 the _run_instance method was changed to acquire the image
+metadata from the request_spec instead of glance. This was needed to be
+able to get the image_metadata attached to a volume, when booting from
+it. That change didn't consider that the image name key is not inherited
+when creating a volume from an image and introduced a bug when creating
+the usage_info for volume booted instances.
+
+This change fixes this by only attaching the image name to the usage_info
+only when booting from an image and not when booting from a volume.
+
+Related-Bug: 1281973
+Change-Id: I8ec441e7815855a94a28c4566790d5144deff16f
+(cherry picked from commit 43aaf80942a0afb7471e803e57a3db851dab608b)
+---
+ nova/compute/manager.py            |  3 ++-
+ nova/tests/compute/test_compute.py | 16 ++++++++++++----
+ 2 files changed, 14 insertions(+), 5 deletions(-)
+
+diff --git a/nova/compute/manager.py b/nova/compute/manager.py
+index 48c9d5d..3c5c6b8 100644
+--- a/nova/compute/manager.py
++++ b/nova/compute/manager.py
+@@ -968,10 +968,11 @@ class ComputeManager(manager.Manager):
+ 
+             if request_spec and request_spec.get('image'):
+                 image_meta = request_spec['image']
+-                extra_usage_info = {"image_name": image_meta['name']}
+             else:
+                 image_meta = {}
+ 
++            extra_usage_info = {"image_name": image_meta.get('name', '')}
++
+             notify("start")  # notify that build is starting
+ 
+             instance, network_info = self._build_instance(context,
+diff --git a/nova/tests/compute/test_compute.py b/nova/tests/compute/test_compute.py
+index 6c2ad59..fe734fc 100644
+--- a/nova/tests/compute/test_compute.py
++++ b/nova/tests/compute/test_compute.py
+@@ -3213,25 +3213,24 @@ class ComputeTestCase(BaseTestCase):
+         self.compute.terminate_instance(self.context,
+                 self._objectify(instance), [], [])
+ 
+-    def test_run_instance_usage_notification(self):
++    def test_run_instance_usage_notification(self, request_spec={}):
+         # Ensure run instance generates appropriate usage notification.
+         instance = jsonutils.to_primitive(self._create_fake_instance())
+         instance_uuid = instance['uuid']
+-        request_spec = {'image': {'name': 'fake_name'}}
++        expected_image_name = request_spec.get('image', {}).get('name', '')
+         self.compute.run_instance(self.context, instance, request_spec,
+                 {}, [], None, None, True, None, False)
+         self.assertEqual(len(fake_notifier.NOTIFICATIONS), 2)
+         inst_ref = db.instance_get_by_uuid(self.context, instance_uuid)
+         msg = fake_notifier.NOTIFICATIONS[0]
+         self.assertEqual(msg.event_type, 'compute.instance.create.start')
+-        self.assertEqual(msg.payload['image_name'], 'fake_name')
+         # The last event is the one with the sugar in it.
+         msg = fake_notifier.NOTIFICATIONS[1]
+         self.assertEqual(msg.priority, 'INFO')
+         self.assertEqual(msg.event_type, 'compute.instance.create.end')
+         payload = msg.payload
+         self.assertEqual(payload['tenant_id'], self.project_id)
+-        self.assertEqual(payload['image_name'], 'fake_name')
++        self.assertEqual(expected_image_name, payload['image_name'])
+         self.assertEqual(payload['user_id'], self.user_id)
+         self.assertEqual(payload['instance_id'], inst_ref['uuid'])
+         self.assertEqual(payload['instance_type'], 'm1.tiny')
+@@ -3251,6 +3250,15 @@ class ComputeTestCase(BaseTestCase):
+         self.compute.terminate_instance(self.context,
+                 self._objectify(inst_ref), [], [])
+ 
++    def test_run_instance_image_usage_notification(self):
++        request_spec = {'image': {'name': 'fake_name', 'key': 'value'}}
++        self.test_run_instance_usage_notification(request_spec=request_spec)
++
++    def test_run_instance_usage_notification_volume_meta(self):
++        # Volume's image metadata won't contain the image name
++        request_spec = {'image': {'key': 'value'}}
++        self.test_run_instance_usage_notification(request_spec=request_spec)
++
+     def test_run_instance_end_notification_on_abort(self):
+         # Test that an end notif is sent if the build is aborted
+         instance = jsonutils.to_primitive(self._create_fake_instance())

@@ -2,13 +2,13 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.11.b2%{?dist}
+Release:          0.12.b3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://launchpad.net/nova/icehouse/icehouse-2/+download/nova-%{version}.b2.tar.gz
+Source0:          https://launchpad.net/nova/icehouse/icehouse-3/+download/nova-%{version}.b3.tar.gz
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
@@ -35,11 +35,12 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2014.1.b2
+# patches_base=2014.1.b3
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
-Patch0003: 0003-libvirt-Fix-root-disk-leak-in-live-mig.patch
+Patch0003: 0003-Revert-Replace-oslo.sphinx-with-oslosphinx.patch
+Patch0004: 0004-Ignore-the-image-name-when-booting-from-volume.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -80,6 +81,7 @@ Group:            Applications/System
 Requires:         python-nova = %{version}-%{release}
 Requires:         python-keystoneclient
 Requires:         python-oslo-rootwrap
+Requires:         python-oslo-messaging
 
 Requires(post):   systemd-units
 Requires(preun):  systemd-units
@@ -392,11 +394,12 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}.b2
+%setup -q -n nova-%{version}.b3
 
 %patch0001 -p1
 %patch0002 -p1
 %patch0003 -p1
+%patch0004 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -868,6 +871,9 @@ fi
 %endif
 
 %changelog
+* Fri Mar 07 2014 Vladan Popovic <vpopovic@redhat.com> - 2014.1-0.12.b3
+- Update to Icehouse milestone 3
+
 * Mon Feb 03 2014 Pádraig Brady <pbrady@redhat.com> - 2014.1-0.11.b2
 - Avoid commented [DEFAULT] config issue in nova.conf
 

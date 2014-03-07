@@ -1,4 +1,4 @@
-From 63b7da8dd0d457f7fdd9ac7c907ea65f4ea0d627 Mon Sep 17 00:00:00 2001
+From cd413310772f75f777e69b5bb113eb4f3f50302b Mon Sep 17 00:00:00 2001
 From: Nikola Dipanov <ndipanov@redhat.com>
 Date: Fri, 14 Jun 2013 11:29:50 +0200
 Subject: [PATCH] remove runtime dep on python-pbr
@@ -9,10 +9,10 @@ Change-Id: I6f247f64c561d49c13e3c2f67401fe150b6d47b6
  1 file changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/nova/version.py b/nova/version.py
-index 01b6b47..25ea4dc 100644
+index 4d6faa1..a1fbf7a 100644
 --- a/nova/version.py
 +++ b/nova/version.py
-@@ -14,8 +14,6 @@
+@@ -12,8 +12,6 @@
  #    License for the specific language governing permissions and limitations
  #    under the License.
  
@@ -21,7 +21,7 @@ index 01b6b47..25ea4dc 100644
  from nova.openstack.common.gettextutils import _
  
  NOVA_VENDOR = "OpenStack Foundation"
-@@ -23,7 +21,20 @@ NOVA_PRODUCT = "OpenStack Nova"
+@@ -21,7 +19,20 @@ NOVA_PRODUCT = "OpenStack Nova"
  NOVA_PACKAGE = None  # OS distro package version suffix
  
  loaded = False
