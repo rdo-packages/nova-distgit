@@ -2,7 +2,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.12.b3%{?dist}
+Release:          0.13.b3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -81,7 +81,7 @@ Group:            Applications/System
 Requires:         python-nova = %{version}-%{release}
 Requires:         python-keystoneclient
 Requires:         python-oslo-rootwrap
-Requires:         python-oslo-messaging
+Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
 
 Requires(post):   systemd-units
 Requires(preun):  systemd-units
@@ -871,6 +871,9 @@ fi
 %endif
 
 %changelog
+* Wed Mar 19 2014 Vladan Popovic <vpopovic@redhat.com> - 2014.1-0.13.b3
+- Update python.oslo.messaging requirement to 1.3.0-0.1.a4 - rhbz#1077860
+
 * Fri Mar 07 2014 Vladan Popovic <vpopovic@redhat.com> - 2014.1-0.12.b3
 - Update to Icehouse milestone 3
 
