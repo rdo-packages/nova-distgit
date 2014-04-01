@@ -2,15 +2,16 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.13.b3%{?dist}
+Release:          0.14.rc1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://launchpad.net/nova/icehouse/icehouse-3/+download/nova-%{version}.b3.tar.gz
+Source0:          https://launchpad.net/nova/icehouse/icehouse-rc1/+download/nova-%{version}.rc1.tar.gz
 
 Source1:          nova-dist.conf
+Source2:          nova.conf.sample
 Source6:          nova.logrotate
 
 Source10:         openstack-nova-api.service
@@ -35,12 +36,11 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2014.1.b3
+# patches_base=2014.1.rc1
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
 Patch0003: 0003-Revert-Replace-oslo.sphinx-with-oslosphinx.patch
-Patch0004: 0004-Ignore-the-image-name-when-booting-from-volume.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -394,12 +394,11 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}.b3
+%setup -q -n nova-%{version}.rc1
 
 %patch0001 -p1
 %patch0002 -p1
 %patch0003 -p1
-%patch0004 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -415,6 +414,8 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
 %build
 %{__python} setup.py build
+
+install -p -D -m 640 %{SOURCE2} etc/nova/nova.conf.sample
 
 # Avoid http://bugzilla.redhat.com/1059815. Remove when that is closed
 sed -i 's|group/name|group;name|; s|\[DEFAULT\]/|DEFAULT;|' etc/nova/nova.conf.sample
@@ -556,203 +557,65 @@ usermod -a -G qemu nova
 exit 0
 
 %post compute
-if [ $1 -eq 1 ] ; then
-    # Initial installation
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
+%systemd_post openstack-nova-compute.service
 %post network
-if [ $1 -eq 1 ] ; then
-    # Initial installation
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
+%systemd_post openstack-nova-network.service
 %post scheduler
-if [ $1 -eq 1 ] ; then
-    # Initial installation
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
+%systemd_post openstack-nova-scheduler.service
 %post cert
-if [ $1 -eq 1 ] ; then
-    # Initial installation
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
+%systemd_post openstack-nova-cert.service
 %post api
-if [ $1 -eq 1 ] ; then
-    # Initial installation
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
+%systemd_post openstack-nova-api.service
 %post conductor
-if [ $1 -eq 1 ] ; then
-    # Initial installation
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
+%systemd_post openstack-nova-conductor.service
 %post objectstore
-if [ $1 -eq 1 ] ; then
-    # Initial installation
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
+%systemd_post openstack-nova-objectstore.service
 %post console
-if [ $1 -eq 1 ] ; then
-    # Initial installation
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
-
+%systemd_post openstack-nova-console.service
 %post cells
-if [ $1 -eq 1 ] ; then
-    # Initial installation
-    /bin/systemctl daemon-reload >/dev/null 2>&1 || :
-fi
+%systemd_post openstack-nova-cells.service
 
 %preun compute
-if [ $1 -eq 0 ] ; then
-    for svc in compute; do
-        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
-        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
-    done
-fi
+%systemd_preun openstack-nova-compute.service
 %preun network
-if [ $1 -eq 0 ] ; then
-    for svc in network; do
-        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
-        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
-    done
-fi
+%systemd_preun openstack-nova-network.service
 %preun scheduler
-if [ $1 -eq 0 ] ; then
-    for svc in scheduler; do
-        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
-        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
-    done
-fi
+%systemd_preun openstack-nova-scheduler.service
 %preun cert
-if [ $1 -eq 0 ] ; then
-    for svc in cert; do
-        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
-        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
-    done
-fi
+%systemd_preun openstack-nova-cert.service
 %preun api
-if [ $1 -eq 0 ] ; then
-    for svc in api metadata-api; do
-        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
-        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
-    done
-fi
+%systemd_preun openstack-nova-api.service
 %preun objectstore
-if [ $1 -eq 0 ] ; then
-    for svc in objectstore; do
-        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
-        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
-    done
-fi
+%systemd_preun openstack-nova-objectstore.service
 %preun conductor
-if [ $1 -eq 0 ] ; then
-    for svc in conductor; do
-        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
-        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
-    done
-fi
+%systemd_preun openstack-nova-conductor.service
 %preun console
-if [ $1 -eq 0 ] ; then
-    for svc in console consoleauth xvpvncproxy; do
-        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
-        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
-    done
-fi
+%systemd_preun openstack-nova-console.service
 %preun cells
-if [ $1 -eq 0 ] ; then
-    for svc in cells; do
-        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
-        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
-    done
-fi
+%systemd_preun openstack-nova-cells.service
 %preun novncproxy
-if [ $1 -eq 0 ] ; then
-    for svc in novncproxy; do
-        /bin/systemctl --no-reload disable openstack-nova-${svc}.service > /dev/null 2>&1 || :
-        /bin/systemctl stop openstack-nova-${svc}.service > /dev/null 2>&1 || :
-    done
-fi
+%systemd_preun openstack-nova-novncproxy.service
 
 %postun compute
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    for svc in compute; do
-        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
-    done
-fi
+%systemd_postun_with_restart openstack-nova-compute.service
 %postun network
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    for svc in network; do
-        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
-    done
-fi
+%systemd_postun_with_restart openstack-nova-network.service
 %postun scheduler
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    for svc in scheduler; do
-        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
-    done
-fi
+%systemd_postun_with_restart openstack-nova-scheduler.service
 %postun cert
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    for svc in cert; do
-        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
-    done
-fi
+%systemd_postun_with_restart openstack-nova-cert.service
 %postun api
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    for svc in api metadata-api; do
-        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
-    done
-fi
+%systemd_postun_with_restart openstack-nova-api.service
 %postun objectstore
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    for svc in objectstore; do
-        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
-    done
-fi
+%systemd_postun_with_restart openstack-nova-objectstore.service
 %postun conductor
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    for svc in conductor; do
-        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
-    done
-fi
+%systemd_postun_with_restart openstack-nova-conductor.service
 %postun console
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    for svc in console consoleauth xvpvncproxy; do
-        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
-    done
-fi
+%systemd_postun_with_restart openstack-nova-console.service
 %postun cells
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    for svc in cells; do
-        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
-    done
-fi
+%systemd_postun_with_restart openstack-nova-cells.service
 %postun novncproxy
-/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-if [ $1 -ge 1 ] ; then
-    # Package upgrade, not uninstall
-    for svc in novncproxy; do
-        /bin/systemctl try-restart openstack-nova-${svc}.service >/dev/null 2>&1 || :
-    done
-fi
+%systemd_postun_with_restart openstack-nova-novncproxy.service
 
 %files
 %doc LICENSE
@@ -776,8 +639,6 @@ fi
 %dir %attr(0755, nova, root) %{_localstatedir}/run/nova
 
 %{_bindir}/nova-clear-rabbit-queues
-# TODO. zmq-receiver may need its own service?
-%{_bindir}/nova-rpc-zmq-receiver
 %{_bindir}/nova-manage
 %{_bindir}/nova-rootwrap
 
@@ -871,6 +732,11 @@ fi
 %endif
 
 %changelog
+* Tue Apr 01 2014 Vladan Popovic <vpopovic@redhat.com> 2014.1-0.14.rc1
+- Update to upstream 2014.1.rc1
+- Introduce new systemd-rpm macros in openstack-nova spec file - rhbz#850252
+- Fix double logging when using syslog - rhbz#966050
+
 * Wed Mar 19 2014 Vladan Popovic <vpopovic@redhat.com> - 2014.1-0.13.b3
 - Update python.oslo.messaging requirement to 1.3.0-0.1.a4 - rhbz#1077860
 

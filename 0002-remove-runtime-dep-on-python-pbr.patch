@@ -1,4 +1,4 @@
-From cd413310772f75f777e69b5bb113eb4f3f50302b Mon Sep 17 00:00:00 2001
+From b51c6447179d009d370b0900ee39f89539c36bd6 Mon Sep 17 00:00:00 2001
 From: Nikola Dipanov <ndipanov@redhat.com>
 Date: Fri, 14 Jun 2013 11:29:50 +0200
 Subject: [PATCH] remove runtime dep on python-pbr
