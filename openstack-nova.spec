@@ -1,14 +1,15 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
+%global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          0.14.rc1%{?dist}
+Release:          0.15.rc2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://launchpad.net/nova/icehouse/icehouse-rc1/+download/nova-%{version}.rc1.tar.gz
+Source0:          https://launchpad.net/nova/icehouse/icehouse-rc2/+download/nova-%{version}.rc2.tar.gz
 
 Source1:          nova-dist.conf
 Source2:          nova.conf.sample
@@ -36,11 +37,13 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2014.1.rc1
+# patches_base=2014.1.rc2
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
 Patch0003: 0003-Revert-Replace-oslo.sphinx-with-oslosphinx.patch
+Patch0004: 0004-notify-calling-process-we-are-ready-to-serve.patch
+Patch0005: 0005-Move-notification-point-to-a-better-place.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -290,7 +293,7 @@ through users and projects. OpenStack Compute strives to be both
 hardware and hypervisor agnostic, currently supporting a variety of
 standard hardware configurations and seven major hypervisors.
 
-This package contains the Nova Cells service providing additional 
+This package contains the Nova Cells service providing additional
 scaling and (geographic) distribution for compute services.
 
 %package novncproxy
@@ -312,7 +315,7 @@ through users and projects. OpenStack Compute strives to be both
 hardware and hypervisor agnostic, currently supporting a variety of
 standard hardware configurations and seven major hypervisors.
 
-This package contains the Nova noVNC Proxy service that can proxy 
+This package contains the Nova noVNC Proxy service that can proxy
 VNC traffic over browser websockets connections.
 
 %package -n       python-nova
@@ -327,10 +330,6 @@ Requires:         sudo
 Requires:         MySQL-python
 
 Requires:         python-paramiko
-
-Requires:         python-qpid
-Requires:         python-kombu
-Requires:         python-amqplib
 
 Requires:         python-eventlet
 Requires:         python-greenlet
@@ -394,11 +393,13 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}.rc1
+%setup -q -n nova-%{version}.rc2
 
 %patch0001 -p1
 %patch0002 -p1
 %patch0003 -p1
+%patch0004 -p1
+%patch0005 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -408,7 +409,7 @@ sed -i '/setuptools_git/d' setup.py
 sed -i s/REDHATNOVAVERSION/%{version}/ nova/version.py
 sed -i s/REDHATNOVARELEASE/%{release}/ nova/version.py
 
-# Remove the requirements file so that pbr hooks don't add it 
+# Remove the requirements file so that pbr hooks don't add it
 # to distutils requiers_dist config
 rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
@@ -732,6 +733,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Apr 11 2014 Vladan Popovic <vpopovic@redhat.com> 2014.1-0.15.rc2
+- Update to upstream 2014.1.rc2
+
 * Tue Apr 01 2014 Vladan Popovic <vpopovic@redhat.com> 2014.1-0.14.rc1
 - Update to upstream 2014.1.rc1
 - Introduce new systemd-rpm macros in openstack-nova spec file - rhbz#850252

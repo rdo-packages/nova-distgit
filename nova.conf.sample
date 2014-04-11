@@ -1824,7 +1824,7 @@
 
 # Which filter class names to use for filtering hosts when not
 # specified in the request. (list value)
-#scheduler_default_filters=RetryFilter,AvailabilityZoneFilter,RamFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter
+#scheduler_default_filters=RetryFilter,AvailabilityZoneFilter,RamFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter
 
 # Which weight class names to use for weighing hosts (list
 # value)
@@ -2865,7 +2865,9 @@
 # vdi). Defaults to same as source image (string value)
 #snapshot_image_format=<None>
 
-# The libvirt VIF driver to configure the VIFs. (string value)
+# DEPRECATED. The libvirt VIF driver to configure the
+# VIFs.This option is deprecated and will be removed in the
+# Juno release. (string value)
 # Deprecated group/name - [DEFAULT]/libvirt_vif_driver
 #vif_driver=nova.virt.libvirt.vif.LibvirtGenericVIFDriver
 
