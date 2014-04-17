@@ -3,7 +3,7 @@ Description=OpenStack Nova NoVNC Proxy Server
 After=syslog.target network.target
 
 [Service]
-Type=simple
+Type=notify
 User=nova
 EnvironmentFile=-/etc/sysconfig/openstack-nova-novncproxy
 ExecStart=/usr/bin/nova-novncproxy --web /usr/share/novnc/ $OPTIONS
