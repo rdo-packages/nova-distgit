@@ -3,7 +3,7 @@ Description=OpenStack Nova Objectstore Server
 After=syslog.target network.target
 
 [Service]
-Type=notify
+Type=simple
 User=nova
 ExecStart=/usr/bin/nova-objectstore
 
