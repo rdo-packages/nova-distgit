@@ -3,7 +3,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
