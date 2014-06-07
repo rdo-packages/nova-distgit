@@ -3,7 +3,7 @@
 
 Name:             openstack-nova
 Version:          2014.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -733,6 +733,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2014.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Thu Apr 17 2014 Vladan Popovic <vpopovic@redhat.com> 2014.1-0.16
 - Update to upstream 2014.1
 
