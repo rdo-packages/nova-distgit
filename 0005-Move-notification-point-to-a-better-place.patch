@@ -1,4 +1,4 @@
-From 7026c43c45acdc4b833c79da42010e3f64d52248 Mon Sep 17 00:00:00 2001
+From 95d82395ab3bb453b5b47de8a35740183aa5c1af Mon Sep 17 00:00:00 2001
 From: Alan Pevec <apevec@redhat.com>
 Date: Mon, 14 Apr 2014 18:11:04 +0200
 Subject: [PATCH] Move notification point to a better place
@@ -21,7 +21,7 @@ Implements: blueprint service-readiness
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/nova/openstack/common/service.py b/nova/openstack/common/service.py
-index fe45653..7431a12 100644
+index 3b62bcb..be1a140 100644
 --- a/nova/openstack/common/service.py
 +++ b/nova/openstack/common/service.py
 @@ -190,6 +190,7 @@ class ServiceLauncher(Launcher):
@@ -40,7 +40,7 @@ index fe45653..7431a12 100644
          LOG.debug(_('Full set of CONF:'))
          CONF.log_opt_values(LOG, std_logging.DEBUG)
  
-@@ -479,7 +481,6 @@ class Services(object):
+@@ -482,7 +484,6 @@ class Services(object):
  
          """
          service.start()

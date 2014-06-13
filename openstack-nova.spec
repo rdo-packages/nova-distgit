@@ -2,8 +2,8 @@
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 
 Name:             openstack-nova
-Version:          2014.1
-Release:          3%{?dist}
+Version:          2014.1.1
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -37,7 +37,7 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2014.1
+# patches_base=2014.1.1
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
@@ -733,6 +733,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Jun 13 2014 Nikola Đipanov <ndipanov@redhat.com> 2014.1.1-1
+- Update to latest stable/icehouse 2014.1.1 release
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2014.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 

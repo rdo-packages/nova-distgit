@@ -1,4 +1,4 @@
-From b7b161c0d75f9ce51fa878ec3017c71d3441eae6 Mon Sep 17 00:00:00 2001
+From c94ead4458cf66740945b47eebf78fa98e27abda Mon Sep 17 00:00:00 2001
 From: Alan Pevec <apevec@redhat.com>
 Date: Tue, 11 Feb 2014 22:36:00 +0100
 Subject: [PATCH] notify calling process we are ready to serve
@@ -37,7 +37,7 @@ Change-Id: I80f325c9be9c171c2dc8d5526570bf64f0f87c78
  create mode 100644 nova/openstack/common/systemd.py
 
 diff --git a/nova/openstack/common/service.py b/nova/openstack/common/service.py
-index 21c857e..fe45653 100644
+index 0000899..3b62bcb 100644
 --- a/nova/openstack/common/service.py
 +++ b/nova/openstack/common/service.py
 @@ -41,6 +41,7 @@ from nova.openstack.common import eventlet_backdoor
@@ -48,7 +48,7 @@ index 21c857e..fe45653 100644
  from nova.openstack.common import threadgroup
  
  
-@@ -478,6 +479,7 @@ class Services(object):
+@@ -481,6 +482,7 @@ class Services(object):
  
          """
          service.start()

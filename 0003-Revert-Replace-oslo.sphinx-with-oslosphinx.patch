@@ -1,4 +1,4 @@
-From c3e0ded9959fc931ee5d55d8e09cc0d184f5c7ba Mon Sep 17 00:00:00 2001
+From e67c9a0395cbf2d4b2874f318c684e87dae9ed8c Mon Sep 17 00:00:00 2001
 From: Vladan Popovic <vpopovic@redhat.com>
 Date: Fri, 7 Mar 2014 15:00:16 +0100
 Subject: [PATCH] Revert "Replace oslo.sphinx with oslosphinx"
