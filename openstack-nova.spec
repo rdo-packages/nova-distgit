@@ -86,10 +86,11 @@ Requires:         python-keystoneclient
 Requires:         python-oslo-rootwrap
 Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
 
-Requires(post):   systemd-units
-Requires(preun):  systemd-units
-Requires(postun): systemd-units
+Requires(post):   systemd
+Requires(preun):  systemd
+Requires(postun): systemd
 Requires(pre):    shadow-utils
+BuildRequires:    systemd
 
 %description common
 OpenStack Compute (codename Nova) is open source software designed to
@@ -372,7 +373,6 @@ This package contains the nova Python library.
 Summary:          Documentation for OpenStack Compute
 Group:            Documentation
 
-BuildRequires:    systemd-units
 BuildRequires:    graphviz
 
 # Required to build module documents
