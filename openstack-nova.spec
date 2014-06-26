@@ -3,7 +3,7 @@
 
 Name:             openstack-nova
 Version:          2014.1.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -44,6 +44,7 @@ Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
 Patch0003: 0003-Revert-Replace-oslo.sphinx-with-oslosphinx.patch
 Patch0004: 0004-notify-calling-process-we-are-ready-to-serve.patch
 Patch0005: 0005-Move-notification-point-to-a-better-place.patch
+Patch0006: 0006-Fixes-rbd-backend-image-size.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -400,6 +401,7 @@ This package contains documentation files for nova.
 %patch0003 -p1
 %patch0004 -p1
 %patch0005 -p1
+%patch0006 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -733,6 +735,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Jun 26 2014 Vladan Popovic <vpopovic@redhat.com> 2014.1.1-2
+- Fixes rbd backend image size - rhbz#1112871
+
 * Fri Jun 13 2014 Nikola Đipanov <ndipanov@redhat.com> 2014.1.1-1
 - Update to latest stable/icehouse 2014.1.1 release
 
