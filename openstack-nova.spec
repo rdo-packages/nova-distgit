@@ -1,5 +1,6 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
+%global upstream_version UPSTREAMVERSION
 
 Name:             openstack-nova
 Version:          2014.1.1
@@ -41,15 +42,12 @@ Source30:         openstack-nova-novncproxy.sysconfig
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
-Patch0003: 0003-Revert-Replace-oslo.sphinx-with-oslosphinx.patch
-Patch0004: 0004-notify-calling-process-we-are-ready-to-serve.patch
-Patch0005: 0005-Move-notification-point-to-a-better-place.patch
-Patch0006: 0006-Fixes-rbd-backend-image-size.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-sphinx
+BuildRequires:    python-oslo-i18n
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
 BuildRequires:    python-pbr
@@ -394,14 +392,10 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}
+%setup -q -n nova-%{upstream_version}
 
 %patch0001 -p1
 %patch0002 -p1
-%patch0003 -p1
-%patch0004 -p1
-%patch0005 -p1
-%patch0006 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -641,7 +635,6 @@ exit 0
 %dir %attr(0755, nova, root) %{_localstatedir}/log/nova
 %dir %attr(0755, nova, root) %{_localstatedir}/run/nova
 
-%{_bindir}/nova-clear-rabbit-queues
 %{_bindir}/nova-manage
 %{_bindir}/nova-rootwrap
 
