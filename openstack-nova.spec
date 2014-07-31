@@ -2,14 +2,14 @@
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 
 Name:             openstack-nova
-Version:          2014.1.1
-Release:          2%{?dist}
+Version:          2014.2
+Release:          0.1.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://launchpad.net/nova/icehouse/%{version}/+download/nova-%{version}.tar.gz
+Source0:          https://launchpad.net/nova/juno/juno-2/+download/nova-%{version}.b2.tar.gz
 
 Source1:          nova-dist.conf
 Source2:          nova.conf.sample
@@ -37,14 +37,13 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2014.1.1
+# patches_base=2014.2.b2
 #
 Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
 Patch0003: 0003-Revert-Replace-oslo.sphinx-with-oslosphinx.patch
-Patch0004: 0004-notify-calling-process-we-are-ready-to-serve.patch
-Patch0005: 0005-Move-notification-point-to-a-better-place.patch
-Patch0006: 0006-Fixes-rbd-backend-image-size.patch
+Patch0004: 0004-Move-notification-point-to-a-better-place.patch
+Patch0005: 0005-Use-keystoneclient.middleware-instead-of-keystonemid.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -55,6 +54,7 @@ BuildRequires:    python-netaddr
 BuildRequires:    python-pbr
 BuildRequires:    python-d2to1
 BuildRequires:    python-six
+BuildRequires:    python-oslo-i18n
 
 Requires:         openstack-nova-compute = %{version}-%{release}
 Requires:         openstack-nova-cert = %{version}-%{release}
@@ -86,6 +86,8 @@ Requires:         python-nova = %{version}-%{release}
 Requires:         python-keystoneclient
 Requires:         python-oslo-rootwrap
 Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
+Requires:         python-oslo-i18n
+Requires:         python-posix_ipc
 
 Requires(post):   systemd
 Requires(preun):  systemd
@@ -117,8 +119,13 @@ Requires:         iscsi-initiator-utils
 Requires:         iptables iptables-ipv6
 Requires:         ipmitool
 Requires:         python-libguestfs
-Requires:         libvirt >= 0.9.6
 Requires:         libvirt-python
+Requires:         libvirt-daemon-kvm
+%if 0%{?rhel}==0
+Requires:         libvirt-daemon-lxc
+Requires:         libvirt-daemon-uml
+Requires:         libvirt-daemon-xen
+%endif
 Requires:         openssh-clients
 Requires:         rsync
 Requires:         lvm2
@@ -304,7 +311,7 @@ Group:            Applications/System
 
 Requires:         openstack-nova-common = %{version}-%{release}
 Requires:         novnc
-Requires: 	  python-websockify
+Requires:         python-websockify
 
 
 %description novncproxy
@@ -394,14 +401,13 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}
+%setup -q -n nova-%{version}.b2
 
 %patch0001 -p1
 %patch0002 -p1
 %patch0003 -p1
 %patch0004 -p1
 %patch0005 -p1
-%patch0006 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -641,7 +647,6 @@ exit 0
 %dir %attr(0755, nova, root) %{_localstatedir}/log/nova
 %dir %attr(0755, nova, root) %{_localstatedir}/run/nova
 
-%{_bindir}/nova-clear-rabbit-queues
 %{_bindir}/nova-manage
 %{_bindir}/nova-rootwrap
 
@@ -735,6 +740,11 @@ exit 0
 %endif
 
 %changelog
+* Sun Aug 03 2014  Vladan Popovic <vpopovic@redhat.com> 2014.2-0.1.b2
+- Update to upstream 2014.2.b2
+- openstack-nova-compute should depend on libvirt-daemon-kvm, not libvirt - rhbz#996715
+- Use keystoneclient.middleware instead of keystonemiddleware
+
 * Thu Jun 26 2014 Vladan Popovic <vpopovic@redhat.com> 2014.1.1-2
 - Fixes rbd backend image size - rhbz#1112871
 

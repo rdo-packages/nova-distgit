@@ -1,0 +1,26 @@
+From 98d564ff8f848f558b012cc55c95c42a9ac123a9 Mon Sep 17 00:00:00 2001
+From: Vladan Popovic <vpopovic@redhat.com>
+Date: Sun, 3 Aug 2014 15:50:36 +0200
+Subject: [PATCH] Use keystoneclient.middleware instead of keystonemiddleware
+
+nova-api breaks as keystonemiddleware is missing from the packages,
+we'll use keystoneclient.middleware for now until keystonemiddleware is
+packaged.
+
+Change-Id: I10789e6cf51c3597ce59f22b592b8c258cd12bb0
+---
+ etc/nova/api-paste.ini | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/etc/nova/api-paste.ini b/etc/nova/api-paste.ini
+index 2a825a5..4e8fab4 100644
+--- a/etc/nova/api-paste.ini
++++ b/etc/nova/api-paste.ini
+@@ -115,4 +115,6 @@ paste.app_factory = nova.api.openstack.compute.versions:Versions.factory
+ paste.filter_factory = nova.api.auth:NovaKeystoneContext.factory
+ 
+ [filter:authtoken]
+-paste.filter_factory = keystonemiddleware.auth_token:filter_factory
++# use keystoneclient.middleware until keystonemiddleware is packaged
++#paste.filter_factory = keystonemiddleware.auth_token:filter_factory
++paste.filter_factory = keystoneclient.middleware.auth_token:filter_factory

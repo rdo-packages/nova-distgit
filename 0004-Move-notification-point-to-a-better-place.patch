@@ -1,4 +1,4 @@
-From 95d82395ab3bb453b5b47de8a35740183aa5c1af Mon Sep 17 00:00:00 2001
+From efc76b75a9d0077ee2cd55e43787962cdcc1c51d Mon Sep 17 00:00:00 2001
 From: Alan Pevec <apevec@redhat.com>
 Date: Mon, 14 Apr 2014 18:11:04 +0200
 Subject: [PATCH] Move notification point to a better place
@@ -17,11 +17,11 @@ Launcher type.
 Change-Id: I69bf10f353f5fecaaf89e537c2d3c46b73e39d36
 Implements: blueprint service-readiness
 ---
- nova/openstack/common/service.py | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ nova/openstack/common/service.py | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/nova/openstack/common/service.py b/nova/openstack/common/service.py
-index 3b62bcb..be1a140 100644
+index 80e345b..c6ede15 100644
 --- a/nova/openstack/common/service.py
 +++ b/nova/openstack/common/service.py
 @@ -190,6 +190,7 @@ class ServiceLauncher(Launcher):
@@ -32,15 +32,17 @@ index 3b62bcb..be1a140 100644
          while True:
              self.handle_signal()
              status, signo = self._wait_for_exit_or_signal(ready_callback)
-@@ -376,6 +377,7 @@ class ProcessLauncher(object):
+@@ -382,7 +383,8 @@ class ProcessLauncher(object):
      def wait(self):
          """Loop waiting on children to die and respawning as necessary."""
  
+-        LOG.debug('Full set of CONF:')
 +        systemd.notify_once()
-         LOG.debug(_('Full set of CONF:'))
++        LOG.debug(_('Full set of CONF:'))
          CONF.log_opt_values(LOG, std_logging.DEBUG)
  
-@@ -482,7 +484,6 @@ class Services(object):
+         try:
+@@ -488,7 +490,6 @@ class Services(object):
  
          """
          service.start()
