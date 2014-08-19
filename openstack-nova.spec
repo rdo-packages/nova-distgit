@@ -359,6 +359,8 @@ Requires:         python-pyasn1
 Requires:         python-six >= 1.4.1
 Requires:         python-babel
 Requires:         python-jinja2
+Requires:         python-posix_ipc
+Requires:         python-oslo-i18n
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
@@ -728,6 +730,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Aug 19 2014 Derek Higgins <derekh@redhat.com> - XXX
+- Added dependencies on python-posix_ipc and python-oslo-i18n
+
 * Thu Jun 26 2014 Vladan Popovic <vpopovic@redhat.com> 2014.1.1-2
 - Fixes rbd backend image size - rhbz#1112871
 
