@@ -3,7 +3,7 @@
 
 Name:             openstack-nova
 Version:          2014.2
-Release:          0.1.b2%{?dist}
+Release:          0.2.b2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -43,7 +43,6 @@ Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
 Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
 Patch0003: 0003-Revert-Replace-oslo.sphinx-with-oslosphinx.patch
 Patch0004: 0004-Move-notification-point-to-a-better-place.patch
-Patch0005: 0005-Use-keystoneclient.middleware-instead-of-keystonemid.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -83,7 +82,7 @@ Summary:          Components common to all OpenStack Nova services
 Group:            Applications/System
 
 Requires:         python-nova = %{version}-%{release}
-Requires:         python-keystoneclient
+Requires:         python-keystonemiddleware
 Requires:         python-oslo-rootwrap
 Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
 Requires:         python-oslo-i18n
@@ -407,7 +406,6 @@ This package contains documentation files for nova.
 %patch0002 -p1
 %patch0003 -p1
 %patch0004 -p1
-%patch0005 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -740,6 +738,10 @@ exit 0
 %endif
 
 %changelog
+* Thu Aug 28 2014 Alan Pevec <apevec@redhat.com> 2014.2-0.2.b2
+- use keystonemiddleware
+- fix nova-api startup issue
+
 * Sun Aug 03 2014  Vladan Popovic <vpopovic@redhat.com> 2014.2-0.1.b2
 - Update to upstream 2014.2.b2
 - openstack-nova-compute should depend on libvirt-daemon-kvm, not libvirt - rhbz#996715
