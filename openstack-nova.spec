@@ -361,6 +361,7 @@ Requires:         python-babel
 Requires:         python-jinja2
 Requires:         python-posix_ipc
 Requires:         python-oslo-i18n
+Requires:         python-rfc3986
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
@@ -730,6 +731,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Aug 29 2014 Derek Higgins <derekh@redhat.com> - XXX
+- Added dependencies on python-rfc3986
+
 * Tue Aug 19 2014 Derek Higgins <derekh@redhat.com> - XXX
 - Added dependencies on python-posix_ipc and python-oslo-i18n
 
