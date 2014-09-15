@@ -6,7 +6,7 @@
 
 Name:             openstack-nova
 Version:          2014.2
-Release:          0.3.b%{milestone}%{?dist}
+Release:          0.4.b%{milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -89,6 +89,7 @@ Requires:         python-oslo-rootwrap
 Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
 Requires:         python-oslo-i18n
 Requires:         python-posix_ipc
+Requires:         python-rfc3986
 
 Requires(post):   systemd
 Requires(preun):  systemd
