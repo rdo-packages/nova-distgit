@@ -40,8 +40,7 @@ Source30:         openstack-nova-novncproxy.sysconfig
 #
 # patches_base=2014.1.1
 #
-Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
+Patch0001: 0001-remove-runtime-dep-on-python-pbr.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -398,7 +397,6 @@ This package contains documentation files for nova.
 %setup -q -n nova-%{upstream_version}
 
 %patch0001 -p1
-%patch0002 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -733,6 +731,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Sep 16 2014 Derek Higgins <derekh@redhat.com> - XXX
+- Remove net access patch (a similar one has merged upstream)
+
 * Tue Sep 16 2014 Derek Higgins <derekh@redhat.com> - XXX
 - Added nova-idmapshift and nova-serialproxy
 
