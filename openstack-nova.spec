@@ -656,6 +656,7 @@ exit 0
 %{_bindir}/nova-compute
 %{_bindir}/nova-baremetal-deploy-helper
 %{_bindir}/nova-baremetal-manage
+%{_bindir}/nova-idmapshift
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
 
@@ -706,6 +707,7 @@ exit 0
 %{_bindir}/nova-console*
 %{_bindir}/nova-xvpvncproxy
 %{_bindir}/nova-spicehtml5proxy
+%{_bindir}/nova-serialproxy
 %{_unitdir}/openstack-nova-console*.service
 %{_unitdir}/openstack-nova-xvpvncproxy.service
 %{_unitdir}/openstack-nova-spicehtml5proxy.service
@@ -731,6 +733,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Sep 16 2014 Derek Higgins <derekh@redhat.com> - XXX
+- Added nova-idmapshift and nova-serialproxy
+
 * Fri Aug 29 2014 Derek Higgins <derekh@redhat.com> - XXX
 - Added dependencies on python-rfc3986
 
