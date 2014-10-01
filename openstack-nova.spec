@@ -2,17 +2,17 @@
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 
 %global release_name juno
-%global milestone 3
+%global milestone rc1
 
 Name:             openstack-nova
 Version:          2014.2
-Release:          0.4.b%{milestone}%{?dist}
+Release:          0.5%{milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/%{release_name}/%{release_name}-%{milestone}/+download/nova-%{version}.b%{milestone}.tar.gz
+Source0:          http://launchpad.net/nova/%{release_name}/%{release_name}-%{milestone}/+download/nova-%{version}.%{milestone}.tar.gz
 
 Source1:          nova-dist.conf
 Source2:          nova.conf.sample
@@ -40,11 +40,10 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2014.2.b3
+# patches_base=2014.2.rc1
 #
-Patch0001: 0001-Ensure-we-don-t-access-the-net-when-building-docs.patch
-Patch0002: 0002-remove-runtime-dep-on-python-pbr.patch
-Patch0003: 0003-Move-notification-point-to-a-better-place.patch
+Patch0001: 0001-remove-runtime-dep-on-python-pbr.patch
+Patch0002: 0002-Move-notification-point-to-a-better-place.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -366,6 +365,8 @@ Requires:         python-glanceclient >= 1:0
 Requires:         python-neutronclient
 Requires:         python-novaclient
 Requires:         python-oslo-config >= 1:1.2.0
+Requires:         python-oslo-db
+Requires:         python-oslo-vmware
 Requires:         python-pyasn1
 Requires:         python-six >= 1.4.1
 Requires:         python-babel
@@ -403,11 +404,10 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}.b%{milestone}
+%setup -q -n nova-%{version}.%{milestone}
 
 %patch0001 -p1
 %patch0002 -p1
-%patch0003 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -417,7 +417,7 @@ sed -i '/setuptools_git/d' setup.py
 sed -i s/REDHATNOVAVERSION/%{version}/ nova/version.py
 sed -i s/REDHATNOVARELEASE/%{release}/ nova/version.py
 
-sed -i 's/%{version}.b%{milestone}/%{version}/' PKG-INFO
+sed -i 's/%{version}.%{milestone}/%{version}/' PKG-INFO
 
 # make doc build compatible with python-oslo-sphinx RPM
 sed -i 's/oslosphinx/oslo.sphinx/' doc/source/conf.py
@@ -747,6 +747,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Oct 01 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-0.5rc1
+- Update to upstream 2014.2.rc1
+
 * Wed Sep 10 2014 Alan Pevec <apevec@redhat.com> 2014.2-0.3.b3
 - Update to Juno-3 milestone
 
