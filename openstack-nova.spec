@@ -652,8 +652,6 @@ exit 0
 
 %files compute
 %{_bindir}/nova-compute
-%{_bindir}/nova-baremetal-deploy-helper
-%{_bindir}/nova-baremetal-manage
 %{_bindir}/nova-idmapshift
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
@@ -731,6 +729,10 @@ exit 0
 %endif
 
 %changelog
+* Wed Oct 08 2014 Dan Prince <dprince@redhat.com> - XXX
+- Remove nova-baremetal-deploy-helper
+- Remove nova-baremetal-manage
+
 * Tue Sep 16 2014 Derek Higgins <derekh@redhat.com> - XXX
 - Remove net access patch (a similar one has merged upstream)
 
