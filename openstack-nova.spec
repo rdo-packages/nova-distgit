@@ -571,65 +571,65 @@ usermod -a -G qemu nova
 exit 0
 
 %post compute
-%systemd_post openstack-nova-compute.service
+%systemd_post %{name}-compute.service
 %post network
-%systemd_post openstack-nova-network.service
+%systemd_post %{name}-network.service
 %post scheduler
-%systemd_post openstack-nova-scheduler.service
+%systemd_post %{name}-scheduler.service
 %post cert
-%systemd_post openstack-nova-cert.service
+%systemd_post %{name}-cert.service
 %post api
-%systemd_post openstack-nova-api.service openstack-nova-metadata-api.service
+%systemd_post %{name}-api.service %{name}-metadata-api.service
 %post conductor
-%systemd_post openstack-nova-conductor.service
+%systemd_post %{name}-conductor.service
 %post objectstore
-%systemd_post openstack-nova-objectstore.service
+%systemd_post %{name}-objectstore.service
 %post console
-%systemd_post openstack-nova-console.service openstack-nova-consoleauth.service openstack-nova-xvpvncproxy.service
+%systemd_post %{name}-console.service %{name}-consoleauth.service %{name}-xvpvncproxy.service
 %post cells
-%systemd_post openstack-nova-cells.service
+%systemd_post %{name}-cells.service
 
 %preun compute
-%systemd_preun openstack-nova-compute.service
+%systemd_preun %{name}-compute.service
 %preun network
-%systemd_preun openstack-nova-network.service
+%systemd_preun %{name}-network.service
 %preun scheduler
-%systemd_preun openstack-nova-scheduler.service
+%systemd_preun %{name}-scheduler.service
 %preun cert
-%systemd_preun openstack-nova-cert.service
+%systemd_preun %{name}-cert.service
 %preun api
-%systemd_preun openstack-nova-api.service openstack-nova-metadata-api.service
+%systemd_preun %{name}-api.service %{name}-metadata-api.service
 %preun objectstore
-%systemd_preun openstack-nova-objectstore.service
+%systemd_preun %{name}-objectstore.service
 %preun conductor
-%systemd_preun openstack-nova-conductor.service
+%systemd_preun %{name}-conductor.service
 %preun console
-%systemd_preun openstack-nova-console.service openstack-nova-consoleauth.service openstack-nova-xvpvncproxy.service
+%systemd_preun %{name}-console.service %{name}-consoleauth.service %{name}-xvpvncproxy.service
 %preun cells
-%systemd_preun openstack-nova-cells.service
+%systemd_preun %{name}-cells.service
 %preun novncproxy
-%systemd_preun openstack-nova-novncproxy.service
+%systemd_preun %{name}-novncproxy.service
 
 %postun compute
-%systemd_postun_with_restart openstack-nova-compute.service
+%systemd_postun_with_restart %{name}-compute.service
 %postun network
-%systemd_postun_with_restart openstack-nova-network.service
+%systemd_postun_with_restart %{name}-network.service
 %postun scheduler
-%systemd_postun_with_restart openstack-nova-scheduler.service
+%systemd_postun_with_restart %{name}-scheduler.service
 %postun cert
-%systemd_postun_with_restart openstack-nova-cert.service
+%systemd_postun_with_restart %{name}-cert.service
 %postun api
-%systemd_postun_with_restart openstack-nova-api.service openstack-nova-metadata-api.service
+%systemd_postun_with_restart %{name}-api.service %{name}-metadata-api.service
 %postun objectstore
-%systemd_postun_with_restart openstack-nova-objectstore.service
+%systemd_postun_with_restart %{name}-objectstore.service
 %postun conductor
-%systemd_postun_with_restart openstack-nova-conductor.service
+%systemd_postun_with_restart %{name}-conductor.service
 %postun console
-%systemd_postun_with_restart openstack-nova-console.service openstack-nova-consoleauth.service openstack-nova-xvpvncproxy.service
+%systemd_postun_with_restart %{name}-console.service %{name}-consoleauth.service %{name}-xvpvncproxy.service
 %postun cells
-%systemd_postun_with_restart openstack-nova-cells.service
+%systemd_postun_with_restart %{name}-cells.service
 %postun novncproxy
-%systemd_postun_with_restart openstack-nova-novncproxy.service
+%systemd_postun_with_restart %{name}-novncproxy.service
 
 %files
 %doc LICENSE
