@@ -6,7 +6,7 @@
 
 Name:             openstack-nova
 Version:          2014.2
-Release:          0.5%{milestone}%{?dist}
+Release:          0.6%{milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -579,13 +579,13 @@ exit 0
 %post cert
 %systemd_post openstack-nova-cert.service
 %post api
-%systemd_post openstack-nova-api.service
+%systemd_post openstack-nova-api.service openstack-nova-metadata-api.service
 %post conductor
 %systemd_post openstack-nova-conductor.service
 %post objectstore
 %systemd_post openstack-nova-objectstore.service
 %post console
-%systemd_post openstack-nova-console.service
+%systemd_post openstack-nova-console.service openstack-nova-consoleauth.service openstack-nova-xvpvncproxy.service
 %post cells
 %systemd_post openstack-nova-cells.service
 
@@ -598,13 +598,13 @@ exit 0
 %preun cert
 %systemd_preun openstack-nova-cert.service
 %preun api
-%systemd_preun openstack-nova-api.service
+%systemd_preun openstack-nova-api.service openstack-nova-metadata-api.service
 %preun objectstore
 %systemd_preun openstack-nova-objectstore.service
 %preun conductor
 %systemd_preun openstack-nova-conductor.service
 %preun console
-%systemd_preun openstack-nova-console.service
+%systemd_preun openstack-nova-console.service openstack-nova-consoleauth.service openstack-nova-xvpvncproxy.service
 %preun cells
 %systemd_preun openstack-nova-cells.service
 %preun novncproxy
@@ -619,13 +619,13 @@ exit 0
 %postun cert
 %systemd_postun_with_restart openstack-nova-cert.service
 %postun api
-%systemd_postun_with_restart openstack-nova-api.service
+%systemd_postun_with_restart openstack-nova-api.service openstack-nova-metadata-api.service
 %postun objectstore
 %systemd_postun_with_restart openstack-nova-objectstore.service
 %postun conductor
 %systemd_postun_with_restart openstack-nova-conductor.service
 %postun console
-%systemd_postun_with_restart openstack-nova-console.service
+%systemd_postun_with_restart openstack-nova-console.service openstack-nova-consoleauth.service openstack-nova-xvpvncproxy.service
 %postun cells
 %systemd_postun_with_restart openstack-nova-cells.service
 %postun novncproxy
@@ -747,6 +747,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Oct 10 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-0.6rc1
+- Ensure all services are restarted on upgrade
+
 * Wed Oct 01 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-0.5rc1
 - Update to upstream 2014.2.rc1
 
