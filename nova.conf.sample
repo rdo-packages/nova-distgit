@@ -3368,6 +3368,10 @@
 # Attestation status cache valid period length (integer value)
 #attestation_auth_timeout=60
 
+# Disable SSL cert verification for Attestation service
+# (boolean value)
+#attestation_insecure_ssl=false
+
 
 [upgrade_levels]
 

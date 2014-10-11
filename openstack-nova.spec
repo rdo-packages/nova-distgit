@@ -2,11 +2,11 @@
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 
 %global release_name juno
-%global milestone rc1
+%global milestone rc2
 
 Name:             openstack-nova
 Version:          2014.2
-Release:          0.6%{milestone}%{?dist}
+Release:          0.7.%{milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -40,7 +40,7 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2014.2.rc1
+# patches_base=2014.2.rc2
 #
 Patch0001: 0001-remove-runtime-dep-on-python-pbr.patch
 Patch0002: 0002-Move-notification-point-to-a-better-place.patch
@@ -747,6 +747,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Oct 11 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-0.7.rc2
+- Update to upstream 2014.2.rc2
+
 * Fri Oct 10 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-0.6rc1
 - Ensure all services are restarted on upgrade
 
