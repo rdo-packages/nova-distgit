@@ -608,6 +608,8 @@ exit 0
 %systemd_post %{name}-console.service %{name}-consoleauth.service %{name}-xvpvncproxy.service
 %post cells
 %systemd_post %{name}-cells.service
+%post novncproxy
+%systemd_post %{name}-novncproxy.service
 %post spicehtml5proxy
 %systemd_post %{name}-spicehtml5proxy.service
 
@@ -777,6 +779,7 @@ exit 0
 %changelog
 * Mon Oct 20 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-0.8.rc2
 - Split spicehtml5proxy to subpackage and use standard package service control
+- Add novncproxy service to standard %%post package operation
 
 * Sat Oct 11 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-0.7.rc2
 - Update to upstream 2014.2.rc2
