@@ -6,13 +6,13 @@
 
 Name:             openstack-nova
 Version:          2014.2
-Release:          0.8.%{milestone}%{?dist}
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/%{release_name}/%{release_name}-%{milestone}/+download/nova-%{version}.%{milestone}.tar.gz
+Source0:          http://launchpad.net/nova/%{release_name}/%{version}/+download/nova-%{version}.tar.gz
 
 Source1:          nova-dist.conf
 Source2:          nova.conf.sample
@@ -444,7 +444,7 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}.%{milestone}
+%setup -q -n nova-%{version}
 
 %patch0001 -p1
 %patch0002 -p1
@@ -456,8 +456,6 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 sed -i '/setuptools_git/d' setup.py
 sed -i s/REDHATNOVAVERSION/%{version}/ nova/version.py
 sed -i s/REDHATNOVARELEASE/%{release}/ nova/version.py
-
-sed -i 's/%{version}.%{milestone}/%{version}/' PKG-INFO
 
 # make doc build compatible with python-oslo-sphinx RPM
 sed -i 's/oslosphinx/oslo.sphinx/' doc/source/conf.py
@@ -807,6 +805,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Oct 20 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-1
+- Juno release
+
 * Mon Oct 20 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-0.8.rc2
 - Split spicehtml5proxy to subpackage and use standard package service control
 - Add novncproxy service to standard %%post package operation
