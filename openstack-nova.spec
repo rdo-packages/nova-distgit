@@ -125,7 +125,6 @@ Requires:         libvirt-daemon-kvm
 %if 0%{?rhel}==0
 Requires:         libvirt-daemon-lxc
 Requires:         libvirt-daemon-uml
-Requires:         libvirt-daemon-xen
 %endif
 Requires:         openssh-clients
 Requires:         rsync
