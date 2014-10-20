@@ -348,6 +348,26 @@ standard hardware configurations and seven major hypervisors.
 This package contains the Nova services providing the
 spice HTML5 console access service to Virtual Machines.
 
+%package serialproxy
+Summary:          OpenStack Nova serial console access service
+Group:            Applications/System
+
+Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         python-websockify
+
+%description serialproxy
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform. It gives you the
+software, control panels, and APIs required to orchestrate a cloud,
+including running instances, managing networks, and controlling access
+through users and projects. OpenStack Compute strives to be both
+hardware and hypervisor agnostic, currently supporting a variety of
+standard hardware configurations and seven major hypervisors.
+
+This package contains the Nova services providing the
+serial console access service to Virtual Machines.
+
 %package -n       python-nova
 Summary:          Nova Python libraries
 Group:            Applications/System
@@ -542,6 +562,7 @@ install -p -D -m 755 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata
 install -p -D -m 755 %{SOURCE26} %{buildroot}%{_unitdir}/openstack-nova-conductor.service
 install -p -D -m 755 %{SOURCE27} %{buildroot}%{_unitdir}/openstack-nova-cells.service
 install -p -D -m 755 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtml5proxy.service
+install -p -D -m 755 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-serialproxy.service
 install -p -D -m 755 %{SOURCE29} %{buildroot}%{_unitdir}/openstack-nova-novncproxy.service
 
 # Install sudoers
@@ -612,6 +633,8 @@ exit 0
 %systemd_post %{name}-novncproxy.service
 %post spicehtml5proxy
 %systemd_post %{name}-spicehtml5proxy.service
+%post serialproxy
+%systemd_post %{name}-serialproxy.service
 
 %preun compute
 %systemd_preun %{name}-compute.service
@@ -635,6 +658,8 @@ exit 0
 %systemd_preun %{name}-novncproxy.service
 %preun spicehtml5proxy
 %systemd_preun %{name}-spicehtml5proxy.service
+%preun serialproxy
+%systemd_preun %{name}-serialproxy.service
 
 %postun compute
 %systemd_postun_with_restart %{name}-compute.service
@@ -658,6 +683,8 @@ exit 0
 %systemd_postun_with_restart %{name}-novncproxy.service
 %postun spicehtml5proxy
 %systemd_postun_with_restart %{name}-spicehtml5proxy.service
+%postun serialproxy
+%systemd_postun_with_restart %{name}-serialproxy.service
 
 %files
 %doc LICENSE
@@ -748,7 +775,6 @@ exit 0
 %files console
 %{_bindir}/nova-console*
 %{_bindir}/nova-xvpvncproxy
-%{_bindir}/nova-serialproxy
 %{_unitdir}/openstack-nova-console*.service
 %{_unitdir}/openstack-nova-xvpvncproxy.service
 
@@ -765,6 +791,10 @@ exit 0
 %{_bindir}/nova-spicehtml5proxy
 %{_unitdir}/openstack-nova-spicehtml5proxy.service
 
+%files serialproxy
+%{_bindir}/nova-serialproxy
+%{_unitdir}/openstack-nova-serialproxy.service
+
 %files -n python-nova
 %defattr(-,root,root,-)
 %doc LICENSE
@@ -780,6 +810,7 @@ exit 0
 * Mon Oct 20 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-0.8.rc2
 - Split spicehtml5proxy to subpackage and use standard package service control
 - Add novncproxy service to standard %%post package operation
+- Add new Juno serialproxy service
 
 * Sat Oct 11 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-0.7.rc2
 - Update to upstream 2014.2.rc2
