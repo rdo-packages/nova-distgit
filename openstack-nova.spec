@@ -6,7 +6,7 @@
 
 Name:             openstack-nova
 Version:          2014.2
-Release:          0.7.%{milestone}%{?dist}
+Release:          0.8.%{milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -328,6 +328,26 @@ standard hardware configurations and seven major hypervisors.
 This package contains the Nova noVNC Proxy service that can proxy
 VNC traffic over browser websockets connections.
 
+%package spicehtml5proxy
+Summary:          OpenStack Nova Spice HTML5 console access service
+Group:            Applications/System
+
+Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         python-websockify
+
+%description spicehtml5proxy
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform. It gives you the
+software, control panels, and APIs required to orchestrate a cloud,
+including running instances, managing networks, and controlling access
+through users and projects. OpenStack Compute strives to be both
+hardware and hypervisor agnostic, currently supporting a variety of
+standard hardware configurations and seven major hypervisors.
+
+This package contains the Nova services providing the
+spice HTML5 console access service to Virtual Machines.
+
 %package -n       python-nova
 Summary:          Nova Python libraries
 Group:            Applications/System
@@ -588,6 +608,8 @@ exit 0
 %systemd_post %{name}-console.service %{name}-consoleauth.service %{name}-xvpvncproxy.service
 %post cells
 %systemd_post %{name}-cells.service
+%post spicehtml5proxy
+%systemd_post %{name}-spicehtml5proxy.service
 
 %preun compute
 %systemd_preun %{name}-compute.service
@@ -609,6 +631,8 @@ exit 0
 %systemd_preun %{name}-cells.service
 %preun novncproxy
 %systemd_preun %{name}-novncproxy.service
+%preun spicehtml5proxy
+%systemd_preun %{name}-spicehtml5proxy.service
 
 %postun compute
 %systemd_postun_with_restart %{name}-compute.service
@@ -630,6 +654,8 @@ exit 0
 %systemd_postun_with_restart %{name}-cells.service
 %postun novncproxy
 %systemd_postun_with_restart %{name}-novncproxy.service
+%postun spicehtml5proxy
+%systemd_postun_with_restart %{name}-spicehtml5proxy.service
 
 %files
 %doc LICENSE
@@ -720,11 +746,9 @@ exit 0
 %files console
 %{_bindir}/nova-console*
 %{_bindir}/nova-xvpvncproxy
-%{_bindir}/nova-spicehtml5proxy
 %{_bindir}/nova-serialproxy
 %{_unitdir}/openstack-nova-console*.service
 %{_unitdir}/openstack-nova-xvpvncproxy.service
-%{_unitdir}/openstack-nova-spicehtml5proxy.service
 
 %files cells
 %{_bindir}/nova-cells
@@ -734,6 +758,10 @@ exit 0
 %{_bindir}/nova-novncproxy
 %{_unitdir}/openstack-nova-novncproxy.service
 %config(noreplace) %{_sysconfdir}/sysconfig/openstack-nova-novncproxy
+
+%files spicehtml5proxy
+%{_bindir}/nova-spicehtml5proxy
+%{_unitdir}/openstack-nova-spicehtml5proxy.service
 
 %files -n python-nova
 %defattr(-,root,root,-)
@@ -747,6 +775,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Oct 20 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-0.8.rc2
+- Split spicehtml5proxy to subpackage and use standard package service control
+
 * Sat Oct 11 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-0.7.rc2
 - Update to upstream 2014.2.rc2
 
