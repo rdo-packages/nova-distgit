@@ -361,6 +361,9 @@ Requires:         python-jinja2
 Requires:         python-posix_ipc
 Requires:         python-oslo-i18n
 Requires:         python-rfc3986
+Requires:         python-oslo-middleware
+Requires:         python-oslo-utils
+Requires:         python-oslo-serialization
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
@@ -729,6 +732,10 @@ exit 0
 %endif
 
 %changelog
+* Mon Oct 20 2014 Dan Prince <dprince@redhat.com> - XXX
+- Add deps on python-oslo-middleware,
+  python-oslo-serialization, and python-oslo-utils.
+
 * Wed Oct 08 2014 Dan Prince <dprince@redhat.com> - XXX
 - Remove nova-baremetal-deploy-helper
 - Remove nova-baremetal-manage
