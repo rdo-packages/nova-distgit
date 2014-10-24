@@ -6,7 +6,7 @@
 
 Name:             openstack-nova
 Version:          2014.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -32,6 +32,7 @@ Source26:         openstack-nova-conductor.service
 Source27:         openstack-nova-cells.service
 Source28:         openstack-nova-spicehtml5proxy.service
 Source29:         openstack-nova-novncproxy.service
+Source31:         openstack-nova-serialproxy.service
 
 Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
@@ -560,8 +561,8 @@ install -p -D -m 755 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata
 install -p -D -m 755 %{SOURCE26} %{buildroot}%{_unitdir}/openstack-nova-conductor.service
 install -p -D -m 755 %{SOURCE27} %{buildroot}%{_unitdir}/openstack-nova-cells.service
 install -p -D -m 755 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtml5proxy.service
-install -p -D -m 755 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-serialproxy.service
 install -p -D -m 755 %{SOURCE29} %{buildroot}%{_unitdir}/openstack-nova-novncproxy.service
+install -p -D -m 755 %{SOURCE31} %{buildroot}%{_unitdir}/openstack-nova-serialproxy.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -805,6 +806,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Oct 24 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-2
+- Fix openstack-nova-serialproxy.service to call correct binary
+
 * Mon Oct 20 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-1
 - Juno release
 
