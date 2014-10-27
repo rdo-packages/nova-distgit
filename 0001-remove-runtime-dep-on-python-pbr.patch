@@ -1,4 +1,4 @@
-From 231c7e8c199a008ade070e51bebc2064ba77f8a8 Mon Sep 17 00:00:00 2001
+From cb59b95cde73173e01cb6e19a100db49b69506da Mon Sep 17 00:00:00 2001
 From: Nikola Dipanov <ndipanov@redhat.com>
 Date: Fri, 14 Jun 2013 11:29:50 +0200
 Subject: [PATCH] remove runtime dep on python-pbr
@@ -9,7 +9,7 @@ Change-Id: I6f247f64c561d49c13e3c2f67401fe150b6d47b6
  1 file changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/nova/version.py b/nova/version.py
-index 7c2a71b..80c0f3d 100644
+index f905b2b..191be3b 100644
 --- a/nova/version.py
 +++ b/nova/version.py
 @@ -12,8 +12,6 @@
@@ -18,7 +18,7 @@ index 7c2a71b..80c0f3d 100644
  
 -import pbr.version
 -
- from nova.i18n import _
+ from nova.i18n import _LE
  
  NOVA_VENDOR = "OpenStack Foundation"
 @@ -21,7 +19,20 @@ NOVA_PRODUCT = "OpenStack Nova"
