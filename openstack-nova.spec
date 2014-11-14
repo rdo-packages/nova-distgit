@@ -364,6 +364,7 @@ Requires:         python-rfc3986
 Requires:         python-oslo-middleware
 Requires:         python-oslo-utils
 Requires:         python-oslo-serialization
+Requires:         python-oslo-concurrency
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
@@ -732,6 +733,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Nov 14 2014 Dan Prince <dprince@redhat.com> - XXX
+- Add deps on python-oslo-concurrency
+
 * Mon Oct 20 2014 Dan Prince <dprince@redhat.com> - XXX
 - Add deps on python-oslo-middleware,
   python-oslo-serialization, and python-oslo-utils.
