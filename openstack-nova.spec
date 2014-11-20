@@ -1,16 +1,18 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
-%global upstream_version UPSTREAMVERSION
+
+%global release_name juno
+%global milestone rc2
 
 Name:             openstack-nova
-Version:          2014.1.1
-Release:          2%{?dist}
+Version:          XXX
+Release:          XXX{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://launchpad.net/nova/icehouse/%{version}/+download/nova-%{version}.tar.gz
+Source0:          http://launchpad.net/nova/%{release_name}/%{version}/+download/nova-%{version}.tar.gz
 
 Source1:          nova-dist.conf
 Source2:          nova.conf.sample
@@ -30,6 +32,7 @@ Source26:         openstack-nova-conductor.service
 Source27:         openstack-nova-cells.service
 Source28:         openstack-nova-spicehtml5proxy.service
 Source29:         openstack-nova-novncproxy.service
+Source31:         openstack-nova-serialproxy.service
 
 Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
@@ -38,7 +41,7 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2014.1.1
+# patches_base=2014.2.rc2
 #
 Patch0001: 0001-remove-runtime-dep-on-python-pbr.patch
 
@@ -46,12 +49,12 @@ BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-sphinx
-BuildRequires:    python-oslo-i18n
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
 BuildRequires:    python-pbr
 BuildRequires:    python-d2to1
 BuildRequires:    python-six
+BuildRequires:    python-oslo-i18n
 
 Requires:         openstack-nova-compute = %{version}-%{release}
 Requires:         openstack-nova-cert = %{version}-%{release}
@@ -80,9 +83,15 @@ Summary:          Components common to all OpenStack Nova services
 Group:            Applications/System
 
 Requires:         python-nova = %{version}-%{release}
-Requires:         python-keystoneclient
+Requires:         python-keystonemiddleware
 Requires:         python-oslo-rootwrap
 Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
+Requires:         python-oslo-i18n
+Requires:         python-posix_ipc
+Requires:         python-rfc3986
+Requires:         python-oslo-middleware
+Requires:         python-oslo-utils
+Requires:         python-oslo-serialization
 
 Requires(post):   systemd
 Requires(preun):  systemd
@@ -114,8 +123,12 @@ Requires:         iscsi-initiator-utils
 Requires:         iptables iptables-ipv6
 Requires:         ipmitool
 Requires:         python-libguestfs
-Requires:         libvirt >= 0.9.6
 Requires:         libvirt-python
+Requires:         libvirt-daemon-kvm
+%if 0%{?rhel}==0
+Requires:         libvirt-daemon-lxc
+Requires:         libvirt-daemon-uml
+%endif
 Requires:         openssh-clients
 Requires:         rsync
 Requires:         lvm2
@@ -205,6 +218,7 @@ Summary:          OpenStack Nova API services
 Group:            Applications/System
 
 Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         python-cinderclient
 
 %description api
 OpenStack Compute (codename Nova) is open source software designed to
@@ -301,7 +315,7 @@ Group:            Applications/System
 
 Requires:         openstack-nova-common = %{version}-%{release}
 Requires:         novnc
-Requires: 	  python-websockify
+Requires:         python-websockify
 
 
 %description novncproxy
@@ -316,6 +330,46 @@ standard hardware configurations and seven major hypervisors.
 
 This package contains the Nova noVNC Proxy service that can proxy
 VNC traffic over browser websockets connections.
+
+%package spicehtml5proxy
+Summary:          OpenStack Nova Spice HTML5 console access service
+Group:            Applications/System
+
+Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         python-websockify
+
+%description spicehtml5proxy
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform. It gives you the
+software, control panels, and APIs required to orchestrate a cloud,
+including running instances, managing networks, and controlling access
+through users and projects. OpenStack Compute strives to be both
+hardware and hypervisor agnostic, currently supporting a variety of
+standard hardware configurations and seven major hypervisors.
+
+This package contains the Nova services providing the
+spice HTML5 console access service to Virtual Machines.
+
+%package serialproxy
+Summary:          OpenStack Nova serial console access service
+Group:            Applications/System
+
+Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         python-websockify
+
+%description serialproxy
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform. It gives you the
+software, control panels, and APIs required to orchestrate a cloud,
+including running instances, managing networks, and controlling access
+through users and projects. OpenStack Compute strives to be both
+hardware and hypervisor agnostic, currently supporting a variety of
+standard hardware configurations and seven major hypervisors.
+
+This package contains the Nova services providing the
+serial console access service to Virtual Machines.
 
 %package -n       python-nova
 Summary:          Nova Python libraries
@@ -354,16 +408,12 @@ Requires:         python-glanceclient >= 1:0
 Requires:         python-neutronclient
 Requires:         python-novaclient
 Requires:         python-oslo-config >= 1:1.2.0
+Requires:         python-oslo-db
+Requires:         python-oslo-vmware
 Requires:         python-pyasn1
 Requires:         python-six >= 1.4.1
 Requires:         python-babel
 Requires:         python-jinja2
-Requires:         python-posix_ipc
-Requires:         python-oslo-i18n
-Requires:         python-rfc3986
-Requires:         python-oslo-middleware
-Requires:         python-oslo-utils
-Requires:         python-oslo-serialization
 Requires:         python-oslo-concurrency
 
 %description -n   python-nova
@@ -511,6 +561,7 @@ install -p -D -m 755 %{SOURCE26} %{buildroot}%{_unitdir}/openstack-nova-conducto
 install -p -D -m 755 %{SOURCE27} %{buildroot}%{_unitdir}/openstack-nova-cells.service
 install -p -D -m 755 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtml5proxy.service
 install -p -D -m 755 %{SOURCE29} %{buildroot}%{_unitdir}/openstack-nova-novncproxy.service
+install -p -D -m 755 %{SOURCE31} %{buildroot}%{_unitdir}/openstack-nova-serialproxy.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -559,65 +610,79 @@ usermod -a -G qemu nova
 exit 0
 
 %post compute
-%systemd_post openstack-nova-compute.service
+%systemd_post %{name}-compute.service
 %post network
-%systemd_post openstack-nova-network.service
+%systemd_post %{name}-network.service
 %post scheduler
-%systemd_post openstack-nova-scheduler.service
+%systemd_post %{name}-scheduler.service
 %post cert
-%systemd_post openstack-nova-cert.service
+%systemd_post %{name}-cert.service
 %post api
-%systemd_post openstack-nova-api.service
+%systemd_post %{name}-api.service %{name}-metadata-api.service
 %post conductor
-%systemd_post openstack-nova-conductor.service
+%systemd_post %{name}-conductor.service
 %post objectstore
-%systemd_post openstack-nova-objectstore.service
+%systemd_post %{name}-objectstore.service
 %post console
-%systemd_post openstack-nova-console.service
+%systemd_post %{name}-console.service %{name}-consoleauth.service %{name}-xvpvncproxy.service
 %post cells
-%systemd_post openstack-nova-cells.service
+%systemd_post %{name}-cells.service
+%post novncproxy
+%systemd_post %{name}-novncproxy.service
+%post spicehtml5proxy
+%systemd_post %{name}-spicehtml5proxy.service
+%post serialproxy
+%systemd_post %{name}-serialproxy.service
 
 %preun compute
-%systemd_preun openstack-nova-compute.service
+%systemd_preun %{name}-compute.service
 %preun network
-%systemd_preun openstack-nova-network.service
+%systemd_preun %{name}-network.service
 %preun scheduler
-%systemd_preun openstack-nova-scheduler.service
+%systemd_preun %{name}-scheduler.service
 %preun cert
-%systemd_preun openstack-nova-cert.service
+%systemd_preun %{name}-cert.service
 %preun api
-%systemd_preun openstack-nova-api.service
+%systemd_preun %{name}-api.service %{name}-metadata-api.service
 %preun objectstore
-%systemd_preun openstack-nova-objectstore.service
+%systemd_preun %{name}-objectstore.service
 %preun conductor
-%systemd_preun openstack-nova-conductor.service
+%systemd_preun %{name}-conductor.service
 %preun console
-%systemd_preun openstack-nova-console.service
+%systemd_preun %{name}-console.service %{name}-consoleauth.service %{name}-xvpvncproxy.service
 %preun cells
-%systemd_preun openstack-nova-cells.service
+%systemd_preun %{name}-cells.service
 %preun novncproxy
-%systemd_preun openstack-nova-novncproxy.service
+%systemd_preun %{name}-novncproxy.service
+%preun spicehtml5proxy
+%systemd_preun %{name}-spicehtml5proxy.service
+%preun serialproxy
+%systemd_preun %{name}-serialproxy.service
 
 %postun compute
-%systemd_postun_with_restart openstack-nova-compute.service
+%systemd_postun_with_restart %{name}-compute.service
 %postun network
-%systemd_postun_with_restart openstack-nova-network.service
+%systemd_postun_with_restart %{name}-network.service
 %postun scheduler
-%systemd_postun_with_restart openstack-nova-scheduler.service
+%systemd_postun_with_restart %{name}-scheduler.service
 %postun cert
-%systemd_postun_with_restart openstack-nova-cert.service
+%systemd_postun_with_restart %{name}-cert.service
 %postun api
-%systemd_postun_with_restart openstack-nova-api.service
+%systemd_postun_with_restart %{name}-api.service %{name}-metadata-api.service
 %postun objectstore
-%systemd_postun_with_restart openstack-nova-objectstore.service
+%systemd_postun_with_restart %{name}-objectstore.service
 %postun conductor
-%systemd_postun_with_restart openstack-nova-conductor.service
+%systemd_postun_with_restart %{name}-conductor.service
 %postun console
-%systemd_postun_with_restart openstack-nova-console.service
+%systemd_postun_with_restart %{name}-console.service %{name}-consoleauth.service %{name}-xvpvncproxy.service
 %postun cells
-%systemd_postun_with_restart openstack-nova-cells.service
+%systemd_postun_with_restart %{name}-cells.service
 %postun novncproxy
-%systemd_postun_with_restart openstack-nova-novncproxy.service
+%systemd_postun_with_restart %{name}-novncproxy.service
+%postun spicehtml5proxy
+%systemd_postun_with_restart %{name}-spicehtml5proxy.service
+%postun serialproxy
+%systemd_postun_with_restart %{name}-serialproxy.service
 
 %files
 %doc LICENSE
@@ -706,11 +771,8 @@ exit 0
 %files console
 %{_bindir}/nova-console*
 %{_bindir}/nova-xvpvncproxy
-%{_bindir}/nova-spicehtml5proxy
-%{_bindir}/nova-serialproxy
 %{_unitdir}/openstack-nova-console*.service
 %{_unitdir}/openstack-nova-xvpvncproxy.service
-%{_unitdir}/openstack-nova-spicehtml5proxy.service
 
 %files cells
 %{_bindir}/nova-cells
@@ -721,11 +783,19 @@ exit 0
 %{_unitdir}/openstack-nova-novncproxy.service
 %config(noreplace) %{_sysconfdir}/sysconfig/openstack-nova-novncproxy
 
+%files spicehtml5proxy
+%{_bindir}/nova-spicehtml5proxy
+%{_unitdir}/openstack-nova-spicehtml5proxy.service
+
+%files serialproxy
+%{_bindir}/nova-serialproxy
+%{_unitdir}/openstack-nova-serialproxy.service
+
 %files -n python-nova
 %defattr(-,root,root,-)
 %doc LICENSE
 %{python_sitelib}/nova
-%{python_sitelib}/nova-%{version}*.egg-info
+%{python_sitelib}/nova-*.egg-info
 
 %if 0%{?with_doc}
 %files doc
@@ -736,25 +806,45 @@ exit 0
 * Fri Nov 14 2014 Dan Prince <dprince@redhat.com> - XXX
 - Add deps on python-oslo-concurrency
 
+* Fri Oct 24 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-2
+- Fix openstack-nova-serialproxy.service to call correct binary
+
+* Mon Oct 20 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-1
+- Juno release
+
+* Mon Oct 20 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-0.8.rc2
+- Split spicehtml5proxy to subpackage and use standard package service control
+- Add novncproxy service to standard %%post package operation
+- Add new Juno serialproxy service
+
 * Mon Oct 20 2014 Dan Prince <dprince@redhat.com> - XXX
 - Add deps on python-oslo-middleware,
   python-oslo-serialization, and python-oslo-utils.
+
+* Sat Oct 11 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-0.7.rc2
+- Update to upstream 2014.2.rc2
+
+* Fri Oct 10 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-0.6rc1
+- Ensure all services are restarted on upgrade
 
 * Wed Oct 08 2014 Dan Prince <dprince@redhat.com> - XXX
 - Remove nova-baremetal-deploy-helper
 - Remove nova-baremetal-manage
 
-* Tue Sep 16 2014 Derek Higgins <derekh@redhat.com> - XXX
-- Remove net access patch (a similar one has merged upstream)
+* Wed Oct 01 2014 Alan Pevec <alan.pevec@redhat.com> 2014.2-0.5rc1
+- Update to upstream 2014.2.rc1
 
-* Tue Sep 16 2014 Derek Higgins <derekh@redhat.com> - XXX
-- Added nova-idmapshift and nova-serialproxy
+* Wed Sep 10 2014 Alan Pevec <apevec@redhat.com> 2014.2-0.3.b3
+- Update to Juno-3 milestone
 
-* Fri Aug 29 2014 Derek Higgins <derekh@redhat.com> - XXX
-- Added dependencies on python-rfc3986
+* Thu Aug 28 2014 Alan Pevec <apevec@redhat.com> 2014.2-0.2.b2
+- use keystonemiddleware
+- fix nova-api startup issue
 
-* Tue Aug 19 2014 Derek Higgins <derekh@redhat.com> - XXX
-- Added dependencies on python-posix_ipc and python-oslo-i18n
+* Sun Aug 03 2014  Vladan Popovic <vpopovic@redhat.com> 2014.2-0.1.b2
+- Update to upstream 2014.2.b2
+- openstack-nova-compute should depend on libvirt-daemon-kvm, not libvirt - rhbz#996715
+- Use keystoneclient.middleware instead of keystonemiddleware
 
 * Thu Jun 26 2014 Vladan Popovic <vpopovic@redhat.com> 2014.1.1-2
 - Fixes rbd backend image size - rhbz#1112871

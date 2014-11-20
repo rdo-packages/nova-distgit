@@ -1,12 +1,11 @@
 [Unit]
-Description=OpenStack Nova Cells Server
+Description=OpenStack Nova Serial Proxy Server
 After=syslog.target network.target
 
 [Service]
-Type=notify
-Restart=always
+Type=simple
 User=nova
-ExecStart=/usr/bin/nova-cells
+ExecStart=/usr/bin/nova-serialproxy
 
 [Install]
 WantedBy=multi-user.target
