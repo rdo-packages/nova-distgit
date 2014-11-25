@@ -3,8 +3,7 @@ Description=OpenStack Nova Cert Server
 After=syslog.target network.target
 
 [Service]
-Type=notify
-Restart=always
+Type=simple
 User=nova
 ExecStart=/usr/bin/nova-cert
 
