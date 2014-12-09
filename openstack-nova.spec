@@ -5,8 +5,8 @@
 %global milestone rc2
 
 Name:             openstack-nova
-Version:          2014.2
-Release:          2%{?dist}
+Version:          2014.2.1
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -41,7 +41,7 @@ Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
 #
-# patches_base=2014.2.rc2
+# patches_base=2014.2.1
 #
 Patch0001: 0001-remove-runtime-dep-on-python-pbr.patch
 Patch0002: 0002-Move-notification-point-to-a-better-place.patch
@@ -806,6 +806,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Dec 09 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2.1-1
+- Update to upstream 2014.2.1 release
+
 * Fri Oct 24 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2-2
 - Fix openstack-nova-serialproxy.service to call correct binary
 
