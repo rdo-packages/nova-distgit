@@ -127,7 +127,6 @@ Requires:         libvirt-python
 Requires:         libvirt-daemon-kvm
 %if 0%{?rhel}==0
 Requires:         libvirt-daemon-lxc
-Requires:         libvirt-daemon-uml
 %endif
 Requires:         openssh-clients
 Requires:         rsync
