@@ -5,7 +5,7 @@
 %global milestone rc2
 
 Name:             openstack-nova
-Version:          2014.2.1
+Version:          2014.2.2
 Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
@@ -13,6 +13,9 @@ Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
 Source0:          http://launchpad.net/nova/%{release_name}/%{version}/+download/nova-%{version}.tar.gz
+
+Patch0001: 0001-remove-runtime-dep-on-python-pbr.patch
+Patch0002: 0002-Move-notification-point-to-a-better-place.patch
 
 Source1:          nova-dist.conf
 Source2:          nova.conf.sample
@@ -39,12 +42,6 @@ Source23:         nova-polkit.rules
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
-
-#
-# patches_base=2014.2.1
-#
-Patch0001: 0001-remove-runtime-dep-on-python-pbr.patch
-Patch0002: 0002-Move-notification-point-to-a-better-place.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -806,6 +803,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Feb 11 2015 Alan Pevec <alan.pevec@redhat.com> 2014.2.2-1
+- Update to upstream 2014.2.2
+
 * Tue Dec 09 2014 Pádraig Brady <pbrady@redhat.com> - 2014.2.1-1
 - Update to upstream 2014.2.1 release
 
