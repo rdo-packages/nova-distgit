@@ -83,16 +83,6 @@ Summary:          Components common to all OpenStack Nova services
 Group:            Applications/System
 
 Requires:         python-nova = %{version}-%{release}
-Requires:         python-keystonemiddleware
-Requires:         python-oslo-rootwrap
-Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
-Requires:         python-oslo-i18n
-Requires:         python-posix_ipc
-Requires:         python-rfc3986
-Requires:         python-oslo-middleware
-Requires:         python-oslo-utils
-Requires:         python-oslo-serialization
-
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
@@ -414,6 +404,15 @@ Requires:         python-six >= 1.4.1
 Requires:         python-babel
 Requires:         python-jinja2
 Requires:         python-oslo-concurrency
+Requires:         python-keystonemiddleware
+Requires:         python-oslo-rootwrap
+Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
+Requires:         python-oslo-i18n
+Requires:         python-posix_ipc
+Requires:         python-rfc3986
+Requires:         python-oslo-middleware
+Requires:         python-oslo-utils
+Requires:         python-oslo-serialization
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
