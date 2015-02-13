@@ -40,11 +40,6 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 
-#
-# patches_base=2014.2.rc2
-#
-Patch0001: 0001-remove-runtime-dep-on-python-pbr.patch
-
 BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    python-sphinx
@@ -413,6 +408,7 @@ Requires:         python-rfc3986
 Requires:         python-oslo-middleware
 Requires:         python-oslo-utils
 Requires:         python-oslo-serialization
+Requires:         python-pbr
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
@@ -448,15 +444,9 @@ This package contains documentation files for nova.
 %prep
 %setup -q -n nova-%{upstream_version}
 
-%patch0001 -p1
-
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
 find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
-
-sed -i '/setuptools_git/d' setup.py
-sed -i s/REDHATNOVAVERSION/%{version}/ nova/version.py
-sed -i s/REDHATNOVARELEASE/%{release}/ nova/version.py
 
 # Remove the requirements file so that pbr hooks don't add it
 # to distutils requiers_dist config
