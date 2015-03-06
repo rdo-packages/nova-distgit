@@ -409,6 +409,9 @@ Requires:         python-oslo-middleware
 Requires:         python-oslo-utils
 Requires:         python-oslo-serialization
 Requires:         python-pbr
+Requires:         python-oslo-log
+Requires:         python-oslo-context
+Requires:         python-jsonschema
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
