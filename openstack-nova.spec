@@ -203,6 +203,7 @@ Group:            Applications/System
 
 Requires:         openstack-nova-common = %{version}-%{release}
 Requires:         python-cinderclient
+Requires:	  python-psutil
 
 %description api
 OpenStack Compute (codename Nova) is open source software designed to
