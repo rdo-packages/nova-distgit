@@ -6,7 +6,7 @@
 
 Name:             openstack-nova
 Version:          2014.2.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -517,7 +517,7 @@ install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/instances
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/keys
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/networks
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/tmp
-install -d -m 755 %{buildroot}%{_localstatedir}/log/nova
+install -d -m 750 %{buildroot}%{_localstatedir}/log/nova
 
 # Setup ghost CA cert
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/CA
@@ -700,7 +700,7 @@ exit 0
 %config(noreplace) %{_sysconfdir}/polkit-1/localauthority/50-local.d/50-nova.pkla
 %config(noreplace) %{_sysconfdir}/polkit-1/rules.d/50-nova.rules
 
-%dir %attr(0755, nova, root) %{_localstatedir}/log/nova
+%dir %attr(0750, nova, root) %{_localstatedir}/log/nova
 %dir %attr(0755, nova, root) %{_localstatedir}/run/nova
 
 %{_bindir}/nova-manage
@@ -803,6 +803,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Mar 11 2015 Pádraig Brady <pbrady@redhat.com> - 2014.2.2-2
+- remove world-readable bit from /var/log/nova
+
 * Wed Feb 11 2015 Alan Pevec <alan.pevec@redhat.com> 2014.2.2-1
 - Update to upstream 2014.2.2
 
