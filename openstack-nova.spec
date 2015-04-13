@@ -203,7 +203,6 @@ Group:            Applications/System
 
 Requires:         openstack-nova-common = %{version}-%{release}
 Requires:         python-cinderclient
-Requires:	  python-psutil
 
 %description api
 OpenStack Compute (codename Nova) is open source software designed to
@@ -413,6 +412,7 @@ Requires:         python-pbr
 Requires:         python-oslo-log
 Requires:         python-oslo-context
 Requires:         python-jsonschema
+Requires:	  python-psutil
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
