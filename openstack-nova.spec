@@ -2,20 +2,22 @@
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 
 %global release_name juno
-%global milestone rc2
+%global release_name kilo
+%global milestone .0rc2
+%global service nova
+
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:             openstack-nova
-Version:          2014.2.2
-Release:          2%{?dist}
+Version:          2015.1
+Release:          0.1%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/%{release_name}/%{version}/+download/nova-%{version}.tar.gz
+Source0:          http://launchpad.net/%{service}/%{release_name}/%{release_name}-rc2/+download/%{service}-%{upstream_version}.tar.gz
 
-Patch0001: 0001-remove-runtime-dep-on-python-pbr.patch
-Patch0002: 0002-Move-notification-point-to-a-better-place.patch
 
 Source1:          nova-dist.conf
 Source2:          nova.conf.sample
@@ -81,13 +83,6 @@ Summary:          Components common to all OpenStack Nova services
 Group:            Applications/System
 
 Requires:         python-nova = %{version}-%{release}
-Requires:         python-keystonemiddleware
-Requires:         python-oslo-rootwrap
-Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
-Requires:         python-oslo-i18n
-Requires:         python-posix_ipc
-Requires:         python-rfc3986
-
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
@@ -122,7 +117,6 @@ Requires:         libvirt-python
 Requires:         libvirt-daemon-kvm
 %if 0%{?rhel}==0
 Requires:         libvirt-daemon-lxc
-Requires:         libvirt-daemon-uml
 %endif
 Requires:         openssh-clients
 Requires:         rsync
@@ -409,6 +403,21 @@ Requires:         python-pyasn1
 Requires:         python-six >= 1.4.1
 Requires:         python-babel
 Requires:         python-jinja2
+Requires:         python-oslo-concurrency
+Requires:         python-keystonemiddleware
+Requires:         python-oslo-rootwrap
+Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
+Requires:         python-oslo-i18n
+Requires:         python-posix_ipc
+Requires:         python-rfc3986
+Requires:         python-oslo-middleware
+Requires:         python-oslo-utils
+Requires:         python-oslo-serialization
+Requires:         python-pbr
+Requires:         python-oslo-log
+Requires:         python-oslo-context
+Requires:         python-jsonschema
+Requires:	  python-psutil
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
@@ -442,21 +451,11 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}
-
-%patch0001 -p1
-%patch0002 -p1
+%setup -q -n nova-%{upstream_version}
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
 find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
-
-sed -i '/setuptools_git/d' setup.py
-sed -i s/REDHATNOVAVERSION/%{version}/ nova/version.py
-sed -i s/REDHATNOVARELEASE/%{release}/ nova/version.py
-
-# make doc build compatible with python-oslo-sphinx RPM
-sed -i 's/oslosphinx/oslo.sphinx/' doc/source/conf.py
 
 # Remove the requirements file so that pbr hooks don't add it
 # to distutils requiers_dist config
@@ -719,8 +718,6 @@ exit 0
 
 %files compute
 %{_bindir}/nova-compute
-%{_bindir}/nova-baremetal-deploy-helper
-%{_bindir}/nova-baremetal-manage
 %{_bindir}/nova-idmapshift
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
@@ -795,7 +792,7 @@ exit 0
 %defattr(-,root,root,-)
 %doc LICENSE
 %{python_sitelib}/nova
-%{python_sitelib}/nova-%{version}*.egg-info
+%{python_sitelib}/nova-*.egg-info
 
 %if 0%{?with_doc}
 %files doc
