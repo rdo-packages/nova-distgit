@@ -8,7 +8,7 @@
 
 Name:             openstack-nova
 Version:          2015.1.0
-Release:          1%{?milestone}%{?dist}
+Release:          2%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -798,5 +798,5 @@ exit 0
 %endif
 
 %changelog
-* Thu Apr 30 2015 Alan Pevec <alan.pevec@redhat.com> 2015.1.0-1
+* Thu Apr 30 2015 Alan Pevec <alan.pevec@redhat.com> 2015.1.0-2
 - OpenStack Kilo release
