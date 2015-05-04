@@ -8,7 +8,7 @@
 
 Name:             openstack-nova
 Version:          2015.1.0
-Release:          2%{?milestone}%{?dist}
+Release:          3%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -802,5 +802,10 @@ exit 0
 %endif
 
 %changelog
+* Mon May 04 2015 Alan Pevec <alan.pevec@redhat.com> 2015.1.0-3
+- update keystone_authtoken section in sample conf
+- openstack-nova-* systemd unit files need NotifyAccess=all rhbz#1189347
+- Ironic: Extra configdrive metadata from Nodes
+
 * Thu Apr 30 2015 Alan Pevec <alan.pevec@redhat.com> 2015.1.0-2
 - OpenStack Kilo release
