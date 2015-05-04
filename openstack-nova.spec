@@ -16,6 +16,8 @@ License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
 Source0:          http://launchpad.net/%{service}/%{release_name}/%{version}/+download/%{service}-%{upstream_version}.tar.gz
 
+Patch0001: 0001-Ironic-Extra-configdrive-metadata-from-Nodes.patch
+
 
 Source1:          nova-dist.conf
 Source2:          nova.conf.sample
@@ -450,6 +452,8 @@ This package contains documentation files for nova.
 
 %prep
 %setup -q -n nova-%{upstream_version}
+
+%patch0001 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 

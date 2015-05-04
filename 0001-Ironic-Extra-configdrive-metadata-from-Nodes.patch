@@ -1,0 +1,112 @@
+From 4ddace4f74effff1cf2314cab829d4a97e8a270e Mon Sep 17 00:00:00 2001
+From: Lucas Alvares Gomes <lucasagomes@gmail.com>
+Date: Tue, 3 Feb 2015 16:16:39 +0000
+Subject: [PATCH] Ironic: Extra configdrive metadata from Nodes
+
+Make the Nova Ironic driver inject metadata from the Ironic node to the
+configdrive, it's important to note that these metadata are added by the
+deployer to do some extra configuration in the baremetal node if needed.
+
+Change-Id: I3b00914a939d92f81787ac13f5bbb0c33bb6c50c
+---
+ nova/tests/unit/virt/ironic/test_driver.py | 33 ++++++++++++++++++------------
+ nova/virt/ironic/driver.py                 |  4 ++++
+ 2 files changed, 24 insertions(+), 13 deletions(-)
+
+diff --git a/nova/tests/unit/virt/ironic/test_driver.py b/nova/tests/unit/virt/ironic/test_driver.py
+index b3c3cc2..0794465 100644
+--- a/nova/tests/unit/virt/ironic/test_driver.py
++++ b/nova/tests/unit/virt/ironic/test_driver.py
+@@ -635,15 +635,14 @@ class IronicDriverTestCase(test.NoDBTestCase):
+     @mock.patch.object(ironic_driver.IronicDriver, '_start_firewall')
+     def _test_spawn(self, mock_sf, mock_pvifs, mock_adf, mock_wait_active,
+                     mock_node, mock_looping, mock_save):
+-        node_uuid = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
+-        node = ironic_utils.get_test_node(driver='fake', uuid=node_uuid)
+-        instance = fake_instance.fake_instance_obj(self.ctx, node=node_uuid)
++        instance = fake_instance.fake_instance_obj(self.ctx,
++                                                   node=self.node.uuid)
+         fake_flavor = objects.Flavor(ephemeral_gb=0)
+         instance.flavor = fake_flavor
+ 
+-        mock_node.get.return_value = node
++        mock_node.get.return_value = self.node
+         mock_node.validate.return_value = ironic_utils.get_test_validation()
+-        mock_node.get_by_instance_uuid.return_value = node
++        mock_node.get_by_instance_uuid.return_value = self.node
+         mock_node.set_provision_state.return_value = mock.MagicMock()
+ 
+         fake_looping_call = FakeLoopingCall()
+@@ -651,12 +650,13 @@ class IronicDriverTestCase(test.NoDBTestCase):
+ 
+         self.driver.spawn(self.ctx, instance, None, [], None)
+ 
+-        mock_node.get.assert_called_once_with(node_uuid)
+-        mock_node.validate.assert_called_once_with(node_uuid)
+-        mock_adf.assert_called_once_with(node, instance, None, fake_flavor)
+-        mock_pvifs.assert_called_once_with(node, instance, None)
++        mock_node.get.assert_called_once_with(self.node.uuid)
++        mock_node.validate.assert_called_once_with(self.node.uuid)
++        mock_adf.assert_called_once_with(self.node, instance, None,
++                                         fake_flavor)
++        mock_pvifs.assert_called_once_with(self.node, instance, None)
+         mock_sf.assert_called_once_with(instance, None)
+-        mock_node.set_provision_state.assert_called_once_with(node_uuid,
++        mock_node.set_provision_state.assert_called_once_with(self.node.uuid,
+                                                 'active', configdrive=mock.ANY)
+ 
+         self.assertIsNone(instance.default_ephemeral_device)
+@@ -673,6 +673,8 @@ class IronicDriverTestCase(test.NoDBTestCase):
+     @mock.patch.object(configdrive, 'required_by')
+     def test_spawn(self, mock_required_by, mock_configdrive):
+         mock_required_by.return_value = False
++        self.node = ironic_utils.get_test_node(driver='fake',
++                                               uuid=uuidutils.generate_uuid())
+         self._test_spawn()
+         # assert configdrive was not generated
+         self.assertFalse(mock_configdrive.called)
+@@ -681,10 +683,13 @@ class IronicDriverTestCase(test.NoDBTestCase):
+     @mock.patch.object(configdrive, 'required_by')
+     def test_spawn_with_configdrive(self, mock_required_by, mock_configdrive):
+         mock_required_by.return_value = True
++        self.node = ironic_utils.get_test_node(driver='fake',
++                                               uuid=uuidutils.generate_uuid())
++        self.node.extra['configdrive_metadata'] = {'foo': 'bar'}
+         self._test_spawn()
+         # assert configdrive was generated
+         mock_configdrive.assert_called_once_with(mock.ANY, mock.ANY, mock.ANY,
+-                                                 extra_md={})
++                                                 extra_md={'foo': 'bar'})
+ 
+     @mock.patch.object(configdrive, 'required_by')
+     @mock.patch.object(loopingcall, 'FixedIntervalLoopingCall')
+@@ -1399,10 +1404,12 @@ class IronicDriverGenerateConfigDriveTestCase(test.NoDBTestCase):
+         mock_make_drive = mock.MagicMock(make_drive=lambda *_: None)
+         mock_cd_builder.return_value.__enter__.return_value = mock_make_drive
+         self.driver._generate_configdrive(self.instance, self.node,
+-                                          self.network_info)
++                                          self.network_info,
++                                          extra_md={'cat': 'meow'})
+         mock_cd_builder.assert_called_once_with(instance_md='fake-instance')
+         mock_instance_meta.assert_called_once_with(self.instance,
+-            network_info=self.network_info, extra_md={}, content=None)
++            network_info=self.network_info, extra_md={'cat': 'meow'},
++            content=None)
+ 
+     def test_generate_configdrive_fail(self, mock_cd_builder,
+                                        mock_instance_meta):
+diff --git a/nova/virt/ironic/driver.py b/nova/virt/ironic/driver.py
+index 8c46192..d401472 100644
+--- a/nova/virt/ironic/driver.py
++++ b/nova/virt/ironic/driver.py
+@@ -702,6 +702,10 @@ class IronicDriver(virt_driver.ComputeDriver):
+             if admin_password:
+                 extra_md['admin_pass'] = admin_password
+ 
++            node_extra_md = node.extra.get('configdrive_metadata')
++            if node_extra_md:
++                extra_md.update(node_extra_md)
++
+             configdrive_value = self._generate_configdrive(
+                 instance, node, network_info, extra_md=extra_md)
+ 
