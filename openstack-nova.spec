@@ -8,7 +8,7 @@
 
 Name:             openstack-nova
 Version:          2015.1.0
-Release:          3%{?milestone}%{?dist}
+Release:          4%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 Group:            Applications/System
@@ -802,6 +802,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2015.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Mon May 04 2015 Alan Pevec <alan.pevec@redhat.com> 2015.1.0-3
 - update keystone_authtoken section in sample conf
 - openstack-nova-* systemd unit files need NotifyAccess=all rhbz#1189347
