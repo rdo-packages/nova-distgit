@@ -493,6 +493,9 @@ export PYTHONPATH="$( pwd ):$PYTHONPATH"
 
 pushd doc
 
+# Remove this once sphinxcontrib.seqdiag becomes available
+sed -i -e '/sphinxcontrib.seqdiag/d' source/conf.py
+
 %if 0%{?with_doc}
 SPHINX_DEBUG=1 sphinx-build -b html source build/html
 # Fix hidden-file-or-dir warnings
