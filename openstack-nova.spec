@@ -405,6 +405,7 @@ Requires:         python-oslo-concurrency
 Requires:         python-keystonemiddleware
 Requires:         python-oslo-rootwrap
 Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
+Requires:         python-oslo-reports
 Requires:         python-oslo-i18n
 Requires:         python-posix_ipc
 Requires:         python-rfc3986
