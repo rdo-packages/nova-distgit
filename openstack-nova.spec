@@ -390,13 +390,13 @@ Requires:         python-paste-deploy
 Requires:         python-routes
 Requires:         python-webob
 
+Requires:         python-cryptography
 Requires:         python-glanceclient >= 1:0
 Requires:         python-neutronclient
 Requires:         python-novaclient
 Requires:         python-oslo-config >= 1:1.2.0
 Requires:         python-oslo-db
 Requires:         python-oslo-vmware
-Requires:         python-pyasn1
 Requires:         python-six >= 1.4.1
 Requires:         python-babel
 Requires:         python-jinja2
