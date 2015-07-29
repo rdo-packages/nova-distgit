@@ -391,6 +391,7 @@ Requires:         python-routes
 Requires:         python-webob
 
 Requires:         python-cryptography
+Requires:         os-brick
 Requires:         python-glanceclient >= 1:0
 Requires:         python-neutronclient
 Requires:         python-novaclient
