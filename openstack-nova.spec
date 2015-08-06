@@ -44,6 +44,7 @@ Source30:         openstack-nova-novncproxy.sysconfig
 
 BuildArch:        noarch
 BuildRequires:    intltool
+BuildRequires:    python2-devel
 BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-sphinx
 BuildRequires:    python-setuptools
