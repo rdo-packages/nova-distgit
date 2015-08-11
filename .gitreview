@@ -2,4 +2,4 @@
 host=review.gerrithub.io
 port=29418
 project=openstack-packages/nova
-defaultbranch=rpm-master
+defaultbranch=rpm-kilo
