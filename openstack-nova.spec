@@ -708,6 +708,7 @@ exit 0
 
 %{_bindir}/nova-manage
 %{_bindir}/nova-rootwrap
+%{_bindir}/nova-rootwrap-daemon
 
 %{_datarootdir}/nova
 %{_mandir}/man1/nova*.1.gz
