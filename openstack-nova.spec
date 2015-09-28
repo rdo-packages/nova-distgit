@@ -1,23 +1,23 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 
-%global release_name kilo
+%global release_name liberty
 %global service nova
+%global milestone .0rc1
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:             openstack-nova
-Version:          2015.1.0
-Release:          4%{?milestone}%{?dist}
+# Liberty semver reset
+# https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
+Epoch:            1
+Version:          12.0.0
+Release:          0.1%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
-Group:            Applications/System
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/%{service}/%{release_name}/%{version}/+download/%{service}-%{upstream_version}.tar.gz
-
-Patch0001: 0001-Ironic-Extra-configdrive-metadata-from-Nodes.patch
-
+Source0:          http://launchpad.net/%{service}/%{release_name}/%{release_name}-rc1/+download/%{service}-%{upstream_version}.tar.gz
 
 Source1:          nova-dist.conf
 Source2:          nova.conf.sample
@@ -47,6 +47,7 @@ Source30:         openstack-nova-novncproxy.sysconfig
 
 BuildArch:        noarch
 BuildRequires:    intltool
+BuildRequires:    python2-devel
 BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-sphinx
 BuildRequires:    python-setuptools
@@ -56,16 +57,16 @@ BuildRequires:    python-d2to1
 BuildRequires:    python-six
 BuildRequires:    python-oslo-i18n
 
-Requires:         openstack-nova-compute = %{version}-%{release}
-Requires:         openstack-nova-cert = %{version}-%{release}
-Requires:         openstack-nova-scheduler = %{version}-%{release}
-Requires:         openstack-nova-api = %{version}-%{release}
-Requires:         openstack-nova-network = %{version}-%{release}
-Requires:         openstack-nova-objectstore = %{version}-%{release}
-Requires:         openstack-nova-conductor = %{version}-%{release}
-Requires:         openstack-nova-console = %{version}-%{release}
-Requires:         openstack-nova-cells = %{version}-%{release}
-Requires:         openstack-nova-novncproxy = %{version}-%{release}
+Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-cert = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-api = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-network = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-objectstore = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-console = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-cells = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-novncproxy = %{epoch}:%{version}-%{release}
 
 
 %description
@@ -82,7 +83,7 @@ standard hardware configurations and seven major hypervisors.
 Summary:          Components common to all OpenStack Nova services
 Group:            Applications/System
 
-Requires:         python-nova = %{version}-%{release}
+Requires:         python-nova = %{epoch}:%{version}-%{release}
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
@@ -107,7 +108,7 @@ between all the OpenStack nova services.
 Summary:          OpenStack Nova Virtual Machine control service
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         curl
 Requires:         iscsi-initiator-utils
 Requires:         iptables iptables-ipv6
@@ -143,7 +144,7 @@ This package contains the Nova service for controlling Virtual Machines.
 Summary:          OpenStack Nova Network control service
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         radvd
 Requires:         bridge-utils
 Requires:         dnsmasq
@@ -167,7 +168,7 @@ This package contains the Nova service for controlling networking.
 Summary:          OpenStack Nova VM distribution service
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
 %description scheduler
 OpenStack Compute (codename Nova) is open source software designed to
@@ -187,7 +188,7 @@ to run Virtual Machines in the cloud.
 Summary:          OpenStack Nova certificate management service
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
 %description cert
 OpenStack Compute (codename Nova) is open source software designed to
@@ -206,7 +207,7 @@ This package contains the Nova service for managing certificates.
 Summary:          OpenStack Nova API services
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-cinderclient
 
 %description api
@@ -225,7 +226,7 @@ This package contains the Nova services providing programmatic access.
 Summary:          OpenStack Nova Conductor services
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
 %description conductor
 OpenStack Compute (codename Nova) is open source software designed to
@@ -244,7 +245,7 @@ the compute service
 Summary:          OpenStack Nova simple object store service
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
 %description objectstore
 OpenStack Compute (codename Nova) is open source software designed to
@@ -263,7 +264,7 @@ This package contains the Nova service providing a simple object store.
 Summary:          OpenStack Nova console access services
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-websockify
 
 %description console
@@ -283,7 +284,7 @@ console access services to Virtual Machines.
 Summary:          OpenStack Nova Cells services
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
 %description cells
 OpenStack Compute (codename Nova) is open source software designed to
@@ -302,7 +303,7 @@ scaling and (geographic) distribution for compute services.
 Summary:          OpenStack Nova noVNC proxy service
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         novnc
 Requires:         python-websockify
 
@@ -324,7 +325,7 @@ VNC traffic over browser websockets connections.
 Summary:          OpenStack Nova Spice HTML5 console access service
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-websockify
 
 %description spicehtml5proxy
@@ -344,7 +345,7 @@ spice HTML5 console access service to Virtual Machines.
 Summary:          OpenStack Nova serial console access service
 Group:            Applications/System
 
-Requires:         openstack-nova-common = %{version}-%{release}
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-websockify
 
 %description serialproxy
@@ -393,13 +394,14 @@ Requires:         python-paste-deploy
 Requires:         python-routes
 Requires:         python-webob
 
+Requires:         python-cryptography
+Requires:         os-brick
 Requires:         python-glanceclient >= 1:0
 Requires:         python-neutronclient
 Requires:         python-novaclient
 Requires:         python-oslo-config >= 1:1.2.0
 Requires:         python-oslo-db
 Requires:         python-oslo-vmware
-Requires:         python-pyasn1
 Requires:         python-six >= 1.4.1
 Requires:         python-babel
 Requires:         python-jinja2
@@ -407,6 +409,7 @@ Requires:         python-oslo-concurrency
 Requires:         python-keystonemiddleware
 Requires:         python-oslo-rootwrap
 Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
+Requires:         python-oslo-reports
 Requires:         python-oslo-i18n
 Requires:         python-posix_ipc
 Requires:         python-rfc3986
@@ -417,7 +420,8 @@ Requires:         python-pbr
 Requires:         python-oslo-log
 Requires:         python-oslo-context
 Requires:         python-jsonschema
-Requires:	  python-psutil
+Requires:         python-psutil
+Requires:         python-oslo-versionedobjects
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
@@ -453,8 +457,6 @@ This package contains documentation files for nova.
 %prep
 %setup -q -n nova-%{upstream_version}
 
-%patch0001 -p1
-
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
 find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
@@ -464,7 +466,7 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
 %build
-%{__python} setup.py build
+%{__python2} setup.py build
 
 install -p -D -m 640 %{SOURCE2} etc/nova/nova.conf.sample
 
@@ -489,12 +491,15 @@ while read name eq value; do
 done < %{SOURCE1}
 
 %install
-%{__python} setup.py install -O1 --skip-build --root %{buildroot}
+%{__python2} setup.py install -O1 --skip-build --root %{buildroot}
 
 # docs generation requires everything to be installed first
 export PYTHONPATH="$( pwd ):$PYTHONPATH"
 
 pushd doc
+
+# Remove this once sphinxcontrib.seqdiag becomes available
+sed -i -e '/sphinxcontrib.seqdiag/d' source/conf.py
 
 %if 0%{?with_doc}
 SPHINX_DEBUG=1 sphinx-build -b html source build/html
@@ -592,8 +597,8 @@ install -p -m 0644 %{SOURCE30} %{buildroot}%{_sysconfdir}/sysconfig/openstack-no
 
 # Remove unneeded in production stuff
 rm -f %{buildroot}%{_bindir}/nova-debug
-rm -fr %{buildroot}%{python_sitelib}/nova/tests/
-rm -fr %{buildroot}%{python_sitelib}/run_tests.*
+rm -fr %{buildroot}%{python2_sitelib}/nova/tests/
+rm -fr %{buildroot}%{python2_sitelib}/run_tests.*
 rm -f %{buildroot}%{_bindir}/nova-combined
 rm -f %{buildroot}/usr/share/doc/nova/README*
 
@@ -706,6 +711,7 @@ exit 0
 
 %{_bindir}/nova-manage
 %{_bindir}/nova-rootwrap
+%{_bindir}/nova-rootwrap-daemon
 
 %{_datarootdir}/nova
 %{_mandir}/man1/nova*.1.gz
@@ -791,10 +797,9 @@ exit 0
 %{_unitdir}/openstack-nova-serialproxy.service
 
 %files -n python-nova
-%defattr(-,root,root,-)
 %doc LICENSE
-%{python_sitelib}/nova
-%{python_sitelib}/nova-*.egg-info
+%{python2_sitelib}/nova
+%{python2_sitelib}/nova-*.egg-info
 
 %if 0%{?with_doc}
 %files doc
@@ -802,13 +807,5 @@ exit 0
 %endif
 
 %changelog
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2015.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Mon May 04 2015 Alan Pevec <alan.pevec@redhat.com> 2015.1.0-3
-- update keystone_authtoken section in sample conf
-- openstack-nova-* systemd unit files need NotifyAccess=all rhbz#1189347
-- Ironic: Extra configdrive metadata from Nodes
-
-* Thu Apr 30 2015 Alan Pevec <alan.pevec@redhat.com> 2015.1.0-2
-- OpenStack Kilo release
+* Tue Sep 29 2015 Alan Pevec <alan.pevec@redhat.com> 12.0.0-0.1.0rc1
+- OpenStack Liberty release candidate

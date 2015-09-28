@@ -1,3 +1,14 @@
+* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2015.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
+* Mon May 04 2015 Alan Pevec <alan.pevec@redhat.com> 2015.1.0-3
+- update keystone_authtoken section in sample conf
+- openstack-nova-* systemd unit files need NotifyAccess=all rhbz#1189347
+- Ironic: Extra configdrive metadata from Nodes
+
+* Thu Apr 30 2015 Alan Pevec <alan.pevec@redhat.com> 2015.1.0-2
+- OpenStack Kilo release
+
 * Wed Mar 11 2015 Pádraig Brady <pbrady@redhat.com> - 2014.2.2-2
 - remove world-readable bit from /var/log/nova
 
