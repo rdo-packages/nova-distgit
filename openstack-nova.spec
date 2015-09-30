@@ -1,8 +1,7 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 
-%global release_name juno
-%global milestone rc2
+%global release_name kilo
 
 Name:             openstack-nova
 # Liberty semver reset
