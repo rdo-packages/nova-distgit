@@ -404,7 +404,7 @@ Requires:         python-babel
 Requires:         python-jinja2
 Requires:         python-oslo-concurrency
 Requires:         python-keystonemiddleware
-Requires:         python-oslo-rootwrap >= 2.0.0
+Requires:         python-oslo-rootwrap
 Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
 Requires:         python-oslo-reports
 Requires:         python-oslo-i18n
