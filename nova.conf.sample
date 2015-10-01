@@ -468,6 +468,11 @@
 # must be hour, day, month or year (string value)
 #instance_usage_audit_period=month
 
+# Start and use a daemon that can run the commands that
+# need to be run with root privileges. This option is
+# usually enabled on nodes that run nova compute
+#use_rootwrap_daemon=True
+
 # Path to the rootwrap configuration file to use for running
 # commands as root (string value)
 #rootwrap_config=/etc/nova/rootwrap.conf
