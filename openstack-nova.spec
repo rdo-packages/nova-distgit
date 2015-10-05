@@ -435,11 +435,31 @@ Group:            Documentation
 BuildRequires:    graphviz
 
 # Required to build module documents
+BuildRequires:    os-brick
 BuildRequires:    python-boto
 BuildRequires:    python-eventlet
+BuildRequires:    python-barbicanclient
+BuildRequires:    python-cinderclient
+BuildRequires:    python-glanceclient
+BuildRequires:    python-keystoneclient
+BuildRequires:    python-neutronclient
+BuildRequires:    python-lxml
+BuildRequires:    python-oslo-config
+BuildRequires:    python-oslo-db
+BuildRequires:    python-oslo-log
+BuildRequires:    python-oslo-messaging
+BuildRequires:    python-oslo-reports
+BuildRequires:    python-oslo-utils
+BuildRequires:    python-oslo-versionedobjects
+BuildRequires:    python-oslo-vmware
+BuildRequires:    python-paramiko
+BuildRequires:    python-redis
+BuildRequires:    python-rfc3986
 BuildRequires:    python-routes
 BuildRequires:    python-sqlalchemy
 BuildRequires:    python-webob
+BuildRequires:    python-websockify
+BuildRequires:    python-zmq
 # while not strictly required, quiets the build down when building docs.
 BuildRequires:    python-migrate, python-iso8601
 
@@ -497,6 +517,7 @@ pushd doc
 
 # Remove this once sphinxcontrib.seqdiag becomes available
 sed -i -e '/sphinxcontrib.seqdiag/d' source/conf.py
+sed -i -e 's#../../etc/nova/nova-config-generator.conf#../etc/nova/nova-config-generator.conf#' source/conf.py
 
 %if 0%{?with_doc}
 SPHINX_DEBUG=1 sphinx-build -b html source build/html
