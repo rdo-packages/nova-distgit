@@ -122,7 +122,7 @@ Requires:         libvirt-daemon-lxc
 Requires:         openssh-clients
 Requires:         rsync
 Requires:         lvm2
-Requires:         python-cinderclient
+Requires:         python-cinderclient >= 1.3.1
 Requires(pre):    qemu-kvm
 Requires:         genisoimage
 Requires:         bridge-utils
@@ -208,7 +208,7 @@ Summary:          OpenStack Nova API services
 Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python-cinderclient
+Requires:         python-cinderclient >= 1.3.1
 
 %description api
 OpenStack Compute (codename Nova) is open source software designed to
@@ -372,8 +372,7 @@ Requires:         sudo
 
 Requires:         python-paramiko
 
-Requires:         python-eventlet
-Requires:         python-greenlet
+Requires:         python-eventlet >= 0.17.4
 Requires:         python-iso8601
 Requires:         python-netaddr
 Requires:         python-lxml
@@ -381,46 +380,48 @@ Requires:         python-anyjson
 Requires:         python-boto
 Requires:         python-cheetah
 Requires:         python-ldap
-Requires:         python-stevedore
+Requires:         python-stevedore >= 1.5.0
 
 Requires:         python-memcached
 
-Requires:         python-sqlalchemy
-Requires:         python-migrate
+Requires:         python-sqlalchemy >= 0.9.9
+Requires:         python-migrate >= 0.9.6
+Requires:         python-alembic >= 0.8.0
 
 Requires:         python-paste-deploy
 Requires:         python-routes
 Requires:         python-webob
 
-Requires:         python-cryptography
-Requires:         os-brick
-Requires:         python-glanceclient >= 1:0
-Requires:         python-neutronclient
-Requires:         python-novaclient
-Requires:         python-oslo-config >= 1:1.2.0
-Requires:         python-oslo-db
-Requires:         python-oslo-vmware
-Requires:         python-six >= 1.4.1
 Requires:         python-babel
+Requires:         python-cryptography >= 1.0
+Requires:         python-glanceclient >= 0.18.0
+Requires:         python-keystonemiddleware >= 2.0.0
 Requires:         python-jinja2
-Requires:         python-oslo-concurrency
-Requires:         python-keystonemiddleware
-Requires:         python-oslo-rootwrap
-Requires:         python-oslo-messaging >= 1.3.0-0.1.a4
-Requires:         python-oslo-reports
-Requires:         python-oslo-i18n
-Requires:         python-posix_ipc
-Requires:         python-rfc3986
-Requires:         python-oslo-middleware
-Requires:         python-oslo-utils
-Requires:         python-oslo-serialization
-Requires:         python-oslo-service
-Requires:         python-pbr
-Requires:         python-oslo-log
-Requires:         python-oslo-context
 Requires:         python-jsonschema
+Requires:         python-jsonschema
+Requires:         python-neutronclient >= 2.6.0
+Requires:         python-novaclient >= 2.30.1
+Requires:         python-os-brick
+Requires:         python-oslo-concurrency >= 2.3.0
+Requires:         python-oslo-config >= 2:2.3.0
+Requires:         python-oslo-context >= 0.2.0
+Requires:         python-oslo-db >= 2.4.1
+Requires:         python-oslo-i18n >= 1.5.0
+Requires:         python-oslo-log >= 1.8.0
+Requires:         python-oslo-messaging >= 2.5.0
+Requires:         python-oslo-middleware >= 2.8.0
+Requires:         python-oslo-reports >= 0.1.0
+Requires:         python-oslo-rootwrap >= 2.0.0
+Requires:         python-oslo-serialization >= 1.4.0
+Requires:         python-oslo-service >= 0.7.0
+Requires:         python-oslo-utils >= 2.0.0
+Requires:         python-oslo-versionedobjects >= 0.9.0
+Requires:         python-oslo-vmware >= 1.16.0
+Requires:         python-pbr
+Requires:         python-posix_ipc
 Requires:         python-psutil
-Requires:         python-oslo-versionedobjects
+Requires:         python-rfc3986
+Requires:         python-six >= 1.9.0
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
