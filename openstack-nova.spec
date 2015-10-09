@@ -19,7 +19,6 @@ URL:              http://openstack.org/projects/compute/
 Source0:          http://launchpad.net/%{service}/%{release_name}/%{version}/+download/%{service}-%{upstream_version}.tar.gz
 
 Source1:          nova-dist.conf
-Source2:          nova.conf.sample
 Source6:          nova.logrotate
 
 Source10:         openstack-nova-api.service
@@ -88,6 +87,10 @@ Requires(preun):  systemd
 Requires(postun): systemd
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
+# Required to build nova.conf.sample
+BuildRequires:    python-keystonemiddleware
+BuildRequires:    python-oslo-service
+
 
 %description common
 OpenStack Compute (codename Nova) is open source software designed to
@@ -397,7 +400,6 @@ Requires:         python-glanceclient >= 0.18.0
 Requires:         python-keystonemiddleware >= 2.0.0
 Requires:         python-jinja2
 Requires:         python-jsonschema
-Requires:         python-jsonschema
 Requires:         python-neutronclient >= 2.6.0
 Requires:         python-novaclient >= 2.30.1
 Requires:         python-os-brick
@@ -439,9 +441,29 @@ BuildRequires:    graphviz
 # Required to build module documents
 BuildRequires:    python-boto
 BuildRequires:    python-eventlet
+BuildRequires:    python-barbicanclient
+BuildRequires:    python-cinderclient
+BuildRequires:    python-glanceclient
+BuildRequires:    python-keystoneclient
+BuildRequires:    python-neutronclient
+BuildRequires:    python-lxml
+BuildRequires:    python-os-brick
+BuildRequires:    python-oslo-config
+BuildRequires:    python-oslo-db
+BuildRequires:    python-oslo-log
+BuildRequires:    python-oslo-messaging
+BuildRequires:    python-oslo-reports
+BuildRequires:    python-oslo-utils
+BuildRequires:    python-oslo-versionedobjects
+BuildRequires:    python-oslo-vmware
+BuildRequires:    python-paramiko
+BuildRequires:    python-redis
+BuildRequires:    python-rfc3986
 BuildRequires:    python-routes
 BuildRequires:    python-sqlalchemy
 BuildRequires:    python-webob
+BuildRequires:    python-websockify
+BuildRequires:    python-zmq
 # while not strictly required, quiets the build down when building docs.
 BuildRequires:    python-migrate, python-iso8601
 
@@ -465,9 +487,9 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
 %build
-%{__python2} setup.py build
+PYTHONPATH=. oslo-config-generator --config-file=etc/nova/nova-config-generator.conf
 
-install -p -D -m 640 %{SOURCE2} etc/nova/nova.conf.sample
+%{__python2} setup.py build
 
 # Avoid http://bugzilla.redhat.com/1059815. Remove when that is closed
 sed -i 's|group/name|group;name|; s|\[DEFAULT\]/|DEFAULT;|' etc/nova/nova.conf.sample
