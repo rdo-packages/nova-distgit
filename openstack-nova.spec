@@ -17,7 +17,6 @@ URL:              http://openstack.org/projects/compute/
 Source0:          http://launchpad.net/nova/%{release_name}/%{version}/+download/nova-%{version}.tar.gz
 
 Source1:          nova-dist.conf
-Source2:          nova.conf.sample
 Source6:          nova.logrotate
 
 Source10:         openstack-nova-api.service
@@ -86,6 +85,10 @@ Requires(preun):  systemd
 Requires(postun): systemd
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
+# Required to build nova.conf.sample
+BuildRequires:    python-keystonemiddleware
+BuildRequires:    python-oslo-service
+
 
 %description common
 OpenStack Compute (codename Nova) is open source software designed to
@@ -413,6 +416,7 @@ Requires:         python-rfc3986
 Requires:         python-oslo-middleware
 Requires:         python-oslo-utils
 Requires:         python-oslo-serialization
+Requires:         python-oslo-service
 Requires:         python-pbr
 Requires:         python-oslo-log
 Requires:         python-oslo-context
@@ -483,9 +487,9 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
 %build
-%{__python2} setup.py build
+PYTHONPATH=. oslo-config-generator --config-file=etc/nova/nova-config-generator.conf
 
-install -p -D -m 640 %{SOURCE2} etc/nova/nova.conf.sample
+%{__python2} setup.py build
 
 # Avoid http://bugzilla.redhat.com/1059815. Remove when that is closed
 sed -i 's|group/name|group;name|; s|\[DEFAULT\]/|DEFAULT;|' etc/nova/nova.conf.sample
