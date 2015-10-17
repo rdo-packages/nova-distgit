@@ -3,7 +3,6 @@
 
 %global release_name liberty
 %global service nova
-%global milestone .0rc2
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
@@ -12,16 +11,12 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          12.0.0
-Release:          0.2%{?milestone}%{?dist}
+Release:          1%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/%{service}/%{release_name}/%{release_name}-rc2/+download/%{service}-%{upstream_version}.tar.gz
-
-#
-# patches_base=12.0.0.0rc2
-#
+Source0:          http://launchpad.net/%{service}/%{release_name}/%{version}/+download/%{service}-%{upstream_version}.tar.gz
 
 Source1:          nova-dist.conf
 Source2:          nova.conf.sample
@@ -813,6 +808,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Oct 17 2015 Alan Pevec <alan.pevec@redhat.com> 1:12.0.0-0.3
+- Update to 12.0.0
+
 * Fri Oct 09 2015 Alan Pevec <alan.pevec@redhat.com> 1:12.0.0-0.2.0rc2
 - Update to upstream 12.0.0.0rc2
 
