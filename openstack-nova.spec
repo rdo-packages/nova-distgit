@@ -808,7 +808,7 @@ exit 0
 %endif
 
 %changelog
-* Sat Oct 17 2015 Alan Pevec <alan.pevec@redhat.com> 1:12.0.0-0.3
+* Sat Oct 17 2015 Alan Pevec <alan.pevec@redhat.com> 1:12.0.0-1
 - Update to 12.0.0
 
 * Fri Oct 09 2015 Alan Pevec <alan.pevec@redhat.com> 1:12.0.0-0.2.0rc2
