@@ -369,8 +369,6 @@ Requires:         openssl
 Requires:         openssh
 Requires:         sudo
 
-Requires:         MySQL-python
-
 Requires:         python-paramiko
 
 Requires:         python-eventlet >= 0.17.4
