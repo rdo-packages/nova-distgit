@@ -398,7 +398,6 @@ Requires:         python-glanceclient >= 0.18.0
 Requires:         python-keystonemiddleware >= 2.0.0
 Requires:         python-jinja2
 Requires:         python-jsonschema
-Requires:         python-jsonschema
 Requires:         python-neutronclient >= 2.6.0
 Requires:         python-novaclient >= 2.30.1
 Requires:         python-os-brick
@@ -438,7 +437,6 @@ Group:            Documentation
 BuildRequires:    graphviz
 
 # Required to build module documents
-BuildRequires:    os-brick
 BuildRequires:    python-boto
 BuildRequires:    python-eventlet
 BuildRequires:    python-barbicanclient
@@ -447,6 +445,7 @@ BuildRequires:    python-glanceclient
 BuildRequires:    python-keystoneclient
 BuildRequires:    python-neutronclient
 BuildRequires:    python-lxml
+BuildRequires:    python-os-brick
 BuildRequires:    python-oslo-config
 BuildRequires:    python-oslo-db
 BuildRequires:    python-oslo-log
