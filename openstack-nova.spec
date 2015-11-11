@@ -90,6 +90,7 @@ BuildRequires:    systemd
 # Required to build nova.conf.sample
 BuildRequires:    python-keystonemiddleware
 BuildRequires:    python-oslo-service
+BuildRequires:    python-cryptography >= 1.0
 
 
 %description common
