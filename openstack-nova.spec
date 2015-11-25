@@ -35,6 +35,7 @@ Source28:         openstack-nova-spicehtml5proxy.service
 Source29:         openstack-nova-novncproxy.service
 Source31:         openstack-nova-serialproxy.service
 Source32:         openstack-nova-os-compute-api.service
+Source33:         openstack-nova-ec2-api.service
 
 Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
@@ -588,6 +589,7 @@ install -p -D -m 755 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtm
 install -p -D -m 755 %{SOURCE29} %{buildroot}%{_unitdir}/openstack-nova-novncproxy.service
 install -p -D -m 755 %{SOURCE31} %{buildroot}%{_unitdir}/openstack-nova-serialproxy.service
 install -p -D -m 755 %{SOURCE32} %{buildroot}%{_unitdir}/openstack-nova-os-compute-api.service
+install -p -D -m 755 %{SOURCE33} %{buildroot}%{_unitdir}/openstack-nova-ec2-api.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -644,7 +646,7 @@ exit 0
 %post cert
 %systemd_post %{name}-cert.service
 %post api
-%systemd_post %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
+%systemd_post %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service %{name}-os-ec2-api.service
 %post conductor
 %systemd_post %{name}-conductor.service
 %post objectstore
@@ -669,7 +671,7 @@ exit 0
 %preun cert
 %systemd_preun %{name}-cert.service
 %preun api
-%systemd_preun %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
+%systemd_preun %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service %{name}-os-ec2-api.service
 %preun objectstore
 %systemd_preun %{name}-objectstore.service
 %preun conductor
@@ -694,7 +696,7 @@ exit 0
 %postun cert
 %systemd_postun_with_restart %{name}-cert.service
 %postun api
-%systemd_postun_with_restart %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
+%systemd_postun_with_restart %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service %{name}-os-ec2-api.service
 %postun objectstore
 %systemd_postun_with_restart %{name}-objectstore.service
 %postun conductor
