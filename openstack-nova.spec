@@ -124,6 +124,8 @@ Requires:         python-cinderclient >= 1.3.1
 Requires(pre):    qemu-kvm
 Requires:         genisoimage
 Requires:         bridge-utils
+Requires:         sg3_utils
+Requires:         sysfsutils
 
 %description compute
 OpenStack Compute (codename Nova) is open source software designed to
