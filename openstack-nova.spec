@@ -77,7 +77,6 @@ standard hardware configurations and seven major hypervisors.
 
 %package common
 Summary:          Components common to all OpenStack Nova services
-Group:            Applications/System
 
 Requires:         python-nova = %{epoch}:%{version}-%{release}
 Requires(post):   systemd
@@ -106,7 +105,6 @@ between all the OpenStack nova services.
 
 %package compute
 Summary:          OpenStack Nova Virtual Machine control service
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         curl
@@ -142,7 +140,6 @@ This package contains the Nova service for controlling Virtual Machines.
 
 %package network
 Summary:          OpenStack Nova Network control service
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         radvd
@@ -166,7 +163,6 @@ This package contains the Nova service for controlling networking.
 
 %package scheduler
 Summary:          OpenStack Nova VM distribution service
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
@@ -186,7 +182,6 @@ to run Virtual Machines in the cloud.
 
 %package cert
 Summary:          OpenStack Nova certificate management service
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
@@ -205,7 +200,6 @@ This package contains the Nova service for managing certificates.
 
 %package api
 Summary:          OpenStack Nova API services
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-cinderclient >= 1.3.1
@@ -224,7 +218,6 @@ This package contains the Nova services providing programmatic access.
 
 %package conductor
 Summary:          OpenStack Nova Conductor services
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
@@ -243,7 +236,6 @@ the compute service
 
 %package objectstore
 Summary:          OpenStack Nova simple object store service
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
@@ -262,7 +254,6 @@ This package contains the Nova service providing a simple object store.
 
 %package console
 Summary:          OpenStack Nova console access services
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-websockify
@@ -282,7 +273,6 @@ console access services to Virtual Machines.
 
 %package cells
 Summary:          OpenStack Nova Cells services
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
@@ -301,7 +291,6 @@ scaling and (geographic) distribution for compute services.
 
 %package novncproxy
 Summary:          OpenStack Nova noVNC proxy service
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         novnc
@@ -323,7 +312,6 @@ VNC traffic over browser websockets connections.
 
 %package spicehtml5proxy
 Summary:          OpenStack Nova Spice HTML5 console access service
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-websockify
@@ -343,7 +331,6 @@ spice HTML5 console access service to Virtual Machines.
 
 %package serialproxy
 Summary:          OpenStack Nova serial console access service
-Group:            Applications/System
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-websockify
@@ -363,7 +350,6 @@ serial console access service to Virtual Machines.
 
 %package -n       python-nova
 Summary:          Nova Python libraries
-Group:            Applications/System
 
 Requires:         openssl
 # Require openssh for ssh-keygen
@@ -432,7 +418,6 @@ This package contains the nova Python library.
 %if 0%{?with_doc}
 %package doc
 Summary:          Documentation for OpenStack Compute
-Group:            Documentation
 
 BuildRequires:    graphviz
 
@@ -446,10 +431,12 @@ BuildRequires:    python-keystoneclient
 BuildRequires:    python-neutronclient
 BuildRequires:    python-lxml
 BuildRequires:    python-os-brick
+BuildRequires:    python-os-win
 BuildRequires:    python-oslo-config
 BuildRequires:    python-oslo-db
 BuildRequires:    python-oslo-log
 BuildRequires:    python-oslo-messaging
+BuildRequires:    python-oslo-policy
 BuildRequires:    python-oslo-reports
 BuildRequires:    python-oslo-utils
 BuildRequires:    python-oslo-versionedobjects
