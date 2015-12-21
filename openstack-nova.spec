@@ -3,6 +3,10 @@
 
 %global release_name liberty
 %global service nova
+# commit used for the rebase
+%global commit 94d6b692d8d81e68ca7cf9e66e80adb03b8a88ef
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+# git format-patch --no-renames --no-signature -N --ignore-submodules 94d6b69..liberty-patches
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
@@ -11,12 +15,16 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          12.0.0
-Release:          2%{?milestone}%{?dist}
+Release:          3.%{shortcommit}git%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/%{service}/%{release_name}/%{version}/+download/%{service}-%{upstream_version}.tar.gz
+#Source0:          http://launchpad.net/%{service}/%{release_name}/%{version}/+download/%{service}-%{upstream_version}.tar.gz
+# git clone git@github.com:openstack/nova && cd nova
+# git checkout 94db6b69
+# PBR_VERSION=12.0.0-3.94d6b69git python setup.py sdist
+Source0:          %{service}-%{version}-3.%{shortcommit}git.tar.gz
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
@@ -42,6 +50,8 @@ Source23:         nova-polkit.rules
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
+
+Patch0001: 0001-Ironic-Extra-configdrive-metadata-from-Nodes.patch
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -477,7 +487,9 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{upstream_version}
+%setup -q -n nova-%{version}-3.%{shortcommit}git
+
+%patch0001 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
@@ -829,6 +841,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Dec 21 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 1:12.0.0-3
+- Rebase to latest commit from stable/liberty passing CI
+
 * Wed Nov 11 2015 Alan Pevec <alan.pevec@redhat.com> 1:12.0.0-2
 - Generate nova.conf.sample and update dependencies
 - Drop MySQL-python dependency
