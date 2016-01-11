@@ -3,4 +3,5 @@
     size 10M
     missingok
     compress
+    copytruncate
 }
