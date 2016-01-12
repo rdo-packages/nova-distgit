@@ -529,7 +529,7 @@ touch %{buildroot}%{_sharedstatedir}/nova/CA/private/cakey.pem
 
 # Install config files
 install -d -m 755 %{buildroot}%{_sysconfdir}/nova
-install -p -D -m 640 %{SOURCE1} %{buildroot}%{_datadir}/nova/nova-dist.conf
+install -p -D -m 640 %{SOURCE1} %{buildroot}%{_datarootdir}/nova/nova-dist.conf
 install -p -D -m 640 etc/nova/nova.conf.sample  %{buildroot}%{_sysconfdir}/nova/nova.conf
 install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/rootwrap.conf
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
@@ -681,9 +681,12 @@ exit 0
 
 %files common
 %doc LICENSE
+%dir %{_datarootdir}/nova
+%attr(-, root, nova) %{_datarootdir}/nova/nova-dist.conf
+%{_datarootdir}/nova/client.ovpn.template
+%{_datarootdir}/nova/interfaces.template
 %dir %{_sysconfdir}/nova
 %{_sysconfdir}/nova/release
-%attr(-, root, nova) %{_datadir}/nova/nova-dist.conf
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova.conf
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/api-paste.ini
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/rootwrap.conf
@@ -700,7 +703,6 @@ exit 0
 %{_bindir}/nova-rootwrap
 %{_bindir}/nova-rootwrap-daemon
 
-%{_datarootdir}/nova
 %{_mandir}/man1/nova*.1.gz
 
 %defattr(-, nova, nova, -)
