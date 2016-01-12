@@ -23,7 +23,6 @@ Source10:         openstack-nova-api.service
 Source11:         openstack-nova-cert.service
 Source12:         openstack-nova-compute.service
 Source13:         openstack-nova-network.service
-Source14:         openstack-nova-objectstore.service
 Source15:         openstack-nova-scheduler.service
 Source18:         openstack-nova-xvpvncproxy.service
 Source19:         openstack-nova-console.service
@@ -35,7 +34,6 @@ Source28:         openstack-nova-spicehtml5proxy.service
 Source29:         openstack-nova-novncproxy.service
 Source31:         openstack-nova-serialproxy.service
 Source32:         openstack-nova-os-compute-api.service
-Source33:         openstack-nova-ec2-api.service
 
 Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
@@ -60,7 +58,6 @@ Requires:         openstack-nova-cert = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-api = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-network = %{epoch}:%{version}-%{release}
-Requires:         openstack-nova-objectstore = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-console = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cells = %{epoch}:%{version}-%{release}
@@ -89,6 +86,9 @@ BuildRequires:    systemd
 # Required to build nova.conf.sample
 BuildRequires:    python-keystonemiddleware
 BuildRequires:    python-oslo-service
+
+# remove old service subpackage
+Obsoletes: %{name}-objectstore
 
 
 %description common
@@ -237,24 +237,6 @@ standard hardware configurations and seven major hypervisors.
 
 This package contains the Nova services providing database access for
 the compute service
-
-%package objectstore
-Summary:          OpenStack Nova simple object store service
-
-Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-
-%description objectstore
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
-
-This package contains the Nova service providing a simple object store.
-
 
 %package console
 Summary:          OpenStack Nova console access services
@@ -566,7 +548,6 @@ install -p -D -m 755 %{SOURCE10} %{buildroot}%{_unitdir}/openstack-nova-api.serv
 install -p -D -m 755 %{SOURCE11} %{buildroot}%{_unitdir}/openstack-nova-cert.service
 install -p -D -m 755 %{SOURCE12} %{buildroot}%{_unitdir}/openstack-nova-compute.service
 install -p -D -m 755 %{SOURCE13} %{buildroot}%{_unitdir}/openstack-nova-network.service
-install -p -D -m 755 %{SOURCE14} %{buildroot}%{_unitdir}/openstack-nova-objectstore.service
 install -p -D -m 755 %{SOURCE15} %{buildroot}%{_unitdir}/openstack-nova-scheduler.service
 install -p -D -m 755 %{SOURCE18} %{buildroot}%{_unitdir}/openstack-nova-xvpvncproxy.service
 install -p -D -m 755 %{SOURCE19} %{buildroot}%{_unitdir}/openstack-nova-console.service
@@ -578,7 +559,6 @@ install -p -D -m 755 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtm
 install -p -D -m 755 %{SOURCE29} %{buildroot}%{_unitdir}/openstack-nova-novncproxy.service
 install -p -D -m 755 %{SOURCE31} %{buildroot}%{_unitdir}/openstack-nova-serialproxy.service
 install -p -D -m 755 %{SOURCE32} %{buildroot}%{_unitdir}/openstack-nova-os-compute-api.service
-install -p -D -m 755 %{SOURCE33} %{buildroot}%{_unitdir}/openstack-nova-ec2-api.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -635,11 +615,9 @@ exit 0
 %post cert
 %systemd_post %{name}-cert.service
 %post api
-%systemd_post %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service %{name}-os-ec2-api.service
+%systemd_post %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %post conductor
 %systemd_post %{name}-conductor.service
-%post objectstore
-%systemd_post %{name}-objectstore.service
 %post console
 %systemd_post %{name}-console.service %{name}-consoleauth.service %{name}-xvpvncproxy.service
 %post cells
@@ -660,9 +638,7 @@ exit 0
 %preun cert
 %systemd_preun %{name}-cert.service
 %preun api
-%systemd_preun %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service %{name}-os-ec2-api.service
-%preun objectstore
-%systemd_preun %{name}-objectstore.service
+%systemd_preun %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %preun conductor
 %systemd_preun %{name}-conductor.service
 %preun console
@@ -685,9 +661,7 @@ exit 0
 %postun cert
 %systemd_postun_with_restart %{name}-cert.service
 %postun api
-%systemd_postun_with_restart %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service %{name}-os-ec2-api.service
-%postun objectstore
-%systemd_postun_with_restart %{name}-objectstore.service
+%systemd_postun_with_restart %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %postun conductor
 %systemd_postun_with_restart %{name}-conductor.service
 %postun console
@@ -781,10 +755,6 @@ exit 0
 %files conductor
 %{_bindir}/nova-conductor
 %{_unitdir}/openstack-nova-conductor.service
-
-%files objectstore
-%{_bindir}/nova-objectstore
-%{_unitdir}/openstack-nova-objectstore.service
 
 %files console
 %{_bindir}/nova-console*
