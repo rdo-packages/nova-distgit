@@ -14,7 +14,7 @@ Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          http://launchpad.net/nova/%{release_name}/%{version}/+download/nova-%{version}.tar.gz
+Source0:          https://tarballs.openstack.org/nova/nova-%{version}.tar.gz
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
