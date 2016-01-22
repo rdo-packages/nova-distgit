@@ -84,6 +84,7 @@ Requires(postun): systemd
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
 # Required to build nova.conf.sample
+BuildRequires:    python-castellan >= 0.3.1
 BuildRequires:    python-keystonemiddleware
 BuildRequires:    python-oslo-service
 
@@ -365,6 +366,7 @@ Requires:         python-routes
 Requires:         python-webob
 
 Requires:         python-babel
+Requires:         python-castellan >= 0.3.1
 Requires:         python-cryptography >= 1.0
 Requires:         python-glanceclient >= 0.18.0
 Requires:         python-keystonemiddleware >= 2.0.0
