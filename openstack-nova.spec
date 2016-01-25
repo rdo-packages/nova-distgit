@@ -4,7 +4,7 @@
 %global release_name liberty
 %global service nova
 # commit used for the rebase
-%global commit 94d6b692d8d81e68ca7cf9e66e80adb03b8a88ef
+%global commit 5e3766a0bd2deabe210c6f0a7b83b14b0d99e692
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 # git format-patch --no-renames --no-signature -N --ignore-submodules 94d6b69..liberty-patches
 
@@ -14,17 +14,17 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          12.0.0
-Release:          3.%{shortcommit}git%{?milestone}%{?dist}
+Version:          12.0.1
+Release:          1%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-#Source0:          http://launchpad.net/%{service}/%{release_name}/%{version}/+download/%{service}-%{upstream_version}.tar.gz
+Source0:          https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
 # git clone git@github.com:openstack/nova && cd nova
 # git checkout 94db6b69
 # PBR_VERSION=12.0.0-3.94d6b69git python setup.py sdist
-Source0:          %{service}-%{version}-3.%{shortcommit}git.tar.gz
+#Source0:          %{service}-%{version}-3.%{shortcommit}git.tar.gz
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
@@ -49,9 +49,10 @@ Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
-Source30:         openstack-nova-novncproxy.sysconfig
 
 Patch0001: 0001-Ironic-Extra-configdrive-metadata-from-Nodes.patch
+
+Source30:         openstack-nova-novncproxy.sysconfig
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -487,7 +488,7 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{version}-3.%{shortcommit}git
+%setup -q -n nova-%{upstream_version}
 
 %patch0001 -p1
 
@@ -841,6 +842,11 @@ exit 0
 %endif
 
 %changelog
+* Mon Jan 25 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1:12.0.1-1
+- Upstream 12.0.1
+- Fix data leak through snapshot in Nova host CVE-2015-7548
+- Fix Xen connection password leak through logs CVE-2015-8749
+
 * Mon Dec 21 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 1:12.0.0-3
 - Rebase to latest commit from stable/liberty passing CI
 

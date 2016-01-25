@@ -1,4 +1,4 @@
-From 3692e226ea83583df5583e85d4e02da939cfd50a Mon Sep 17 00:00:00 2001
+From 5e3766a0bd2deabe210c6f0a7b83b14b0d99e692 Mon Sep 17 00:00:00 2001
 From: Lucas Alvares Gomes <lucasagomes@gmail.com>
 Date: Tue, 3 Feb 2015 16:16:39 +0000
 Subject: [PATCH] Ironic: Extra configdrive metadata from Nodes
