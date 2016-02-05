@@ -45,6 +45,7 @@ BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    python2-devel
 BuildRequires:    python-sphinx
+BuildRequires:    python-oslo-cache
 BuildRequires:    python-oslo-sphinx
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
@@ -376,6 +377,7 @@ Requires:         python-jsonschema
 Requires:         python-neutronclient >= 2.6.0
 Requires:         python-novaclient >= 2.30.1
 Requires:         python-os-brick
+Requires:         python-oslo-cache >= 0.8.0
 Requires:         python-oslo-concurrency >= 2.3.0
 Requires:         python-oslo-config >= 3.4.0
 Requires:         python-oslo-context >= 0.2.0
