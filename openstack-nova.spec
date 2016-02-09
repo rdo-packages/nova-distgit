@@ -463,6 +463,9 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 # to distutils requiers_dist config
 rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
+# remove unnecessary .po/.pot files
+find nova/locale \( -name '*.po' -o -name '*.pot' \) -delete
+
 %build
 PYTHONPATH=. oslo-config-generator --config-file=etc/nova/nova-config-generator.conf
 
