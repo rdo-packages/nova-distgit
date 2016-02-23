@@ -1,3 +1,5 @@
-# UUID                                  	Group Name
-#
-3b172b09d0908dfc5690c28970ca8c27241475aa	nova-distgit-ptl
+# UUID          Group Name
+6ddfecad023c6f4fa3ac8c4d2583c502ea675a73 	Non-Interactive Users
+1abd61acb05653e6333e01582fe4b118a7febc8c       	nova-distgit-core
+3b172b09d0908dfc5690c28970ca8c27241475aa        	nova-distgit-ptl
+global:Registered-Users		Registered Users
