@@ -3,10 +3,11 @@
 
 %global release_name liberty
 %global service nova
-# commit used for the rebase
-%global commit 5e3766a0bd2deabe210c6f0a7b83b14b0d99e692
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-# git format-patch --no-renames --no-signature -N --ignore-submodules 94d6b69..liberty-patches
+# commit used for the rebase when not using released tarball
+#%global commit 5e3766a0bd2deabe210c6f0a7b83b14b0d99e692
+#%global shortcommit %(c=%{commit}; echo ${c:0:7})
+# git format-patch --no-renames --no-signature -N --ignore-submodules %{shortcommit}..liberty-patches
+# FIXME ^ rdopkg should work with shortcommit too
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
@@ -22,8 +23,8 @@ License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
 Source0:          https://tarballs.openstack.org/%{service}/%{service}-%{upstream_version}.tar.gz
 # git clone git@github.com:openstack/nova && cd nova
-# git checkout 94db6b69
-# PBR_VERSION=12.0.0-3.94d6b69git python setup.py sdist
+# git checkout %{shortcommit}
+# PBR_VERSION=%{version}-3.%{shortcommit}git python setup.py sdist
 #Source0:          %{service}-%{version}-3.%{shortcommit}git.tar.gz
 
 Source1:          nova-dist.conf
