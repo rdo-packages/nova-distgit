@@ -404,6 +404,17 @@ redundant and scalable cloud computing platform.
 
 This package contains the nova Python library.
 
+%package -n python-nova-tests
+Summary:        Nova tests
+Requires:       openstack-nova = %{epoch}:%{version}-%{release}
+
+%description -n python-nova-tests
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform.
+
+This package contains the nova Python library.
+
 %if 0%{?with_doc}
 %package doc
 Summary:          Documentation for OpenStack Compute
@@ -596,7 +607,6 @@ install -p -m 0644 %{SOURCE30} %{buildroot}%{_sysconfdir}/sysconfig/openstack-no
 
 # Remove unneeded in production stuff
 rm -f %{buildroot}%{_bindir}/nova-debug
-rm -fr %{buildroot}%{python2_sitelib}/nova/tests/
 rm -fr %{buildroot}%{python2_sitelib}/run_tests.*
 rm -f %{buildroot}%{_bindir}/nova-combined
 rm -f %{buildroot}/usr/share/doc/nova/README*
@@ -791,6 +801,11 @@ exit 0
 %doc LICENSE
 %{python2_sitelib}/nova
 %{python2_sitelib}/nova-*.egg-info
+%exclude %{python2_sitelib}/nova/tests
+
+%files -n python-nova-tests
+%license LICENSE
+%{python2_sitelib}/nova/tests
 
 %if 0%{?with_doc}
 %files doc
