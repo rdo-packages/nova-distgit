@@ -1,5 +1,5 @@
 [gerrit]
-host=review.gerrithub.io
+host=rpmfactory.beta.rdoproject.org
 port=29418
-project=openstack-packages/nova
+project=nova-distgit
 defaultbranch=rpm-master
