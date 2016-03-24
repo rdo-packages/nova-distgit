@@ -1,17 +1,20 @@
+%define milestone .0rc1
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
+
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          XXX
-Release:          XXX
+Version:          13.0.0
+Release:          0.1%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://tarballs.openstack.org/nova/nova-%{version}.tar.gz
+Source0:          https://tarballs.openstack.org/nova/nova-%{version}%{?milestone}.tar.gz
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
@@ -814,3 +817,5 @@ exit 0
 %endif
 
 %changelog
+* Thu Mar 24 2016 RDO <rdo-list@redhat.com> 13.0.0-0.1.0rc1
+- RC1 Rebuild for Mitaka rc1
