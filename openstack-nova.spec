@@ -49,7 +49,7 @@ BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    python2-devel
 BuildRequires:    python-sphinx
-BuildRequires:    python-oslo-cache
+BuildRequires:    python-oslo-cache >= 1.5.0
 BuildRequires:    python-oslo-sphinx
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
@@ -374,7 +374,7 @@ Requires:         python-webob
 Requires:         python-babel
 Requires:         python-castellan >= 0.3.1
 Requires:         python-cryptography >= 1.0
-Requires:         python-glanceclient >= 1.2.0
+Requires:         python-glanceclient >= 1:2.0.0
 Requires:         python-keystonemiddleware >= 4.0.0
 Requires:         python-keystoneauth1 >= 2.1.0
 Requires:         python-jinja2
@@ -382,9 +382,9 @@ Requires:         python-jsonschema
 Requires:         python-neutronclient >= 2.6.0
 Requires:         python-novaclient >= 2.30.1
 Requires:         python-os-brick
-Requires:         python-oslo-cache >= 0.8.0
-Requires:         python-oslo-concurrency >= 2.3.0
-Requires:         python-oslo-config >= 3.4.0
+Requires:         python-oslo-cache >= 1.5.0
+Requires:         python-oslo-concurrency >= 3.5.0
+Requires:         python-oslo-config >= 2:3.7.0
 Requires:         python-oslo-context >= 0.2.0
 Requires:         python-oslo-db >= 4.1.0
 Requires:         python-oslo-i18n >= 2.1.0
@@ -394,10 +394,10 @@ Requires:         python-oslo-middleware >= 3.0.0
 Requires:         python-oslo-policy >= 0.5.0
 Requires:         python-oslo-reports >= 0.6.0
 Requires:         python-oslo-rootwrap >= 2.0.0
-Requires:         python-oslo-serialization >= 1.4.0
+Requires:         python-oslo-serialization >= 1.10.0
 Requires:         python-oslo-service >= 1.0.0
-Requires:         python-oslo-utils >= 3.4.0
-Requires:         python-oslo-versionedobjects >= 1.4.0
+Requires:         python-oslo-utils >= 3.5.0
+Requires:         python-oslo-versionedobjects >= 1.5.0
 Requires:         python-oslo-vmware >= 1.16.0
 Requires:         python-pbr
 Requires:         python-posix_ipc
