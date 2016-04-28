@@ -51,6 +51,24 @@
       "revId": "cf9f19729a8d3f9b4d958280d90101fb3803ae96",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_a98cbd80",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2016-04-28T03:15:16Z",
+      "side": 1,
+      "message": "I\u0027m actually not sure why would we want lower boundary for the new dependency?\nLower boundary is important only for the upgrade case.",
+      "parentUuid": "dabed58f_e964f5e6",
+      "revId": "cf9f19729a8d3f9b4d958280d90101fb3803ae96",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
