@@ -123,7 +123,7 @@ Requires:         libvirt-daemon-lxc
 Requires:         openssh-clients
 Requires:         rsync
 Requires:         lvm2
-Requires:         python-cinderclient >= 1.3.1
+Requires:         python-cinderclient >= 1.6.0
 Requires(pre):    qemu-kvm
 Requires:         genisoimage
 Requires:         bridge-utils
@@ -207,7 +207,7 @@ This package contains the Nova service for managing certificates.
 Summary:          OpenStack Nova API services
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python-cinderclient >= 1.3.1
+Requires:         python-cinderclient >= 1.6.0
 
 %description api
 OpenStack Compute (codename Nova) is open source software designed to
@@ -353,7 +353,7 @@ Requires:         python-anyjson
 Requires:         python-boto
 Requires:         python-cheetah
 Requires:         python-ldap
-Requires:         python-stevedore >= 1.5.0
+Requires:         python-stevedore >= 1.9.0
 
 Requires:         python-memcached
 
@@ -368,31 +368,31 @@ Requires:         python-webob
 Requires:         python-babel
 Requires:         python-castellan >= 0.3.1
 Requires:         python-cryptography >= 1.0
-Requires:         python-glanceclient >= 1.2.0
+Requires:         python-glanceclient >= 2.0.0
 Requires:         python-keystonemiddleware >= 4.0.0
 Requires:         python-keystoneauth1 >= 2.1.0
 Requires:         python-jinja2
 Requires:         python-jsonschema
 Requires:         python-microversion-parse >= 0.1.4
-Requires:         python-neutronclient >= 2.6.0
+Requires:         python-neutronclient >= 4.2.0
 Requires:         python-novaclient >= 2.30.1
 Requires:         python-os-brick
-Requires:         python-oslo-cache >= 0.8.0
-Requires:         python-oslo-concurrency >= 2.3.0
-Requires:         python-oslo-config >= 3.4.0
-Requires:         python-oslo-context >= 0.2.0
+Requires:         python-oslo-cache >= 1.5.0
+Requires:         python-oslo-concurrency >= 3.5.0
+Requires:         python-oslo-config >= 3.9.0
+Requires:         python-oslo-context >= 2.2.0
 Requires:         python-oslo-db >= 4.1.0
 Requires:         python-oslo-i18n >= 2.1.0
 Requires:         python-oslo-log >= 1.14.0
-Requires:         python-oslo-messaging >= 4.0.0
+Requires:         python-oslo-messaging >= 4.5.0
 Requires:         python-oslo-middleware >= 3.0.0
 Requires:         python-oslo-policy >= 0.5.0
 Requires:         python-oslo-reports >= 0.6.0
 Requires:         python-oslo-rootwrap >= 2.0.0
-Requires:         python-oslo-serialization >= 1.4.0
+Requires:         python-oslo-serialization >= 1.10.0
 Requires:         python-oslo-service >= 1.0.0
-Requires:         python-oslo-utils >= 3.4.0
-Requires:         python-oslo-versionedobjects >= 1.4.0
+Requires:         python-oslo-utils >= 3.5.0
+Requires:         python-oslo-versionedobjects >= 1.5.0
 Requires:         python-oslo-vmware >= 1.16.0
 Requires:         python-pbr
 Requires:         python-posix_ipc
