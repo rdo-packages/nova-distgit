@@ -91,7 +91,7 @@ BuildRequires:    python-oslo-service
 BuildRequires:    python-babel
 
 # remove old service subpackage
-Obsoletes: %{name}-objectstore
+Obsoletes: %{name}-objectstore < %{epoch}:%{version}-%{release}
 
 
 %description common
