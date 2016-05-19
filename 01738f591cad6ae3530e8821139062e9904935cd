@@ -16,6 +16,24 @@
       "revId": "01738f591cad6ae3530e8821139062e9904935cd",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_7eee7524",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 127
+      },
+      "writtenOn": "2016-05-19T19:16:14Z",
+      "side": 1,
+      "message": "any thoughts on a version to use for that?",
+      "parentUuid": "dabed58f_de952189",
+      "revId": "01738f591cad6ae3530e8821139062e9904935cd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
