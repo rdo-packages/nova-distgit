@@ -89,7 +89,7 @@ BuildRequires:    python-microversion-parse >= 0.1.4
 BuildRequires:    python-oslo-service
 
 # remove old service subpackage
-Obsoletes: %{name}-objectstore
+Obsoletes: %{name}-objectstore = %{epoch}:%{version}-%{release}
 
 
 %description common
