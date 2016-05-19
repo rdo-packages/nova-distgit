@@ -34,6 +34,24 @@
       "revId": "01738f591cad6ae3530e8821139062e9904935cd",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_1e41790b",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2016-05-19T21:06:04Z",
+      "side": 1,
+      "message": "\"the latest one available of the obsoleted package\" is Fedora standard guideline which won\u0027t work for OpenStack where we still get stable point release updates.\nCurrently latest RDO Liberyt in CBS is 12.0.1 http://cbs.centos.org/koji/buildinfo?buildID\u003d8468 but we\u0027re behind and I\u0027m about to push 12.0.3 update http://releases.openstack.org/liberty/#nova\n\nThat\u0027s why we didn\u0027t have specific VR in Obsoletes, any version of nova-objectstore should be removed from the system when updated to Mitaka.\n\nThat\u0027s why I\u0027d like to see what is rpmdiff complaining about, might be just false warning.",
+      "parentUuid": "dabed58f_7eee7524",
+      "revId": "01738f591cad6ae3530e8821139062e9904935cd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
