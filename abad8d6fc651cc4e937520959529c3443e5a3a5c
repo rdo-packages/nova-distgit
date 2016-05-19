@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabed58f_9ebd6905",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2016-05-19T20:59:31Z",
+      "side": 1,
+      "message": "please put full text of rpmlint warning here",
+      "revId": "abad8d6fc651cc4e937520959529c3443e5a3a5c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
