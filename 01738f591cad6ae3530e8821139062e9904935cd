@@ -52,6 +52,24 @@
       "revId": "01738f591cad6ae3530e8821139062e9904935cd",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabed58f_fe502560",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 127
+      },
+      "writtenOn": "2016-05-20T18:12:12Z",
+      "side": 1,
+      "message": "rpmlint warning\n\nopenstack-nova.src:93: W: unversioned-explicit-obsoletes %{name}-objectstore\n\nbut rpmdiff doesn\u0027t complain about it.",
+      "parentUuid": "dabed58f_1e41790b",
+      "revId": "01738f591cad6ae3530e8821139062e9904935cd",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
