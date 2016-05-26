@@ -87,6 +87,8 @@ BuildRequires:    python-castellan >= 0.3.1
 BuildRequires:    python-keystonemiddleware
 BuildRequires:    python-microversion-parse >= 0.1.4
 BuildRequires:    python-oslo-service
+# Required to compile translation files
+BuildRequires:    python-babel
 
 # remove old service subpackage
 Obsoletes: %{name}-objectstore
@@ -474,13 +476,13 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 # to distutils requiers_dist config
 rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
-# remove unnecessary .po/.pot files
-find nova/locale \( -name '*.po' -o -name '*.pot' \) -delete
-
 %build
 PYTHONPATH=. oslo-config-generator --config-file=etc/nova/nova-config-generator.conf
 
 %{__python2} setup.py build
+
+# Generate i18n files
+%{__python2} setup.py compile_catalog -d build/lib/nova/locale
 
 # Avoid http://bugzilla.redhat.com/1059815. Remove when that is closed
 sed -i 's|group/name|group;name|; s|\[DEFAULT\]/|DEFAULT;|' etc/nova/nova.conf.sample
@@ -608,6 +610,15 @@ install -p -D -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/polkit-1/rules.d/50-
 install -d %{buildroot}%{_sysconfdir}/sysconfig
 install -p -m 0644 %{SOURCE30} %{buildroot}%{_sysconfdir}/sysconfig/openstack-nova-novncproxy
 
+# Install i18n .mo files (.po and .pot are not required)
+install -d -m 755 %{buildroot}%{_datadir}
+rm -f %{buildroot}%{python2_sitelib}/nova/locale/*/LC_*/nova*po
+rm -f %{buildroot}%{python2_sitelib}/nova/locale/*pot
+mv %{buildroot}%{python2_sitelib}/nova/locale %{buildroot}%{_datadir}/locale
+
+# Find language files
+%find_lang nova --all-name
+
 # Remove unneeded in production stuff
 rm -f %{buildroot}%{_bindir}/nova-debug
 rm -fr %{buildroot}%{python2_sitelib}/run_tests.*
@@ -698,7 +709,7 @@ exit 0
 %doc LICENSE
 %{_bindir}/nova-all
 
-%files common
+%files common -f nova.lang
 %doc LICENSE
 %dir %{_datarootdir}/nova
 %attr(-, root, nova) %{_datarootdir}/nova/nova-dist.conf
