@@ -1,5 +1,6 @@
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
+%global distro     RDO
 
 Name:             openstack-nova
 # Liberty semver reset
@@ -560,7 +561,7 @@ install -p -D -m 640 etc/nova/policy.json %{buildroot}%{_sysconfdir}/nova/policy
 # Install version info file
 cat > %{buildroot}%{_sysconfdir}/nova/release <<EOF
 [Nova]
-vendor = Fedora Project
+vendor = %{distro}
 product = OpenStack Nova
 package = %{release}
 EOF
