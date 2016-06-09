@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_3804a97d",
+        "filename": "openstack-nova-compute.service",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2016-06-09T16:36:33Z",
+      "side": 1,
+      "message": "NB this works b/c libvirtd is service type\u003dnotify",
+      "revId": "0a96ad02b82262db20e6bb6edcd88e002464dbb3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
