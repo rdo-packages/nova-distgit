@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_38ee698c",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 127
+      },
+      "writtenOn": "2016-06-10T10:54:31Z",
+      "side": 1,
+      "message": "rpm-kilo spec files should not have changelog entries",
+      "range": {
+        "startLine": 804,
+        "startChar": 0,
+        "endLine": 805,
+        "endChar": 63
+      },
+      "revId": "660d318b2a8afd2513cf823beaa39d1039f411db",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
