@@ -50,6 +50,7 @@ BuildRequires:    python-pbr
 BuildRequires:    python-d2to1
 BuildRequires:    python-six
 BuildRequires:    python-oslo-i18n
+BuildRequires:    python-crypto
 BuildRequires:    python-cryptography >= 1.0
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
@@ -366,6 +367,7 @@ Requires:         python-webob
 
 Requires:         python-babel
 Requires:         python-castellan >= 0.3.1
+Requires:         python-crypto
 Requires:         python-cryptography >= 1.0
 Requires:         python-glanceclient >= 1.2.0
 Requires:         python-keystonemiddleware >= 4.0.0
