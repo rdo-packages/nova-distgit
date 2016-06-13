@@ -8,7 +8,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          13.0.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -818,6 +818,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Jun 13 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1:13.0.0-2
+- Fix systemd services
+
 * Thu Apr  7 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1:13.0.0-1
 - Upstream 13.0.0
 
