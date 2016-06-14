@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_560e9435",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2016-06-14T13:34:47Z",
+      "side": 1,
+      "message": "Are both python-crypto and python-cryptography needed? I can see https://github.com/openstack/nova/blob/master/requirements.txt#L15 in the Nova reqs.",
+      "revId": "695fe6b823336bbe27e5ddb3d2f1ea3dd7561362",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
