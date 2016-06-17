@@ -15,7 +15,7 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          12.0.1
+Version:          12.0.4
 Release:          1%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
@@ -843,6 +843,10 @@ exit 0
 %endif
 
 %changelog
+* Fri Jun 17 2016 Haikel Guemar <hguemar@fedoraproject.org> 1:12.0.4-1
+- Update to 12.0.4
+- Fix systemd services
+
 * Mon Jan 25 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1:12.0.1-1
 - Upstream 12.0.1
 - Fix data leak through snapshot in Nova host CVE-2015-7548
