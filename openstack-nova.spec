@@ -7,8 +7,8 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          13.0.0
-Release:          2%{?dist}
+Version:          13.1.0
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -818,6 +818,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Jun 17 2016 Haikel Guemar <hguemar@fedoraproject.org> 1:13.1.0-1
+- Update to 13.1.0
+
 * Mon Jun 13 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1:13.0.0-2
 - Fix systemd services
 
