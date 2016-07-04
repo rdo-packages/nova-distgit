@@ -380,6 +380,7 @@ Requires:         python-microversion-parse >= 0.1.4
 Requires:         python-neutronclient >= 4.2.0
 Requires:         python-novaclient >= 2.30.1
 Requires:         python-os-brick
+Requires:         python-os-win
 Requires:         python-oslo-cache >= 1.5.0
 Requires:         python-oslo-concurrency >= 3.5.0
 Requires:         python-oslo-config >= 3.9.0
