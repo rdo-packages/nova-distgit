@@ -634,7 +634,7 @@ fi
 exit 0
 
 %pre compute
-usermod -a -G qemu nova
+usermod -a -G qemu -s /bin/bash nova
 exit 0
 
 %post compute
