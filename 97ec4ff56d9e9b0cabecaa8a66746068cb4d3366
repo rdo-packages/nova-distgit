@@ -52,6 +52,24 @@
       "revId": "97ec4ff56d9e9b0cabecaa8a66746068cb4d3366",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_6aa5b303",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 230
+      },
+      "writtenOn": "2016-07-20T16:16:30Z",
+      "side": 1,
+      "message": "I don\u0027t think this line has to change at all. I originally put it here but only computes should have a shell afaik.",
+      "parentUuid": "3a1371a2_2a9bbbca",
+      "revId": "97ec4ff56d9e9b0cabecaa8a66746068cb4d3366",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
