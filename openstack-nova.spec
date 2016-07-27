@@ -85,9 +85,17 @@ Requires(pre):    shadow-utils
 BuildRequires:    systemd
 # Required to build nova.conf.sample
 BuildRequires:    python-castellan >= 0.3.1
+BuildRequires:    python-glanceclient
 BuildRequires:    python-keystonemiddleware
+BuildRequires:    python-lxml
 BuildRequires:    python-microversion-parse >= 0.1.4
+BuildRequires:    python-os-brick
+BuildRequires:    python-oslo-db
+BuildRequires:    python-oslo-reports
 BuildRequires:    python-oslo-service
+BuildRequires:    python-oslo-versionedobjects
+BuildRequires:    python-paramiko
+BuildRequires:    python-websockify
 # Required to compile translation files
 BuildRequires:    python-babel
 
@@ -432,28 +440,20 @@ BuildRequires:    python-boto
 BuildRequires:    python-eventlet
 BuildRequires:    python-barbicanclient
 BuildRequires:    python-cinderclient
-BuildRequires:    python-glanceclient
 BuildRequires:    python-keystoneclient
 BuildRequires:    python-neutronclient
-BuildRequires:    python-lxml
-BuildRequires:    python-os-brick
 BuildRequires:    python-os-win
 BuildRequires:    python-oslo-config
-BuildRequires:    python-oslo-db
 BuildRequires:    python-oslo-log
 BuildRequires:    python-oslo-messaging
 BuildRequires:    python-oslo-policy
-BuildRequires:    python-oslo-reports
 BuildRequires:    python-oslo-utils
-BuildRequires:    python-oslo-versionedobjects
 BuildRequires:    python-oslo-vmware
-BuildRequires:    python-paramiko
 BuildRequires:    python-redis
 BuildRequires:    python-rfc3986
 BuildRequires:    python-routes
 BuildRequires:    python-sqlalchemy
 BuildRequires:    python-webob
-BuildRequires:    python-websockify
 BuildRequires:    python-zmq
 # while not strictly required, quiets the build down when building docs.
 BuildRequires:    python-migrate, python-iso8601
