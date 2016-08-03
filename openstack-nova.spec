@@ -511,26 +511,17 @@ done < %{SOURCE1}
 # docs generation requires everything to be installed first
 export PYTHONPATH="$( pwd ):$PYTHONPATH"
 
-pushd doc
-
 # Remove this once sphinxcontrib.seqdiag becomes available
-sed -i -e '/sphinxcontrib.seqdiag/d' source/conf.py
-sed -i -e 's#../../etc/nova/nova-config-generator.conf#../etc/nova/nova-config-generator.conf#' source/conf.py
+sed -i -e '/sphinxcontrib.seqdiag/d' doc/source/conf.py
+sed -i -e 's#../../etc/nova/nova-config-generator.conf#etc/nova/nova-config-generator.conf#' doc/source/conf.py
 
 %if 0%{?with_doc}
-SPHINX_DEBUG=1 sphinx-build -b html source build/html
-# Fix hidden-file-or-dir warnings
-rm -fr build/html/.doctrees build/html/.buildinfo
+%{__python2} setup.py build_sphinx
 %endif
 
-# Create dir link to avoid a sphinx-build exception
-mkdir -p build/man/.doctrees/
-ln -s .  build/man/.doctrees/man
-SPHINX_DEBUG=1 sphinx-build -b man -c source source/man build/man
+%{__python2} setup.py build_sphinx --builder man
 mkdir -p %{buildroot}%{_mandir}/man1
-install -p -D -m 644 build/man/*.1 %{buildroot}%{_mandir}/man1/
-
-popd
+install -p -D -m 644 doc/build/man/*.1 %{buildroot}%{_mandir}/man1/
 
 # Setup directories
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova
