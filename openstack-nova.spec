@@ -88,7 +88,7 @@ BuildRequires:    python-castellan >= 0.3.1
 BuildRequires:    python-glanceclient
 BuildRequires:    python-keystonemiddleware
 BuildRequires:    python-lxml
-BuildRequires:    python-microversion-parse >= 0.1.4
+BuildRequires:    python-microversion-parse >= 0.1.3
 BuildRequires:    python-os-brick
 BuildRequires:    python-oslo-db
 BuildRequires:    python-oslo-reports
@@ -384,7 +384,7 @@ Requires:         python-keystonemiddleware >= 4.0.0
 Requires:         python-keystoneauth1 >= 2.1.0
 Requires:         python-jinja2
 Requires:         python-jsonschema
-Requires:         python-microversion-parse >= 0.1.4
+Requires:         python-microversion-parse >= 0.1.3
 Requires:         python-neutronclient >= 4.2.0
 Requires:         python-novaclient >= 2.30.1
 Requires:         python-os-brick
