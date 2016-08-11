@@ -404,6 +404,7 @@ Requires:         python-oslo-serialization >= 1.10.0
 Requires:         python-oslo-service >= 1.0.0
 Requires:         python-oslo-utils >= 3.5.0
 Requires:         python-oslo-versionedobjects >= 1.5.0
+Requires:         python-os-vif >= 1.1.0
 Requires:         python-oslo-vmware >= 1.16.0
 Requires:         python-pbr
 Requires:         python-posix_ipc
