@@ -84,7 +84,7 @@ Requires(postun): systemd
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
 # Required to build nova.conf.sample
-BuildRequires:    python-castellan >= 0.3.1
+BuildRequires:    python-castellan >= 0.4.0
 BuildRequires:    python-glanceclient
 BuildRequires:    python-keystonemiddleware
 BuildRequires:    python-lxml
@@ -364,7 +364,7 @@ Requires:         python-anyjson
 Requires:         python-boto
 Requires:         python-cheetah
 Requires:         python-ldap
-Requires:         python-stevedore >= 1.9.0
+Requires:         python-stevedore >= 1.16.0
 
 Requires:         python-memcached
 
@@ -372,38 +372,40 @@ Requires:         python-sqlalchemy >= 1.0.10
 Requires:         python-migrate >= 0.9.6
 Requires:         python-alembic >= 0.8.0
 
+Requires:         python-paste
 Requires:         python-paste-deploy
 Requires:         python-routes
 Requires:         python-webob
 
 Requires:         python-babel
-Requires:         python-castellan >= 0.3.1
+Requires:         python-castellan >= 0.4.0
 Requires:         python-cryptography >= 1.0
 Requires:         python-glanceclient >= 2.0.0
 Requires:         python-keystonemiddleware >= 4.0.0
-Requires:         python-keystoneauth1 >= 2.1.0
+Requires:         python-keystoneauth1 >= 2.10.0
 Requires:         python-jinja2
 Requires:         python-jsonschema
-Requires:         python-microversion-parse >= 0.1.3
-Requires:         python-neutronclient >= 4.2.0
+Requires:         python-microversion-parse >= 0.1.2
+Requires:         python-neutronclient >= 5.0.0
 Requires:         python-novaclient >= 2.30.1
 Requires:         python-os-brick
 Requires:         python-oslo-cache >= 1.5.0
-Requires:         python-oslo-concurrency >= 3.5.0
-Requires:         python-oslo-config >= 3.9.0
-Requires:         python-oslo-context >= 2.2.0
-Requires:         python-oslo-db >= 4.1.0
+Requires:         python-oslo-concurrency >= 3.8.0
+Requires:         python-oslo-config >= 3.14.0
+Requires:         python-oslo-context >= 2.6.0
+Requires:         python-oslo-db >= 4.10.0
 Requires:         python-oslo-i18n >= 2.1.0
 Requires:         python-oslo-log >= 1.14.0
-Requires:         python-oslo-messaging >= 4.5.0
+Requires:         python-oslo-messaging >= 5.2.0
 Requires:         python-oslo-middleware >= 3.0.0
-Requires:         python-oslo-policy >= 0.5.0
+Requires:         python-oslo-policy >= 1.9.0
+Requires:         python-oslo-privsep >= 1.9.0
 Requires:         python-oslo-reports >= 0.6.0
-Requires:         python-oslo-rootwrap >= 2.0.0
+Requires:         python-oslo-rootwrap >= 5.0.0
 Requires:         python-oslo-serialization >= 1.10.0
-Requires:         python-oslo-service >= 1.0.0
-Requires:         python-oslo-utils >= 3.5.0
-Requires:         python-oslo-versionedobjects >= 1.5.0
+Requires:         python-oslo-service >= 1.10.0
+Requires:         python-oslo-utils >= 3.16.0
+Requires:         python-oslo-versionedobjects >= 1.13.0
 Requires:         python-os-vif >= 1.1.0
 Requires:         python-oslo-vmware >= 1.16.0
 Requires:         python-pbr
