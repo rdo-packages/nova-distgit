@@ -135,7 +135,7 @@ Requires:         openssh-clients
 Requires:         rsync
 Requires:         lvm2
 Requires:         python-cinderclient >= 1.6.0
-Requires(pre):    qemu-kvm
+Requires(pre):    qemu-kvm-rhev
 Requires:         genisoimage
 Requires:         bridge-utils
 Requires:         sg3_utils
