@@ -511,6 +511,10 @@ done < %{SOURCE1}
 %install
 %{__python2} setup.py install -O1 --skip-build --root %{buildroot}
 
+
+# TODO temporary workaround until feature is fully ready with wsgi config
+rm -f %{buildroot}%{_bindir}/nova-placement-api
+
 # docs generation requires everything to be installed first
 export PYTHONPATH="$( pwd ):$PYTHONPATH"
 
