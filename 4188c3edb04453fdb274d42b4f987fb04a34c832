@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_252bb8ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2016-09-01T20:06:05Z",
+      "side": 1,
+      "message": "This is merge commit, best is to resolve to the actual review introducing the change:\nhttps://review.openstack.org/322944",
+      "revId": "4188c3edb04453fdb274d42b4f987fb04a34c832",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
