@@ -729,6 +729,7 @@ exit 0
 %dir %attr(0755, nova, root) %{_localstatedir}/run/nova
 
 %{_bindir}/nova-manage
+%{_bindir}/nova-policy
 %{_bindir}/nova-rootwrap
 %{_bindir}/nova-rootwrap-daemon
 
