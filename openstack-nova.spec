@@ -32,12 +32,14 @@ Source28:         openstack-nova-spicehtml5proxy.service
 Source29:         openstack-nova-novncproxy.service
 Source31:         openstack-nova-serialproxy.service
 Source32:         openstack-nova-os-compute-api.service
+Source33:         openstack-nova-placement-api.service
 
 Source21:         nova-polkit.pkla
 Source23:         nova-polkit.rules
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
+Source34:         nova-placement-api.conf
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -62,6 +64,7 @@ Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-console = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cells = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-novncproxy = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-placement-api = %{epoch}:%{version}-%{release}
 
 
 %description
@@ -346,6 +349,26 @@ standard hardware configurations and seven major hypervisors.
 This package contains the Nova services providing the
 serial console access service to Virtual Machines.
 
+%package placement-api
+Summary:          OpenStack Nova Placement APIservice
+
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
+Requires:         httpd
+Requires:         mod_wsgi
+
+%description placement-api
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform. It gives you the
+software, control panels, and APIs required to orchestrate a cloud,
+including running instances, managing networks, and controlling access
+through users and projects. OpenStack Compute strives to be both
+hardware and hypervisor agnostic, currently supporting a variety of
+standard hardware configurations and seven major hypervisors.
+
+This package contains the Nova placement service will initially allow
+for the management of resource providers.
+
 %package -n       python-nova
 Summary:          Nova Python libraries
 
@@ -511,10 +534,6 @@ done < %{SOURCE1}
 %install
 %{__python2} setup.py install -O1 --skip-build --root %{buildroot}
 
-
-# TODO temporary workaround until feature is fully ready with wsgi config
-rm -f %{buildroot}%{_bindir}/nova-placement-api
-
 # docs generation requires everything to be installed first
 export PYTHONPATH="$( pwd ):$PYTHONPATH"
 
@@ -555,6 +574,7 @@ install -p -D -m 640 etc/nova/nova.conf.sample  %{buildroot}%{_sysconfdir}/nova/
 install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/rootwrap.conf
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
 install -p -D -m 640 etc/nova/policy.json %{buildroot}%{_sysconfdir}/nova/policy.json
+install -p -D -m 640 %{SOURCE34} %{buildroot}%{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
 
 # Install version info file
 cat > %{buildroot}%{_sysconfdir}/nova/release <<EOF
@@ -580,6 +600,7 @@ install -p -D -m 644 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtm
 install -p -D -m 644 %{SOURCE29} %{buildroot}%{_unitdir}/openstack-nova-novncproxy.service
 install -p -D -m 644 %{SOURCE31} %{buildroot}%{_unitdir}/openstack-nova-serialproxy.service
 install -p -D -m 644 %{SOURCE32} %{buildroot}%{_unitdir}/openstack-nova-os-compute-api.service
+install -p -D -m 644 %{SOURCE33} %{buildroot}%{_unitdir}/openstack-nova-placement-api.service
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -657,6 +678,9 @@ exit 0
 %systemd_post %{name}-spicehtml5proxy.service
 %post serialproxy
 %systemd_post %{name}-serialproxy.service
+%post placement-api
+%systemd_post %{name}-placement-api.service
+
 
 %preun compute
 %systemd_preun %{name}-compute.service
@@ -680,6 +704,9 @@ exit 0
 %systemd_preun %{name}-spicehtml5proxy.service
 %preun serialproxy
 %systemd_preun %{name}-serialproxy.service
+%preun placement-api
+%systemd_preun %{name}-placement-api.service
+
 
 %postun compute
 %systemd_postun_with_restart %{name}-compute.service
@@ -703,6 +730,9 @@ exit 0
 %systemd_postun_with_restart %{name}-spicehtml5proxy.service
 %postun serialproxy
 %systemd_postun_with_restart %{name}-serialproxy.service
+%postun placement-api
+%systemd_postun_with_restart %{name}-placement-api.service
+
 
 %files
 %doc LICENSE
@@ -810,6 +840,11 @@ exit 0
 %files serialproxy
 %{_bindir}/nova-serialproxy
 %{_unitdir}/openstack-nova-serialproxy.service
+
+%files placement-api
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
+%{_bindir}/nova-placement-api
+%{_unitdir}/openstack-nova-placement-api.service
 
 %files -n python-nova
 %doc LICENSE
