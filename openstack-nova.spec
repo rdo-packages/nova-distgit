@@ -38,6 +38,7 @@ Source23:         nova-polkit.rules
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
+Source33:         nova-placement-api.conf
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -62,6 +63,7 @@ Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-console = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cells = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-novncproxy = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-placement-api = %{epoch}:%{version}-%{release}
 
 
 %description
@@ -346,6 +348,26 @@ standard hardware configurations and seven major hypervisors.
 This package contains the Nova services providing the
 serial console access service to Virtual Machines.
 
+%package placement-api
+Summary:          OpenStack Nova Placement APIservice
+
+Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
+Requires:         httpd
+Requires:         mod_wsgi
+
+%description placement-api
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform. It gives you the
+software, control panels, and APIs required to orchestrate a cloud,
+including running instances, managing networks, and controlling access
+through users and projects. OpenStack Compute strives to be both
+hardware and hypervisor agnostic, currently supporting a variety of
+standard hardware configurations and seven major hypervisors.
+
+This package contains the Nova placement service, which will initially
+allow for the management of resource providers.
+
 %package -n       python-nova
 Summary:          Nova Python libraries
 
@@ -511,10 +533,6 @@ done < %{SOURCE1}
 %install
 %{__python2} setup.py install -O1 --skip-build --root %{buildroot}
 
-
-# TODO temporary workaround until feature is fully ready with wsgi config
-rm -f %{buildroot}%{_bindir}/nova-placement-api
-
 # docs generation requires everything to be installed first
 export PYTHONPATH="$( pwd ):$PYTHONPATH"
 
@@ -555,6 +573,7 @@ install -p -D -m 640 etc/nova/nova.conf.sample  %{buildroot}%{_sysconfdir}/nova/
 install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/rootwrap.conf
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
 install -p -D -m 640 etc/nova/policy.json %{buildroot}%{_sysconfdir}/nova/policy.json
+install -p -D -m 640 %{SOURCE33} %{buildroot}%{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
 
 # Install version info file
 cat > %{buildroot}%{_sysconfdir}/nova/release <<EOF
@@ -810,6 +829,10 @@ exit 0
 %files serialproxy
 %{_bindir}/nova-serialproxy
 %{_unitdir}/openstack-nova-serialproxy.service
+
+%files placement-api
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
+%{_bindir}/nova-placement-api
 
 %files -n python-nova
 %doc LICENSE
