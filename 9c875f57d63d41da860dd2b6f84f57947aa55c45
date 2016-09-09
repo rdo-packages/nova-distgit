@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_f7ac228f",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2016-09-09T08:55:32Z",
+      "side": 1,
+      "message": "nit: should be something like:\n\n\"...service, which will...\"",
+      "range": {
+        "startLine": 368,
+        "startChar": 41,
+        "endLine": 368,
+        "endChar": 53
+      },
+      "revId": "9c875f57d63d41da860dd2b6f84f57947aa55c45",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
