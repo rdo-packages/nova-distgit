@@ -1,3 +1,4 @@
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 %global distro     RDO
@@ -12,7 +13,7 @@ Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
-Source0:          https://tarballs.openstack.org/nova/nova-%{version}.tar.gz
+Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
