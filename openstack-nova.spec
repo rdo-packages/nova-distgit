@@ -739,6 +739,7 @@ exit 0
 %attr(-, root, nova) %{_datarootdir}/nova/nova-dist.conf
 %{_datarootdir}/nova/client.ovpn.template
 %{_datarootdir}/nova/interfaces.template
+%{_datarootdir}/nova/rootwrap/network.filters
 %dir %{_sysconfdir}/nova
 %{_sysconfdir}/nova/release
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova.conf
@@ -778,7 +779,6 @@ exit 0
 %{_bindir}/nova-network
 %{_bindir}/nova-dhcpbridge
 %{_unitdir}/openstack-nova-network.service
-%{_datarootdir}/nova/rootwrap/network.filters
 
 %files scheduler
 %{_bindir}/nova-scheduler
