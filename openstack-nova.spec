@@ -768,12 +768,12 @@ exit 0
 %{_bindir}/nova-idmapshift
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
+%{_datarootdir}/nova/rootwrap/network.filters
 
 %files network
 %{_bindir}/nova-network
 %{_bindir}/nova-dhcpbridge
 %{_unitdir}/openstack-nova-network.service
-%{_datarootdir}/nova/rootwrap/network.filters
 
 %files scheduler
 %{_bindir}/nova-scheduler
