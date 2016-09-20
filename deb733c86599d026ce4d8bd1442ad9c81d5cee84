@@ -16,6 +16,24 @@
       "revId": "deb733c86599d026ce4d8bd1442ad9c81d5cee84",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_5f5eb9ea",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 265
+      },
+      "writtenOn": "2016-09-20T11:39:24Z",
+      "side": 1,
+      "message": "Done. Both -network and -compute depend on common, right?",
+      "parentUuid": "facab960_04094431",
+      "revId": "deb733c86599d026ce4d8bd1442ad9c81d5cee84",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
