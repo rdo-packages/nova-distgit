@@ -1,4 +1,4 @@
-%global milestone .0b3
+%global milestone .0rc1
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
@@ -9,7 +9,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          14.0.0
-Release:          0.1%{?milestone}%{?dist}
+Release:          0.2%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -17,7 +17,7 @@ URL:              http://openstack.org/projects/compute/
 Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz
 
 #
-# patches_base=14.0.0.0b3
+# patches_base=14.0.0.0rc1
 #
 
 Source1:          nova-dist.conf
@@ -856,6 +856,9 @@ exit 0
 %endif
 
 %changelog
-* Wed Sep 14 2016 Haikel Guemar <hguemar@fedoraproject.org> 1:14.0.0-0.1
+* Wed Sep 21 2016 Alfredo Moralejo <amoralej@redhat.com> 1:14.0.0-0.2.0rc1
+- Update to 14.0.0.0rc1
+
+* Wed Sep 14 2016 Haikel Guemar <hguemar@fedoraproject.org> 1:14.0.0-0.1.0b3
 - Update to 14.0.0.0b3
 
