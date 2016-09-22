@@ -154,6 +154,7 @@ Requires:         bridge-utils
 Requires:         dnsmasq
 Requires:         dnsmasq-utils
 Requires:         ebtables
+Requires:         conntrack-tools
 
 %description network
 OpenStack Compute (codename Nova) is open source software designed to
