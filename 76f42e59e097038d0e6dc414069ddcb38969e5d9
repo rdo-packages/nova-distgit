@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_06d141fb",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2016-09-23T10:20:41Z",
+      "side": 1,
+      "message": "This should also be fixed upstream,\nit is used in:\nhttps://github.com/openstack/nova/blob/bc5035343d366a18cae587f92ecb4e871aba974a/etc/nova/rootwrap.d/network.filters#L87-L88\n\nbut not listed as bindep[1]\nhttps://github.com/openstack/nova/blob/master/bindep.txt\nwhich should be replacing\nhttps://github.com/openstack-dev/devstack/blob/master/files/rpms/nova\nto avoid WorkedInDevstack(TM) issues like this!\n\n\n[1] http://docs.openstack.org/infra/bindep/\n\nI\u0027ll file Tooling RFE: rdopkg reqcheck to use setup.cfg and bindep.txt (some of that is being developed in openstack/rpm-packaging tooling iiuc)",
+      "revId": "76f42e59e097038d0e6dc414069ddcb38969e5d9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
