@@ -40,6 +40,7 @@ Source22:         nova-ifc-template
 Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
 Source33:         nova-placement-api.conf
+Source34:         policy.json
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -506,6 +507,8 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 
 %build
 PYTHONPATH=. oslo-config-generator --config-file=etc/nova/nova-config-generator.conf
+# Generate a sample policy.yaml file for documentation purposes only
+PYTHONPATH=. oslopolicy-sample-generator --config-file=etc/nova/nova-policy-generator.conf
 
 %{__python2} setup.py build
 
@@ -574,8 +577,10 @@ install -p -D -m 640 %{SOURCE1} %{buildroot}%{_datarootdir}/nova/nova-dist.conf
 install -p -D -m 640 etc/nova/nova.conf.sample  %{buildroot}%{_sysconfdir}/nova/nova.conf
 install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/rootwrap.conf
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
-install -p -D -m 640 etc/nova/policy.json %{buildroot}%{_sysconfdir}/nova/policy.json
 install -p -D -m 640 %{SOURCE33} %{buildroot}%{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
+
+# Install empty policy.json file to cover rpm updates with untouched policy files.
+install -p -D -m 640 %{SOURCE34} %{buildroot}%{_sysconfdir}/nova/policy.json
 
 # Install version info file
 cat > %{buildroot}%{_sysconfdir}/nova/release <<EOF
@@ -731,6 +736,7 @@ exit 0
 
 %files common -f nova.lang
 %doc LICENSE
+%doc etc/nova/policy.yaml.sample
 %dir %{_datarootdir}/nova
 %attr(-, root, nova) %{_datarootdir}/nova/nova-dist.conf
 %{_datarootdir}/nova/client.ovpn.template
