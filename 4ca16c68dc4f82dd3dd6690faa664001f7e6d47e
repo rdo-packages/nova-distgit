@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ad9bd40_6809172c",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2016-10-13T10:31:54Z",
+      "side": 1,
+      "message": "I think the desired behavior is:\n\n- policy.json was untouched: we want to move on to new default, empty policy.json or just remove it.\n- policy.json was modified: we want to keep it as is.\n\nIf this is right (correct me if i\u0027m wrong), i think the best way is to provide an empty config file in config (i can create it with echo, no problem).",
+      "parentUuid": "9ad9bd40_c5fe8e38",
+      "revId": "4ca16c68dc4f82dd3dd6690faa664001f7e6d47e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad9bd40_825f1c72",
         "filename": "openstack-nova.spec",
         "patchSetId": 3
