@@ -436,7 +436,7 @@ Requires:         python-oslo-vmware >= 1.16.0
 Requires:         python-pbr
 Requires:         python-posix_ipc
 Requires:         python-psutil
-Requires:         python-rfc3986
+Requires:         python-rfc3986 >= 0.2.2
 Requires:         python-six >= 1.9.0
 
 %description -n   python-nova
@@ -478,7 +478,7 @@ BuildRequires:    python-oslo-policy
 BuildRequires:    python-oslo-utils
 BuildRequires:    python-oslo-vmware
 BuildRequires:    python-redis
-BuildRequires:    python-rfc3986
+BuildRequires:    python-rfc3986 >= 0.2.2
 BuildRequires:    python-routes
 BuildRequires:    python-sqlalchemy
 BuildRequires:    python-webob
