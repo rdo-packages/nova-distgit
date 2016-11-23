@@ -731,8 +731,6 @@ exit 0
 %systemd_postun_with_restart %{name}-serialproxy.service
 
 %files
-%doc LICENSE
-%{_bindir}/nova-all
 
 %files common -f nova.lang
 %doc LICENSE
