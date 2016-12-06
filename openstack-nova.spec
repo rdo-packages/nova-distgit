@@ -701,7 +701,7 @@ rm -rf os_xenapi
 %pre common
 getent group nova >/dev/null || groupadd -r nova --gid 162
 if ! getent passwd nova >/dev/null; then
-  useradd -u 162 -r -g nova -G nova,nobody -d %{_sharedstatedir}/nova -s /sbin/nologin -c "OpenStack Nova Daemons" nova
+  useradd -u 162 -r -g nova -G nova,nobody -d %{_sharedstatedir}/nova -s /bin/bash -c "OpenStack Nova Daemons" nova
 fi
 exit 0
 
