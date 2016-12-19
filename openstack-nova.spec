@@ -143,6 +143,7 @@ Requires:         genisoimage
 Requires:         bridge-utils
 Requires:         sg3_utils
 Requires:         sysfsutils
+Requires:         libosinfo
 
 %description compute
 OpenStack Compute (codename Nova) is open source software designed to
