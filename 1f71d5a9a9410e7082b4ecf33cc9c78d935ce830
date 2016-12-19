@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fab399f4_80463a22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2016-12-19T22:43:53Z",
+      "side": 1,
+      "message": "Which upstream commit adds this dependency?\nIs that a recent Ocata change or we were just missing explicit deps?",
+      "revId": "1f71d5a9a9410e7082b4ecf33cc9c78d935ce830",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
