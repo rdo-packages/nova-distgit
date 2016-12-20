@@ -16,6 +16,24 @@
       "revId": "1f71d5a9a9410e7082b4ecf33cc9c78d935ce830",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fab399f4_400a62d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2016-12-20T07:53:00Z",
+      "side": 1,
+      "message": "It\u0027s a missing deps. We need to backport this change to: Newton and Mitaka.\n\nhttp://specs.openstack.org/openstack/nova-specs/specs/mitaka/implemented/libvirt-hardware-policy-from-libosinfo.html",
+      "parentUuid": "fab399f4_80463a22",
+      "revId": "1f71d5a9a9410e7082b4ecf33cc9c78d935ce830",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
