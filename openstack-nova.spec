@@ -381,6 +381,7 @@ Requires:         sudo
 
 Requires:         python-paramiko
 
+Requires:         python-enum34
 Requires:         python-eventlet >= 0.17.4
 Requires:         python-iso8601
 Requires:         python-netaddr
@@ -758,6 +759,7 @@ exit 0
 %{_bindir}/nova-policy
 %{_bindir}/nova-rootwrap
 %{_bindir}/nova-rootwrap-daemon
+%{_bindir}/nova-status
 
 %{_mandir}/man1/nova*.1.gz
 
