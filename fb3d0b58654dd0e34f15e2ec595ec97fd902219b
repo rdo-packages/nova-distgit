@@ -22,6 +22,30 @@
       "revId": "fb3d0b58654dd0e34f15e2ec595ec97fd902219b",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dab895d6_eee60344",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2017-01-13T16:00:20Z",
+      "side": 1,
+      "message": "Ah yes, now that I have added BR git\nbut autosetup should also work w/o git. Let\u0027s see CI on PS1 first.",
+      "parentUuid": "dab895d6_8ef827e7",
+      "range": {
+        "startLine": 504,
+        "startChar": 0,
+        "endLine": 504,
+        "endChar": 38
+      },
+      "revId": "fb3d0b58654dd0e34f15e2ec595ec97fd902219b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
