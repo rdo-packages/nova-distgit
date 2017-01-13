@@ -15,6 +15,8 @@ License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
 Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz
 
+Patch0001:        0001-Revert-Make-simple_cell_setup-fully-idempotent.patch
+
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
 
@@ -43,6 +45,8 @@ Source33:         nova-placement-api.conf
 Source34:         policy.json
 
 BuildArch:        noarch
+
+BuildRequires:    git
 BuildRequires:    intltool
 BuildRequires:    python2-devel
 BuildRequires:    python-sphinx
@@ -497,7 +501,7 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{upstream_version}
+%autosetup -n nova-%{upstream_version} -S git
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
