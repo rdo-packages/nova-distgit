@@ -260,7 +260,7 @@ the compute service
 Summary:          OpenStack Nova console access services
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python-websockify
+Requires:         python-websockify >= 0.8.0
 
 %description console
 OpenStack Compute (codename Nova) is open source software designed to
@@ -298,7 +298,7 @@ Summary:          OpenStack Nova noVNC proxy service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         novnc
-Requires:         python-websockify
+Requires:         python-websockify >= 0.8.0
 
 
 %description novncproxy
@@ -318,7 +318,7 @@ VNC traffic over browser websockets connections.
 Summary:          OpenStack Nova Spice HTML5 console access service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python-websockify
+Requires:         python-websockify >= 0.8.0
 
 %description spicehtml5proxy
 OpenStack Compute (codename Nova) is open source software designed to
@@ -337,7 +337,7 @@ spice HTML5 console access service to Virtual Machines.
 Summary:          OpenStack Nova serial console access service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python-websockify
+Requires:         python-websockify >= 0.8.0
 
 %description serialproxy
 OpenStack Compute (codename Nova) is open source software designed to
@@ -380,18 +380,19 @@ Requires:         openssl
 Requires:         openssh
 Requires:         sudo
 
-Requires:         python-paramiko
+Requires:         python-paramiko >= 2.0
 
+Requires:         python-decorator >= 3.4.0
 Requires:         python-enum34
 Requires:         python-eventlet >= 0.17.4
-Requires:         python-iso8601
-Requires:         python-netaddr
-Requires:         python-lxml
+Requires:         python-iso8601 >= 0.1.11
+Requires:         python-netaddr >= 0.7.13
+Requires:         python-lxml >= 2.3
 Requires:         python-anyjson
 Requires:         python-boto
 Requires:         python-cheetah
 Requires:         python-ldap
-Requires:         python-stevedore >= 1.16.0
+Requires:         python-stevedore >= 1.17.1
 
 Requires:         python-memcached
 
@@ -400,45 +401,49 @@ Requires:         python-migrate >= 0.9.6
 Requires:         python-alembic >= 0.8.0
 
 Requires:         python-paste
-Requires:         python-paste-deploy
-Requires:         python-routes
-Requires:         python-webob
+Requires:         python-paste-deploy >= 1.5.0
+Requires:         python-routes >= 1.12.3
+Requires:         python-webob >= 0.8.0
 
-Requires:         python-babel
+Requires:         python-babel >= 2.3.4
 Requires:         python-castellan >= 0.4.0
 Requires:         python-cryptography >= 1.0
-Requires:         python-glanceclient >= 2.0.0
-Requires:         python-keystonemiddleware >= 4.0.0
-Requires:         python-keystoneauth1 >= 2.10.0
+Requires:         python-glanceclient >= 1:2.5.0
+Requires:         python-greenlet >= 0.3.2
+Requires:         python-keystonemiddleware >= 4.12.0
+Requires:         python-keystoneauth1 >= 2.18.0
 Requires:         python-jinja2
-Requires:         python-jsonschema
+Requires:         python-jsonschema >= 2.0.0
 Requires:         python-microversion-parse >= 0.1.2
-Requires:         python-neutronclient >= 5.0.0
+Requires:         python-netifaces >= 0.10.4
+Requires:         python-neutronclient >= 5.1.0
 Requires:         python-novaclient >= 2.30.1
-Requires:         python-os-brick
+Requires:         python-os-brick >= 1.8.0
 Requires:         python-oslo-cache >= 1.5.0
 Requires:         python-oslo-concurrency >= 3.8.0
-Requires:         python-oslo-config >= 3.14.0
-Requires:         python-oslo-context >= 2.6.0
-Requires:         python-oslo-db >= 4.10.0
+Requires:         python-oslo-config >= 2:3.14.0
+Requires:         python-oslo-context >= 2.9.0
+Requires:         python-oslo-db >= 4.15.0
 Requires:         python-oslo-i18n >= 2.1.0
-Requires:         python-oslo-log >= 1.14.0
-Requires:         python-oslo-messaging >= 5.2.0
+Requires:         python-oslo-log >= 3.11.0
+Requires:         python-oslo-messaging >= 5.14.0
 Requires:         python-oslo-middleware >= 3.0.0
-Requires:         python-oslo-policy >= 1.9.0
+Requires:         python-oslo-policy >= 1.17.0
 Requires:         python-oslo-privsep >= 1.9.0
 Requires:         python-oslo-reports >= 0.6.0
 Requires:         python-oslo-rootwrap >= 5.0.0
 Requires:         python-oslo-serialization >= 1.10.0
 Requires:         python-oslo-service >= 1.10.0
-Requires:         python-oslo-utils >= 3.16.0
-Requires:         python-oslo-versionedobjects >= 1.13.0
-Requires:         python-os-vif >= 1.1.0
+Requires:         python-oslo-utils >= 3.18.0
+Requires:         python-oslo-versionedobjects >= 1.17.0
+Requires:         python-os-vif >= 1.4.0
 Requires:         python-oslo-vmware >= 1.16.0
 Requires:         python-pbr
 Requires:         python-posix_ipc
-Requires:         python-psutil
-Requires:         python-rfc3986 >= 0.2.2
+Requires:         python-prettytable >= 0.7.1
+Requires:         python-psutil >= 3.0.1
+Requires:         python-requests >= 2.10.0
+Requires:         python-rfc3986 >= 0.3.1
 Requires:         python-six >= 1.9.0
 
 %description -n   python-nova
