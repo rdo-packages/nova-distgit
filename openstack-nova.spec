@@ -584,7 +584,7 @@ install -p -D -m 640 %{SOURCE1} %{buildroot}%{_datarootdir}/nova/nova-dist.conf
 install -p -D -m 640 etc/nova/nova.conf.sample  %{buildroot}%{_sysconfdir}/nova/nova.conf
 install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/rootwrap.conf
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
-install -p -D -m 640 %{SOURCE33} %{buildroot}%{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
+install -p -D -m 640 %{SOURCE33} %{buildroot}%{_datadir}/nova-placement-api/00-nova-placement-api.conf.sample
 
 # Install empty policy.json file to cover rpm updates with untouched policy files.
 install -p -D -m 640 %{SOURCE34} %{buildroot}%{_sysconfdir}/nova/policy.json
@@ -845,7 +845,7 @@ exit 0
 %{_unitdir}/openstack-nova-serialproxy.service
 
 %files placement-api
-%config(noreplace) %{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
+%{_datadir}/nova-placement-api/00-nova-placement-api.conf.sample
 %{_bindir}/nova-placement-api
 
 %files -n python-nova
