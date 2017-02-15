@@ -47,6 +47,8 @@ Source30:         openstack-nova-novncproxy.sysconfig
 Source33:         nova-placement-api.conf
 Source34:         policy.json
 
+Patch0001: 0001-Allow-placement-endpoint-interface-to-be-set.patch
+
 BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    python2-devel
@@ -508,6 +510,9 @@ This package contains documentation files for nova.
 
 %prep
 %setup -q -n nova-%{upstream_version}
+
+# Until https://review.openstack.org/#/c/432954/ is merged
+%patch0001 -p1
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
