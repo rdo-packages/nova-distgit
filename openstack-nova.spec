@@ -47,10 +47,14 @@ Source30:         openstack-nova-novncproxy.sysconfig
 Source33:         nova-placement-api.conf
 Source34:         policy.json
 
+# FIXME: drop patch as soon as nova 15.0.1+ gets released
+%if !0%{?dlrn}
 Patch0001: 0001-Allow-placement-endpoint-interface-to-be-set.patch
+%endif
 
 BuildArch:        noarch
 BuildRequires:    intltool
+BuildRequires:    git
 BuildRequires:    python2-devel
 BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-cache
@@ -509,10 +513,7 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{upstream_version}
-
-# Until https://review.openstack.org/#/c/432954/ is merged
-%patch0001 -p1
+%autosetup -n nova-%{upstream_version} -S git
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
