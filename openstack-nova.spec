@@ -47,7 +47,10 @@ Source30:         openstack-nova-novncproxy.sysconfig
 Source33:         nova-placement-api.conf
 Source34:         policy.json
 
+# FIXME: drop patch as soon as nova 15.0.1+ gets released
+%if !0%{?dlrn}
 Patch0001: 0001-Allow-placement-endpoint-interface-to-be-set.patch
+%endif
 
 BuildArch:        noarch
 BuildRequires:    intltool
