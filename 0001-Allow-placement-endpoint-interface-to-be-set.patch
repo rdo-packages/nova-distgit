@@ -1,0 +1,60 @@
+From 2c1546c614427616839b9b5db65054e9311116d2 Mon Sep 17 00:00:00 2001
+From: Andy McCrae <andy.mccrae@gmail.com>
+Date: Fri, 27 Jan 2017 10:54:02 +0000
+Subject: [PATCH] Allow placement endpoint interface to be set
+
+This patch exposes the "interface" option for ks_filter to allow
+the placement API to be connected on a specific endpoint interface.
+
+The previous was to force "public", which is default for keystoneauth.
+The default for the placement service mirrors this value.
+
+Change-Id: Ic996e596f8473c0b8626e8d0e92e1bf58044b4f8
+(cherry picked from commit 1257d338db480ba237f6878cc478d072b28f7695)
+---
+
+diff --git a/nova/conf/placement.py b/nova/conf/placement.py
+index aa7fa02..b11f873 100644
+--- a/nova/conf/placement.py
++++ b/nova/conf/placement.py
+@@ -28,6 +28,13 @@
+ 
+ * Any string representing region name
+ """),
++    cfg.StrOpt('os_interface',
++               default="public",
++               choices=["public", "admin", "internal"],
++               help="""
++Endpoint interface for this node. This is used when picking the URL in the
++service catalog.
++""")
+ ]
+ 
+ 
+diff --git a/nova/scheduler/client/report.py b/nova/scheduler/client/report.py
+index 320cf4d..9d0d15c 100644
+--- a/nova/scheduler/client/report.py
++++ b/nova/scheduler/client/report.py
+@@ -179,7 +179,8 @@
+     """Client class for updating the scheduler."""
+ 
+     ks_filter = {'service_type': 'placement',
+-                 'region_name': CONF.placement.os_region_name}
++                 'region_name': CONF.placement.os_region_name,
++                 'interface': CONF.placement.os_interface}
+ 
+     def __init__(self):
+         # A dict, keyed by the resource provider UUID, of ResourceProvider
+diff --git a/releasenotes/notes/placement-api-endpoint-interface-set-29af8b9400ce7775.yaml b/releasenotes/notes/placement-api-endpoint-interface-set-29af8b9400ce7775.yaml
+new file mode 100644
+index 0000000..96c14e1
+--- /dev/null
++++ b/releasenotes/notes/placement-api-endpoint-interface-set-29af8b9400ce7775.yaml
+@@ -0,0 +1,7 @@
++---
++features:
++  - The placement API can be set to connect to a specific
++    keystone endpoint interface using the ``os_interface``
++    option in the ``[placement]`` section inside ``nova.conf``.
++    This value is not required and will default to ``public``.
++    Other acceptable options are  ``admin`` or ``internal``.

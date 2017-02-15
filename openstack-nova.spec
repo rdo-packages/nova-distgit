@@ -509,6 +509,9 @@ This package contains documentation files for nova.
 %prep
 %setup -q -n nova-%{upstream_version}
 
+# Until https://review.openstack.org/#/c/432954/ is merged
+%patch0001 -p1
+
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
 find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
