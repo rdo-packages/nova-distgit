@@ -55,6 +55,7 @@ BuildRequires:    python-d2to1
 BuildRequires:    python-six
 BuildRequires:    python-oslo-i18n
 BuildRequires:    python-cryptography >= 1.0
+BuildRequires:    python-oslo-policy
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cert = %{epoch}:%{version}-%{release}
