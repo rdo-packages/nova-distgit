@@ -61,6 +61,7 @@ BuildRequires:    python-d2to1
 BuildRequires:    python-six
 BuildRequires:    python-oslo-i18n
 BuildRequires:    python-cryptography >= 1.0
+BuildRequires:    python-oslo-policy
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cert = %{epoch}:%{version}-%{release}
@@ -487,7 +488,6 @@ BuildRequires:    python-os-win
 BuildRequires:    python-oslo-config
 BuildRequires:    python-oslo-log
 BuildRequires:    python-oslo-messaging
-BuildRequires:    python-oslo-policy
 BuildRequires:    python-oslo-utils
 BuildRequires:    python-oslo-vmware
 BuildRequires:    python-redis
