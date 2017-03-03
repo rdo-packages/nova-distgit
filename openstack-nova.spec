@@ -56,6 +56,23 @@ BuildRequires:    python-six
 BuildRequires:    python-oslo-i18n
 BuildRequires:    python-cryptography >= 1.0
 BuildRequires:    python-oslo-policy
+# Required for unit tests
+BuildRequires:    python-barbicanclient
+BuildRequires:    python-ddt
+BuildRequires:    python-ironicclient
+BuildRequires:    python-mox3
+BuildRequires:    python-os-testr
+BuildRequires:    python-os-vif
+BuildRequires:    python-oslo-rootwrap
+BuildRequires:    python-oslotest
+BuildRequires:    python-osprofiler
+BuildRequires:    python-pep8
+BuildRequires:    python-requests-mock
+BuildRequires:    python-subunit
+BuildRequires:    python-tempest-lib
+BuildRequires:    python-testrepository
+BuildRequires:    python-testresources
+BuildRequires:    python-testscenarios
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cert = %{epoch}:%{version}-%{release}
@@ -657,6 +674,24 @@ rm -f %{buildroot}%{_bindir}/nova-debug
 rm -fr %{buildroot}%{python2_sitelib}/run_tests.*
 rm -f %{buildroot}%{_bindir}/nova-combined
 rm -f %{buildroot}/usr/share/doc/nova/README*
+
+%check
+# create a fake os_xenapi with just enough to load the unit tests
+mkdir -p os_xenapi
+
+touch os_xenapi/__init__.py
+
+cat > os_xenapi/client.py <<EOF
+class session:
+    def XenAPISession():
+        pass
+XenAPI = None
+exception = None
+EOF
+
+OS_TEST_PATH=./nova/tests/unit ostestr --black-regex 'xenapi|test_compute_xen'
+
+rm -rf os_xenapi
 
 %pre common
 getent group nova >/dev/null || groupadd -r nova --gid 162
