@@ -520,7 +520,8 @@ PYTHONPATH=. oslopolicy-sample-generator --config-file=etc/nova/nova-policy-gene
 %{__python2} setup.py build
 
 # Generate i18n files
-%{__python2} setup.py compile_catalog -d build/lib/nova/locale
+# (amoralej) we can remove '-D nova' once https://review.openstack.org/#/c/439500/ is merged
+%{__python2} setup.py compile_catalog -d build/lib/nova/locale -D nova
 
 # Avoid http://bugzilla.redhat.com/1059815. Remove when that is closed
 sed -i 's|group/name|group;name|; s|\[DEFAULT\]/|DEFAULT;|' etc/nova/nova.conf.sample
