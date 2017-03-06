@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5ac4a560_6aabbb89",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 160
+      },
+      "writtenOn": "2017-03-06T20:40:09Z",
+      "side": 1,
+      "message": "I disagree to your disagree :-)\n\nI am trying to reduce duplication of effort here and maintenance work required to sustain your model.\n\nHere are few points:\n - If in CI for OSP I am going to use your hardcoded list of dependencies, then, instead of simply installing deps for running unit test and running those tests before merging you are forcing CI to built RPM and use only your way for running it (in brew). This is waste of resources and much longer result for getting simple tests (currently CI does run tests it in ~10min).\n - If I ever switch to that method then developers will loose ability to ssh to the testing instance and fix/retest directly from CI environment.\n - Scenario in which new dependency is required to run unit tests (downstream backport of new test-requirement) will result in chicken-egg problem - not merged component code will require changes in spec files and distgit doesn\u0027t have gerrit, so it\u0027s hard.\n - What is the plan for other tox testers? I would love to see same method to run other testers so we don\u0027t have different tooling/workflow to support others.\n\nIf we take this metadata to some other service/tool then it will be easier to write automated way of discovering those test dependencies or translating already existing ones from the test-requirements.\n\nHaving said that the mainenance of keeping this logic inside spec file for every component and then re-using it in OSP will become problematic (dependencies outside of spec file may require updates to test-dependencies - and then we don\u0027t want to bump version of component itself, different dependencies version of same package for different components and few other nits).\n\nDon\u0027t get me wrong, overall I am extremely happy that this effort is being done as this will be big step in testing per component and +1 for this change, but we should consider changing things a little bit to easy our life.",
+      "parentUuid": "5ac4a560_af76c5d6",
+      "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac4a560_ef4a7d54",
         "filename": "openstack-nova.spec",
         "patchSetId": 1
@@ -65,6 +83,24 @@
       "writtenOn": "2017-03-06T13:41:14Z",
       "side": 1,
       "message": "this change is to run unit tests at build time. To split the package if we want to do it, it should be in another changeset.",
+      "parentUuid": "5ac4a560_ef4a7d54",
+      "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac4a560_ea542bcc",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 160
+      },
+      "writtenOn": "2017-03-06T20:40:09Z",
+      "side": 1,
+      "message": "OK",
       "parentUuid": "5ac4a560_ef4a7d54",
       "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
@@ -161,6 +197,24 @@
     },
     {
       "key": {
+        "uuid": "5ac4a560_0a5247dd",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 160
+      },
+      "writtenOn": "2017-03-06T20:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac4a560_ef80bd8d",
+      "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac4a560_8f5ca927",
         "filename": "openstack-nova.spec",
         "patchSetId": 1
@@ -207,6 +261,24 @@
       "side": 1,
       "message": "we don\u0027t want to run tox to avoid creating virtualenv and co. testr is what is called at the end so we should be fine.",
       "parentUuid": "5ac4a560_4f2b7182",
+      "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac4a560_2a5e23ea",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 160
+      },
+      "writtenOn": "2017-03-06T20:40:09Z",
+      "side": 1,
+      "message": "As I said this is ok, unit tests are one of the simplest so should be fine as no other magic is made to the env. BTW the \"tox --sitepackages\" will ensure deps from virtualenv are not taken, however for that reason your approach seems fine.",
+      "parentUuid": "5ac4a560_0f7ed9ae",
       "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
