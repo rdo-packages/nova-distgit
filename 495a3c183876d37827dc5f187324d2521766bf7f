@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5ac4a560_af76c5d6",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 124
+      },
+      "writtenOn": "2017-03-06T13:41:14Z",
+      "side": 1,
+      "message": "I disagree because once it\u0027s done at the package level, there is no need to do it in octario anymore.",
+      "parentUuid": "5ac4a560_cf3dc1bd",
+      "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac4a560_ef4a7d54",
         "filename": "openstack-nova.spec",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2017-03-03T14:14:05Z",
       "side": 1,
       "message": "Should this be part of another package like:\nopenstack-nova-unit",
+      "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac4a560_cf7301e6",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 124
+      },
+      "writtenOn": "2017-03-06T13:41:14Z",
+      "side": 1,
+      "message": "this change is to run unit tests at build time. To split the package if we want to do it, it should be in another changeset.",
+      "parentUuid": "5ac4a560_ef4a7d54",
       "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "5ac4a560_ef80bd8d",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 124
+      },
+      "writtenOn": "2017-03-06T13:41:14Z",
+      "side": 1,
+      "message": "I wrokaround removing the files. See the next revision of the changeset.",
+      "parentUuid": "5ac4a560_afaec5e5",
+      "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac4a560_8f5ca927",
         "filename": "openstack-nova.spec",
         "patchSetId": 1
@@ -135,6 +189,24 @@
       "writtenOn": "2017-03-03T14:14:05Z",
       "side": 1,
       "message": "This is ok\u0027ish but how about using using tox which does slightly more the simple ostestr and it\u0027s way of running unit tests that nova developers uses:\n\nhttps://docs.openstack.org/developer/nova/development.environment.html#linux-systems\n\nThis is how tests are run using tox:\n\nhttps://github.com/redhat-openstack/octario/blob/master/components_config/11/nova/component.yml#L49-L51",
+      "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac4a560_0f7ed9ae",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 124
+      },
+      "writtenOn": "2017-03-06T13:41:14Z",
+      "side": 1,
+      "message": "we don\u0027t want to run tox to avoid creating virtualenv and co. testr is what is called at the end so we should be fine.",
+      "parentUuid": "5ac4a560_4f2b7182",
       "revId": "495a3c183876d37827dc5f187324d2521766bf7f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
