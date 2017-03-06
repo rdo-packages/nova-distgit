@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac4a560_6a201b9c",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2017-03-06T16:34:05Z",
+      "side": 1,
+      "message": "While this is fixed upstream, I would prefer to simply remove the files we want to use. But that\u0027s just my preference, I don\u0027t mind either option.",
+      "range": {
+        "startLine": 678,
+        "startChar": 0,
+        "endLine": 689,
+        "endChar": 3
+      },
+      "revId": "5483aa3f6349142c6a6c5b81ae2fb9f65ceda4d2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
