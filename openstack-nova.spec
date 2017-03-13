@@ -688,7 +688,8 @@ XenAPI = None
 exception = None
 EOF
 
-OS_TEST_PATH=./nova/tests/unit ostestr --black-regex 'xenapi|test_compute_xen'
+# Limit the number of concurrent workers to 2
+OS_TEST_PATH=./nova/tests/unit ostestr -c 2 --black-regex 'xenapi|test_compute_xen'
 
 rm -rf os_xenapi
 
