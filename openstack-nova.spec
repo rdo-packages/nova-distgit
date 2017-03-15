@@ -69,7 +69,6 @@ BuildRequires:    python-osprofiler
 BuildRequires:    python-pep8
 BuildRequires:    python-requests-mock
 BuildRequires:    python-subunit
-BuildRequires:    python-tempest-lib
 BuildRequires:    python-testrepository
 BuildRequires:    python-testresources
 BuildRequires:    python-testscenarios
