@@ -72,6 +72,7 @@ BuildRequires:    python-subunit
 BuildRequires:    python-testrepository
 BuildRequires:    python-testresources
 BuildRequires:    python-testscenarios
+BuildRequires:    python-tooz
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cert = %{epoch}:%{version}-%{release}
@@ -462,6 +463,7 @@ Requires:         python-psutil
 Requires:         python-requests >= 2.10.0
 Requires:         python-rfc3986 >= 0.3.1
 Requires:         python-six >= 1.9.0
+Requires:         python-tooz
 
 %description -n   python-nova
 OpenStack Compute (codename Nova) is open source software designed to
