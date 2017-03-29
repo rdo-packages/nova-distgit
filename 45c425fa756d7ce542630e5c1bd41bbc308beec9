@@ -22,6 +22,23 @@
       "revId": "45c425fa756d7ce542630e5c1bd41bbc308beec9",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa98f980_88cac09f",
+        "filename": "nova-placement-api.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2017-03-29T14:53:13Z",
+      "side": 1,
+      "message": "Diana find a mistake here, will fix that.",
+      "revId": "45c425fa756d7ce542630e5c1bd41bbc308beec9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
