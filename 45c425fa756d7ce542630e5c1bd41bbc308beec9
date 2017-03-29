@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa98f980_48d0d853",
+        "filename": "nova-placement-api.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 389
+      },
+      "writtenOn": "2017-03-29T14:52:52Z",
+      "side": 1,
+      "message": "\u003c/Directory\u003e",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 13
+      },
+      "revId": "45c425fa756d7ce542630e5c1bd41bbc308beec9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
