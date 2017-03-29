@@ -676,6 +676,9 @@ rm -fr %{buildroot}%{python2_sitelib}/run_tests.*
 rm -f %{buildroot}%{_bindir}/nova-combined
 rm -f %{buildroot}/usr/share/doc/nova/README*
 
+# FIXME(jpena): unit tests are taking too long in the current DLRN infra
+# Until we have a better architecture, let's not run them when under DLRN
+%if 0%{!?dlrn}
 %check
 # create a fake os_xenapi with just enough to load the unit tests
 mkdir -p os_xenapi
@@ -692,8 +695,8 @@ EOF
 
 # Limit the number of concurrent workers to 2
 OS_TEST_PATH=./nova/tests/unit ostestr -c 2 --black-regex 'xenapi|test_compute_xen'
-
 rm -rf os_xenapi
+%endif
 
 %pre common
 getent group nova >/dev/null || groupadd -r nova --gid 162
