@@ -16,6 +16,24 @@
       "revId": "183d6874ba1c52a1fdaee50fb0f027e020f8dd1c",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa98f980_66ff8802",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 124
+      },
+      "writtenOn": "2017-04-04T17:47:41Z",
+      "side": 1,
+      "message": "I agree with his comment as we are not running them at all now except on CBS. Even in the gate change they will not be ran.",
+      "parentUuid": "fa98f980_8317fea2",
+      "revId": "183d6874ba1c52a1fdaee50fb0f027e020f8dd1c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
