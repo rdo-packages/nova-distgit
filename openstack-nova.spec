@@ -73,6 +73,7 @@ BuildRequires:    python-testrepository
 BuildRequires:    python-testresources
 BuildRequires:    python-testscenarios
 BuildRequires:    python-tooz
+BuildRequires:    python-oslo-vmware
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cert = %{epoch}:%{version}-%{release}
@@ -501,7 +502,6 @@ BuildRequires:    python-oslo-config
 BuildRequires:    python-oslo-log
 BuildRequires:    python-oslo-messaging
 BuildRequires:    python-oslo-utils
-BuildRequires:    python-oslo-vmware
 BuildRequires:    python-redis
 BuildRequires:    python-rfc3986 >= 0.2.2
 BuildRequires:    python-routes
