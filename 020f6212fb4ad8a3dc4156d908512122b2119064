@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa98f980_1481868f",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 356
+      },
+      "writtenOn": "2017-04-07T13:40:50Z",
+      "side": 1,
+      "message": "Should set the shell in %pre compute only",
+      "range": {
+        "startLine": 704,
+        "startChar": 73,
+        "endLine": 704,
+        "endChar": 82
+      },
+      "revId": "020f6212fb4ad8a3dc4156d908512122b2119064",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
