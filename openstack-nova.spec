@@ -74,6 +74,7 @@ BuildRequires:    python-testresources
 BuildRequires:    python-testscenarios
 BuildRequires:    python-tooz
 BuildRequires:    python-oslo-vmware
+BuildRequires:    python-cursive
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cert = %{epoch}:%{version}-%{release}
@@ -905,3 +906,4 @@ exit 0
 %endif
 
 %changelog
+
