@@ -428,6 +428,7 @@ Requires:         python-webob >= 0.8.0
 Requires:         python-babel >= 2.3.4
 Requires:         python-castellan >= 0.4.0
 Requires:         python-cryptography >= 1.0
+Requires:         python-cursive >= 0.1.2
 Requires:         python-glanceclient >= 1:2.5.0
 Requires:         python-greenlet >= 0.3.2
 Requires:         python-keystonemiddleware >= 4.12.0
