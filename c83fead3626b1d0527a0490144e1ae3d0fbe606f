@@ -37,6 +37,29 @@
     },
     {
       "key": {
+        "uuid": "da9df570_517c1473",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 356
+      },
+      "writtenOn": "2017-04-21T17:27:29Z",
+      "side": 1,
+      "message": "I think we would still need a wrapper script to pass this on to rootwrap",
+      "range": {
+        "startLine": 6,
+        "startChar": 26,
+        "endLine": 6,
+        "endChar": 46
+      },
+      "revId": "c83fead3626b1d0527a0490144e1ae3d0fbe606f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa98f980_80a1a9ab",
         "filename": "nova-migration-wrapper",
         "patchSetId": 6
