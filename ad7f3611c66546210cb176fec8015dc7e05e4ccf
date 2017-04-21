@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa98f980_a0d5cd44",
+        "filename": "nova_migration-sudoers",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 356
+      },
+      "writtenOn": "2017-04-21T02:28:36Z",
+      "side": 1,
+      "message": "probably not a good idea to rely on the /bin -\u003e /usr/bin symlink",
+      "range": {
+        "startLine": 3,
+        "startChar": 38,
+        "endLine": 3,
+        "endChar": 43
+      },
+      "revId": "ad7f3611c66546210cb176fec8015dc7e05e4ccf",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
