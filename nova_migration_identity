@@ -1,0 +1,6 @@
+# SSH identity file (private key) for Openstack Nova migration
+#
+# Generate an ssh key pair for this host.
+# Add the private key (e.g id_rsa) to this file.
+# Add the public key (e.g id_rsa.pub) to /etc/nova/migration/authorized_keys
+# on the migration target hosts.
