@@ -1,0 +1,7 @@
+Defaults:nova_migration !requiretty
+
+nova_migration ALL = (nova) NOPASSWD: /usr/bin/nc -U /var/run/libvirt/libvirt-sock
+nova_migration ALL = (nova) NOPASSWD: /usr/bin/mkdir -p /var/lib/nova/instances/*
+nova_migration ALL = (nova) NOPASSWD: /usr/bin/rm -rf /var/lib/nova/instances/*
+nova_migration ALL = (nova) NOPASSWD: /usr/bin/touch /var/lib/nova/instances/*
+nova_migration ALL = (nova) NOPASSWD: /usr/bin/scp -r -t /var/lib/nova/instances/*
