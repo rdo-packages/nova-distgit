@@ -1,0 +1,4 @@
+# SSH authorized_keys file for Openstack Nova migration
+#
+# This controls with hosts are allowed to migration VMs to this host.
+# Append the SSH public keys of authorized hosts to this file.
