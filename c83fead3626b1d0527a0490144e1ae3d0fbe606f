@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "da9df570_119b6cca",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2017-04-21T16:36:14Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this package be part of the upstream Nova distribution. Or does it have something really RDO-specific?",
+      "revId": "c83fead3626b1d0527a0490144e1ae3d0fbe606f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa98f980_80a1a9ab",
         "filename": "nova-migration-wrapper",
         "patchSetId": 6
@@ -49,6 +66,23 @@
       "side": 1,
       "message": "see man 3 exec",
       "parentUuid": "fa98f980_c082d1ff",
+      "revId": "c83fead3626b1d0527a0490144e1ae3d0fbe606f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9df570_f15ee811",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2017-04-21T16:36:14Z",
+      "side": 1,
+      "message": "If we are using the nc binary, we should make the subpackage depend on the \"nc\" package",
       "revId": "c83fead3626b1d0527a0490144e1ae3d0fbe606f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
