@@ -42,6 +42,12 @@ Source30:         openstack-nova-novncproxy.sysconfig
 Source33:         nova-placement-api.conf
 Source34:         policy.json
 
+Source35:         nova_migration-sudoers
+Source36:         nova-ssh-config
+Source37:         nova-migration-wrapper
+Source38:         nova_migration_identity
+Source39:         nova_migration_authorized_keys
+
 BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    git
@@ -68,6 +74,7 @@ Requires:         openstack-nova-console = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cells = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-novncproxy = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-placement-api = %{epoch}:%{version}-%{release}
+Requires:         openstack-nova-migration = %{epoch}:%{version}-%{release}
 
 
 %description
@@ -374,6 +381,23 @@ standard hardware configurations and seven major hypervisors.
 This package contains the Nova placement service, which will initially
 allow for the management of resource providers.
 
+%package migration
+Summary:          OpenStack Nova Migration
+
+Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
+
+%description migration
+OpenStack Compute (codename Nova) is open source software designed to
+provision and manage large networks of virtual machines, creating a
+redundant and scalable cloud computing platform. It gives you the
+software, control panels, and APIs required to orchestrate a cloud,
+including running instances, managing networks, and controlling access
+through users and projects. OpenStack Compute strives to be both
+hardware and hypervisor agnostic, currently supporting a variety of
+standard hardware configurations and seven major hypervisors.
+
+This package contains scripts and config to support VM migration in Nova.
+
 %package -n       python-nova
 Summary:          Nova Python libraries
 
@@ -569,6 +593,7 @@ install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/keys
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/networks
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/tmp
 install -d -m 750 %{buildroot}%{_localstatedir}/log/nova
+install -d -m 700 %{buildroot}%{_sharedstatedir}/nova/.ssh
 
 # Setup ghost CA cert
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/CA
@@ -586,6 +611,9 @@ install -p -D -m 640 etc/nova/nova.conf.sample  %{buildroot}%{_sysconfdir}/nova/
 install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/rootwrap.conf
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
 install -p -D -m 640 %{SOURCE33} %{buildroot}%{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
+install -d -m 755 %{buildroot}%{_sysconfdir}/nova/migration
+install -p -D -m 600 %{SOURCE38} %{buildroot}%{_sysconfdir}/nova/migration/identity
+install -p -D -m 644 %{SOURCE39} %{buildroot}%{_sysconfdir}/nova/migration/authorized_keys
 
 # Install empty policy.json file to cover rpm updates with untouched policy files.
 install -p -D -m 640 %{SOURCE34} %{buildroot}%{_sysconfdir}/nova/policy.json
@@ -617,6 +645,13 @@ install -p -D -m 644 %{SOURCE32} %{buildroot}%{_unitdir}/openstack-nova-os-compu
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
+install -p -D -m 440 %{SOURCE35} %{buildroot}%{_sysconfdir}/sudoers.d/nova_migration
+
+# Install nova ssh client config for migration
+install -p -D -m 600 %{SOURCE36} %{buildroot}%{_sharedstatedir}/nova/.ssh/config
+
+# Install nova migration ssh wrapper command
+install -p -D -m 755 %{SOURCE37} %{buildroot}%{_bindir}/nova-migration-wrapper
 
 # Install logrotate
 install -p -D -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/logrotate.d/openstack-nova
@@ -667,6 +702,10 @@ exit 0
 
 %pre compute
 usermod -a -G qemu nova
+%pre migration
+getent group nova_migration >/dev/null || groupadd -r nova_migration
+getent passwd nova_migration >/dev/null || \
+    useradd -r -g nova_migration -d / -s /bin/bash -c "OpenStack Nova Migration" nova_migration
 exit 0
 
 %post compute
@@ -848,6 +887,15 @@ exit 0
 %files placement-api
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
 %{_bindir}/nova-placement-api
+
+%files migration
+%{_bindir}/nova-migration-wrapper
+%config(noreplace) %{_sysconfdir}/sudoers.d/nova_migration
+%dir %attr(0700, nova, nova) %{_sharedstatedir}/nova/.ssh
+%attr(0600, nova, nova) %{_sharedstatedir}/nova/.ssh/config
+%dir %{_sysconfdir}/nova/migration
+%config(noreplace) %attr(0640, root, nova_migration) %{_sysconfdir}/nova/migration/authorized_keys
+%config(noreplace) %attr(0600, nova, nova) %{_sysconfdir}/nova/migration/identity
 
 %files -n python-nova
 %doc LICENSE
