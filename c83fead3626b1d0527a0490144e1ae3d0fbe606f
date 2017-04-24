@@ -187,6 +187,24 @@
       "revId": "c83fead3626b1d0527a0490144e1ae3d0fbe606f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9df570_31d87053",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2017-04-24T07:56:05Z",
+      "side": 1,
+      "message": "Mmm right, I\u0027ve seen it\u0027s a dependency for libvirt-libs.",
+      "parentUuid": "da9df570_f1b50832",
+      "revId": "c83fead3626b1d0527a0490144e1ae3d0fbe606f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
