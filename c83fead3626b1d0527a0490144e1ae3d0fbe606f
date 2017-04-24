@@ -222,6 +222,24 @@
       "revId": "c83fead3626b1d0527a0490144e1ae3d0fbe606f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9df570_d1a9e425",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 6
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 356
+      },
+      "writtenOn": "2017-04-24T12:02:22Z",
+      "side": 1,
+      "message": "needs to be readable by the nova and nova_migration users",
+      "parentUuid": "da9df570_d192c4f5",
+      "revId": "c83fead3626b1d0527a0490144e1ae3d0fbe606f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
