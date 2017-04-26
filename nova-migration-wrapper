@@ -11,12 +11,12 @@ if command is None:
 
 syslog.openlog('nova_migration_wrapper')
 
-def allow_command(args):
+def allow_command(user, args):
     syslog.syslog(syslog.LOG_INFO, "Allowing connection='{}' command={} ".format(
         ssh_connection,
         repr(args)
     ))
-    os.execlp('sudo', 'sudo', '-u', 'nova', *args)
+    os.execlp('sudo', 'sudo', '-u', user, *args)
 
 def deny_command(args):
     syslog.syslog(syslog.LOG_ERR, "Denying connection='{}' command={}".format(
@@ -43,6 +43,7 @@ cold_migration_cmds = [
     ['touch'],
     ['scp', '-r', '-t']
 ]
+rootwrap_args = ['/usr/bin/nova-rootwrap', '/etc/nova/migration/rootwrap.conf']
 
 def validate_cold_migration_cmd(args):
     target_path = os.path.normpath(args[-1])
@@ -53,7 +54,8 @@ def validate_cold_migration_cmd(args):
 args = command.split(' ')
 if command == live_migration_tunnel_cmd:
     args = ['nc', '-U', libvirt_sock]
-    allow_command(args)
+    allow_command('nova', args)
 if validate_cold_migration_cmd(args):
-    allow_command(args)
+    args = rootwrap_args + args
+    allow_command('root', args)
 deny_command(args)
