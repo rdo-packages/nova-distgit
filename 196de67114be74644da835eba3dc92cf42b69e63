@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa201ad_398db332",
+        "filename": "nova_migration-sudoers",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-04-26T16:37:05Z",
+      "side": 1,
+      "message": "in the wrapper, it\u0027s doing sudo -u nova /usr/bin/nova-rootwrap ....\n\nBut here you are granting sudo for nova_migration to run as root not as nova, is this correct?",
+      "range": {
+        "startLine": 4,
+        "startChar": 22,
+        "endLine": 4,
+        "endChar": 26
+      },
+      "revId": "196de67114be74644da835eba3dc92cf42b69e63",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
