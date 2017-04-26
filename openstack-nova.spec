@@ -47,6 +47,8 @@ Source36:         nova-ssh-config
 Source37:         nova-migration-wrapper
 Source38:         nova_migration_identity
 Source39:         nova_migration_authorized_keys
+Source40:         nova_migration-rootwrap.conf
+Source41:         nova_migration-rootwrap_cold_migration
 
 BuildArch:        noarch
 BuildRequires:    intltool
@@ -634,6 +636,9 @@ install -p -D -m 640 %{SOURCE33} %{buildroot}%{_sysconfdir}/httpd/conf.d/00-nova
 install -d -m 755 %{buildroot}%{_sysconfdir}/nova/migration
 install -p -D -m 600 %{SOURCE38} %{buildroot}%{_sysconfdir}/nova/migration/identity
 install -p -D -m 644 %{SOURCE39} %{buildroot}%{_sysconfdir}/nova/migration/authorized_keys
+install -p -D -m 640 %{SOURCE40} %{buildroot}%{_sysconfdir}/nova/migration/rootwrap.conf
+install -d -m 755 %{buildroot}%{_sysconfdir}/nova/migration/rootwrap.d
+install -p -D -m 640 %{SOURCE41} %{buildroot}%{_sysconfdir}/nova/migration/rootwrap.d/cold_migration.filters
 
 # Install empty policy.json file to cover rpm updates with untouched policy files.
 install -p -D -m 640 %{SOURCE34} %{buildroot}%{_sysconfdir}/nova/policy.json
@@ -938,6 +943,9 @@ exit 0
 %dir %{_sysconfdir}/nova/migration
 %config(noreplace) %attr(0640, root, nova_migration) %{_sysconfdir}/nova/migration/authorized_keys
 %config(noreplace) %attr(0600, nova, nova) %{_sysconfdir}/nova/migration/identity
+%config(noreplace) %attr(0640, root, root) %{_sysconfdir}/nova/migration/rootwrap.conf
+%dir %{_sysconfdir}/nova/migration/rootwrap.d
+%config(noreplace) %attr(0640, root, root) %{_sysconfdir}/nova/migration/rootwrap.d/cold_migration.filters
 
 %files -n python-nova
 %doc LICENSE
