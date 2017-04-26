@@ -1,0 +1,6 @@
+[Filters]
+create_file: PathFilter, /usr/bin/touch, nova, /var/lib/nova/instances/
+remove_file: PathFilter, /usr/bin/rm, nova, /var/lib/nova/instances/
+create_dir: PathFilter, /usr/bin/mkdir, nova, -p, /var/lib/nova/instances/
+remove_dir: PathFilter, /usr/bin/rm, nova, -rf, /var/lib/nova/instances/
+copy_file: PathFilter, /usr/bin/scp, nova, -r, -t, /var/lib/nova/instances/
