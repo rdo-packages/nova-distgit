@@ -19,7 +19,6 @@ Source1:          nova-dist.conf
 Source6:          nova.logrotate
 
 Source10:         openstack-nova-api.service
-Source11:         openstack-nova-cert.service
 Source12:         openstack-nova-compute.service
 Source13:         openstack-nova-network.service
 Source15:         openstack-nova-scheduler.service
@@ -85,7 +84,6 @@ BuildRequires:    python-oslo-vmware
 BuildRequires:    python-cursive
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
-Requires:         openstack-nova-cert = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-api = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-network = %{epoch}:%{version}-%{release}
@@ -229,24 +227,6 @@ standard hardware configurations and seven major hypervisors.
 
 This package contains the service for scheduling where
 to run Virtual Machines in the cloud.
-
-
-%package cert
-Summary:          OpenStack Nova certificate management service
-
-Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-
-%description cert
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
-
-This package contains the Nova service for managing certificates.
 
 
 %package api
@@ -653,7 +633,6 @@ EOF
 
 # Install initscripts for Nova services
 install -p -D -m 644 %{SOURCE10} %{buildroot}%{_unitdir}/openstack-nova-api.service
-install -p -D -m 644 %{SOURCE11} %{buildroot}%{_unitdir}/openstack-nova-cert.service
 install -p -D -m 644 %{SOURCE12} %{buildroot}%{_unitdir}/openstack-nova-compute.service
 install -p -D -m 644 %{SOURCE13} %{buildroot}%{_unitdir}/openstack-nova-network.service
 install -p -D -m 644 %{SOURCE15} %{buildroot}%{_unitdir}/openstack-nova-scheduler.service
@@ -761,8 +740,6 @@ exit 0
 %systemd_post %{name}-network.service
 %post scheduler
 %systemd_post %{name}-scheduler.service
-%post cert
-%systemd_post %{name}-cert.service
 %post api
 %systemd_post %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %post conductor
@@ -784,8 +761,6 @@ exit 0
 %systemd_preun %{name}-network.service
 %preun scheduler
 %systemd_preun %{name}-scheduler.service
-%preun cert
-%systemd_preun %{name}-cert.service
 %preun api
 %systemd_preun %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %preun conductor
@@ -807,8 +782,6 @@ exit 0
 %systemd_postun_with_restart %{name}-network.service
 %postun scheduler
 %systemd_postun_with_restart %{name}-scheduler.service
-%postun cert
-%systemd_postun_with_restart %{name}-cert.service
 %postun api
 %systemd_postun_with_restart %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %postun conductor
@@ -879,26 +852,6 @@ exit 0
 %{_bindir}/nova-scheduler
 %{_unitdir}/openstack-nova-scheduler.service
 
-%files cert
-%{_bindir}/nova-cert
-%{_unitdir}/openstack-nova-cert.service
-%defattr(-, nova, nova, -)
-%dir %{_sharedstatedir}/nova/CA/
-%dir %{_sharedstatedir}/nova/CA/certs
-%dir %{_sharedstatedir}/nova/CA/crl
-%dir %{_sharedstatedir}/nova/CA/newcerts
-%dir %{_sharedstatedir}/nova/CA/projects
-%dir %{_sharedstatedir}/nova/CA/reqs
-%{_sharedstatedir}/nova/CA/*.sh
-%{_sharedstatedir}/nova/CA/openssl.cnf.tmpl
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sharedstatedir}/nova/CA/cacert.pem
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sharedstatedir}/nova/CA/crl.pem
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sharedstatedir}/nova/CA/index.txt
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sharedstatedir}/nova/CA/openssl.cnf
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sharedstatedir}/nova/CA/serial
-%dir %attr(0750, -, -) %{_sharedstatedir}/nova/CA/private
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sharedstatedir}/nova/CA/private/cakey.pem
-
 %files api
 %{_bindir}/nova-api*
 %{_unitdir}/openstack-nova-*api.service
@@ -964,3 +917,4 @@ exit 0
 
 %changelog
 
+# REMOVEME: error caused by commit https://github.com/openstack/nova/commit/d6d5c6be0cc0738bb7d67ca8391e5cc4f0a419f2
