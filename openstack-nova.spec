@@ -107,6 +107,7 @@ standard hardware configurations and seven major hypervisors.
 
 %package common
 Summary:          Components common to all OpenStack Nova services
+Obsoletes:        openstack-nova-cert <= 1:16.0.0-1
 
 Requires:         python-nova = %{epoch}:%{version}-%{release}
 Requires(post):   systemd
