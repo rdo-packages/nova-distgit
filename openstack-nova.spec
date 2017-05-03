@@ -845,6 +845,7 @@ exit 0
 
 %files api
 %{_bindir}/nova-api*
+%{_bindir}/nova-metadata-wsgi
 %{_unitdir}/openstack-nova-*api.service
 %{_datarootdir}/nova/rootwrap/api-metadata.filters
 
@@ -907,4 +908,3 @@ exit 0
 %endif
 
 %changelog
-
