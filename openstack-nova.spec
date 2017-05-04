@@ -656,7 +656,6 @@ install -p -D -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/logrotate.d/openstack
 install -d -m 755 %{buildroot}%{_localstatedir}/run/nova
 
 # Install template files
-install -p -D -m 644 nova/cloudpipe/client.ovpn.template %{buildroot}%{_datarootdir}/nova/client.ovpn.template
 install -p -D -m 644 %{SOURCE22} %{buildroot}%{_datarootdir}/nova/interfaces.template
 
 # Install rootwrap files in /usr/share/nova/rootwrap
@@ -796,7 +795,6 @@ exit 0
 %doc etc/nova/policy.yaml.sample
 %dir %{_datarootdir}/nova
 %attr(-, root, nova) %{_datarootdir}/nova/nova-dist.conf
-%{_datarootdir}/nova/client.ovpn.template
 %{_datarootdir}/nova/interfaces.template
 %{_datarootdir}/nova/rootwrap/network.filters
 %dir %{_sysconfdir}/nova
