@@ -7,8 +7,8 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          15.0.3
-Release:          2%{?dist}
+Version:          15.0.4
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -921,6 +921,9 @@ exit 0
 %endif
 
 %changelog
+* Mon May 08 2017 rdo-trunk <javier.pena@redhat.com> 1:15.0.4-1
+- Update to 15.0.4
+
 * Thu Apr 27 2017 Oliver Walsh <owalsh@redhat.com> 1:15.0.3-2
 - Add package for Nova migration SSH config
 
