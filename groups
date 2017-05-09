@@ -1,6 +1,9 @@
-# UUID                                  	Group Name
-#
-1abd61acb05653e6333e01582fe4b118a7febc8c	openstack/nova-distgit-core
-3b172b09d0908dfc5690c28970ca8c27241475aa	openstack/nova-distgit-ptl
-63673ea7f2ae6a5666566b1ea9f14e473d00f5a9	rdo-core
-global:Registered-Users                 	Registered Users
+# UUID Group Name
+global:Registered-Users	Registered Users
+4572c517702492251ad622a289176552a8acbbb2	rdo-superusers
+global:Anonymous-Users	Anonymous Users
+05a678d3d4a168e149d5e8a0063bbd1b1c5526da	Administrators
+401cf37bee35d1c809d4d957e55f2a304f8eed69	rdo-provenpackagers
+8865516415e313dbfb795cf0b7f760f32b47f41e	openstack/nova-ptl
+6ddfecad023c6f4fa3ac8c4d2583c502ea675a73	Non-Interactive Users
+d90e2cf3a41ddec7e571c67ce63e10aed1b4e363	openstack/nova-core
