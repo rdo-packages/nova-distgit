@@ -7,7 +7,7 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          15.0.4
+Version:          15.0.5
 Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
@@ -921,6 +921,9 @@ exit 0
 %endif
 
 %changelog
+* Tue May 30 2017 rdo-trunk <javier.pena@redhat.com> 1:15.0.5-1
+- Update to 15.0.5
+
 * Mon May 08 2017 rdo-trunk <javier.pena@redhat.com> 1:15.0.4-1
 - Update to 15.0.4
 
