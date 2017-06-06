@@ -55,6 +55,7 @@ BuildRequires:    python2-devel
 BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-cache
 BuildRequires:    python-oslo-sphinx
+BuildRequires:    python-os-traits
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
 BuildRequires:    python-pbr
@@ -447,6 +448,7 @@ Requires:         python-netifaces >= 0.10.4
 Requires:         python-neutronclient >= 5.1.0
 Requires:         python-novaclient >= 2.30.1
 Requires:         python-os-brick >= 1.8.0
+Requires:         python-os-traits
 Requires:         python-oslo-cache >= 1.5.0
 Requires:         python-oslo-concurrency >= 3.8.0
 Requires:         python-oslo-config >= 2:3.14.0
