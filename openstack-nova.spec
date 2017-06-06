@@ -55,6 +55,7 @@ BuildRequires:    python2-devel
 BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-cache
 BuildRequires:    python-oslo-sphinx
+BuildRequires:    python-os-traits
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
 BuildRequires:    python-pbr
