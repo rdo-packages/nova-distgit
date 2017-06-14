@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9aa7fdbe_428fd723",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2017-06-14T18:53:53Z",
+      "side": 1,
+      "message": "What exactly from libvirt-client is required by nova-compute, it is not using virsh is it?",
+      "revId": "f8d0359dc71656000a7ef9bfb6abe1613b1a550b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
