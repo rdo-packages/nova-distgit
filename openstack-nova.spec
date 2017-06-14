@@ -143,6 +143,7 @@ Requires:         ipmitool
 Requires:         python-libguestfs
 Requires:         libvirt-python
 Requires:         libvirt-daemon-kvm
+Requires:         /usr/bin/virsh
 %if 0%{?rhel}==0
 Requires:         libvirt-daemon-lxc
 %endif
