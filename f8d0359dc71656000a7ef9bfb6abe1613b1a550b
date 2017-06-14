@@ -16,6 +16,24 @@
       "revId": "f8d0359dc71656000a7ef9bfb6abe1613b1a550b",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9aa7fdbe_62bbfbc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-06-14T20:23:54Z",
+      "side": 1,
+      "message": "nova itself doesn\u0027t need virsh but it\u0027s used to configure compute nodes by puppet-nova, puppet-tripleo, packstack (probably openstack-ansible) and any script that administrators may have done for monitoring etc... Also administrators commonly use it to troubleshoot issues. For backwards compatibility i think the best option is add the requirement here.",
+      "parentUuid": "9aa7fdbe_428fd723",
+      "revId": "f8d0359dc71656000a7ef9bfb6abe1613b1a550b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
