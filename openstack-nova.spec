@@ -160,6 +160,7 @@ Requires:         iptables iptables-ipv6
 Requires:         ipmitool
 Requires:         python-libguestfs
 Requires:         libvirt-python
+Requires:         libvirt-client
 Requires:         libvirt-daemon-kvm
 %if 0%{?rhel}==0
 Requires:         libvirt-daemon-lxc
