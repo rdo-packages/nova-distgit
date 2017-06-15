@@ -52,6 +52,24 @@
       "revId": "f8d0359dc71656000a7ef9bfb6abe1613b1a550b",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9aa7fdbe_4204377e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-06-15T07:23:54Z",
+      "side": 1,
+      "message": "IMO, backwards compatibility is a good reason to add this dependency here (with /usr/bin/virsh instead). The impact is very low, it\u0027s a small package with no security impact and note that some of the tools that require virsh are not consumed as rpm packages where we can add the dependency so we need to fix it in a different and more complex way.",
+      "parentUuid": "9aa7fdbe_42dd1714",
+      "revId": "f8d0359dc71656000a7ef9bfb6abe1613b1a550b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
