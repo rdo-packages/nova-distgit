@@ -52,9 +52,10 @@ Source41:         nova_migration-rootwrap_cold_migration
 BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    python2-devel
+BuildRequires:    git
 BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-cache
-BuildRequires:    python-oslo-sphinx
+BuildRequires:    python-openstackdocstheme
 BuildRequires:    python-os-traits
 BuildRequires:    python-setuptools
 BuildRequires:    python-netaddr
@@ -532,7 +533,7 @@ This package contains documentation files for nova.
 %endif
 
 %prep
-%setup -q -n nova-%{upstream_version}
+%autosetup -n nova-%{upstream_version} -S git
 
 find . \( -name .gitignore -o -name .placeholder \) -delete
 
