@@ -628,6 +628,13 @@ getent passwd nova_migration >/dev/null || \
     useradd -r -g nova_migration -d / -s /bin/bash -c "OpenStack Nova Migration" nova_migration
 exit 0
 
+%post common
+test -e %{_localstatedir}/log/nova/nova-manage.log || {
+touch %{_localstatedir}/log/nova/nova-manage.log
+chmod 0644 %{_localstatedir}/log/nova/nova-manage.log
+chown nova:nova %{_localstatedir}/log/nova/nova-manage.log
+}
+
 %post compute
 %systemd_post %{name}-compute.service
 %post network
@@ -710,6 +717,8 @@ exit 0
 %config(noreplace) %{_sysconfdir}/sudoers.d/nova
 
 %dir %attr(0750, nova, root) %{_localstatedir}/log/nova
+%ghost %config %attr(0644, nova, nova) %{_localstatedir}/log/nova/nova-manage.log
+
 %dir %attr(0755, nova, root) %{_localstatedir}/run/nova
 
 %{_bindir}/nova-manage
