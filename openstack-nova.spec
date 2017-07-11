@@ -33,8 +33,6 @@ Source29:         openstack-nova-novncproxy.service
 Source31:         openstack-nova-serialproxy.service
 Source32:         openstack-nova-os-compute-api.service
 
-Source21:         nova-polkit.pkla
-Source23:         nova-polkit.rules
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
@@ -665,13 +663,6 @@ install -p -D -m 644 %{SOURCE22} %{buildroot}%{_datarootdir}/nova/interfaces.tem
 mkdir -p %{buildroot}%{_datarootdir}/nova/rootwrap/
 install -p -D -m 644 etc/nova/rootwrap.d/* %{buildroot}%{_datarootdir}/nova/rootwrap/
 
-# Older format. Remove when we no longer want to support Fedora 17 with master branch packages
-install -d -m 755 %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d
-install -p -D -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/polkit-1/localauthority/50-local.d/50-nova.pkla
-# Newer format since Fedora 18
-install -d -m 755 %{buildroot}%{_sysconfdir}/polkit-1/rules.d
-install -p -D -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/polkit-1/rules.d/50-nova.rules
-
 # Install novncproxy service options template
 install -d %{buildroot}%{_sysconfdir}/sysconfig
 install -p -m 0644 %{SOURCE30} %{buildroot}%{_sysconfdir}/sysconfig/openstack-nova-novncproxy
@@ -722,6 +713,7 @@ exit 0
 
 %pre compute
 usermod -a -G qemu nova
+usermod -a -G libvirt nova
 %pre migration
 getent group nova_migration >/dev/null || groupadd -r nova_migration
 getent passwd nova_migration >/dev/null || \
@@ -808,8 +800,6 @@ exit 0
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/policy.json
 %config(noreplace) %{_sysconfdir}/logrotate.d/openstack-nova
 %config(noreplace) %{_sysconfdir}/sudoers.d/nova
-%config(noreplace) %{_sysconfdir}/polkit-1/localauthority/50-local.d/50-nova.pkla
-%config(noreplace) %{_sysconfdir}/polkit-1/rules.d/50-nova.rules
 
 %dir %attr(0750, nova, root) %{_localstatedir}/log/nova
 %dir %attr(0755, nova, root) %{_localstatedir}/run/nova
