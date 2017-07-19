@@ -3,6 +3,16 @@
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 %global distro     RDO
 
+%global common_desc \
+OpenStack Compute (codename Nova) is open source software designed to \
+provision and manage large networks of virtual machines, creating a \
+redundant and scalable cloud computing platform. It gives you the \
+software, control panels, and APIs required to orchestrate a cloud, \
+including running instances, managing networks, and controlling access \
+through users and projects. OpenStack Compute strives to be both \
+hardware and hypervisor agnostic, currently supporting a variety of \
+standard hardware configurations and seven major hypervisors.
+
 Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
@@ -95,14 +105,7 @@ Requires:         openstack-nova-migration = %{epoch}:%{version}-%{release}
 
 
 %description
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 %package common
 Summary:          Components common to all OpenStack Nova services
@@ -135,14 +138,7 @@ Obsoletes: %{name}-objectstore
 
 
 %description common
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains scripts, config and dependencies shared
 between all the OpenStack nova services.
@@ -175,14 +171,7 @@ Requires:         sysfsutils
 Requires:         libosinfo
 
 %description compute
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the Nova service for controlling Virtual Machines.
 
@@ -199,14 +188,7 @@ Requires:         ebtables
 Requires:         conntrack-tools
 
 %description network
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the Nova service for controlling networking.
 
@@ -217,14 +199,7 @@ Summary:          OpenStack Nova VM distribution service
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
 %description scheduler
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the service for scheduling where
 to run Virtual Machines in the cloud.
@@ -237,14 +212,7 @@ Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-cinderclient >= 1.6.0
 
 %description api
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the Nova services providing programmatic access.
 
@@ -254,14 +222,7 @@ Summary:          OpenStack Nova Conductor services
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
 %description conductor
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the Nova services providing database access for
 the compute service
@@ -273,14 +234,7 @@ Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-websockify >= 0.8.0
 
 %description console
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the Nova services providing
 console access services to Virtual Machines.
@@ -291,14 +245,7 @@ Summary:          OpenStack Nova Cells services
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
 %description cells
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the Nova Cells service providing additional
 scaling and (geographic) distribution for compute services.
@@ -312,14 +259,7 @@ Requires:         python-websockify >= 0.8.0
 
 
 %description novncproxy
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the Nova noVNC Proxy service that can proxy
 VNC traffic over browser websockets connections.
@@ -331,14 +271,7 @@ Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-websockify >= 0.8.0
 
 %description spicehtml5proxy
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the Nova services providing the
 spice HTML5 console access service to Virtual Machines.
@@ -350,14 +283,7 @@ Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         python-websockify >= 0.8.0
 
 %description serialproxy
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the Nova services providing the
 serial console access service to Virtual Machines.
@@ -370,14 +296,7 @@ Requires:         httpd
 Requires:         mod_wsgi
 
 %description placement-api
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains the Nova placement service, which will initially
 allow for the management of resource providers.
@@ -388,14 +307,7 @@ Summary:          OpenStack Nova Migration
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 
 %description migration
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform. It gives you the
-software, control panels, and APIs required to orchestrate a cloud,
-including running instances, managing networks, and controlling access
-through users and projects. OpenStack Compute strives to be both
-hardware and hypervisor agnostic, currently supporting a variety of
-standard hardware configurations and seven major hypervisors.
+%{common_desc}
 
 This package contains scripts and config to support VM migration in Nova.
 
@@ -477,9 +389,7 @@ Requires:         python-six >= 1.9.0
 Requires:         python-tooz
 
 %description -n   python-nova
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform.
+%{common_desc}
 
 This package contains the nova Python library.
 
@@ -488,9 +398,7 @@ Summary:        Nova tests
 Requires:       openstack-nova = %{epoch}:%{version}-%{release}
 
 %description -n python-nova-tests
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform.
+%{common_desc}
 
 This package contains the nova Python library.
 
@@ -522,9 +430,7 @@ BuildRequires:    python-zmq
 BuildRequires:    python-migrate, python-iso8601
 
 %description      doc
-OpenStack Compute (codename Nova) is open source software designed to
-provision and manage large networks of virtual machines, creating a
-redundant and scalable cloud computing platform.
+%{common_desc}
 
 This package contains documentation files for nova.
 %endif
