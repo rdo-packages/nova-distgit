@@ -58,6 +58,7 @@ Source40:         nova_migration-rootwrap.conf
 Source41:         nova_migration-rootwrap_cold_migration
 
 BuildArch:        noarch
+BuildRequires:    openstack-macros
 BuildRequires:    intltool
 BuildRequires:    python2-devel
 BuildRequires:    python-sphinx
@@ -444,7 +445,7 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
 # Remove the requirements file so that pbr hooks don't add it
 # to distutils requiers_dist config
-rm -rf {test-,}requirements.txt tools/{pip,test}-requires
+%py_req_cleanup
 
 %build
 PYTHONPATH=. oslo-config-generator --config-file=etc/nova/nova-config-generator.conf
