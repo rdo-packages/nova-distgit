@@ -84,7 +84,6 @@ BuildRequires:    python-os-vif
 BuildRequires:    python-oslo-rootwrap
 BuildRequires:    python-oslotest
 BuildRequires:    python-osprofiler
-BuildRequires:    python-pep8
 BuildRequires:    python-requests-mock
 BuildRequires:    python-subunit
 BuildRequires:    python-testrepository
