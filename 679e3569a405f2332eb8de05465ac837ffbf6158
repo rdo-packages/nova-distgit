@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a8c0949_d8e3c203",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-02T15:32:51Z",
+      "side": 1,
+      "message": "This is not an update of the nova software itself, so it\u0027d be nice to have actual changes in changelog, as:\n\n- Added libvirt-client as requirement.\n- Whitelist all possible nova migration scp commands",
+      "range": {
+        "startLine": 926,
+        "startChar": 2,
+        "endLine": 926,
+        "endChar": 20
+      },
+      "revId": "679e3569a405f2332eb8de05465ac837ffbf6158",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
