@@ -42,7 +42,10 @@ cold_migration_cmds = [
     ['rm', '-rf'],
     ['touch'],
     ['rm'],
-    ['scp', '-r', '-t']
+    ['scp', '-r', '-t'],
+    ['scp', '-r', '-f'],
+    ['scp', '-t'],
+    ['scp', '-f'],
 ]
 rootwrap_args = ['/usr/bin/nova-rootwrap', '/etc/nova/migration/rootwrap.conf']
 
