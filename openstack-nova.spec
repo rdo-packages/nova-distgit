@@ -8,7 +8,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          15.0.6
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -922,6 +922,10 @@ exit 0
 %endif
 
 %changelog
+* Wed Aug 02 2017 Oliver Walsh <owalsh@redhat.com> 1:15.0.6-2
+- Add explicit requirement on libvirt-client
+- Whitelist all possible nova migration scp commands (rhbz#1476332 & rhbz#1472723)
+
 * Mon Jun 19 2017 rdo-trunk <javier.pena@redhat.com> 1:15.0.6-1
 - Update to 15.0.6
 
