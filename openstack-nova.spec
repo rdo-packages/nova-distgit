@@ -483,7 +483,6 @@ done < %{SOURCE1}
 %{__python2} setup.py install -O1 --skip-build --root %{buildroot}
 
 # docs generation requires everything to be installed first
-export PYTHONPATH="$( pwd ):$PYTHONPATH"
 
 # Remove this once sphinxcontrib.seqdiag becomes available
 sed -i -e '/sphinxcontrib.seqdiag/d' doc/source/conf.py
