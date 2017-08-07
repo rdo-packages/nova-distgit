@@ -16,6 +16,24 @@
       "revId": "c8cf2514746240b15bb408925a53567d44113b75",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_420a80d3",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 356
+      },
+      "writtenOn": "2017-08-07T17:44:01Z",
+      "side": 1,
+      "message": "It\u0027s taken from the Fedora packaging draft: https://fedoraproject.org/wiki/PackagingDrafts/Logfiles\n\nWhat would you suggest instead?",
+      "parentUuid": "5a890539_224d7473",
+      "revId": "c8cf2514746240b15bb408925a53567d44113b75",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
