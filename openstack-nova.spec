@@ -210,6 +210,7 @@ to run Virtual Machines in the cloud.
 Summary:          OpenStack Nova API services
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
+Requires:         iptables
 Requires:         python-cinderclient >= 1.6.0
 
 %description api
