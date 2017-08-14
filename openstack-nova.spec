@@ -119,7 +119,7 @@ Requires(postun): systemd
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
 # Required to build nova.conf.sample
-BuildRequires:    python-castellan >= 0.4.0
+BuildRequires:    python-castellan >= 0.7.0
 BuildRequires:    python-glanceclient
 BuildRequires:    python-keystonemiddleware
 BuildRequires:    python-lxml
@@ -163,7 +163,7 @@ Requires:         libvirt-daemon-lxc
 Requires:         openssh-clients
 Requires:         rsync
 Requires:         lvm2
-Requires:         python-cinderclient >= 1.6.0
+Requires:         python-cinderclient >= 3.1.0
 Requires(pre):    qemu-kvm >= 2.3.0
 Requires:         genisoimage
 Requires:         bridge-utils
@@ -210,7 +210,7 @@ to run Virtual Machines in the cloud.
 Summary:          OpenStack Nova API services
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python-cinderclient >= 1.6.0
+Requires:         python-cinderclient >= 3.1.0
 
 %description api
 %{common_desc}
@@ -332,7 +332,7 @@ Requires:         python-anyjson
 Requires:         python-boto
 Requires:         python-cheetah
 Requires:         python-ldap
-Requires:         python-stevedore >= 1.17.1
+Requires:         python-stevedore >= 1.20.0
 
 Requires:         python-memcached
 
@@ -346,39 +346,39 @@ Requires:         python-routes >= 1.12.3
 Requires:         python-webob >= 0.8.0
 
 Requires:         python-babel >= 2.3.4
-Requires:         python-castellan >= 0.4.0
+Requires:         python-castellan >= 0.7.0
 Requires:         python-cryptography >= 1.0
 Requires:         python-cursive >= 0.1.2
-Requires:         python-glanceclient >= 1:2.5.0
+Requires:         python-glanceclient >= 1:2.8.0
 Requires:         python-greenlet >= 0.3.2
 Requires:         python-keystonemiddleware >= 4.12.0
-Requires:         python-keystoneauth1 >= 2.18.0
+Requires:         python-keystoneauth1 >= 3.1.0
 Requires:         python-jinja2
 Requires:         python-jsonschema >= 2.0.0
 Requires:         python-microversion-parse >= 0.1.2
 Requires:         python-netifaces >= 0.10.4
-Requires:         python-neutronclient >= 5.1.0
+Requires:         python-neutronclient >= 6.3.0
 Requires:         python-novaclient >= 2.30.1
-Requires:         python-os-brick >= 1.8.0
+Requires:         python-os-brick >= 1.15.2
 Requires:         python-os-traits
 Requires:         python-oslo-cache >= 1.5.0
 Requires:         python-oslo-concurrency >= 3.8.0
-Requires:         python-oslo-config >= 2:3.14.0
-Requires:         python-oslo-context >= 2.9.0
-Requires:         python-oslo-db >= 4.15.0
+Requires:         python-oslo-config >= 2:4.0.0
+Requires:         python-oslo-context >= 2.14.0
+Requires:         python-oslo-db >= 4.24.0
 Requires:         python-oslo-i18n >= 2.1.0
-Requires:         python-oslo-log >= 3.11.0
-Requires:         python-oslo-messaging >= 5.14.0
-Requires:         python-oslo-middleware >= 3.0.0
-Requires:         python-oslo-policy >= 1.17.0
+Requires:         python-oslo-log >= 3.22.0
+Requires:         python-oslo-messaging >= 5.24.2
+Requires:         python-oslo-middleware >= 3.27.0
+Requires:         python-oslo-policy >= 1.23.0
 Requires:         python-oslo-privsep >= 1.9.0
 Requires:         python-oslo-reports >= 0.6.0
 Requires:         python-oslo-rootwrap >= 5.0.0
 Requires:         python-oslo-serialization >= 1.10.0
 Requires:         python-oslo-service >= 1.10.0
-Requires:         python-oslo-utils >= 3.18.0
+Requires:         python-oslo-utils >= 3.20.0
 Requires:         python-oslo-versionedobjects >= 1.17.0
-Requires:         python-os-vif >= 1.4.0
+Requires:         python-os-vif >= 1.7.0
 Requires:         python-oslo-vmware >= 1.16.0
 Requires:         python-pbr
 Requires:         python-posix_ipc
