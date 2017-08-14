@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a890539_a1feb869",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-14T12:29:56Z",
+      "side": 1,
+      "message": "0.18.2",
+      "range": {
+        "startLine": 327,
+        "startChar": 37,
+        "endLine": 327,
+        "endChar": 43
+      },
+      "revId": "e92e606827672f2de143fcdd4da5c2c7c75ea29b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_a10cf895",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-14T12:29:56Z",
+      "side": 1,
+      "message": "Not used.",
+      "range": {
+        "startLine": 331,
+        "startChar": 18,
+        "endLine": 331,
+        "endChar": 32
+      },
+      "revId": "e92e606827672f2de143fcdd4da5c2c7c75ea29b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_612bf0eb",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-14T12:29:56Z",
+      "side": 1,
+      "message": "0.11.0",
+      "range": {
+        "startLine": 340,
+        "startChar": 36,
+        "endLine": 340,
+        "endChar": 41
+      },
+      "revId": "e92e606827672f2de143fcdd4da5c2c7c75ea29b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_41efd4b0",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-14T12:29:56Z",
+      "side": 1,
+      "message": "2.3.1",
+      "range": {
+        "startLine": 345,
+        "startChar": 35,
+        "endLine": 345,
+        "endChar": 41
+      },
+      "revId": "e92e606827672f2de143fcdd4da5c2c7c75ea29b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_e13e0029",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-14T12:29:56Z",
+      "side": 1,
+      "message": "1.7.1",
+      "range": {
+        "startLine": 346,
+        "startChar": 34,
+        "endLine": 346,
+        "endChar": 39
+      },
+      "revId": "e92e606827672f2de143fcdd4da5c2c7c75ea29b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_41d8b41d",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-14T12:29:56Z",
+      "side": 1,
+      "message": "1.6",
+      "range": {
+        "startLine": 350,
+        "startChar": 41,
+        "endLine": 350,
+        "endChar": 44
+      },
+      "revId": "e92e606827672f2de143fcdd4da5c2c7c75ea29b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_e125200b",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-08-14T12:29:56Z",
+      "side": 1,
+      "message": "Not longer required",
+      "range": {
+        "startLine": 384,
+        "startChar": 18,
+        "endLine": 384,
+        "endChar": 34
+      },
+      "revId": "e92e606827672f2de143fcdd4da5c2c7c75ea29b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
