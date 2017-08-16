@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a890539_95573602",
+        "filename": "nova_migration-rootwrap_cold_migration",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2017-08-16T13:36:20Z",
+      "side": 1,
+      "message": "instead of _N can we use a small name to identify for what this rule is used?",
+      "revId": "b19504cf3a65d5e6cfbcb0369841759c0f09b6f2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
