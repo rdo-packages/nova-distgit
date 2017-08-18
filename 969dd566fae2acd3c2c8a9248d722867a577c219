@@ -1,0 +1,9 @@
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Code-Review+2: sahid <sahid.ferdjaoui@redhat.com>
+Workflow+1: sahid <sahid.ferdjaoui@redhat.com>
+Verified+2: Jenkins CI <admin@rpmfactory.beta.rdoproject.org>
+Submitted-by: Jenkins CI <admin@rpmfactory.beta.rdoproject.org>
+Submitted-at: Fri, 18 Aug 2017 11:04:15 +0000
+Reviewed-on: https://review.rdoproject.org/r/8636
+Project: openstack/nova-distgit
+Branch: refs/heads/ocata-rdo
