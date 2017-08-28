@@ -92,6 +92,7 @@ BuildRequires:    python-testscenarios
 BuildRequires:    python-tooz
 BuildRequires:    python-oslo-vmware
 BuildRequires:    python-cursive
+BuildRequires:    python-sphinxcontrib-actdiag
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
