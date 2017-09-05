@@ -480,10 +480,6 @@ done < %{SOURCE1}
 %install
 %{__python2} setup.py install -O1 --skip-build --root %{buildroot}
 
-# Remove this once sphinxcontrib.seqdiag becomes available
-sed -i -e '/sphinxcontrib.seqdiag/d' doc/source/conf.py
-sed -i -e 's#../../etc/nova/nova-config-generator.conf#etc/nova/nova-config-generator.conf#' doc/source/conf.py
-
 %if 0%{?with_doc}
 %{__python2} setup.py build_sphinx
 %endif
