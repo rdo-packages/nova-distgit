@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a890539_2e453170",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2017-09-05T09:55:18Z",
+      "side": 1,
+      "message": "drop this, sphinxcontrib-actdiag has\nRequires: python-actdiag",
+      "revId": "40c14d1627e59c4d02fe30be7d811eb33fcd3177",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_4e4a7d81",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2017-09-05T09:55:18Z",
+      "side": 1,
+      "message": "drop this, sphinxcontrib-blockdiag has\nRequires: python-blockdiag",
+      "revId": "40c14d1627e59c4d02fe30be7d811eb33fcd3177",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
