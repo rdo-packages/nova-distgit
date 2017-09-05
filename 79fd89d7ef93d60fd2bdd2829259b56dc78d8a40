@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a890539_8eff0534",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 87
+      },
+      "writtenOn": "2017-09-05T08:42:07Z",
+      "side": 1,
+      "message": "use --reset-author (Yes, we do stats on contributors and if all patch author are rdo-trunk, we can\u0027t measure community contribs)",
+      "revId": "79fd89d7ef93d60fd2bdd2829259b56dc78d8a40",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_4eeefd89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 87
+      },
+      "writtenOn": "2017-09-05T08:42:07Z",
+      "side": 1,
+      "message": "Please provide a more explicit message, and reference the upstream review if possible",
+      "revId": "79fd89d7ef93d60fd2bdd2829259b56dc78d8a40",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_2ee9b180",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 87
+      },
+      "writtenOn": "2017-09-05T08:42:07Z",
+      "side": 1,
+      "message": "remove it",
+      "revId": "79fd89d7ef93d60fd2bdd2829259b56dc78d8a40",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a890539_0ef4f559",
         "filename": "openstack-nova.spec",
         "patchSetId": 3
@@ -13,6 +64,23 @@
       "writtenOn": "2017-09-05T08:40:31Z",
       "side": 1,
       "message": "it was only actdiag?",
+      "revId": "79fd89d7ef93d60fd2bdd2829259b56dc78d8a40",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_eeeec98a",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 87
+      },
+      "writtenOn": "2017-09-05T08:42:07Z",
+      "side": 1,
+      "message": "python-actdiag and python-blockdiag are implicitly loaded by sphinx extensions.",
       "revId": "79fd89d7ef93d60fd2bdd2829259b56dc78d8a40",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
