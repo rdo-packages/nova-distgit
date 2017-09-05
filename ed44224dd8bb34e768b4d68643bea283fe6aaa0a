@@ -51,6 +51,24 @@
       "revId": "ed44224dd8bb34e768b4d68643bea283fe6aaa0a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a890539_d955591e",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 7
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 265
+      },
+      "writtenOn": "2017-09-05T20:08:04Z",
+      "side": 1,
+      "message": "Proposed here: https://review.rdoproject.org/r/#/c/9297/",
+      "parentUuid": "5a890539_19052111",
+      "revId": "ed44224dd8bb34e768b4d68643bea283fe6aaa0a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
