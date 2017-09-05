@@ -92,7 +92,6 @@ BuildRequires:    python-testscenarios
 BuildRequires:    python-tooz
 BuildRequires:    python-oslo-vmware
 BuildRequires:    python-cursive
-BuildRequires:    python-sphinxcontrib-actdiag
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
@@ -423,6 +422,7 @@ BuildRequires:    python-oslo-utils
 BuildRequires:    python-redis
 BuildRequires:    python-rfc3986 >= 0.2.2
 BuildRequires:    python-routes
+BuildRequires:    python-sphinxcontrib-actdiag
 BuildRequires:    python-sqlalchemy
 BuildRequires:    python-webob
 BuildRequires:    python-zmq
