@@ -685,7 +685,7 @@ exit 0
 %files
 
 %files common -f nova.lang
-%doc LICENSE
+%license LICENSE
 %doc etc/nova/policy.yaml.sample
 %dir %{_datarootdir}/nova
 %attr(-, root, nova) %{_datarootdir}/nova/nova-dist.conf
@@ -784,7 +784,7 @@ exit 0
 %config(noreplace) %attr(0640, root, root) %{_sysconfdir}/nova/migration/rootwrap.d/cold_migration.filters
 
 %files -n python-nova
-%doc LICENSE
+%license LICENSE
 %{python2_sitelib}/nova
 %{python2_sitelib}/nova-*.egg-info
 %exclude %{python2_sitelib}/nova/tests
@@ -795,7 +795,8 @@ exit 0
 
 %if 0%{?with_doc}
 %files doc
-%doc LICENSE doc/build/html
+%license LICENSE
+%doc doc/build/html
 %endif
 
 %changelog
