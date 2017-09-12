@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3a961159_f2b50032",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2017-09-12T08:27:08Z",
+      "side": 1,
+      "message": "Oops :)",
+      "parentUuid": "3a961159_129b6cca",
+      "revId": "dc80cb9cd9091dd9b20481c7c8018c28f9953fe0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a961159_52a5f402",
         "filename": "openstack-nova.spec",
         "patchSetId": 1
