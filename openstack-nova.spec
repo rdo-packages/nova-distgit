@@ -66,7 +66,7 @@ BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-cache
 BuildRequires:    python-openstackdocstheme
 BuildRequires:    python-os-traits
-BuildRequires:    python-setuptools
+BuildRequires:    python-setuptools >= 22.0.5
 BuildRequires:    python-netaddr
 BuildRequires:    python-pbr
 BuildRequires:    python-d2to1
