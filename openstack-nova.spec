@@ -1,4 +1,4 @@
-%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+Yes I %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 %global distro     RDO
@@ -66,7 +66,7 @@ BuildRequires:    python-sphinx
 BuildRequires:    python-oslo-cache
 BuildRequires:    python-openstackdocstheme
 BuildRequires:    python-os-traits
-BuildRequires:    python-setuptools
+BuildRequires:    python-setuptools >= 22.0.5
 BuildRequires:    python-netaddr
 BuildRequires:    python-pbr
 BuildRequires:    python-d2to1
