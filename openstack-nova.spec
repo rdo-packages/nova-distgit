@@ -414,7 +414,6 @@ Requires:         python-netaddr
 Requires:         python-lxml
 Requires:         python-anyjson
 Requires:         python-boto
-Requires:         python-cheetah
 Requires:         python-ldap
 Requires:         python-stevedore >= 1.16.0
 
