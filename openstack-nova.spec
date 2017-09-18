@@ -329,7 +329,6 @@ Requires:         python-iso8601 >= 0.1.11
 Requires:         python-netaddr >= 0.7.13
 Requires:         python-lxml >= 2.3
 Requires:         python-boto
-Requires:         python-cheetah
 Requires:         python-ldap
 Requires:         python-stevedore >= 1.20.0
 
