@@ -419,7 +419,6 @@ Requires:         python-netaddr >= 0.7.13
 Requires:         python-lxml >= 2.3
 Requires:         python-anyjson
 Requires:         python-boto
-Requires:         python-cheetah
 Requires:         python-ldap
 Requires:         python-stevedore >= 1.17.1
 
