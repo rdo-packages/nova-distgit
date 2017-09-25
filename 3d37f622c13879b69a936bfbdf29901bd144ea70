@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a930d6b_aeacf736",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2017-09-25T16:22:34Z",
+      "side": 1,
+      "message": "rmdir would be better, see https://review.rdoproject.org/r/#/c/9728/6..7/openstack-heat.spec",
+      "revId": "3d37f622c13879b69a936bfbdf29901bd144ea70",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
