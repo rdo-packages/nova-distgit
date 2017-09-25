@@ -580,6 +580,9 @@ rm -fr %{buildroot}%{python2_sitelib}/run_tests.*
 rm -f %{buildroot}%{_bindir}/nova-combined
 rm -f %{buildroot}/usr/share/doc/nova/README*
 
+# Remove duplicated configuration files deployed at /usr/etc
+rm -rf %{buildroot}%{_prefix}/etc/nova
+
 # FIXME(jpena): unit tests are taking too long in the current DLRN infra
 # Until we have a better architecture, let's not run them when under DLRN
 %if 0%{!?dlrn}
