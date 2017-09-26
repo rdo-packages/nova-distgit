@@ -420,6 +420,7 @@ BuildRequires:    python-redis
 BuildRequires:    python-rfc3986 >= 0.2.2
 BuildRequires:    python-routes
 BuildRequires:    python-sphinxcontrib-actdiag
+BuildRequires:    python-sphinxcontrib-seqdiag
 BuildRequires:    python-sqlalchemy
 BuildRequires:    python-webob
 BuildRequires:    python-zmq
