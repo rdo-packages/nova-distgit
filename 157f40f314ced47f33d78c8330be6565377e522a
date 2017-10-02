@@ -39,6 +39,48 @@
       "revId": "157f40f314ced47f33d78c8330be6565377e522a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa81d914_c40f522d",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2017-10-02T13:19:02Z",
+      "side": 1,
+      "message": "Isn\u0027t it a bit clearer to read without the \u0027rhosp\u0027 guard?  If you can convince me otherwise, happy to use the guard.",
+      "parentUuid": "fa81d914_391dbb74",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 13
+      },
+      "revId": "157f40f314ced47f33d78c8330be6565377e522a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa81d914_6409462c",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2017-10-02T13:19:02Z",
+      "side": 1,
+      "message": "Good point, will do in the next revision; I\u0027m also adding a note to that effect in the spec, as a future visual reminder.",
+      "parentUuid": "fa81d914_9924e7c7",
+      "revId": "157f40f314ced47f33d78c8330be6565377e522a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
