@@ -81,6 +81,30 @@
       "revId": "157f40f314ced47f33d78c8330be6565377e522a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa81d914_a4397eda",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 127
+      },
+      "writtenOn": "2017-10-02T13:21:21Z",
+      "side": 1,
+      "message": "Keep it clean and readable is my only suggestion.",
+      "parentUuid": "fa81d914_c40f522d",
+      "range": {
+        "startLine": 174,
+        "startChar": 0,
+        "endLine": 174,
+        "endChar": 13
+      },
+      "revId": "157f40f314ced47f33d78c8330be6565377e522a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
