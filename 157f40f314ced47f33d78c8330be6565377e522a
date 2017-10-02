@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa81d914_9924e7c7",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2017-10-02T12:25:53Z",
+      "side": 1,
+      "message": "The working assumption until now was that RHEL base will never rebase qemu, but indeed we cannot rely on that.\nBut also we cannot know what will be available in rhel \u003e 7 so let\u0027s make that clear by matching rhel \u003d 7 here.",
+      "revId": "157f40f314ced47f33d78c8330be6565377e522a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
