@@ -16,6 +16,24 @@
       "revId": "ef0c149629b3b1ba9f5f95815980fe46cf23f3ca",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa81d914_a4aedee5",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2017-10-02T15:12:39Z",
+      "side": 1,
+      "message": "Ah, that\u0027s cool.  So I can remove the CentOS special-case, thanks to the above compat.",
+      "parentUuid": "fa81d914_04488a5a",
+      "revId": "ef0c149629b3b1ba9f5f95815980fe46cf23f3ca",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
