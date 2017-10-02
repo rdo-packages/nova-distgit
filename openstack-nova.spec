@@ -162,8 +162,20 @@ Requires:         openssh-clients
 Requires:         rsync
 Requires:         lvm2
 Requires:         python-cinderclient >= 3.1.0
-Requires(pre):    qemu-kvm >= 2.3.0
 Requires:         genisoimage
+# Ensure that the _right_ verion of QEMU binary is shipped based on
+# distribution.
+%if 0%{?fedora}
+Requires(pre): qemu-kvm >= 2.9.0
+%endif
+%if 0%{?centos}
+Requires(pre): qemu-kvm-ev >= 2.9.0
+%endif
+# Explicitly conditionalizing on RHEL-7, as we have to reevaluate it for
+# each RHOS/ RHEL release.
+%if 0%{?rhel} == 7
+Requires(pre): qemu-kvm-rhev >= 2.9.0
+%endif
 Requires:         bridge-utils
 Requires:         sg3_utils
 Requires:         sysfsutils
