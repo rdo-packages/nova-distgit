@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa81d914_04488a5a",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2017-10-02T14:49:19Z",
+      "side": 1,
+      "message": "On centos both centos and rhel macros are defined,\nso here we\u0027d need else if.\notoh there is not need for a CentOS special case, qemu-rvm-ev provides compatibility Provides qemu-kvm-rhev:\n\n# yum install qemu-kvm-rhev\n...\nInstalling:\n qemu-kvm-ev              x86_64 10:2.9.0-16.el7_4.5.1  centos-qemu-ev    2.8 M",
+      "revId": "ef0c149629b3b1ba9f5f95815980fe46cf23f3ca",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
