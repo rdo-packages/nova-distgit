@@ -92,6 +92,7 @@ BuildRequires:    python-testscenarios
 BuildRequires:    python-tooz
 BuildRequires:    python-oslo-vmware
 BuildRequires:    python-cursive
+BuildRequires:    python-os-service-types
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
@@ -396,6 +397,7 @@ Requires:         python-requests >= 2.10.0
 Requires:         python-rfc3986 >= 0.3.1
 Requires:         python-six >= 1.9.0
 Requires:         python-tooz
+Requires:         python-os-service-types >= 1.1.0
 
 %description -n   python-nova
 %{common_desc}
