@@ -150,7 +150,8 @@ Summary:          OpenStack Nova Virtual Machine control service
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         curl
 Requires:         iscsi-initiator-utils
-Requires:         iptables iptables-ipv6
+Requires:         iptables
+Requires:         iptables-services
 Requires:         ipmitool
 Requires:         python-libguestfs
 Requires:         libvirt-python
