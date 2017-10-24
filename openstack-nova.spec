@@ -738,7 +738,6 @@ exit 0
 
 %files compute
 %{_bindir}/nova-compute
-%{_bindir}/nova-idmapshift
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
 
