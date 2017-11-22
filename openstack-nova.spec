@@ -18,7 +18,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          16.0.3
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -816,6 +816,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Nov 22 2017 Haïkel Guémar <hguemar@fedoraproject.org> - 1:16.0.3-2
+- Ensure that the right variant of qemu-kvm is picked up
+
 * Wed Nov 15 2017 RDO <dev@lists.rdoproject.org> 1:16.0.3-1
 - Update to 16.0.3
 
