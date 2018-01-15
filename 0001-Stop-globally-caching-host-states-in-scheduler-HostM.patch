@@ -1,0 +1,310 @@
+From 4b60f82578feed1e5fb98d8b66e8cf41054208f8 Mon Sep 17 00:00:00 2001
+From: melanie witt <melwittt@gmail.com>
+Date: Sat, 13 Jan 2018 21:49:54 +0000
+Subject: [PATCH] Stop globally caching host states in scheduler HostManager
+
+Currently, in the scheduler HostManager, we cache host states in
+a map global to all requests. This used to be okay because we were
+always querying the entire compute node list for every request to
+pass on to filtering. So we cached the host states globally and
+updated them per request and removed "dead nodes" from the cache
+(compute nodes still in the cache that were not returned from
+ComputeNodeList.get_all).
+
+As of Ocata, we started filtering our ComputeNodeList query based on
+an answer from placement about which resource providers could satisfy
+the request, instead of querying the entire compute node list every
+time. This is much more efficient (don't consider compute nodes that
+can't possibly fulfill the request) BUT it doesn't play well with the
+global host state cache. We started seeing "Removing dead compute node"
+messages in the logs, signaling removal of compute nodes from the
+global cache when compute nodes were actually available.
+
+If request A comes in and all compute nodes can satisy its request,
+then request B arrives concurrently and no compute nodes can satisfy
+its request, the request B request will remove all the compute nodes
+from the global host state cache and then request A will get "no valid
+hosts" at the filtering stage because get_host_states_by_uuids returns
+a generator that hands out hosts from the global host state cache.
+
+This removes the global host state cache from the scheduler HostManager
+and instead generates a fresh host state map per request and uses that
+to return hosts from the generator. Because we're filtering the
+ComputeNodeList based on a placement query per request, each request
+can have a completely different set of compute nodes that can fulfill
+it, so we're not gaining much by caching host states anyway.
+
+Co-Authored-By: Dan Smith <dansmith@redhat.com>
+
+Closes-Bug: #1742827
+
+Change-Id: I40c17ed88f50ecbdedc4daf368fff10e90e7be11
+(cherry picked from commit f4cfac1adf3a131f2ff77ebb438b05ca30947845)
+---
+ nova/scheduler/host_manager.py                     | 21 +----
+ nova/tests/unit/scheduler/test_host_manager.py     | 90 ++++++++++++++++------
+ .../unit/scheduler/test_ironic_host_manager.py     | 26 ++++---
+ 3 files changed, 86 insertions(+), 51 deletions(-)
+
+diff --git a/nova/scheduler/host_manager.py b/nova/scheduler/host_manager.py
+index 4f66d40913..2230d8c438 100644
+--- a/nova/scheduler/host_manager.py
++++ b/nova/scheduler/host_manager.py
+@@ -603,6 +603,7 @@ class HostManager(object):
+                         for service in objects.ServiceList.get_by_binary(
+                             context, 'nova-compute', include_disabled=True)}
+         # Get resource usage across the available compute nodes:
++        host_state_map = {}
+         seen_nodes = set()
+         for compute in compute_nodes:
+             service = service_refs.get(compute.host)
+@@ -615,10 +616,10 @@ class HostManager(object):
+             host = compute.host
+             node = compute.hypervisor_hostname
+             state_key = (host, node)
+-            host_state = self.host_state_map.get(state_key)
++            host_state = host_state_map.get(state_key)
+             if not host_state:
+                 host_state = self.host_state_cls(host, node, compute=compute)
+-                self.host_state_map[state_key] = host_state
++                host_state_map[state_key] = host_state
+             # We force to update the aggregates info each time a new request
+             # comes in, because some changes on the aggregates could have been
+             # happening after setting this field for the first time
+@@ -629,21 +630,7 @@ class HostManager(object):
+ 
+             seen_nodes.add(state_key)
+ 
+-        # remove compute nodes from host_state_map if they are not active
+-        dead_nodes = set(self.host_state_map.keys()) - seen_nodes
+-        for state_key in dead_nodes:
+-            host, node = state_key
+-            LOG.info(_LI("Removing dead compute node %(host)s:%(node)s "
+-                         "from scheduler"), {'host': host, 'node': node})
+-            del self.host_state_map[state_key]
+-
+-        # NOTE(mriedem): We are returning a generator, which means the global
+-        # host_state_map could change due to a concurrent scheduling request
+-        # where a compute node is now considered 'dead' and is removed from
+-        # the host_state_map, so we have to be sure to check that the next
+-        # seen_node is still in the map before returning it.
+-        return (self.host_state_map[host] for host in seen_nodes
+-                if host in self.host_state_map)
++        return (host_state_map[host] for host in seen_nodes)
+ 
+     def _get_aggregates_info(self, host):
+         return [self.aggs_by_id[agg_id] for agg_id in
+diff --git a/nova/tests/unit/scheduler/test_host_manager.py b/nova/tests/unit/scheduler/test_host_manager.py
+index 5dbbce03d1..add9a31bbb 100644
+--- a/nova/tests/unit/scheduler/test_host_manager.py
++++ b/nova/tests/unit/scheduler/test_host_manager.py
+@@ -490,9 +490,10 @@ class HostManagerTestCase(test.NoDBTestCase):
+         mock_get_by_binary.return_value = fakes.SERVICES
+         context = 'fake_context'
+ 
+-        self.host_manager.get_all_host_states(context)
+-        host_states_map = self.host_manager.host_state_map
+-        self.assertEqual(len(host_states_map), 4)
++        # get_all_host_states returns a generator, so make a map from it
++        host_states_map = {(state.host, state.nodename): state for state in
++                           self.host_manager.get_all_host_states(context)}
++        self.assertEqual(4, len(host_states_map))
+ 
+         calls = [
+             mock.call(
+@@ -555,8 +556,11 @@ class HostManagerTestCase(test.NoDBTestCase):
+         mock_get_by_host.return_value = objects.InstanceList()
+         self.host_manager.host_aggregates_map = collections.defaultdict(set)
+ 
+-        self.host_manager.get_all_host_states('fake-context')
+-        host_state = self.host_manager.host_state_map[('fake', 'fake')]
++        hosts = self.host_manager.get_all_host_states('fake-context')
++        # get_all_host_states returns a generator, so make a map from it
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
++        host_state = host_states_map[('fake', 'fake')]
+         self.assertEqual([], host_state.aggregates)
+ 
+     @mock.patch.object(nova.objects.InstanceList, 'get_by_host')
+@@ -576,8 +580,11 @@ class HostManagerTestCase(test.NoDBTestCase):
+             set, {'fake': set([1])})
+         self.host_manager.aggs_by_id = {1: fake_agg}
+ 
+-        self.host_manager.get_all_host_states('fake-context')
+-        host_state = self.host_manager.host_state_map[('fake', 'fake')]
++        hosts = self.host_manager.get_all_host_states('fake-context')
++        # get_all_host_states returns a generator, so make a map from it
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
++        host_state = host_states_map[('fake', 'fake')]
+         self.assertEqual([fake_agg], host_state.aggregates)
+ 
+     @mock.patch.object(nova.objects.InstanceList, 'get_by_host')
+@@ -600,8 +607,11 @@ class HostManagerTestCase(test.NoDBTestCase):
+             set, {'other': set([1])})
+         self.host_manager.aggs_by_id = {1: fake_agg}
+ 
+-        self.host_manager.get_all_host_states('fake-context')
+-        host_state = self.host_manager.host_state_map[('fake', 'fake')]
++        hosts = self.host_manager.get_all_host_states('fake-context')
++        # get_all_host_states returns a generator, so make a map from it
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
++        host_state = host_states_map[('fake', 'fake')]
+         self.assertEqual([], host_state.aggregates)
+ 
+     @mock.patch.object(nova.objects.InstanceList, 'get_by_host',
+@@ -879,8 +889,9 @@ class HostManagerChangedNodesTestCase(test.NoDBTestCase):
+         mock_get_by_binary.return_value = fakes.SERVICES
+         context = 'fake_context'
+ 
+-        self.host_manager.get_all_host_states(context)
+-        host_states_map = self.host_manager.host_state_map
++        # get_all_host_states returns a generator, so make a map from it
++        host_states_map = {(state.host, state.nodename): state for state in
++                           self.host_manager.get_all_host_states(context)}
+         self.assertEqual(len(host_states_map), 4)
+ 
+     @mock.patch('nova.objects.ServiceList.get_by_binary')
+@@ -901,20 +912,16 @@ class HostManagerChangedNodesTestCase(test.NoDBTestCase):
+ 
+         # first call: all nodes
+         hosts = self.host_manager.get_all_host_states(context)
+-        # get_all_host_states returns a generator so convert the values into
+-        # an iterator
+-        host_states1 = iter(hosts)
+-        host_states_map = self.host_manager.host_state_map
++        # get_all_host_states returns a generator, so make a map from it
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
+         self.assertEqual(len(host_states_map), 4)
+ 
+         # second call: just running nodes
+-        self.host_manager.get_all_host_states(context)
+-        host_states_map = self.host_manager.host_state_map
++        hosts = self.host_manager.get_all_host_states(context)
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
+         self.assertEqual(len(host_states_map), 3)
+-        # Fake a concurrent request that is still processing the first result
+-        # to make sure we properly handle that node4 is no longer in
+-        # host_state_map.
+-        list(host_states1)
+ 
+     @mock.patch('nova.objects.ServiceList.get_by_binary')
+     @mock.patch('nova.objects.ComputeNodeList.get_all')
+@@ -928,15 +935,48 @@ class HostManagerChangedNodesTestCase(test.NoDBTestCase):
+         context = 'fake_context'
+ 
+         # first call: all nodes
+-        self.host_manager.get_all_host_states(context)
+-        host_states_map = self.host_manager.host_state_map
++        hosts = self.host_manager.get_all_host_states(context)
++        # get_all_host_states returns a generator, so make a map from it
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
+         self.assertEqual(len(host_states_map), 4)
+ 
+         # second call: no nodes
+-        self.host_manager.get_all_host_states(context)
+-        host_states_map = self.host_manager.host_state_map
++        hosts = self.host_manager.get_all_host_states(context)
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
+         self.assertEqual(len(host_states_map), 0)
+ 
++    @mock.patch('nova.objects.ServiceList.get_by_binary')
++    @mock.patch('nova.objects.ComputeNodeList.get_all_by_uuids')
++    @mock.patch('nova.objects.InstanceList.get_by_host')
++    def test_get_host_states_by_uuids(self, mock_get_by_host, mock_get_all,
++                                      mock_get_by_binary):
++        mock_get_by_host.return_value = objects.InstanceList()
++        mock_get_all.side_effect = [fakes.COMPUTE_NODES, []]
++        mock_get_by_binary.side_effect = [fakes.SERVICES, fakes.SERVICES]
++
++        # Request 1: all nodes can satisfy the request
++        hosts1 = self.host_manager.get_host_states_by_uuids(
++            mock.sentinel.ctxt1, mock.sentinel.uuids1, objects.RequestSpec())
++        # get_host_states_by_uuids returns a generator so convert the values
++        # into an iterator
++        host_states1 = iter(hosts1)
++
++        # Request 2: no nodes can satisfy the request
++        hosts2 = self.host_manager.get_host_states_by_uuids(
++            mock.sentinel.ctxt2, mock.sentinel.uuids2, objects.RequestSpec())
++        host_states2 = iter(hosts2)
++
++        # Fake a concurrent request that is still processing the first result
++        # to make sure all nodes are still available candidates to Request 1.
++        num_hosts1 = len(list(host_states1))
++        self.assertEqual(4, num_hosts1)
++
++        # Verify that no nodes are available to Request 2.
++        num_hosts2 = len(list(host_states2))
++        self.assertEqual(0, num_hosts2)
++
+ 
+ class HostStateTestCase(test.NoDBTestCase):
+     """Test case for HostState class."""
+diff --git a/nova/tests/unit/scheduler/test_ironic_host_manager.py b/nova/tests/unit/scheduler/test_ironic_host_manager.py
+index d157614cbc..e75b7c11c0 100644
+--- a/nova/tests/unit/scheduler/test_ironic_host_manager.py
++++ b/nova/tests/unit/scheduler/test_ironic_host_manager.py
+@@ -75,9 +75,11 @@ class IronicHostManagerTestCase(test.NoDBTestCase):
+         mock_get_by_binary.return_value = ironic_fakes.SERVICES
+         context = 'fake_context'
+ 
+-        self.host_manager.get_all_host_states(context)
++        hosts = self.host_manager.get_all_host_states(context)
+         self.assertEqual(0, mock_get_by_host.call_count)
+-        host_states_map = self.host_manager.host_state_map
++        # get_all_host_states returns a generator, so make a map from it
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
+         self.assertEqual(len(host_states_map), 4)
+ 
+         for i in range(4):
+@@ -223,13 +225,16 @@ class IronicHostManagerChangedNodesTestCase(test.NoDBTestCase):
+         context = 'fake_context'
+ 
+         # first call: all nodes
+-        self.host_manager.get_all_host_states(context)
+-        host_states_map = self.host_manager.host_state_map
++        hosts = self.host_manager.get_all_host_states(context)
++        # get_all_host_states returns a generator, so make a map from it
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
+         self.assertEqual(4, len(host_states_map))
+ 
+         # second call: just running nodes
+-        self.host_manager.get_all_host_states(context)
+-        host_states_map = self.host_manager.host_state_map
++        hosts = self.host_manager.get_all_host_states(context)
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
+         self.assertEqual(3, len(host_states_map))
+ 
+     @mock.patch('nova.objects.ServiceList.get_by_binary')
+@@ -243,13 +248,16 @@ class IronicHostManagerChangedNodesTestCase(test.NoDBTestCase):
+         context = 'fake_context'
+ 
+         # first call: all nodes
+-        self.host_manager.get_all_host_states(context)
+-        host_states_map = self.host_manager.host_state_map
++        hosts = self.host_manager.get_all_host_states(context)
++        # get_all_host_states returns a generator, so make a map from it
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
+         self.assertEqual(len(host_states_map), 4)
+ 
+         # second call: no nodes
+         self.host_manager.get_all_host_states(context)
+-        host_states_map = self.host_manager.host_state_map
++        host_states_map = {(state.host, state.nodename): state for state in
++                           hosts}
+         self.assertEqual(len(host_states_map), 0)
+ 
+     def test_update_from_compute_node(self):
+-- 
+2.14.3
+

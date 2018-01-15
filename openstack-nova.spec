@@ -50,6 +50,8 @@ Source39:         nova_migration_authorized_keys
 Source40:         nova_migration-rootwrap.conf
 Source41:         nova_migration-rootwrap_cold_migration
 
+Patch1: 0001-Stop-globally-caching-host-states-in-scheduler-HostM.patch
+
 BuildArch:        noarch
 BuildRequires:    intltool
 BuildRequires:    git
