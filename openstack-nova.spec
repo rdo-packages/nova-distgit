@@ -94,7 +94,8 @@ BuildRequires:    python-oslo-vmware
 BuildRequires:    python-cursive
 BuildRequires:    python-os-service-types
 # Required by build_sphinx for man and doc building
-BuildRequires:    python-blockdiag
+BuildRequires:    python-sphinxcontrib-actdiag
+BuildRequires:    python-sphinxcontrib-seqdiag
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
