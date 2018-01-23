@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da9b358b_db34cb4b",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2018-01-23T12:30:31Z",
+      "side": 1,
+      "message": "this is dependency for python-sphinxcontrib-* so it\u0027s not required explicitly.",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 34
+      },
+      "revId": "59ec0186f056a022da52cc31866eff3634cc178e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
