@@ -62,40 +62,40 @@ BuildRequires:    openstack-macros
 BuildRequires:    intltool
 BuildRequires:    python2-devel
 BuildRequires:    git
-BuildRequires:    python-sphinx
-BuildRequires:    python-oslo-cache
-BuildRequires:    python-openstackdocstheme
-BuildRequires:    python-os-traits
-BuildRequires:    python-setuptools
-BuildRequires:    python-netaddr
-BuildRequires:    python-pbr
+BuildRequires:    python2-sphinx
+BuildRequires:    python2-oslo-cache
+BuildRequires:    python2-openstackdocstheme
+BuildRequires:    python2-os-traits
+BuildRequires:    python2-setuptools
+BuildRequires:    python2-netaddr
+BuildRequires:    python2-pbr
 BuildRequires:    python-d2to1
-BuildRequires:    python-six
-BuildRequires:    python-oslo-i18n
-BuildRequires:    python-cryptography >= 1.6
-BuildRequires:    python-oslo-policy
+BuildRequires:    python2-six
+BuildRequires:    python2-oslo-i18n
+BuildRequires:    python2-cryptography >= 1.6
+BuildRequires:    python2-oslo-policy
 # Required for unit tests
-BuildRequires:    python-barbicanclient
+BuildRequires:    python2-barbicanclient
 BuildRequires:    python-ddt
-BuildRequires:    python-ironicclient
-BuildRequires:    python-mox3
-BuildRequires:    python-os-testr
-BuildRequires:    python-os-vif
-BuildRequires:    python-oslo-rootwrap
-BuildRequires:    python-oslotest
-BuildRequires:    python-osprofiler
-BuildRequires:    python-requests-mock
-BuildRequires:    python-subunit
-BuildRequires:    python-testrepository
-BuildRequires:    python-testresources
-BuildRequires:    python-testscenarios
-BuildRequires:    python-tooz
-BuildRequires:    python-oslo-vmware
-BuildRequires:    python-cursive
-BuildRequires:    python-os-service-types
+BuildRequires:    python2-ironicclient
+BuildRequires:    python2-mox3
+BuildRequires:    python2-os-testr
+BuildRequires:    python2-os-vif
+BuildRequires:    python2-oslo-rootwrap
+BuildRequires:    python2-oslotest
+BuildRequires:    python2-osprofiler
+BuildRequires:    python2-requests-mock
+BuildRequires:    python2-subunit
+BuildRequires:    python2-testrepository
+BuildRequires:    python2-testresources
+BuildRequires:    python2-testscenarios
+BuildRequires:    python2-tooz
+BuildRequires:    python2-oslo-vmware
+BuildRequires:    python2-cursive
+BuildRequires:    python2-os-service-types
 # Required by build_sphinx for man and doc building
-BuildRequires:    python-sphinxcontrib-actdiag
-BuildRequires:    python-sphinxcontrib-seqdiag
+BuildRequires:    python2-sphinxcontrib-actdiag
+BuildRequires:    python2-sphinxcontrib-seqdiag
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
@@ -121,20 +121,20 @@ Requires:         python-nova = %{epoch}:%{version}-%{release}
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
 # Required to build nova.conf.sample
-BuildRequires:    python-castellan >= 0.7.0
-BuildRequires:    python-glanceclient
-BuildRequires:    python-keystonemiddleware
-BuildRequires:    python-lxml
-BuildRequires:    python-microversion-parse >= 0.1.3
-BuildRequires:    python-os-brick
-BuildRequires:    python-oslo-db
-BuildRequires:    python-oslo-reports
-BuildRequires:    python-oslo-service
-BuildRequires:    python-oslo-versionedobjects
-BuildRequires:    python-paramiko
+BuildRequires:    python2-castellan >= 0.16.0
+BuildRequires:    python2-glanceclient
+BuildRequires:    python2-keystonemiddleware
+BuildRequires:    python2-lxml
+BuildRequires:    python2-microversion-parse >= 0.1.3
+BuildRequires:    python2-os-brick
+BuildRequires:    python2-oslo-db
+BuildRequires:    python2-oslo-reports
+BuildRequires:    python2-oslo-service
+BuildRequires:    python2-oslo-versionedobjects
+BuildRequires:    python2-paramiko
 BuildRequires:    python-websockify
 # Required to compile translation files
-BuildRequires:    python-babel
+BuildRequires:    python2-babel
 
 # remove old service subpackage
 Obsoletes: %{name}-objectstore
@@ -166,7 +166,7 @@ Requires:         libvirt-daemon-lxc
 Requires:         openssh-clients
 Requires:         rsync
 Requires:         lvm2
-Requires:         python-cinderclient >= 3.1.0
+Requires:         python2-cinderclient >= 3.3.0
 Requires:         genisoimage
 # Ensure that the _right_ verion of QEMU binary is shipped based on
 # distribution.
@@ -226,7 +226,7 @@ to run Virtual Machines in the cloud.
 Summary:          OpenStack Nova API services
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python-cinderclient >= 3.1.0
+Requires:         python2-cinderclient >= 3.3.0
 
 %description api
 %{common_desc}
@@ -336,72 +336,73 @@ Requires:         openssl
 Requires:         openssh
 Requires:         sudo
 
-Requires:         python-paramiko >= 2.0
+Requires:         python2-paramiko >= 2.0
 
 Requires:         python-decorator >= 3.4.0
 Requires:         python-enum34
-Requires:         python-eventlet >= 0.18.2
-Requires:         python-iso8601 >= 0.1.11
-Requires:         python-netaddr >= 0.7.13
-Requires:         python-lxml >= 2.3
-Requires:         python-boto
+Requires:         python2-eventlet >= 0.18.2
+Requires:         python2-iso8601 >= 0.1.11
+Requires:         python2-netaddr >= 0.7.18
+Requires:         python-lxml >= 3.2.1
+Requires:         python2-boto
 Requires:         python-ldap
-Requires:         python-stevedore >= 1.20.0
+Requires:         python2-stevedore >= 1.20.0
 
-Requires:         python-memcached
+Requires:         python2-memcached
 
-Requires:         python-sqlalchemy >= 1.0.10
+Requires:         python2-sqlalchemy >= 1.0.10
 Requires:         python-migrate >= 0.11.0
-Requires:         python-alembic >= 0.8.0
+Requires:         python2-alembic >= 0.8.0
 
 Requires:         python-paste
 Requires:         python-paste-deploy >= 1.5.0
-Requires:         python-routes >= 2.3.1
+Requires:         python2-routes >= 2.3.1
 Requires:         python-webob >= 1.7.1
 
-Requires:         python-babel >= 2.3.4
-Requires:         python-castellan >= 0.7.0
-Requires:         python-cryptography >= 1.6
-Requires:         python-cursive >= 0.1.2
-Requires:         python-glanceclient >= 1:2.8.0
-Requires:         python-greenlet >= 0.3.2
-Requires:         python-keystonemiddleware >= 4.12.0
-Requires:         python-keystoneauth1 >= 3.1.0
-Requires:         python-jinja2
-Requires:         python-jsonschema >= 2.0.0
-Requires:         python-microversion-parse >= 0.1.2
-Requires:         python-netifaces >= 0.10.4
-Requires:         python-neutronclient >= 6.3.0
-Requires:         python-novaclient >= 2.30.1
-Requires:         python-os-brick >= 1.15.2
-Requires:         python-os-traits
-Requires:         python-oslo-cache >= 1.5.0
-Requires:         python-oslo-concurrency >= 3.8.0
-Requires:         python-oslo-config >= 2:4.0.0
-Requires:         python-oslo-context >= 2.14.0
-Requires:         python-oslo-db >= 4.24.0
-Requires:         python-oslo-i18n >= 2.1.0
-Requires:         python-oslo-log >= 3.22.0
-Requires:         python-oslo-messaging >= 5.24.2
-Requires:         python-oslo-middleware >= 3.27.0
-Requires:         python-oslo-policy >= 1.23.0
-Requires:         python-oslo-privsep >= 1.9.0
-Requires:         python-oslo-reports >= 0.6.0
-Requires:         python-oslo-rootwrap >= 5.0.0
-Requires:         python-oslo-serialization >= 1.10.0
-Requires:         python-oslo-service >= 1.10.0
-Requires:         python-oslo-utils >= 3.20.0
-Requires:         python-oslo-versionedobjects >= 1.17.0
-Requires:         python-os-vif >= 1.7.0
-Requires:         python-oslo-vmware >= 1.16.0
-Requires:         python-pbr
-Requires:         python-prettytable >= 0.7.1
-Requires:         python-psutil
-Requires:         python-requests >= 2.10.0
-Requires:         python-rfc3986 >= 0.3.1
-Requires:         python-six >= 1.9.0
-Requires:         python-tooz
-Requires:         python-os-service-types >= 1.1.0
+Requires:         python2-babel >= 2.3.4
+Requires:         python2-castellan >= 0.16.0
+Requires:         python2-cryptography >= 1.6
+Requires:         python2-cursive >= 0.2.1
+Requires:         python2-glanceclient >= 1:2.8.0
+Requires:         python2-greenlet >= 0.4.10
+Requires:         python2-keystonemiddleware >= 4.17.0
+Requires:         python2-keystoneauth1 >= 3.3.0
+Requires:         python2-jinja2
+Requires:         python2-jsonschema >= 2.6.0
+Requires:         python2-microversion-parse >= 0.1.2
+Requires:         python2-netifaces >= 0.10.4
+Requires:         python2-neutronclient >= 6.3.0
+Requires:         python2-novaclient >= 2.30.1
+Requires:         python2-os-brick >= 2.2.0
+Requires:         python2-os-traits
+Requires:         python2-oslo-cache >= 1.26.0
+Requires:         python2-oslo-concurrency >= 3.25.0
+Requires:         python2-oslo-config >= 2:5.1.0
+Requires:         python2-oslo-context >= 2.19.2
+Requires:         python2-oslo-db >= 4.27.0
+Requires:         python2-oslo-i18n >= 3.15.3
+Requires:         python2-oslo-log >= 3.36.0
+Requires:         python2-oslo-messaging >= 5.29.0
+Requires:         python2-oslo-middleware >= 3.31.0
+Requires:         python2-oslo-policy >= 1.30.0
+Requires:         python2-oslo-privsep >= 1.23.0
+Requires:         python2-oslo-reports >= 1.18.0
+Requires:         python2-oslo-rootwrap >= 5.8.0
+Requires:         python2-oslo-serialization >= 2.18.0
+Requires:         python2-oslo-service >= 1.24.0
+Requires:         python2-oslo-utils >= 3.33.0
+Requires:         python2-oslo-versionedobjects >= 1.31.2
+Requires:         python2-os-vif >= 1.7.0
+Requires:         python2-oslo-vmware >= 1.16.0
+Requires:         python2-pbr
+Requires:         python2-prettytable >= 0.7.1
+Requires:         python2-psutil
+Requires:         python2-requests >= 2.14.2
+Requires:         python2-rfc3986 >= 0.3.1
+Requires:         python2-six >= 1.10.0
+Requires:         python2-taskflow >= 2.16.0
+Requires:         python2-tooz >= 1.58.0
+Requires:         python2-os-service-types >= 1.1.0
 
 %description -n   python-nova
 %{common_desc}
@@ -424,25 +425,25 @@ Summary:          Documentation for OpenStack Compute
 BuildRequires:    graphviz
 
 # Required to build module documents
-BuildRequires:    python-boto
-BuildRequires:    python-eventlet
-BuildRequires:    python-barbicanclient
-BuildRequires:    python-cinderclient
-BuildRequires:    python-keystoneclient
-BuildRequires:    python-neutronclient
-BuildRequires:    python-os-win
-BuildRequires:    python-oslo-config
-BuildRequires:    python-oslo-log
-BuildRequires:    python-oslo-messaging
-BuildRequires:    python-oslo-utils
+BuildRequires:    python2-boto
+BuildRequires:    python2-eventlet
+BuildRequires:    python2-barbicanclient
+BuildRequires:    python2-cinderclient
+BuildRequires:    python2-keystoneclient
+BuildRequires:    python2-neutronclient
+BuildRequires:    python2-os-win
+BuildRequires:    python2-oslo-config
+BuildRequires:    python2-oslo-log
+BuildRequires:    python2-oslo-messaging
+BuildRequires:    python2-oslo-utils
 BuildRequires:    python-redis
-BuildRequires:    python-rfc3986 >= 0.2.2
-BuildRequires:    python-routes
-BuildRequires:    python-sphinxcontrib-actdiag
-BuildRequires:    python-sphinxcontrib-seqdiag
-BuildRequires:    python-sqlalchemy
+BuildRequires:    python2-rfc3986 >= 0.2.2
+BuildRequires:    python2-routes
+BuildRequires:    python2-sphinxcontrib-actdiag
+BuildRequires:    python2-sphinxcontrib-seqdiag
+BuildRequires:    python2-sqlalchemy
 BuildRequires:    python-webob
-BuildRequires:    python-zmq
+BuildRequires:    python2-zmq
 # while not strictly required, quiets the build down when building docs.
 BuildRequires:    python-migrate, python-iso8601
 
