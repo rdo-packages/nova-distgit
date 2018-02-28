@@ -1,4 +1,3 @@
-%global milestone .0rc3
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc %{!?_without_doc:1}%{?_without_doc:0}
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
@@ -19,15 +18,13 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          17.0.0
-Release:          0.2%{?milestone}%{?dist}
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
 Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz
 
-#
-# patches_base=17.0.0.0rc3
 #
 
 Source1:          nova-dist.conf
@@ -825,6 +822,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Feb 28 2018 RDO <dev@lists.rdoproject.org> 1:17.0.0-1
+- Update to 17.0.0
+
 * Thu Feb 22 2018 RDO <dev@lists.rdoproject.org> 1:17.0.0-0.2.0rc2
 - Update to 17.0.0.0rc3
 
