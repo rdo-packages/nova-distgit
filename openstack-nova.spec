@@ -499,7 +499,7 @@ done < %{SOURCE1}
 %{__python2} setup.py install -O1 --skip-build --root %{buildroot}
 
 %if 0%{?with_doc}
-%{__python2} setup.py build_sphinx
+%{__python2} setup.py build_sphinx --builder html
 %endif
 
 %{__python2} setup.py build_sphinx --builder man
