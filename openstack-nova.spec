@@ -498,11 +498,13 @@ done < %{SOURCE1}
 %install
 %{__python2} setup.py install -O1 --skip-build --root %{buildroot}
 
+export PYTHONPATH=.
 %if 0%{?with_doc}
-%{__python2} setup.py build_sphinx --builder html
+sphinx-build -W -b html doc/source doc/build/html
+rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
-%{__python2} setup.py build_sphinx --builder man
+sphinx-build -W -b man doc/source doc/build/man
 mkdir -p %{buildroot}%{_mandir}/man1
 install -p -D -m 644 doc/build/man/*.1 %{buildroot}%{_mandir}/man1/
 
