@@ -170,19 +170,27 @@ Requires:         rsync
 Requires:         lvm2
 Requires:         python2-cinderclient >= 3.3.0
 Requires:         genisoimage
-# Ensure that the _right_ verion of QEMU binary is shipped based on
-# distribution.
+# Ensure that the _right_ versions of QEMU binary and libvirt are
+# shipped based on distribution.
 %if 0%{?fedora}
-Requires(pre): qemu-kvm >= 2.9.0
+Requires(pre): qemu-kvm >= 2.10.0
+Requires(pre): libvirt-python >= 3.9.0
+Requires(pre): libvirt-daemon-kvm >= 3.9.0
 %endif
 # NOTE-1: CentOS package is called 'qemu-kvm-ev', but it has a
 #         compatiblity "Provides: qemu-kvm-rhev", so it'll do the right
 #         thing, that's why we're not special-casing CentOS here.
 # NOTE-2: Explicitly conditionalize on RHEL-7, as we have to
-#         re-evaluate the QEMU version string for each RHOS / RHEL
-#         release.
+#         re-evaluate the QEMU and libvirt version strings for each RHOS
+#         / RHEL release.
+# NOTE-3: We're using "Requires(pre)" (instead of "Requires") as a
+#         safety check -- to guarantee when Nova, in the %pre" section,
+#         adds the 'nova' user to the 'qemu' and 'libvirt' groups, those
+#         groups are guaranteed to exist.
 %if 0%{?rhel} == 7
-Requires(pre): qemu-kvm-rhev >= 2.9.0
+Requires(pre): qemu-kvm-rhev >= 2.10.0
+Requires(pre): libvirt-python >= 3.9.0
+Requires(pre): libvirt-daemon-kvm >= 3.9.0
 %endif
 Requires:         bridge-utils
 Requires:         sg3_utils
