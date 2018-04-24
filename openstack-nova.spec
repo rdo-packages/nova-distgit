@@ -500,11 +500,11 @@ done < %{SOURCE1}
 
 export PYTHONPATH=.
 %if 0%{?with_doc}
-sphinx-build -W -b html doc/source doc/build/html
+sphinx-build -b html doc/source doc/build/html
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
-sphinx-build -W -b man doc/source doc/build/man
+sphinx-build -b man doc/source doc/build/man
 mkdir -p %{buildroot}%{_mandir}/man1
 install -p -D -m 644 doc/build/man/*.1 %{buildroot}%{_mandir}/man1/
 
