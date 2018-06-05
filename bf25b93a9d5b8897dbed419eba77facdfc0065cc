@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bab921fb_1ebb3bc6",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 393
+      },
+      "writtenOn": "2018-06-05T12:31:04Z",
+      "side": 1,
+      "message": "nit: you could fix this typo while you\u0027re here, but it\u0027s not strictly related.",
+      "range": {
+        "startLine": 171,
+        "startChar": 26,
+        "endLine": 171,
+        "endChar": 32
+      },
+      "revId": "bf25b93a9d5b8897dbed419eba77facdfc0065cc",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bab921fb_deb4a3d2",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 393
+      },
+      "writtenOn": "2018-06-05T12:31:04Z",
+      "side": 1,
+      "message": "I think the %if section only exists here because the qemu-kvm package names are different, which isn\u0027t the case for libvirt. Do these need to be conditional?\n\nRelated, given that the version numbers are presumably going to be the same, I wonder if we wouldn\u0027t be better served by:\n\n  %if fedora\n  %define qemu-pkg foo\n  %elif rhel 7\n  %define qemu-pkg bar\n  %else\n  %dooooooooooooooom\n  %end\n\n  Requires(pre): %qemu-pkg \u003e\u003d 2.10.0\n  Requires(pre): libvirt-whatever \u003e\u003d whatever\n\nAltered, of course, to be actually vaguely correct.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 42
+      },
+      "revId": "bf25b93a9d5b8897dbed419eba77facdfc0065cc",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bab921fb_beca0f4e",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 393
+      },
+      "writtenOn": "2018-06-05T12:31:04Z",
+      "side": 1,
+      "message": "As above, this is duplicated. I wonder if it needs to be.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 42
+      },
+      "revId": "bf25b93a9d5b8897dbed419eba77facdfc0065cc",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
