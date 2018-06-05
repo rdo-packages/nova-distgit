@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bab921fb_3edddf14",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2018-06-05T12:52:19Z",
+      "side": 1,
+      "message": "Certainly will fix.",
+      "parentUuid": "bab921fb_1ebb3bc6",
+      "range": {
+        "startLine": 171,
+        "startChar": 26,
+        "endLine": 171,
+        "endChar": 32
+      },
+      "revId": "bf25b93a9d5b8897dbed419eba77facdfc0065cc",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bab921fb_deb4a3d2",
         "filename": "openstack-nova.spec",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-05T12:31:04Z",
       "side": 1,
       "message": "I think the %if section only exists here because the qemu-kvm package names are different, which isn\u0027t the case for libvirt. Do these need to be conditional?\n\nRelated, given that the version numbers are presumably going to be the same, I wonder if we wouldn\u0027t be better served by:\n\n  %if fedora\n  %define qemu-pkg foo\n  %elif rhel 7\n  %define qemu-pkg bar\n  %else\n  %dooooooooooooooom\n  %end\n\n  Requires(pre): %qemu-pkg \u003e\u003d 2.10.0\n  Requires(pre): libvirt-whatever \u003e\u003d whatever\n\nAltered, of course, to be actually vaguely correct.",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 42
+      },
+      "revId": "bf25b93a9d5b8897dbed419eba77facdfc0065cc",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bab921fb_bed1effd",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2018-06-05T12:52:19Z",
+      "side": 1,
+      "message": "Yes, the %if section is to take into account the differing  package names for QEMU.  So we _could_ remove the conditionals for libvirt.  But—Fedora moves faster, so if someone wants to use a higher minimum version for it (Fedora), then having a separate conditional for it would allow for that.  Admittedly, this is unlikely\n\n(There is an existing plan for stabilizing Fedora repositories for OpenStack: https://etherpad.openstack.org/p/stabilized-fedora-repositories-for-openstack)\n\nAnd to your related point, version numbers aren\u0027t going to be the same.  Because, refer NOTE-2 below—we need to re-evaluate the versions for each RHOS release.",
+      "parentUuid": "bab921fb_deb4a3d2",
       "range": {
         "startLine": 175,
         "startChar": 0,
