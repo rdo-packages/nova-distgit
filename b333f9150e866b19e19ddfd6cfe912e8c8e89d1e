@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bab921fb_fee647e7",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2018-06-05T12:40:20Z",
+      "side": 0,
+      "message": "afaict from looking at rpm sources, (pre) is just a tag and we don\u0027t need separate Requires: if we have Requires(pre) ?\n\nIf keeping it, min.version should be in sync Requires(pre).",
+      "revId": "b333f9150e866b19e19ddfd6cfe912e8c8e89d1e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
