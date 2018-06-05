@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "bab921fb_9e3ceb30",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 393
+      },
+      "writtenOn": "2018-06-05T13:08:39Z",
+      "side": 1,
+      "message": "Thinking about it, I think the qemu and libvirt version requirements are a function only of the version of nova and the patches against it, both of which are specified in this file. The only reason they\u0027d diverge, I guess, would be if libvirt-X in RHEL contained features not in libvirt-X on Fedora. Probably not unprecedented, but definitely weird.\n\nAnyway, the above would be an argument against putting the version requirements in a conditional.",
+      "parentUuid": "bab921fb_bed1effd",
+      "range": {
+        "startLine": 175,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 42
+      },
+      "revId": "bf25b93a9d5b8897dbed419eba77facdfc0065cc",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bab921fb_beca0f4e",
         "filename": "openstack-nova.spec",
         "patchSetId": 3
