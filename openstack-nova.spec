@@ -857,3 +857,4 @@ exit 0
 * Sat Feb 17 2018 RDO <dev@lists.rdoproject.org> 1:17.0.0-0.1.0rc2
 - Update to 17.0.0.0rc2
 
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/nova/commit/?id=d26dc0ca03e9cc9a04ac02d88ba2d2867340f5cd
