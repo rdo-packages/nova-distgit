@@ -1,0 +1,34 @@
+From 0fe74a6cef6cdcd898dc334ed8da7eb11f4e4f8d Mon Sep 17 00:00:00 2001
+From: Tony Breeds <tony@bakeyournoodle.com>
+Date: Wed, 13 Jun 2018 16:07:28 +1000
+Subject: [PATCH] [Stable Only] Initialise failed_builds in IronicNodeState
+
+When we merged I71c56fe770f8c3f66db97fa542fdfdf2b9865fb8 we introduced a
+regression in the ironic host manager as it doesn't setup a
+failed_builds attribute.  We didn't need to do this on master as the
+host manager in question is already removed due to
+I695b250c82c8dcedcd8e2bee00c56bb2df19212c
+
+Change-Id: Ia52dda42208398b4f719fa3023dd10d9642b1e02
+Closes-Bug: 1776596
+---
+ nova/scheduler/ironic_host_manager.py | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/nova/scheduler/ironic_host_manager.py b/nova/scheduler/ironic_host_manager.py
+index c19cee6432..bfcb07a8e5 100644
+--- a/nova/scheduler/ironic_host_manager.py
++++ b/nova/scheduler/ironic_host_manager.py
+@@ -77,6 +77,9 @@ class IronicNodeState(host_manager.HostState):
+         self.ram_allocation_ratio = compute.ram_allocation_ratio
+         self.disk_allocation_ratio = compute.disk_allocation_ratio
+ 
++        # update failed_builds counter reported by the compute
++        self.failed_builds = int(self.stats.get('failed_builds', 0))
++
+         self.updated = compute.updated_at
+ 
+     def _locked_consume_from_request(self, spec_obj):
+-- 
+2.13.6
+
