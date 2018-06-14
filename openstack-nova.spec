@@ -59,9 +59,6 @@ Source39:         nova_migration_authorized_keys
 Source40:         nova_migration-rootwrap.conf
 Source41:         nova_migration-rootwrap_cold_migration
 
-# FIXME(ykarel)Remove me once https://review.openstack.org/#/c/574997/ is merged
-Patch0001:        0001-Stable-Only-Initialise-failed_builds-in-IronicNodeSt.patch
-
 BuildArch:        noarch
 BuildRequires:    openstack-macros
 BuildRequires:    intltool
