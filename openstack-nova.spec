@@ -365,7 +365,7 @@ Requires:         python2-alembic >= 0.8.0
 Requires:         python-paste
 Requires:         python-paste-deploy >= 1.5.0
 Requires:         python2-routes >= 2.3.1
-Requires:         python-webob >= 1.7.1
+Requires:         python-webob >= 1.8.2
 
 Requires:         python2-babel >= 2.3.4
 Requires:         python2-castellan >= 0.16.0
