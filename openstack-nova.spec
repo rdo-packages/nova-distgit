@@ -1,5 +1,5 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
-%global with_doc %{!?_without_doc:1}%{?_without_doc:0}
+%global with_doc 0
 %global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 %global distro     RDO
 
@@ -512,9 +512,11 @@ sphinx-build -b html doc/source doc/build/html
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
+%if 0%{?with_doc}
 sphinx-build -b man doc/source doc/build/man
 mkdir -p %{buildroot}%{_mandir}/man1
 install -p -D -m 644 doc/build/man/*.1 %{buildroot}%{_mandir}/man1/
+%endif
 
 # Setup directories
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova
@@ -740,7 +742,9 @@ exit 0
 %{_bindir}/nova-rootwrap-daemon
 %{_bindir}/nova-status
 
+%if 0%{?with_doc}
 %{_mandir}/man1/nova*.1.gz
+%endif
 
 %defattr(-, nova, nova, -)
 %dir %{_sharedstatedir}/nova
