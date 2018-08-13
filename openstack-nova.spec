@@ -72,7 +72,7 @@ BuildRequires:    python2-pbr
 BuildRequires:    python-d2to1
 BuildRequires:    python2-six
 BuildRequires:    python2-oslo-i18n
-BuildRequires:    python2-cryptography >= 1.6
+BuildRequires:    python2-cryptography >= 2.1
 BuildRequires:    python2-oslo-policy
 # Required for unit tests
 BuildRequires:    python2-barbicanclient
@@ -125,7 +125,7 @@ BuildRequires:    python2-castellan >= 0.16.0
 BuildRequires:    python2-glanceclient
 BuildRequires:    python2-keystonemiddleware
 BuildRequires:    python-lxml
-BuildRequires:    python2-microversion-parse >= 0.1.3
+BuildRequires:    python2-microversion-parse >= 0.2.1
 BuildRequires:    python2-os-brick
 BuildRequires:    python2-oslo-db
 BuildRequires:    python2-oslo-reports
@@ -344,7 +344,7 @@ Requires:         openssl
 Requires:         openssh
 Requires:         sudo
 
-Requires:         python2-paramiko >= 2.0
+Requires:         python2-paramiko >= 2.0.0
 
 Requires:         python-decorator >= 3.4.0
 Requires:         python-enum34
@@ -365,34 +365,34 @@ Requires:         python2-alembic >= 0.8.0
 Requires:         python-paste
 Requires:         python-paste-deploy >= 1.5.0
 Requires:         python2-routes >= 2.3.1
-Requires:         python-webob >= 1.7.1
+Requires:         python-webob >= 1.8.2
 
 Requires:         python2-babel >= 2.3.4
 Requires:         python2-castellan >= 0.16.0
-Requires:         python2-cryptography >= 1.6
+Requires:         python2-cryptography >= 2.1
 Requires:         python2-cursive >= 0.2.1
 Requires:         python2-glanceclient >= 1:2.8.0
 Requires:         python2-greenlet >= 0.4.10
 Requires:         python2-keystonemiddleware >= 4.17.0
-Requires:         python2-keystoneauth1 >= 3.3.0
+Requires:         python2-keystoneauth1 >= 3.9.0
 Requires:         python2-jinja2
 Requires:         python2-jsonschema >= 2.6.0
-Requires:         python2-microversion-parse >= 0.1.2
+Requires:         python2-microversion-parse >= 0.2.1
 Requires:         python-netifaces >= 0.10.4
-Requires:         python2-neutronclient >= 6.3.0
+Requires:         python2-neutronclient >= 6.7.0
 Requires:         python2-novaclient >= 2.30.1
-Requires:         python2-os-brick >= 2.2.0
+Requires:         python2-os-brick >= 2.5.0
 Requires:         python2-os-traits
 Requires:         python2-oslo-cache >= 1.26.0
-Requires:         python2-oslo-concurrency >= 3.25.0
-Requires:         python2-oslo-config >= 2:5.1.0
+Requires:         python2-oslo-concurrency >= 3.26.0
+Requires:         python2-oslo-config >= 2:6.1.0
 Requires:         python2-oslo-context >= 2.19.2
 Requires:         python2-oslo-db >= 4.27.0
 Requires:         python2-oslo-i18n >= 3.15.3
 Requires:         python2-oslo-log >= 3.36.0
 Requires:         python2-oslo-messaging >= 6.3.0
 Requires:         python2-oslo-middleware >= 3.31.0
-Requires:         python2-oslo-policy >= 1.30.0
+Requires:         python2-oslo-policy >= 1.35.0
 Requires:         python2-oslo-privsep >= 1.23.0
 Requires:         python2-oslo-reports >= 1.18.0
 Requires:         python2-oslo-rootwrap >= 5.8.0
@@ -410,7 +410,9 @@ Requires:         python2-rfc3986 >= 0.3.1
 Requires:         python2-six >= 1.10.0
 Requires:         python2-taskflow >= 2.16.0
 Requires:         python2-tooz >= 1.58.0
-Requires:         python2-os-service-types >= 1.1.0
+Requires:         python2-os-service-types >= 1.2.0
+Requires:         python2-futures >= 3.0.0
+Requires:         python2-dateutil >= 2.5.3
 
 %description -n   python-nova
 %{common_desc}
@@ -445,7 +447,7 @@ BuildRequires:    python2-oslo-log
 BuildRequires:    python2-oslo-messaging
 BuildRequires:    python2-oslo-utils
 BuildRequires:    python-redis
-BuildRequires:    python2-rfc3986 >= 0.2.2
+BuildRequires:    python2-rfc3986 >= 0.3.1
 BuildRequires:    python2-routes
 BuildRequires:    python2-sphinxcontrib-actdiag
 BuildRequires:    python2-sphinxcontrib-seqdiag
