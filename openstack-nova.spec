@@ -85,7 +85,6 @@ Source32:         openstack-nova-os-compute-api.service
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
-Source33:         nova-placement-api.conf
 Source34:         policy.json
 
 Source35:         nova_migration-sudoers
@@ -149,7 +148,6 @@ Requires:         openstack-nova-network = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-console = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-novncproxy = %{epoch}:%{version}-%{release}
-Requires:         openstack-nova-placement-api = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-migration = %{epoch}:%{version}-%{release}
 
 
@@ -421,24 +419,6 @@ Requires:         python%{pyver}-websockify
 This package contains the Nova services providing the
 serial console access service to Virtual Machines.
 
-%package placement-api
-Summary:          OpenStack Nova Placement APIservice
-
-Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         httpd
-# Handle python2 exception
-%if %{pyver} == 2
-Requires:         mod_wsgi
-%else
-Requires:         python3-mod_wsgi
-%endif
-
-%description placement-api
-%{common_desc}
-
-This package contains the Nova placement service, which will initially
-allow for the management of resource providers.
-
 %package migration
 Summary:          OpenStack Nova Migration
 
@@ -675,7 +655,6 @@ install -p -D -m 640 %{SOURCE1} %{buildroot}%{_datarootdir}/nova/nova-dist.conf
 install -p -D -m 640 etc/nova/nova.conf.sample  %{buildroot}%{_sysconfdir}/nova/nova.conf
 install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/rootwrap.conf
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
-install -p -D -m 640 %{SOURCE33} %{buildroot}%{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
 install -d -m 755 %{buildroot}%{_sysconfdir}/nova/migration
 install -p -D -m 600 %{SOURCE38} %{buildroot}%{_sysconfdir}/nova/migration/identity
 install -p -D -m 644 %{SOURCE39} %{buildroot}%{_sysconfdir}/nova/migration/authorized_keys
@@ -949,10 +928,6 @@ exit 0
 %files serialproxy
 %{_bindir}/nova-serialproxy
 %{_unitdir}/openstack-nova-serialproxy.service
-
-%files placement-api
-%config(noreplace) %{_sysconfdir}/httpd/conf.d/00-nova-placement-api.conf
-%{_bindir}/nova-placement-api
 
 %files migration
 %{_bindir}/nova-migration-wrapper
