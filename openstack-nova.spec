@@ -17,8 +17,8 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          16.1.4
-Release:          2%{?dist}
+Version:          16.1.5
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -816,6 +816,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Sep 24 2018 RDO <dev@lists.rdoproject.org> 1:16.1.5-1
+- Update to 16.1.5
+
 * Tue Sep 18 2018 Lee Yarwood <lyarwood@redhat.com> 1:16.1.4-2
 - Add missing version dependency on python-tooz of >= 1.58.0
 
