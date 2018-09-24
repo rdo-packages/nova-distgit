@@ -17,8 +17,8 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          18.0.0
-Release:          2%{?dist}
+Version:          18.0.1
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -838,6 +838,9 @@ exit 0
 %endif
 
 %changelog
+* Mon Sep 24 2018 RDO <dev@lists.rdoproject.org> 1:18.0.1-1
+- Update to 18.0.1
+
 * Wed Sep 19 2018 RDO <dev@lists.rdoproject.org> 1:18.0.0-2
 - Update python2-oslo-db requirement to 4.40.0 or later
 
