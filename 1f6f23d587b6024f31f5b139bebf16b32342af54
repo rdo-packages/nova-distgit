@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abe1de1_24112d53",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2018-09-24T10:58:25Z",
+      "side": 1,
+      "message": "py2 only",
+      "range": {
+        "startLine": 462,
+        "startChar": 0,
+        "endLine": 462,
+        "endChar": 49
+      },
+      "revId": "1f6f23d587b6024f31f5b139bebf16b32342af54",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_041e2963",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2018-09-24T10:58:25Z",
+      "side": 1,
+      "message": "this can be out of conditional",
+      "range": {
+        "startLine": 531,
+        "startChar": 33,
+        "endLine": 531,
+        "endChar": 48
+      },
+      "revId": "1f6f23d587b6024f31f5b139bebf16b32342af54",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
