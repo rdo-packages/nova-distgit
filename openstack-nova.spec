@@ -363,7 +363,6 @@ Requires:         python-websockify
 %else
 Requires:         python%{pyver}-websockify
 %endif
-# Handle python2 exception
 
 %description serialproxy
 %{common_desc}
@@ -377,6 +376,12 @@ Summary:          OpenStack Nova Placement APIservice
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         httpd
 Requires:         mod_wsgi
+# Handle python2 exception
+%if %{pyver} == 2
+Requires:         mod_wsgi
+%else
+Requires:         python3-mod_wsgi
+%endif
 
 %description placement-api
 %{common_desc}
