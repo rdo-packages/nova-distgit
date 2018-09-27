@@ -1,0 +1,9 @@
+Code-Review+1: Lee Yarwood <lyarwood@redhat.com>
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Workflow+1: Alfredo Moralejo <amoralej@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Thu, 27 Sep 2018 12:48:02 +0000
+Reviewed-on: https://review.rdoproject.org/r/16408
+Project: openstack/nova-distgit
+Branch: refs/heads/pike-rdo
