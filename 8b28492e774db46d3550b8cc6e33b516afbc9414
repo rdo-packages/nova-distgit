@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abe1de1_386eea2f",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 7
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2018-09-27T09:48:09Z",
+      "side": 1,
+      "message": "this needs to be fixed atleast when tests are enabled again. can be done later though.",
+      "range": {
+        "startLine": 713,
+        "startChar": 31,
+        "endLine": 713,
+        "endChar": 38
+      },
+      "revId": "8b28492e774db46d3550b8cc6e33b516afbc9414",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
