@@ -1,0 +1,9 @@
+Code-Review+2: Yatin Karel <ykarel@redhat.com>
+Code-Review+2: Javier Peña <jpena@redhat.com>
+Workflow+1: Javier Peña <jpena@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Thu, 27 Sep 2018 10:26:37 +0000
+Reviewed-on: https://review.rdoproject.org/r/16368
+Project: openstack/nova-distgit
+Branch: refs/heads/rpm-master
