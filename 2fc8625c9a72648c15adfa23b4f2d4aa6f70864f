@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abe1de1_3f75af97",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2018-09-27T19:00:35Z",
+      "side": 1,
+      "message": "this not required",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 378,
+        "endChar": 26
+      },
+      "revId": "2fc8625c9a72648c15adfa23b4f2d4aa6f70864f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
