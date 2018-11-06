@@ -13,7 +13,6 @@
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 0
-%global with_trans %{!?_without_trans:1}%{?_without_trans:0}
 %global distro     RDO
 
 %global common_desc \
