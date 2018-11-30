@@ -136,7 +136,11 @@ Summary:          Components common to all OpenStack Nova services
 Obsoletes:        openstack-nova-cert <= 1:16.0.0-1
 
 Requires:         python%{pyver}-nova = %{epoch}:%{version}-%{release}
+%if 0%{?rhel} && 0%{?rhel} < 8
 %{?systemd_requires}
+%else
+%{?systemd_ordering} # does not exist on EL7
+%endif
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
 # Required to build nova.conf.sample
