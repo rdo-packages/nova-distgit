@@ -861,3 +861,4 @@ exit 0
 * Thu Aug 24 2017 Alfredo Moralejo <amoralej@redhat.com> 1:16.0.0-0.1.0rc1
 - Update to 16.0.0.0rc1
 
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/nova/commit/?id=f25cc4ac927d3879eb8bc3d66c8d1b624a10cdf8
