@@ -458,7 +458,7 @@ Requires:         python%{pyver}-pbr
 Requires:         python%{pyver}-prettytable >= 0.7.1
 Requires:         python%{pyver}-psutil
 Requires:         python%{pyver}-requests >= 2.14.2
-Requires:         python%{pyver}-rfc3986 >= 0.3.1
+Requires:         python%{pyver}-rfc3986 >= 1.1.0
 Requires:         python%{pyver}-six >= 1.10.0
 Requires:         python%{pyver}-taskflow >= 2.16.0
 Requires:         python%{pyver}-tooz >= 1.58.0
@@ -521,7 +521,7 @@ BuildRequires:    python%{pyver}-oslo-config
 BuildRequires:    python%{pyver}-oslo-log
 BuildRequires:    python%{pyver}-oslo-messaging
 BuildRequires:    python%{pyver}-oslo-utils
-BuildRequires:    python%{pyver}-rfc3986 >= 0.3.1
+BuildRequires:    python%{pyver}-rfc3986 >= 1.1.0
 BuildRequires:    python%{pyver}-routes
 BuildRequires:    python%{pyver}-sphinxcontrib-actdiag
 BuildRequires:    python%{pyver}-sphinxcontrib-seqdiag
