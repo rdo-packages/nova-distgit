@@ -114,6 +114,7 @@ BuildRequires:    python-requests-mock
 %else
 BuildRequires:    python%{pyver}-d2to1
 BuildRequires:    python%{pyver}-requests-mock
+BuildRequires:    /usr/bin/pathfix.py
 %endif
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
@@ -663,6 +664,11 @@ install -p -D -m 600 %{SOURCE36} %{buildroot}%{_sharedstatedir}/nova/.ssh/config
 
 # Install nova migration ssh wrapper command
 install -p -D -m 755 %{SOURCE37} %{buildroot}%{_bindir}/nova-migration-wrapper
+
+%if %{pyver} == 3
+# Fix shebangs for Python 3-only distros
+pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{_bindir}/nova-migration-wrapper
+%endif
 
 # Install logrotate
 install -p -D -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/logrotate.d/openstack-nova
