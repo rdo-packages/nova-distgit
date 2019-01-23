@@ -76,7 +76,6 @@ BuildRequires:    python%{pyver}-devel
 BuildRequires:    git
 BuildRequires:    python%{pyver}-sphinx
 BuildRequires:    python%{pyver}-oslo-cache
-BuildRequires:    python%{pyver}-openstackdocstheme
 BuildRequires:    python%{pyver}-os-traits
 BuildRequires:    python%{pyver}-setuptools
 BuildRequires:    python%{pyver}-netaddr
@@ -103,9 +102,6 @@ BuildRequires:    python%{pyver}-tooz
 BuildRequires:    python%{pyver}-oslo-vmware
 BuildRequires:    python%{pyver}-cursive
 BuildRequires:    python%{pyver}-os-service-types
-# Required by build_sphinx for man and doc building
-BuildRequires:    python%{pyver}-sphinxcontrib-actdiag
-BuildRequires:    python%{pyver}-sphinxcontrib-seqdiag
 
 # Handle python2 exception
 %if %{pyver} == 2
@@ -509,7 +505,10 @@ This package contains the nova Python library.
 Summary:          Documentation for OpenStack Compute
 
 BuildRequires:    graphviz
-
+# Required by build_sphinx for man and doc building
+BuildRequires:    python%{pyver}-openstackdocstheme
+BuildRequires:    python%{pyver}-sphinxcontrib-actdiag
+BuildRequires:    python%{pyver}-sphinxcontrib-seqdiag
 # Required to build module documents
 BuildRequires:    python%{pyver}-boto
 BuildRequires:    python%{pyver}-eventlet
