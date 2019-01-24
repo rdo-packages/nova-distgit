@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ad0253b_9d519565",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2019-01-24T04:04:40Z",
+      "side": 1,
+      "message": "what about sphinx?",
+      "range": {
+        "startLine": 77,
+        "startChar": 18,
+        "endLine": 77,
+        "endChar": 39
+      },
+      "revId": "ecca52b56f5a28248bd7567c38c32fe7a4d4ed33",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
