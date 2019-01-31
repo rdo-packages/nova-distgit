@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ad0253b_b1923556",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2019-01-31T13:53:44Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this condition be reversed? This adds bridge-utils if RHEL is \u003e 7, and the rhosp conditional is 1",
+      "revId": "75ee2bfd4f40462ecc620e53ab85149dda0b5c0a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
