@@ -14,6 +14,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 0
 %global distro     RDO
+%global rhosp 0
 
 %global common_desc \
 OpenStack Compute (codename Nova) is open source software designed to \
@@ -24,6 +25,12 @@ including running instances, managing networks, and controlling access \
 through users and projects. OpenStack Compute strives to be both \
 hardware and hypervisor agnostic, currently supporting a variety of \
 standard hardware configurations and seven major hypervisors.
+
+%if 0%{?rhosp} && 0%{?rhel} > 7
+%global with_novanet 0
+%else
+%global with_novanet 1
+%endif
 
 Name:             openstack-nova
 # Liberty semver reset
@@ -42,7 +49,9 @@ Source6:          nova.logrotate
 
 Source10:         openstack-nova-api.service
 Source12:         openstack-nova-compute.service
+%if 0%{?with_novanet}
 Source13:         openstack-nova-network.service
+%endif
 Source15:         openstack-nova-scheduler.service
 Source18:         openstack-nova-xvpvncproxy.service
 Source19:         openstack-nova-console.service
@@ -115,7 +124,9 @@ BuildRequires:    /usr/bin/pathfix.py
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-api = %{epoch}:%{version}-%{release}
+%if 0%{?with_novanet}
 Requires:         openstack-nova-network = %{epoch}:%{version}-%{release}
+%endif
 Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-console = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-cells = %{epoch}:%{version}-%{release}
@@ -215,7 +226,9 @@ Requires(pre): qemu-kvm-rhev >= 2.10.0
 Requires(pre): libvirt-python >= 3.9.0
 Requires(pre): libvirt-daemon-kvm >= 3.9.0
 %endif
+%if 0%{?with_novanet}
 Requires:         bridge-utils
+%endif
 Requires:         sg3_utils
 Requires:         sysfsutils
 Requires:         libosinfo
@@ -237,6 +250,7 @@ Requires:         python3-libvirt
 This package contains the Nova service for controlling Virtual Machines.
 
 
+%if 0%{?with_novanet}
 %package network
 Summary:          OpenStack Nova Network control service
 
@@ -252,6 +266,7 @@ Requires:         conntrack-tools
 %{common_desc}
 
 This package contains the Nova service for controlling networking.
+%endif # with_novanet
 
 
 %package scheduler
@@ -641,7 +656,6 @@ EOF
 # Install initscripts for Nova services
 install -p -D -m 644 %{SOURCE10} %{buildroot}%{_unitdir}/openstack-nova-api.service
 install -p -D -m 644 %{SOURCE12} %{buildroot}%{_unitdir}/openstack-nova-compute.service
-install -p -D -m 644 %{SOURCE13} %{buildroot}%{_unitdir}/openstack-nova-network.service
 install -p -D -m 644 %{SOURCE15} %{buildroot}%{_unitdir}/openstack-nova-scheduler.service
 install -p -D -m 644 %{SOURCE18} %{buildroot}%{_unitdir}/openstack-nova-xvpvncproxy.service
 install -p -D -m 644 %{SOURCE19} %{buildroot}%{_unitdir}/openstack-nova-console.service
@@ -653,6 +667,13 @@ install -p -D -m 644 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtm
 install -p -D -m 644 %{SOURCE29} %{buildroot}%{_unitdir}/openstack-nova-novncproxy.service
 install -p -D -m 644 %{SOURCE31} %{buildroot}%{_unitdir}/openstack-nova-serialproxy.service
 install -p -D -m 644 %{SOURCE32} %{buildroot}%{_unitdir}/openstack-nova-os-compute-api.service
+
+%if 0%{?with_novanet}
+install -p -D -m 644 %{SOURCE13} %{buildroot}%{_unitdir}/openstack-nova-network.service
+%else
+rm -f %{buildroot}%{_bindir}/nova-network
+rm -f %{buildroot}%{_bindir}/nova-dhcpbridge
+%endif
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -744,8 +765,10 @@ exit 0
 
 %post compute
 %systemd_post %{name}-compute.service
+%if 0%{?with_novanet}
 %post network
 %systemd_post %{name}-network.service
+%endif
 %post scheduler
 %systemd_post %{name}-scheduler.service
 %post api
@@ -765,8 +788,10 @@ exit 0
 
 %preun compute
 %systemd_preun %{name}-compute.service
+%if 0%{?with_novanet}
 %preun network
 %systemd_preun %{name}-network.service
+%endif
 %preun scheduler
 %systemd_preun %{name}-scheduler.service
 %preun api
@@ -786,8 +811,10 @@ exit 0
 
 %postun compute
 %systemd_postun_with_restart %{name}-compute.service
+%if 0%{?with_novanet}
 %postun network
 %systemd_postun_with_restart %{name}-network.service
+%endif
 %postun scheduler
 %systemd_postun_with_restart %{name}-scheduler.service
 %postun api
@@ -849,10 +876,12 @@ exit 0
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
 
+%if 0%{?with_novanet}
 %files network
 %{_bindir}/nova-network
 %{_bindir}/nova-dhcpbridge
 %{_unitdir}/openstack-nova-network.service
+%endif
 
 %files scheduler
 %{_bindir}/nova-scheduler
