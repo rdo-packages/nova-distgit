@@ -215,7 +215,9 @@ Requires(pre): qemu-kvm-rhev >= 2.10.0
 Requires(pre): libvirt-python >= 3.9.0
 Requires(pre): libvirt-daemon-kvm >= 3.9.0
 %endif
+%if 0%{?rhel} > 7 && 0%{?rhosp}
 Requires:         bridge-utils
+%endif
 Requires:         sg3_utils
 Requires:         sysfsutils
 Requires:         libosinfo
@@ -242,7 +244,9 @@ Summary:          OpenStack Nova Network control service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         radvd
+%if 0%{?rhel} > 7 && 0%{?rhosp}
 Requires:         bridge-utils
+%endif
 Requires:         dnsmasq
 Requires:         dnsmasq-utils
 Requires:         ebtables
