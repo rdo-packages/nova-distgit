@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46cef9c8_e1cf620a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2019-02-06T22:45:52Z",
+      "side": 1,
+      "message": "i have updated this to include os-vif but until\ni remove the depency and do another release of os-vif brctl will remain a depency for ml2/ovs +iptables and ml2/linuxbrige",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 47
+      },
+      "revId": "0d143e8fe38ddd816c1710d87c08fb6e50a68d0a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f3e8748_ffb0c78c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2019-02-06T22:45:52Z",
+      "side": 1,
+      "message": "this is incorrect.\n\nos-vif uses brctl in both the linux bridge and ovs\nplugings\n\nhttps://github.com/openstack/os-vif/blob/master/vif_plug_ovs/linux_net.py#L105-L122\n\nhttps://github.com/openstack/os-vif/blob/master/vif_plug_linux_bridge/linux_net.py#L126\n\nso if brctl is not availabel it will break neutron networking\nwith ovs and iptables firewall or when using linuxbridge.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "0d143e8fe38ddd816c1710d87c08fb6e50a68d0a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
