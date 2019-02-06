@@ -143,6 +143,7 @@ Summary:          Components common to all OpenStack Nova services
 Obsoletes:        openstack-nova-cert <= 1:16.0.0-1
 
 Requires:         python%{pyver}-nova = %{epoch}:%{version}-%{release}
+Requires:         python%{pyver}-oslo-upgradecheck >= 0.1.0
 %if 0%{?rhel} && 0%{?rhel} < 8
 %{?systemd_requires}
 %else
@@ -159,6 +160,7 @@ BuildRequires:    python%{pyver}-os-brick
 BuildRequires:    python%{pyver}-oslo-db
 BuildRequires:    python%{pyver}-oslo-reports
 BuildRequires:    python%{pyver}-oslo-service
+BuildRequires:    python%{pyver}-oslo-upgradecheck
 BuildRequires:    python%{pyver}-oslo-versionedobjects
 BuildRequires:    python%{pyver}-paramiko
 # Required to compile translation files
