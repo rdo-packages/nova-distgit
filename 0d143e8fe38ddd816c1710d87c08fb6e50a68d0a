@@ -45,6 +45,30 @@
       "revId": "0d143e8fe38ddd816c1710d87c08fb6e50a68d0a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b75afcfa_5ccee1a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2019-02-07T08:54:54Z",
+      "side": 1,
+      "message": "Ok, this needs to be fixed then. If it\u0027s a runtime requirement for os-vif, let\u0027s add brctl there.",
+      "parentUuid": "3f3e8748_ffb0c78c",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "0d143e8fe38ddd816c1710d87c08fb6e50a68d0a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
