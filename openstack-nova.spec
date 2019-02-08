@@ -110,6 +110,7 @@ BuildRequires:    python%{pyver}-tooz
 BuildRequires:    python%{pyver}-oslo-vmware
 BuildRequires:    python%{pyver}-cursive
 BuildRequires:    python%{pyver}-os-service-types
+BuildRequires:    python%{pyver}-os-resource-classes
 
 # Handle python2 exception
 %if %{pyver} == 2
@@ -445,6 +446,7 @@ Requires:         python%{pyver}-microversion-parse >= 0.2.1
 Requires:         python%{pyver}-neutronclient >= 6.7.0
 Requires:         python%{pyver}-novaclient >= 2.30.1
 Requires:         python%{pyver}-os-brick >= 2.5.0
+Requires:         python%{pyver}-os-resource-classes >= 0.1.0
 Requires:         python%{pyver}-os-traits
 Requires:         python%{pyver}-oslo-cache >= 1.26.0
 Requires:         python%{pyver}-oslo-concurrency >= 3.26.0
