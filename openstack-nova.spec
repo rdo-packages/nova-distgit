@@ -445,28 +445,28 @@ Requires:         python%{pyver}-jsonschema >= 2.6.0
 Requires:         python%{pyver}-microversion-parse >= 0.2.1
 Requires:         python%{pyver}-neutronclient >= 6.7.0
 Requires:         python%{pyver}-novaclient >= 2.30.1
-Requires:         python%{pyver}-os-brick >= 2.5.0
+Requires:         python%{pyver}-os-brick >= 2.6.1
 Requires:         python%{pyver}-os-resource-classes >= 0.2.0
 Requires:         python%{pyver}-os-traits
 Requires:         python%{pyver}-oslo-cache >= 1.26.0
 Requires:         python%{pyver}-oslo-concurrency >= 3.26.0
 Requires:         python%{pyver}-oslo-config >= 2:6.1.0
 Requires:         python%{pyver}-oslo-context >= 2.19.2
-Requires:         python%{pyver}-oslo-db >= 4.40.0
+Requires:         python%{pyver}-oslo-db >= 4.44.0
 Requires:         python%{pyver}-oslo-i18n >= 3.15.3
 Requires:         python%{pyver}-oslo-log >= 3.36.0
 Requires:         python%{pyver}-oslo-messaging >= 6.3.0
 Requires:         python%{pyver}-oslo-middleware >= 3.31.0
 Requires:         python%{pyver}-oslo-policy >= 1.35.0
-Requires:         python%{pyver}-oslo-privsep >= 1.23.0
+Requires:         python%{pyver}-oslo-privsep >= 1.32.0
 Requires:         python%{pyver}-oslo-reports >= 1.18.0
 Requires:         python%{pyver}-oslo-rootwrap >= 5.8.0
-Requires:         python%{pyver}-oslo-serialization >= 2.18.0
-Requires:         python%{pyver}-oslo-service >= 1.24.0
-Requires:         python%{pyver}-oslo-upgradecheck >= 0.1.0
-Requires:         python%{pyver}-oslo-utils >= 3.33.0
-Requires:         python%{pyver}-oslo-versionedobjects >= 1.31.2
-Requires:         python%{pyver}-os-vif >= 1.7.0
+Requires:         python%{pyver}-oslo-serialization >= 2.21.0
+Requires:         python%{pyver}-oslo-service >= 1.34.0
+Requires:         python%{pyver}-oslo-upgradecheck >= 0.1.1
+Requires:         python%{pyver}-oslo-utils >= 3.37.0
+Requires:         python%{pyver}-oslo-versionedobjects >= 1.33.3
+Requires:         python%{pyver}-os-vif >= 1.14.0
 Requires:         python%{pyver}-oslo-vmware >= 1.16.0
 Requires:         python%{pyver}-pbr
 Requires:         python%{pyver}-prettytable >= 0.7.1
@@ -478,6 +478,8 @@ Requires:         python%{pyver}-taskflow >= 2.16.0
 Requires:         python%{pyver}-tooz >= 1.58.0
 Requires:         python%{pyver}-os-service-types >= 1.2.0
 Requires:         python%{pyver}-dateutil >= 2.5.3
+Requires:         python%{pyver}-futurist >= 1.8.0
+Requires:         python%{pyver}-retrying
 
 # Handle python2 exception
 %if %{pyver} == 2
@@ -490,7 +492,7 @@ Requires:         python-migrate >= 0.11.0
 Requires:         python-paste
 Requires:         python-paste-deploy >= 1.5.0
 Requires:         python-netifaces >= 0.10.4
-Requires:         python-futures >= 3.0.0
+Requires:         python-retrying
 %else
 Requires:         python%{pyver}-decorator >= 3.4.0
 Requires:         python%{pyver}-lxml >= 3.2.1
@@ -500,6 +502,7 @@ Requires:         python%{pyver}-migrate >= 0.11.0
 Requires:         python%{pyver}-paste
 Requires:         python%{pyver}-paste-deploy >= 1.5.0
 Requires:         python%{pyver}-netifaces >= 0.10.4
+Requires:         python%{pyver}-retrying
 %endif
 
 %description -n   python%{pyver}-nova
