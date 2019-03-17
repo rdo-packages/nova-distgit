@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9be513d4_ac28703e",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-03-17T18:55:47Z",
+      "side": 1,
+      "message": "I don\u0027t think we need this given the below.",
+      "range": {
+        "startLine": 482,
+        "startChar": 0,
+        "endLine": 482,
+        "endChar": 41
+      },
+      "revId": "d71ada5ac1a794c2ba231e540c45d69724a71d49",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
