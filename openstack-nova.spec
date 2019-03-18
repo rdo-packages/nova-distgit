@@ -16,6 +16,10 @@
 %global distro     RDO
 %global rhosp 0
 
+# Macros for QEMU and libvirt versions for EL8
+%global qemu_version_el8    3.1.0
+%global libvirt_version_el8 5.0.0
+
 %global common_desc \
 OpenStack Compute (codename Nova) is open source software designed to \
 provision and manage large networks of virtual machines, creating a \
@@ -195,7 +199,6 @@ Requires:         iscsi-initiator-utils
 Requires:         iptables
 Requires:         iptables-services
 Requires:         ipmitool
-Requires:         libvirt-daemon-kvm
 Requires:         /usr/bin/virsh
 %if 0%{?rhel}==0
 Requires:         libvirt-daemon-lxc
@@ -205,27 +208,50 @@ Requires:         rsync
 Requires:         lvm2
 Requires:         python%{pyver}-cinderclient >= 3.3.0
 Requires:         genisoimage
-# Ensure that the _right_ versions of QEMU binary and libvirt are
+# Ensure that the correct versions of QEMU binary and libvirt are
 # shipped based on distribution.
 %if 0%{?fedora}
-Requires(pre): qemu-kvm >= 2.10.0
-Requires(pre): python3-libvirt >= 3.9.0
-Requires(pre): libvirt-daemon-kvm >= 3.9.0
+Requires(pre): qemu-kvm >= %{qemu_version_el8}
+Requires(pre): python3-libvirt >= %{libvirt_version_el8}
+Requires(pre): libvirt-daemon-kvm >= %{libvirt_version_el8}
 %endif
-# NOTE-1: CentOS package is called 'qemu-kvm-ev', but it has a
-#         compatiblity "Provides: qemu-kvm-rhev", so it'll do the right
-#         thing, that's why we're not special-casing CentOS here.
-# NOTE-2: Explicitly conditionalize on RHEL-7, as we have to
-#         re-evaluate the QEMU and libvirt version strings for each RHOS
-#         / RHEL release.
-# NOTE-3: We're using "Requires(pre)" (instead of "Requires") as a
-#         safety check -- to guarantee when Nova, in the %pre" section,
-#         adds the 'nova' user to the 'qemu' and 'libvirt' groups, those
-#         groups are guaranteed to exist.
+# NOTE: EL-7 package is called 'qemu-kvm-ev', but it has a compatiblity
+#       "Provides: qemu-kvm-rhev", so it'll do the right thing, that's
+#       why we're not special-casing CentOS here.
 %if 0%{?rhel} == 7
 Requires(pre): qemu-kvm-rhev >= 2.10.0
 Requires(pre): libvirt-python >= 3.9.0
 Requires(pre): libvirt-daemon-kvm >= 3.9.0
+%endif
+# NOTE-1: From RHEL-8 onwards there is no 'qemu-kvm' vs.
+#         'qemu-kvm-ev|rhev' RPM split, instead there is only one RPM
+#         package: 'qemu-kvm'.
+#
+#         The 'qemu-kvm' RPM in RHEL-8 allows granular installation of
+#         functionality.  I.e. RHEL-8's 'qemu-kvm' RPM pulls in
+#         everything, just like it did in RHEL-7.  However, now there is
+#         a 'qemu-kvm-core' RPM, which pulls in only the core QEMU
+#         functionality.  And several sub-RPMs that provide Block Layer
+#         drivers (SSH, Curl, Glusterfs, iSCSI, RBD, etc).
+#
+# NOTE-2: Explicitly conditionalize on RHEL-8, as we have to
+#         re-evaluate the QEMU and libvirt version strings for each RHOS
+#         / RHEL release.
+#
+# NOTE-3: We're using "Requires(pre)" (instead of "Requires") as a
+#         safety check, so that when the 'nova' user is added to the
+#         'qemu' and 'libvirt' groups in the %pre section, those
+#         groups are guaranteed to exist.
+%if 0%{?rhel} == 8
+Requires(pre): qemu-kvm-core >= %{qemu_version_el8}
+Requires(pre): qemu-kvm-rbd >= %{qemu_version_el8}
+Requires(pre): qemu-kvm-ssh >= %{qemu_version_el8}
+Requires(pre): libvirt-python >= %{libvirt_version_el8}
+Requires(pre): libvirt-daemon-driver-nodedev >= %{libvirt_version_el8}
+Requires(pre): libvirt-daemon-driver-nwfilter >= %{libvirt_version_el8}
+Requires(pre): libvirt-daemon-driver-secret >= %{libvirt_version_el8}
+Requires(pre): libvirt-daemon-driver-qemu >= %{libvirt_version_el8}
+Requires(pre): libvirt-daemon-driver-storage-core >= %{libvirt_version_el8}
 %endif
 %if 0%{?with_novanet}
 Requires:         bridge-utils
