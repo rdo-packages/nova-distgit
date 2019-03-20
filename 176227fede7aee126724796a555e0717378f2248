@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "2b9d98d8_7747074b",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2019-03-20T15:25:00Z",
+      "side": 1,
+      "message": "Yep, makes sense.",
+      "parentUuid": "1d798b60_bcdfdbce",
+      "range": {
+        "startLine": 238,
+        "startChar": 50,
+        "endLine": 238,
+        "endChar": 55
+      },
+      "revId": "176227fede7aee126724796a555e0717378f2248",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "066ba0d7_6043eb63",
         "filename": "openstack-nova.spec",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2019-03-20T13:40:00Z",
       "side": 1,
       "message": "Unfortunately Nova doesn\u0027t actually use any of this, it\u0027s just using the raw device on the underlying host. Would be trivial to implement FWIW.\n\nhttps://github.com/openstack/nova/blob/master/nova/virt/libvirt/volume/iscsi.py#L51",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 59
+      },
+      "revId": "176227fede7aee126724796a555e0717378f2248",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7790160_4ed471cd",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2019-03-20T15:25:00Z",
+      "side": 1,
+      "message": "Hmm.  Not entirely clear if you want me to keep the highlighted dependencies in or not :-)  Sounds like not, as Nova isn\u0027t using any of it yet.",
+      "parentUuid": "066ba0d7_6043eb63",
       "range": {
         "startLine": 248,
         "startChar": 0,
