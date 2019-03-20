@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ccda4c83_acff70c2",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-03-20T16:09:10Z",
+      "side": 1,
+      "message": "%{qemu_version}",
+      "range": {
+        "startLine": 214,
+        "startChar": 27,
+        "endLine": 214,
+        "endChar": 32
+      },
+      "revId": "344acd1ba3c6d47a8683292b0834a90097ce9824",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "998ba3a1_7b75b3db",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-03-20T16:09:10Z",
+      "side": 1,
+      "message": "As discussed elsewhere if these are just required for storagepool functionality we can also drop these.",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 249,
+        "endChar": 71
+      },
+      "revId": "344acd1ba3c6d47a8683292b0834a90097ce9824",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
