@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da90f455_69747e76",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-03-20T13:40:00Z",
+      "side": 1,
+      "message": "nit - We should define this once just to make it easier to update in the future.",
+      "range": {
+        "startLine": 234,
+        "startChar": 32,
+        "endLine": 234,
+        "endChar": 37
+      },
+      "revId": "176227fede7aee126724796a555e0717378f2248",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d798b60_bcdfdbce",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-03-20T13:40:00Z",
+      "side": 1,
+      "message": "nit - ditto, lets define this once.",
+      "range": {
+        "startLine": 238,
+        "startChar": 50,
+        "endLine": 238,
+        "endChar": 55
+      },
+      "revId": "176227fede7aee126724796a555e0717378f2248",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "066ba0d7_6043eb63",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-03-20T13:40:00Z",
+      "side": 1,
+      "message": "Unfortunately Nova doesn\u0027t actually use any of this, it\u0027s just using the raw device on the underlying host. Would be trivial to implement FWIW.\n\nhttps://github.com/openstack/nova/blob/master/nova/virt/libvirt/volume/iscsi.py#L51",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 250,
+        "endChar": 59
+      },
+      "revId": "176227fede7aee126724796a555e0717378f2248",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
