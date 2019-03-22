@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "518b9a7a_5abda1d3",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2019-03-22T08:37:25Z",
+      "side": 1,
+      "message": "What about rhel7?, note we will release RDO Stein for CentOS7 (RHEL/CentOS 8 will be not released by Stein GA timeframe), so we need to keep this spec compatible with CentOS7.",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 6
+      },
+      "revId": "01bc65341d497e6ae270d9d883ed2f6742431688",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
