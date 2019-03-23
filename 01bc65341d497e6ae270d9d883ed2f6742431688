@@ -46,6 +46,30 @@
       "revId": "01bc65341d497e6ae270d9d883ed2f6742431688",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b62de40a_8e606143",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 5
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2019-03-23T13:39:06Z",
+      "side": 1,
+      "message": "Whoops!  Indeed, the RHEL-7 block should of course remain. Not sure what I was thinking.\n\n(I\u0027ll get back to this once I\u0027m back from PTO on 01-Apr.)",
+      "parentUuid": "ff8a8c93_e1e7e068",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 248,
+        "endChar": 6
+      },
+      "revId": "01bc65341d497e6ae270d9d883ed2f6742431688",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
