@@ -17,7 +17,7 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          17.0.9
+Version:          17.0.10
 Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
@@ -830,6 +830,9 @@ exit 0
 %endif
 
 %changelog
+* Sun Mar 24 2019 RDO <dev@lists.rdoproject.org> 1:17.0.10-1
+- Update to 17.0.10
+
 * Wed Dec 19 2018 RDO <dev@lists.rdoproject.org> 1:17.0.9-1
 - Update to 17.0.9
 
