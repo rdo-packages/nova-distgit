@@ -44,6 +44,10 @@ Summary:          OpenStack Compute (nova)
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
 Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz
+# Until patch is accepted upstream: https://review.openstack.org/#/c/647310/
+# https://launchpad.net/bugs/1808975
+# https://launchpad.net/bugs/1808951
+Patch0:           0001-Eventlet-monkey-patching-should-be-as-early-as-possible.patch
 
 #
 # patches_base=19.0.0.0rc1
