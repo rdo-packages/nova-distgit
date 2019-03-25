@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c863b5c9_e7041c4f",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 417
+      },
+      "writtenOn": "2019-03-25T22:51:39Z",
+      "side": 1,
+      "message": "Why do this?  We have autosetup in the %prep section so just adding the %patch0 macro is enough to get the patch applied.\n\nYou can see it adding the patch at that point here: https://logs.rdoproject.org/32/19732/1/check/legacy-DLRN-rpmbuild/574c0d6/job-output.txt.gz#_2019-03-25_21_11_43_544734",
+      "range": {
+        "startLine": 620,
+        "startChar": 0,
+        "endLine": 623,
+        "endChar": 11
+      },
+      "revId": "d7aa7dcaf753167ff4a9ed662fc6222b789d081c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
