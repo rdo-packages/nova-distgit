@@ -1,0 +1,8 @@
+Code-Review+2: Yatin Karel <ykarel@redhat.com>
+Workflow+1: Yatin Karel <ykarel@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Mon, 25 Mar 2019 14:38:27 +0000
+Reviewed-on: https://review.rdoproject.org/r/19721
+Project: openstack/nova-distgit
+Branch: refs/heads/rocky-rdo
