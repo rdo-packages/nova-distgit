@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d590920f_311c542d",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-04-05T13:00:31Z",
+      "side": 1,
+      "message": "We don\u0027t actually use qemu_version and libvirt_version outside of the dep conditionals below so I\u0027d rather we just set these there.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "c8e62fe90dabaf805c285847824ad2961d76baa0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10fec87f_a10f2ded",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-04-05T13:00:31Z",
+      "side": 1,
+      "message": "^ So why not update this to the new layout as well?",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 55
+      },
+      "revId": "c8e62fe90dabaf805c285847824ad2961d76baa0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
