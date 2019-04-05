@@ -46,6 +46,30 @@
       "revId": "8e2f6e661db4adebbc56bb99241ad503cbfc86eb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d34ff17e_48d3a4b1",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-04-05T08:49:49Z",
+      "side": 1,
+      "message": "Adding a preview repo to RDO isn\u0027t an option IMHO, RDO is still released to a community of users who expect stability that wouldn\u0027t necessarily come from that repo.\n\nLets just add another conditional for Fedora ahead of the else block for RHEL 8.",
+      "parentUuid": "2a4b5a8b_09c4e6c9",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "8e2f6e661db4adebbc56bb99241ad503cbfc86eb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
