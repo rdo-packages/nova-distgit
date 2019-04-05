@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8762679f_7d624805",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2019-04-05T07:28:01Z",
+      "side": 1,
+      "message": "Fedora28 (which is the one our fedora builder is based on until we have CentOS8) has libvirt 4.1.0 and qemu 2.11.2.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "8e2f6e661db4adebbc56bb99241ad503cbfc86eb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
