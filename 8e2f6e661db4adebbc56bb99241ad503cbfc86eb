@@ -22,6 +22,30 @@
       "revId": "8e2f6e661db4adebbc56bb99241ad503cbfc86eb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a4b5a8b_09c4e6c9",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2019-04-05T08:25:17Z",
+      "side": 1,
+      "message": "I don\u0027t think we should block on that.\n\nYou have two options:\n\n(1) Enable the \u0027virt-preview\u0027 repo: \n\n    `sudo dnf copr enable @virtmaint-sig/virt-preview`\n\n   Details here: https://fedoraproject.org/wiki/Virtualization_Preview_Repository\n\n(2) Move the builder machine to Fedora-30 (even if Beta)—it will be much closer to CentOS-8.",
+      "parentUuid": "8762679f_7d624805",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "8e2f6e661db4adebbc56bb99241ad503cbfc86eb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
