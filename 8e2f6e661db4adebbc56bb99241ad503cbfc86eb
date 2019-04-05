@@ -94,6 +94,30 @@
       "revId": "8e2f6e661db4adebbc56bb99241ad503cbfc86eb",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2414a14a_0c3bd73a",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-04-05T08:54:25Z",
+      "side": 1,
+      "message": "Ignore that, I managed to confuse myself regarding the versions at play.",
+      "parentUuid": "3b6f8b31_7d067f4a",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "8e2f6e661db4adebbc56bb99241ad503cbfc86eb",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
