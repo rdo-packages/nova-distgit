@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "300b9644_317f5670",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2019-04-08T08:45:13Z",
+      "side": 1,
+      "message": "libvirt-python is provided by python2-libvirt while fedor has moved to python3, so it should be python3-libvirt.",
+      "range": {
+        "startLine": 232,
+        "startChar": 15,
+        "endLine": 232,
+        "endChar": 29
+      },
+      "revId": "6724b458205a686109a4b2ac856d34b309eb6423",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
