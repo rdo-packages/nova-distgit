@@ -228,9 +228,15 @@ Requires:         genisoimage
 # Ensure that the correct versions of QEMU binary and libvirt are
 # shipped based on distribution.
 %if 0%{?fedora}
-Requires(pre): qemu-kvm >= %{qemu_version}
+Requires(pre): qemu-kvm-core >= %{qemu_version}
+Requires(pre): qemu-kvm-rbd >= %{qemu_version}
+Requires(pre): qemu-kvm-ssh >= %{qemu_version}
 Requires(pre): python3-libvirt >= %{libvirt_version}
-Requires(pre): libvirt-daemon-kvm >= %{libvirt_version}
+Requires(pre): libvirt-daemon-driver-nodedev >= %{libvirt_version}
+Requires(pre): libvirt-daemon-driver-nwfilter >= %{libvirt_version}
+Requires(pre): libvirt-daemon-driver-secret >= %{libvirt_version}
+Requires(pre): libvirt-daemon-driver-qemu >= %{libvirt_version}
+Requires(pre): libvirt-daemon-driver-storage-core >= %{libvirt_version}
 %endif
 # NOTE: EL-7 package is called 'qemu-kvm-ev', but it has a compatiblity
 #       "Provides: qemu-kvm-rhev", so it'll do the right thing, that's
