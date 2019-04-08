@@ -22,6 +22,30 @@
       "revId": "73bcc3cd92126f2907f2f18a9ce93e8ae4d079a7",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5bdb3014_1a6948fd",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2019-04-08T15:49:36Z",
+      "side": 1,
+      "message": "Okay, it is for readability\u0027s sake.  Next iteration.  I hope that\u0027s the last one.",
+      "parentUuid": "ae8bf5fe_83b705eb",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "73bcc3cd92126f2907f2f18a9ce93e8ae4d079a7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
