@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae8bf5fe_83b705eb",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-04-08T12:24:26Z",
+      "side": 1,
+      "message": "This is still nested. Sorry for dragging on here it just doesn\u0027t need to be written like this.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "73bcc3cd92126f2907f2f18a9ce93e8ae4d079a7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
