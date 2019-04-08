@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1abfc026_9d895247",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 10
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-04-08T08:41:40Z",
+      "side": 1,
+      "message": "Almost there, as I think I said on irc  if we can\u0027t move these globals down the this doesn\u0027t need to be any different to the conditionals below that use these globals as we only support Fedora, EL 7 and EL8:\n\n  %if 0%{?fedora}\n  [..]\n  %endif\n  %if 0%{?rhel} \u003d\u003d 7\n  [..]\n  %endif\n  %if 0%{?rhel} \u003d\u003d 8\n  [..]\n  %endif",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "6a7de4abf942a8aa52ffbebee11129b90fdd4e5d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
