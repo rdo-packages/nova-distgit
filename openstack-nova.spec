@@ -1,4 +1,3 @@
-%global milestone .0rc2
 # Macros for py2/py3 compatibility
 %if 0%{?fedora} || 0%{?rhel} > 7
 %global pyver %{python3_pkgversion}
@@ -38,7 +37,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          19.0.0
-Release:          0.2%{?milestone}%{?dist}
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -49,8 +48,6 @@ Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.t
 # https://launchpad.net/bugs/1808951
 Patch0:           0001-Eventlet-monkey-patching-should-be-as-early-as-possible.patch
 
-#
-# patches_base=19.0.0.0rc2
 #
 
 Source1:          nova-dist.conf
@@ -967,6 +964,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Apr 10 2019 RDO <dev@lists.rdoproject.org> 1:19.0.0-1
+- Update to 19.0.0
+
 * Fri Apr 05 2019 RDO <dev@lists.rdoproject.org> 1:19.0.0-0.2.0rc1
 - Update to 19.0.0.0rc2
 
