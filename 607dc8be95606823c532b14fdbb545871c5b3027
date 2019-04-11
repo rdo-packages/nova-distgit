@@ -34,6 +34,24 @@
       "revId": "607dc8be95606823c532b14fdbb545871c5b3027",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e576510_a417f1b7",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2019-04-11T13:27:46Z",
+      "side": 1,
+      "message": "Yes, fixed in PS-2.\n\nThanks for the review!",
+      "parentUuid": "012ba4bf_5add0c4e",
+      "revId": "607dc8be95606823c532b14fdbb545871c5b3027",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
