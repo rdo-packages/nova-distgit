@@ -16,6 +16,24 @@
       "revId": "607dc8be95606823c532b14fdbb545871c5b3027",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "012ba4bf_5add0c4e",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 363
+      },
+      "writtenOn": "2019-04-11T13:00:57Z",
+      "side": 1,
+      "message": "RHEL8 seems to have qemu-kvm-bock-[rbd|ssh]",
+      "parentUuid": "a7821c02_dc400d44",
+      "revId": "607dc8be95606823c532b14fdbb545871c5b3027",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
