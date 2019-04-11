@@ -259,8 +259,8 @@ Requires(pre): libvirt-daemon-kvm >= %{libvirt_version}
 #         groups are guaranteed to exist.
 %if 0%{?rhel} == 8
 Requires(pre): qemu-kvm-core >= %{qemu_version}
-Requires(pre): qemu-kvm-rbd >= %{qemu_version}
-Requires(pre): qemu-kvm-ssh >= %{qemu_version}
+Requires(pre): qemu-block-rbd >= %{qemu_version}
+Requires(pre): qemu-block-ssh >= %{qemu_version}
 Requires(pre): libvirt-python >= %{libvirt_version}
 Requires(pre): libvirt-daemon-driver-nodedev >= %{libvirt_version}
 Requires(pre): libvirt-daemon-driver-nwfilter >= %{libvirt_version}
