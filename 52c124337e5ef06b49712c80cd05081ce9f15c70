@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12b860de_986ff1b1",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2019-04-11T12:33:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be qemu-block-rbd and qemu-block-ssh?",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 46
+      },
+      "revId": "52c124337e5ef06b49712c80cd05081ce9f15c70",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
