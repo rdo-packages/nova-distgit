@@ -77,7 +77,6 @@ Source19:         openstack-nova-console.service
 Source20:         openstack-nova-consoleauth.service
 Source25:         openstack-nova-metadata-api.service
 Source26:         openstack-nova-conductor.service
-Source27:         openstack-nova-cells.service
 Source28:         openstack-nova-spicehtml5proxy.service
 Source29:         openstack-nova-novncproxy.service
 Source31:         openstack-nova-serialproxy.service
@@ -149,7 +148,6 @@ Requires:         openstack-nova-network = %{epoch}:%{version}-%{release}
 %endif
 Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-console = %{epoch}:%{version}-%{release}
-Requires:         openstack-nova-cells = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-novncproxy = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-placement-api = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-migration = %{epoch}:%{version}-%{release}
@@ -161,6 +159,8 @@ Requires:         openstack-nova-migration = %{epoch}:%{version}-%{release}
 %package common
 Summary:          Components common to all OpenStack Nova services
 Obsoletes:        openstack-nova-cert <= 1:16.0.0-1
+# nova-cells has been retired in train
+Obsoletes:        openstack-nova-cells < 1:20.0.0
 
 Requires:         python%{pyver}-nova = %{epoch}:%{version}-%{release}
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -367,17 +367,6 @@ Requires:         python%{pyver}-websockify
 
 This package contains the Nova services providing
 console access services to Virtual Machines.
-
-%package cells
-Summary:          OpenStack Nova Cells services
-
-Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-
-%description cells
-%{common_desc}
-
-This package contains the Nova Cells service providing additional
-scaling and (geographic) distribution for compute services.
 
 %package novncproxy
 Summary:          OpenStack Nova noVNC proxy service
@@ -714,7 +703,6 @@ install -p -D -m 644 %{SOURCE19} %{buildroot}%{_unitdir}/openstack-nova-console.
 install -p -D -m 644 %{SOURCE20} %{buildroot}%{_unitdir}/openstack-nova-consoleauth.service
 install -p -D -m 644 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata-api.service
 install -p -D -m 644 %{SOURCE26} %{buildroot}%{_unitdir}/openstack-nova-conductor.service
-install -p -D -m 644 %{SOURCE27} %{buildroot}%{_unitdir}/openstack-nova-cells.service
 install -p -D -m 644 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtml5proxy.service
 install -p -D -m 644 %{SOURCE29} %{buildroot}%{_unitdir}/openstack-nova-novncproxy.service
 install -p -D -m 644 %{SOURCE31} %{buildroot}%{_unitdir}/openstack-nova-serialproxy.service
@@ -955,10 +943,6 @@ exit 0
 %{_unitdir}/openstack-nova-console*.service
 %{_unitdir}/openstack-nova-xvpvncproxy.service
 
-%files cells
-%{_bindir}/nova-cells
-%{_unitdir}/openstack-nova-cells.service
-
 %files novncproxy
 %{_bindir}/nova-novncproxy
 %{_unitdir}/openstack-nova-novncproxy.service
@@ -1005,3 +989,4 @@ exit 0
 %endif
 
 %changelog
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/nova/commit/?id=013aa1915c79cfcb90c4333ce1e16b3c40f16be8
