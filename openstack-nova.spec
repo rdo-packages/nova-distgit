@@ -13,8 +13,12 @@
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 0
-%global distro     RDO
 %global rhosp 0
+%if 0%{?rhosp} == 0
+%global distro     RDO
+%else
+%global distro     Red Hat
+%endif
 
 # Macros for QEMU and libvirt versions
 # For Fedora, stick to minimum versions that upstream Nova requires.
