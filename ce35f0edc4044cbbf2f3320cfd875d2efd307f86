@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a915065a_4f13ec4f",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2019-09-25T16:26:49Z",
+      "side": 1,
+      "message": "Can you elaborate on this? I see the project states 2.7 as the minimum requirement, does 2.5 improve anything compared to 2.1?",
+      "range": {
+        "startLine": 456,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 52
+      },
+      "revId": "ce35f0edc4044cbbf2f3320cfd875d2efd307f86",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
