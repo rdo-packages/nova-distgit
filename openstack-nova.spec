@@ -442,30 +442,32 @@ Requires:         openssh
 Requires:         sudo
 
 Requires:         python%{pyver}-paramiko >= 2.0.0
-Requires:         python%{pyver}-eventlet >= 0.18.2
+Requires:         python%{pyver}-eventlet >= 0.20.0
 Requires:         python%{pyver}-iso8601 >= 0.1.11
 Requires:         python%{pyver}-netaddr >= 0.7.18
 Requires:         python%{pyver}-boto
 Requires:         python%{pyver}-stevedore >= 1.20.0
-Requires:         python%{pyver}-sqlalchemy >= 1.0.10
+Requires:         python%{pyver}-sqlalchemy >= 1.2.17
 Requires:         python%{pyver}-alembic >= 0.8.0
 Requires:         python%{pyver}-routes >= 2.3.1
 Requires:         python%{pyver}-webob >= 1.8.2
 Requires:         python%{pyver}-babel >= 2.3.4
 Requires:         python%{pyver}-castellan >= 0.16.0
+# FIXME(ykarel) Update to 2.7 once it's available
 Requires:         python%{pyver}-cryptography >= 2.1
 Requires:         python%{pyver}-cursive >= 0.2.1
 Requires:         python%{pyver}-glanceclient >= 1:2.8.0
 Requires:         python%{pyver}-greenlet >= 0.4.10
-Requires:         python%{pyver}-keystonemiddleware >= 4.17.0
-Requires:         python%{pyver}-keystoneauth1 >= 3.9.0
+Requires:         python%{pyver}-keystonemiddleware >= 4.20.0
+Requires:         python%{pyver}-keystoneauth1 >= 3.16.0
 Requires:         python%{pyver}-jinja2
 Requires:         python%{pyver}-jsonschema >= 2.6.0
 Requires:         python%{pyver}-microversion-parse >= 0.2.1
 Requires:         python%{pyver}-neutronclient >= 6.7.0
 Requires:         python%{pyver}-novaclient >= 2.30.1
+Requires:         python%{pyver}-openstacksdk >= 0.35.0
 Requires:         python%{pyver}-os-brick >= 2.6.1
-Requires:         python%{pyver}-os-resource-classes >= 0.2.0
+Requires:         python%{pyver}-os-resource-classes >= 0.4.0
 Requires:         python%{pyver}-os-traits
 Requires:         python%{pyver}-oslo-cache >= 1.26.0
 Requires:         python%{pyver}-oslo-concurrency >= 3.26.0
@@ -474,17 +476,17 @@ Requires:         python%{pyver}-oslo-context >= 2.19.2
 Requires:         python%{pyver}-oslo-db >= 4.44.0
 Requires:         python%{pyver}-oslo-i18n >= 3.15.3
 Requires:         python%{pyver}-oslo-log >= 3.36.0
-Requires:         python%{pyver}-oslo-messaging >= 6.3.0
+Requires:         python%{pyver}-oslo-messaging >= 7.0.0
 Requires:         python%{pyver}-oslo-middleware >= 3.31.0
 Requires:         python%{pyver}-oslo-policy >= 1.35.0
-Requires:         python%{pyver}-oslo-privsep >= 1.32.0
+Requires:         python%{pyver}-oslo-privsep >= 1.33.2
 Requires:         python%{pyver}-oslo-reports >= 1.18.0
 Requires:         python%{pyver}-oslo-rootwrap >= 5.8.0
-Requires:         python%{pyver}-oslo-serialization >= 2.21.0
-Requires:         python%{pyver}-oslo-service >= 1.34.0
+Requires:         python%{pyver}-oslo-serialization >= 2.21.1
+Requires:         python%{pyver}-oslo-service >= 1.40.1
 Requires:         python%{pyver}-oslo-upgradecheck >= 0.1.1
-Requires:         python%{pyver}-oslo-utils >= 3.37.0
-Requires:         python%{pyver}-oslo-versionedobjects >= 1.33.3
+Requires:         python%{pyver}-oslo-utils >= 3.40.2
+Requires:         python%{pyver}-oslo-versionedobjects >= 1.35.0
 Requires:         python%{pyver}-os-vif >= 1.14.0
 Requires:         python%{pyver}-oslo-vmware >= 1.16.0
 Requires:         python%{pyver}-pbr
@@ -495,7 +497,7 @@ Requires:         python%{pyver}-rfc3986 >= 1.1.0
 Requires:         python%{pyver}-six >= 1.10.0
 Requires:         python%{pyver}-taskflow >= 2.16.0
 Requires:         python%{pyver}-tooz >= 1.58.0
-Requires:         python%{pyver}-os-service-types >= 1.2.0
+Requires:         python%{pyver}-os-service-types >= 1.7.0
 Requires:         python%{pyver}-dateutil >= 2.5.3
 Requires:         python%{pyver}-futurist >= 1.8.0
 
