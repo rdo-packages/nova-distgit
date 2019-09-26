@@ -22,6 +22,30 @@
       "revId": "ce35f0edc4044cbbf2f3320cfd875d2efd307f86",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc9b7b42_b7ea728e",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2019-09-26T07:23:26Z",
+      "side": 1,
+      "message": "Nice catch. i am not aware if 2.5 improves anything, i will keep it as 2.1 only for now and keep comment to move it to 2.7.",
+      "parentUuid": "a915065a_4f13ec4f",
+      "range": {
+        "startLine": 456,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 52
+      },
+      "revId": "ce35f0edc4044cbbf2f3320cfd875d2efd307f86",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
