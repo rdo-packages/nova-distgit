@@ -1,4 +1,4 @@
-%global milestone .0rc1
+%global milestone .0rc2
 # Macros for py2/py3 compatibility
 %if 0%{?fedora} || 0%{?rhel} > 7
 %global pyver %{python3_pkgversion}
@@ -61,7 +61,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          20.0.0
-Release:          0.1%{?milestone}%{?dist}
+Release:          0.2%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -69,7 +69,7 @@ URL:              http://openstack.org/projects/compute/
 Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz
 
 #
-# patches_base=20.0.0.0rc1
+# patches_base=20.0.0.0rc2
 #
 
 Source1:          nova-dist.conf
@@ -967,6 +967,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Oct 11 2019 RDO <dev@lists.rdoproject.org> 1:20.0.0-0.2.0rc1
+- Update to 20.0.0.0rc2
+
 * Mon Sep 30 2019 RDO <dev@lists.rdoproject.org> 1:20.0.0-0.1.0rc1
 - Update to 20.0.0.0rc1
 
