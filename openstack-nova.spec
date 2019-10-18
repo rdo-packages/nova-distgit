@@ -134,10 +134,8 @@ BuildRequires:    python%{pyver}-os-resource-classes
 
 # Handle python2 exception
 %if %{pyver} == 2
-BuildRequires:    python-d2to1
 BuildRequires:    python-requests-mock
 %else
-BuildRequires:    python%{pyver}-d2to1
 BuildRequires:    python%{pyver}-requests-mock
 BuildRequires:    /usr/bin/pathfix.py
 %endif
