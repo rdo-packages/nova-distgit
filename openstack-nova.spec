@@ -18,7 +18,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          18.2.3
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -838,6 +838,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Oct 23 2019 Lance Albertson <lance@osuosl.org> 1:18.2.3-2
+- Remove additional deprecated nova-network options
+
 * Thu Oct 10 2019 RDO <dev@lists.rdoproject.org> 1:18.2.3-1
 - Update to 18.2.3
 
