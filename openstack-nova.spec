@@ -681,7 +681,6 @@ install -p -D -m 644 %{SOURCE10} %{buildroot}%{_unitdir}/openstack-nova-api.serv
 install -p -D -m 644 %{SOURCE12} %{buildroot}%{_unitdir}/openstack-nova-compute.service
 install -p -D -m 644 %{SOURCE15} %{buildroot}%{_unitdir}/openstack-nova-scheduler.service
 install -p -D -m 644 %{SOURCE18} %{buildroot}%{_unitdir}/openstack-nova-xvpvncproxy.service
-install -p -D -m 644 %{SOURCE19} %{buildroot}%{_unitdir}/openstack-nova-console.service
 install -p -D -m 644 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata-api.service
 install -p -D -m 644 %{SOURCE26} %{buildroot}%{_unitdir}/openstack-nova-conductor.service
 install -p -D -m 644 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtml5proxy.service
@@ -797,7 +796,7 @@ exit 0
 %post conductor
 %systemd_post %{name}-conductor.service
 %post console
-%systemd_post %{name}-console.service %{name}-xvpvncproxy.service
+%systemd_post %{name}-xvpvncproxy.service
 %post novncproxy
 %systemd_post %{name}-novncproxy.service
 %post spicehtml5proxy
@@ -818,7 +817,7 @@ exit 0
 %preun conductor
 %systemd_preun %{name}-conductor.service
 %preun console
-%systemd_preun %{name}-console.service %{name}-xvpvncproxy.service
+%systemd_preun %{name}-xvpvncproxy.service
 %preun novncproxy
 %systemd_preun %{name}-novncproxy.service
 %preun spicehtml5proxy
@@ -839,7 +838,7 @@ exit 0
 %postun conductor
 %systemd_postun_with_restart %{name}-conductor.service
 %postun console
-%systemd_postun_with_restart %{name}-console.service %{name}-xvpvncproxy.service
+%systemd_postun_with_restart %{name}-xvpvncproxy.service
 %postun novncproxy
 %systemd_postun_with_restart %{name}-novncproxy.service
 %postun spicehtml5proxy
@@ -913,9 +912,7 @@ exit 0
 %{_unitdir}/openstack-nova-conductor.service
 
 %files console
-%{_bindir}/nova-console*
 %{_bindir}/nova-xvpvncproxy
-%{_unitdir}/openstack-nova-console*.service
 %{_unitdir}/openstack-nova-xvpvncproxy.service
 
 %files novncproxy
