@@ -16,6 +16,24 @@
       "revId": "7a0b9fc60737e6b6500607848b031d9c69af1f82",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "254dc848_cada4ae9",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 5
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-11-25T16:54:22Z",
+      "side": 1,
+      "message": "No it\u0027s a separate service, as is novnc-proxy above.",
+      "parentUuid": "024bf237_00e839f9",
+      "revId": "7a0b9fc60737e6b6500607848b031d9c69af1f82",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
