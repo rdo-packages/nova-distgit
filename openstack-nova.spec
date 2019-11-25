@@ -67,7 +67,6 @@ Source6:          nova.logrotate
 Source10:         openstack-nova-api.service
 Source12:         openstack-nova-compute.service
 Source15:         openstack-nova-scheduler.service
-Source18:         openstack-nova-xvpvncproxy.service
 Source25:         openstack-nova-metadata-api.service
 Source26:         openstack-nova-conductor.service
 Source28:         openstack-nova-spicehtml5proxy.service
@@ -134,7 +133,6 @@ Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-api = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
-Requires:         openstack-nova-console = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-novncproxy = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-migration = %{epoch}:%{version}-%{release}
 
@@ -314,23 +312,6 @@ Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 
 This package contains the Nova services providing database access for
 the compute service
-
-%package console
-Summary:          OpenStack Nova console access services
-
-Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-# Handle python2 exception
-%if %{pyver} == 2
-Requires:         python-websockify
-%else
-Requires:         python%{pyver}-websockify
-%endif
-
-%description console
-%{common_desc}
-
-This package contains the Nova services providing
-console access services to Virtual Machines.
 
 %package novncproxy
 Summary:          OpenStack Nova noVNC proxy service
@@ -645,7 +626,6 @@ EOF
 install -p -D -m 644 %{SOURCE10} %{buildroot}%{_unitdir}/openstack-nova-api.service
 install -p -D -m 644 %{SOURCE12} %{buildroot}%{_unitdir}/openstack-nova-compute.service
 install -p -D -m 644 %{SOURCE15} %{buildroot}%{_unitdir}/openstack-nova-scheduler.service
-install -p -D -m 644 %{SOURCE18} %{buildroot}%{_unitdir}/openstack-nova-xvpvncproxy.service
 install -p -D -m 644 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata-api.service
 install -p -D -m 644 %{SOURCE26} %{buildroot}%{_unitdir}/openstack-nova-conductor.service
 install -p -D -m 644 %{SOURCE28} %{buildroot}%{_unitdir}/openstack-nova-spicehtml5proxy.service
@@ -752,8 +732,6 @@ exit 0
 %systemd_post %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %post conductor
 %systemd_post %{name}-conductor.service
-%post console
-%systemd_post %{name}-xvpvncproxy.service
 %post novncproxy
 %systemd_post %{name}-novncproxy.service
 %post spicehtml5proxy
@@ -769,8 +747,6 @@ exit 0
 %systemd_preun %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %preun conductor
 %systemd_preun %{name}-conductor.service
-%preun console
-%systemd_preun %{name}-xvpvncproxy.service
 %preun novncproxy
 %systemd_preun %{name}-novncproxy.service
 %preun spicehtml5proxy
@@ -786,8 +762,6 @@ exit 0
 %systemd_postun_with_restart %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %postun conductor
 %systemd_postun_with_restart %{name}-conductor.service
-%postun console
-%systemd_postun_with_restart %{name}-xvpvncproxy.service
 %postun novncproxy
 %systemd_postun_with_restart %{name}-novncproxy.service
 %postun spicehtml5proxy
@@ -803,7 +777,6 @@ exit 0
 %dir %{_datarootdir}/nova
 %attr(-, root, nova) %{_datarootdir}/nova/nova-dist.conf
 %{_datarootdir}/nova/interfaces.template
-%{_datarootdir}/nova/rootwrap/network.filters
 %dir %{_sysconfdir}/nova
 %{_sysconfdir}/nova/release
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova.conf
@@ -847,15 +820,10 @@ exit 0
 %{_bindir}/nova-api*
 %{_bindir}/nova-metadata-wsgi
 %{_unitdir}/openstack-nova-*api.service
-%{_datarootdir}/nova/rootwrap/api-metadata.filters
 
 %files conductor
 %{_bindir}/nova-conductor
 %{_unitdir}/openstack-nova-conductor.service
-
-%files console
-%{_bindir}/nova-xvpvncproxy
-%{_unitdir}/openstack-nova-xvpvncproxy.service
 
 %files novncproxy
 %{_bindir}/nova-novncproxy
