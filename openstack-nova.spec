@@ -956,3 +956,4 @@ exit 0
 %endif
 
 %changelog
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/nova/commit/?id=d63ed15574d9629889473fcd445272cfe4dcd95e
