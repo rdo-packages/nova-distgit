@@ -49,12 +49,6 @@ through users and projects. OpenStack Compute strives to be both \
 hardware and hypervisor agnostic, currently supporting a variety of \
 standard hardware configurations and seven major hypervisors.
 
-%if 0%{?rhosp} && 0%{?rhel} > 7
-%global with_novanet 0
-%else
-%global with_novanet 1
-%endif
-
 Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
@@ -72,9 +66,6 @@ Source6:          nova.logrotate
 
 Source10:         openstack-nova-api.service
 Source12:         openstack-nova-compute.service
-%if 0%{?with_novanet}
-Source13:         openstack-nova-network.service
-%endif
 Source15:         openstack-nova-scheduler.service
 Source18:         openstack-nova-xvpvncproxy.service
 Source25:         openstack-nova-metadata-api.service
@@ -142,9 +133,6 @@ BuildRequires:    /usr/bin/pathfix.py
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-api = %{epoch}:%{version}-%{release}
-%if 0%{?with_novanet}
-Requires:         openstack-nova-network = %{epoch}:%{version}-%{release}
-%endif
 Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-console = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-novncproxy = %{epoch}:%{version}-%{release}
@@ -272,9 +260,6 @@ Requires(pre): libvirt-daemon-driver-secret >= %{libvirt_version}
 Requires(pre): libvirt-daemon-driver-qemu >= %{libvirt_version}
 Requires(pre): libvirt-daemon-driver-storage-core >= %{libvirt_version}
 %endif
-%if 0%{?with_novanet}
-Requires:         bridge-utils
-%endif
 Requires:         sg3_utils
 Requires:         sysfsutils
 Requires:         libosinfo
@@ -294,25 +279,6 @@ Requires:         python3-libvirt
 %{common_desc}
 
 This package contains the Nova service for controlling Virtual Machines.
-
-
-%if 0%{?with_novanet}
-%package network
-Summary:          OpenStack Nova Network control service
-
-Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         radvd
-Requires:         bridge-utils
-Requires:         dnsmasq
-Requires:         dnsmasq-utils
-Requires:         ebtables
-Requires:         conntrack-tools
-
-%description network
-%{common_desc}
-
-This package contains the Nova service for controlling networking.
-%endif # with_novanet
 
 
 %package scheduler
@@ -687,12 +653,8 @@ install -p -D -m 644 %{SOURCE29} %{buildroot}%{_unitdir}/openstack-nova-novncpro
 install -p -D -m 644 %{SOURCE31} %{buildroot}%{_unitdir}/openstack-nova-serialproxy.service
 install -p -D -m 644 %{SOURCE32} %{buildroot}%{_unitdir}/openstack-nova-os-compute-api.service
 
-%if 0%{?with_novanet}
-install -p -D -m 644 %{SOURCE13} %{buildroot}%{_unitdir}/openstack-nova-network.service
-%else
+# (amoralej) we need to keep this until https://review.opendev.org/686816 is merged
 rm -f %{buildroot}%{_bindir}/nova-network
-rm -f %{buildroot}%{_bindir}/nova-dhcpbridge
-%endif
 
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
@@ -784,10 +746,6 @@ exit 0
 
 %post compute
 %systemd_post %{name}-compute.service
-%if 0%{?with_novanet}
-%post network
-%systemd_post %{name}-network.service
-%endif
 %post scheduler
 %systemd_post %{name}-scheduler.service
 %post api
@@ -805,10 +763,6 @@ exit 0
 
 %preun compute
 %systemd_preun %{name}-compute.service
-%if 0%{?with_novanet}
-%preun network
-%systemd_preun %{name}-network.service
-%endif
 %preun scheduler
 %systemd_preun %{name}-scheduler.service
 %preun api
@@ -826,10 +780,6 @@ exit 0
 
 %postun compute
 %systemd_postun_with_restart %{name}-compute.service
-%if 0%{?with_novanet}
-%postun network
-%systemd_postun_with_restart %{name}-network.service
-%endif
 %postun scheduler
 %systemd_postun_with_restart %{name}-scheduler.service
 %postun api
@@ -888,13 +838,6 @@ exit 0
 %{_bindir}/nova-compute
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
-
-%if 0%{?with_novanet}
-%files network
-%{_bindir}/nova-network
-%{_bindir}/nova-dhcpbridge
-%{_unitdir}/openstack-nova-network.service
-%endif
 
 %files scheduler
 %{_bindir}/nova-scheduler
