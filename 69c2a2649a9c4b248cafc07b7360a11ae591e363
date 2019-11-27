@@ -46,6 +46,54 @@
       "revId": "69c2a2649a9c4b248cafc07b7360a11ae591e363",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c48440f3_a289c375",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2019-11-27T10:00:26Z",
+      "side": 0,
+      "message": "I see https://github.com/openstack/nova/blob/master/nova/tests/unit/network/test_manager.py still exist, won\u0027t it fail to run unit tests if we remove that BR?",
+      "parentUuid": "bc730eb6_d7997a1d",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "69c2a2649a9c4b248cafc07b7360a11ae591e363",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4f90516_4ff0ddf5",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2019-11-27T10:00:26Z",
+      "side": 0,
+      "message": "https://review.opendev.org/#/c/686815/ was already merged so nova was ftbfs. I wanted to clean it asap but we can wait for second review to merge if needed.",
+      "parentUuid": "1c45e96c_148c21cd",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "69c2a2649a9c4b248cafc07b7360a11ae591e363",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
