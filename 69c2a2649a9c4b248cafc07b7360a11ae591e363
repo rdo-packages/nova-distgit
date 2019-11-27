@@ -22,6 +22,30 @@
       "revId": "69c2a2649a9c4b248cafc07b7360a11ae591e363",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c45e96c_148c21cd",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2019-11-27T09:36:35Z",
+      "side": 0,
+      "message": "Have they been removed yet? Maybe worth doing in a follow-up tied to an openstack/nova review via Upstream-Id: $Change-Id",
+      "parentUuid": "bc730eb6_d7997a1d",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "69c2a2649a9c4b248cafc07b7360a11ae591e363",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
