@@ -94,6 +94,30 @@
       "revId": "69c2a2649a9c4b248cafc07b7360a11ae591e363",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae27694b_b4ede140",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2019-11-27T10:16:24Z",
+      "side": 0,
+      "message": "Nah, we can merge this as-is and remove this dependency later, in a separate change. It could be weeks if not months before the follow-up patch to remove the code in nova/network (and therefore the tests in nova/tests/unit/network) is removed so no point blocking on that",
+      "parentUuid": "c48440f3_a289c375",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "69c2a2649a9c4b248cafc07b7360a11ae591e363",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
