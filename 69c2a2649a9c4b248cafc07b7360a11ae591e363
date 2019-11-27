@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc730eb6_d7997a1d",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2019-11-27T09:35:10Z",
+      "side": 0,
+      "message": "You can also remove this, as the only things that still use it are nova-network related and therefore it\u0027s on the chopping block",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 37
+      },
+      "revId": "69c2a2649a9c4b248cafc07b7360a11ae591e363",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
