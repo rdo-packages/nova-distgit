@@ -49,7 +49,7 @@ through users and projects. OpenStack Compute strives to be both \
 hardware and hypervisor agnostic, currently supporting a variety of \
 standard hardware configurations and seven major hypervisors.
 
-%if 0%{?rhosp} && 0%{?rhel} > 7
+%if 0%{?rhel} > 7
 %global with_novanet 0
 %else
 %global with_novanet 1
