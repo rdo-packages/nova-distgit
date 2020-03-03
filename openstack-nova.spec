@@ -803,7 +803,6 @@ exit 0
 %dir %{_datarootdir}/nova
 %attr(-, root, nova) %{_datarootdir}/nova/nova-dist.conf
 %{_datarootdir}/nova/interfaces.template
-%{_datarootdir}/nova/rootwrap/network.filters
 %dir %{_sysconfdir}/nova
 %{_sysconfdir}/nova/release
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova.conf
