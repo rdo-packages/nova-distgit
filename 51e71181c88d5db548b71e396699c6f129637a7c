@@ -16,6 +16,24 @@
       "revId": "51e71181c88d5db548b71e396699c6f129637a7c",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf5a48c1_d861312f",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2020-03-11T19:56:38Z",
+      "side": 0,
+      "message": "doesn\u0027t hurt and can be followup cleanup,\nthis is Depends-On in Big Ussuri Unpin https://review.rdoproject.org/r/25612 so I wouldn\u0027t make changes in this review anymore.",
+      "parentUuid": "acb8fef2_1d99c7e5",
+      "revId": "51e71181c88d5db548b71e396699c6f129637a7c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
