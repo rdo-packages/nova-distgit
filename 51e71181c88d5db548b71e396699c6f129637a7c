@@ -34,6 +34,24 @@
       "revId": "51e71181c88d5db548b71e396699c6f129637a7c",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8f115f9d_5844c7a8",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2020-03-12T07:13:06Z",
+      "side": 0,
+      "message": "Yes let\u0027s take anything else as followup.",
+      "parentUuid": "cf5a48c1_d861312f",
+      "revId": "51e71181c88d5db548b71e396699c6f129637a7c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
