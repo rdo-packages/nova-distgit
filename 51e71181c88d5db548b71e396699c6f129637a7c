@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c8042a75_ce8b5c94",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2020-03-12T09:41:38Z",
+      "side": 0,
+      "message": "We\u0027ll do bulk python2 compatibility cleanup later in this cycle i hope",
+      "parentUuid": "f0ddc871_c354b89e",
+      "revId": "51e71181c88d5db548b71e396699c6f129637a7c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81367aa0_919f622b",
         "filename": "openstack-nova.spec",
         "patchSetId": 3
