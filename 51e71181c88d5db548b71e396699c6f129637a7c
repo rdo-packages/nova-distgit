@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "f0ddc871_c354b89e",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2020-03-12T09:40:20Z",
+      "side": 0,
+      "message": "As an aside, can we drop this now that we no longer support building for Python 2.7?",
+      "revId": "51e71181c88d5db548b71e396699c6f129637a7c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81367aa0_919f622b",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2020-03-12T09:40:20Z",
+      "side": 0,
+      "message": "We can also remove this now. It\u0027s no longer necessary with the removal of nova-network",
+      "range": {
+        "startLine": 108,
+        "startChar": 33,
+        "endLine": 108,
+        "endChar": 36
+      },
+      "revId": "51e71181c88d5db548b71e396699c6f129637a7c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acb8fef2_1d99c7e5",
         "filename": "openstack-nova.spec",
         "patchSetId": 3
