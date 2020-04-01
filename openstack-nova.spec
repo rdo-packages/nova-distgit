@@ -60,7 +60,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          20.1.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -106,7 +106,7 @@ BuildRequires:    intltool
 BuildRequires:    python%{pyver}-devel
 BuildRequires:    git
 BuildRequires:    python%{pyver}-oslo-cache
-BuildRequires:    python%{pyver}-os-traits
+BuildRequires:    python%{pyver}-os-traits >=0.16.0
 BuildRequires:    python%{pyver}-setuptools
 BuildRequires:    python%{pyver}-netaddr
 BuildRequires:    python%{pyver}-pbr
@@ -468,7 +468,7 @@ Requires:         python%{pyver}-novaclient >= 2.30.1
 Requires:         python%{pyver}-openstacksdk >= 0.35.0
 Requires:         python%{pyver}-os-brick >= 2.6.1
 Requires:         python%{pyver}-os-resource-classes >= 0.4.0
-Requires:         python%{pyver}-os-traits
+Requires:         python%{pyver}-os-traits >=0.16.0
 Requires:         python%{pyver}-oslo-cache >= 1.26.0
 Requires:         python%{pyver}-oslo-concurrency >= 3.26.0
 Requires:         python%{pyver}-oslo-config >= 2:6.1.0
