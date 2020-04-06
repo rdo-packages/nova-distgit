@@ -60,7 +60,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          20.1.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -476,7 +476,7 @@ Requires:         python%{pyver}-oslo-context >= 2.19.2
 Requires:         python%{pyver}-oslo-db >= 4.44.0
 Requires:         python%{pyver}-oslo-i18n >= 3.15.3
 Requires:         python%{pyver}-oslo-log >= 3.36.0
-Requires:         python%{pyver}-oslo-messaging >= 7.0.0
+Requires:         python%{pyver}-oslo-messaging >= 10.2.0
 Requires:         python%{pyver}-oslo-middleware >= 3.31.0
 Requires:         python%{pyver}-oslo-policy >= 1.35.0
 Requires:         python%{pyver}-oslo-privsep >= 1.33.2
