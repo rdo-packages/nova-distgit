@@ -400,6 +400,7 @@ Requires:         python%{pyver}-castellan >= 0.16.0
 # FIXME(ykarel) Update to 2.7 once it's available
 Requires:         python%{pyver}-cryptography >= 2.1
 Requires:         python%{pyver}-cursive >= 0.2.1
+Requires:         python%{pyver}-dataclasses >= 0.7
 Requires:         python%{pyver}-glanceclient >= 1:2.8.0
 Requires:         python%{pyver}-greenlet >= 0.4.10
 Requires:         python%{pyver}-keystonemiddleware >= 4.20.0
