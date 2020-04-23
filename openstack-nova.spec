@@ -59,8 +59,8 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          20.1.1
-Release:          3%{?dist}
+Version:          20.2.0
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -962,6 +962,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Apr 23 2020 RDO <dev@lists.rdoproject.org> 1:20.2.0-1
+- Update to 20.2.0
+
 * Mon Feb 10 2020 RDO <dev@lists.rdoproject.org> 1:20.1.1-1
 - Update to 20.1.1
 
