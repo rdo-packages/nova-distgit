@@ -117,6 +117,29 @@
     },
     {
       "key": {
+        "uuid": "7f082c9c_8054e2e1",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2020-04-30T10:50:07Z",
+      "side": 1,
+      "message": "You need to maintain these Requires(pre) and the comments above. I meant just to remove the if itself as now those are unconditional.",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 71
+      },
+      "revId": "06f2be5e90671b3fa3ef1ac3fa1d64c5c214b53a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08d93e7f_d93ab203",
         "filename": "openstack-nova.spec",
         "patchSetId": 3
