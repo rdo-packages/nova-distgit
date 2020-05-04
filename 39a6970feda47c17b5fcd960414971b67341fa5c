@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9bdba0c4_8b440f2f",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 5
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2020-05-04T07:12:42Z",
+      "side": 1,
+      "message": "can be cleaned up",
+      "range": {
+        "startLine": 307,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 40
+      },
+      "revId": "39a6970feda47c17b5fcd960414971b67341fa5c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d091d2c7_5c6979a8",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 5
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2020-05-04T07:12:42Z",
+      "side": 1,
+      "message": "3.1.0",
+      "range": {
+        "startLine": 334,
+        "startChar": 41,
+        "endLine": 334,
+        "endChar": 46
+      },
+      "revId": "39a6970feda47c17b5fcd960414971b67341fa5c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
