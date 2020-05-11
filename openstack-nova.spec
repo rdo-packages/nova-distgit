@@ -330,8 +330,7 @@ Requires:         python3-oslo-i18n >= 3.15.3
 Requires:         python3-oslo-log >= 3.36.0
 Requires:         python3-oslo-messaging >= 10.3.0
 Requires:         python3-oslo-middleware >= 3.31.0
-# FIXME(ykarel) Update to 3.1.0 once 3.1.0 is promoted to current-tripleo repo
-Requires:         python3-oslo-policy >= 3.0.2
+Requires:         python3-oslo-policy >= 3.1.0
 Requires:         python3-oslo-privsep >= 1.33.2
 Requires:         python3-oslo-reports >= 1.18.0
 Requires:         python3-oslo-rootwrap >= 5.8.0
