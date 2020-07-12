@@ -320,7 +320,7 @@ Requires:         python3-novaclient >= 2.30.1
 Requires:         python3-openstacksdk >= 0.35.0
 Requires:         python3-os-brick >= 3.0.1
 Requires:         python3-os-resource-classes >= 0.4.0
-Requires:         python3-os-traits
+Requires:         python3-os-traits >= 2.4.0
 Requires:         python3-oslo-cache >= 1.26.0
 Requires:         python3-oslo-concurrency >= 3.29.0
 Requires:         python3-oslo-config >= 2:6.1.0
