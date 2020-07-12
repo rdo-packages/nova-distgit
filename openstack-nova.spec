@@ -25,7 +25,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          21.0.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -322,7 +322,7 @@ Requires:         python3-novaclient >= 2.30.1
 Requires:         python3-openstacksdk >= 0.35.0
 Requires:         python3-os-brick >= 3.0.1
 Requires:         python3-os-resource-classes >= 0.4.0
-Requires:         python3-os-traits
+Requires:         python3-os-traits >= 2.2.0
 Requires:         python3-oslo-cache >= 1.26.0
 Requires:         python3-oslo-concurrency >= 3.29.0
 Requires:         python3-oslo-config >= 2:6.1.0
@@ -754,6 +754,9 @@ exit 0
 %endif
 
 %changelog
+* Sun Jul 12 2020 Tobias Urdin <tobias.urdin@binero.com> 1:21.0.0-2
+- Require os-traits >= 2.2.0
+
 * Wed May 13 2020 RDO <dev@lists.rdoproject.org> 1:21.0.0-1
 - Update to 21.0.0
 
