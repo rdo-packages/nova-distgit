@@ -1,0 +1,9 @@
+Code-Review+2: Yatin Karel <ykarel@redhat.com>
+Code-Review+2: Lee Yarwood <lyarwood@redhat.com>
+Workflow+1: Lee Yarwood <lyarwood@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Mon, 13 Jul 2020 11:02:37 +0000
+Reviewed-on: https://review.rdoproject.org/r/28500
+Project: openstack/nova-distgit
+Branch: refs/heads/rpm-master
