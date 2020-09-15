@@ -767,3 +767,4 @@ exit 0
 - Update to 21.0.0.0rc2
 
 
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/nova/commit/?id=8ffaac493288c73badfa4f1ec6021ecb4f3137b7
