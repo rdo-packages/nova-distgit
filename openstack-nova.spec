@@ -294,8 +294,8 @@ Requires:         openssl
 Requires:         openssh
 Requires:         sudo
 
-Requires:         python3-paramiko >= 2.0.0
-Requires:         python3-eventlet >= 0.20.0
+Requires:         python3-paramiko >= 2.7.1
+Requires:         python3-eventlet >= 0.22.0
 Requires:         python3-iso8601 >= 0.1.11
 Requires:         python3-netaddr >= 0.7.18
 Requires:         python3-boto
@@ -309,7 +309,7 @@ Requires:         python3-cryptography >= 2.7
 Requires:         python3-cursive >= 0.2.1
 Requires:         python3-dataclasses >= 0.7
 Requires:         python3-glanceclient >= 1:2.8.0
-Requires:         python3-greenlet >= 0.4.10
+Requires:         python3-greenlet >= 0.4.13
 Requires:         python3-keystonemiddleware >= 4.20.0
 Requires:         python3-keystoneauth1 >= 3.16.0
 Requires:         python3-jinja2
@@ -318,43 +318,43 @@ Requires:         python3-microversion-parse >= 0.2.1
 Requires:         python3-neutronclient >= 6.7.0
 Requires:         python3-novaclient >= 2.30.1
 Requires:         python3-openstacksdk >= 0.35.0
-Requires:         python3-os-brick >= 3.0.1
+Requires:         python3-os-brick >= 3.1.0
 Requires:         python3-os-resource-classes >= 0.4.0
 Requires:         python3-os-traits >= 2.4.0
 Requires:         python3-oslo-cache >= 1.26.0
 Requires:         python3-oslo-concurrency >= 3.29.0
-Requires:         python3-oslo-config >= 2:6.1.0
-Requires:         python3-oslo-context >= 2.21.0
+Requires:         python3-oslo-config >= 6.8.0
+Requires:         python3-oslo-context >= 2.22.0
 Requires:         python3-oslo-db >= 4.44.0
 Requires:         python3-oslo-i18n >= 3.15.3
 Requires:         python3-oslo-log >= 3.36.0
 Requires:         python3-oslo-messaging >= 10.3.0
 Requires:         python3-oslo-middleware >= 3.31.0
-Requires:         python3-oslo-policy >= 3.1.0
+Requires:         python3-oslo-policy >= 3.4.0
 Requires:         python3-oslo-privsep >= 1.33.2
 Requires:         python3-oslo-reports >= 1.18.0
 Requires:         python3-oslo-rootwrap >= 5.8.0
 Requires:         python3-oslo-serialization >= 2.21.1
 Requires:         python3-oslo-service >= 1.40.1
 Requires:         python3-oslo-upgradecheck >= 0.1.1
-Requires:         python3-oslo-utils >= 4.1.0
+Requires:         python3-oslo-utils >= 4.5.0
 Requires:         python3-oslo-versionedobjects >= 1.35.0
 Requires:         python3-os-vif >= 1.14.0
 Requires:         python3-oslo-vmware >= 1.16.0
 Requires:         python3-pbr
 Requires:         python3-prettytable >= 0.7.1
 Requires:         python3-psutil
-Requires:         python3-requests >= 2.14.2
-Requires:         python3-rfc3986 >= 1.1.0
-Requires:         python3-six >= 1.10.0
-Requires:         python3-taskflow >= 2.16.0
+Requires:         python3-requests >= 2.22.0
+Requires:         python3-rfc3986 >= 1.2.0
+Requires:         python3-six >= 1.11.0
+Requires:         python3-taskflow >= 3.8.0
 Requires:         python3-tooz >= 1.58.0
 Requires:         python3-os-service-types >= 1.7.0
 Requires:         python3-dateutil >= 2.5.3
 Requires:         python3-futurist >= 1.8.0
 
-Requires:         python3-decorator >= 3.4.0
-Requires:         python3-lxml >= 3.4.1
+Requires:         python3-decorator >= 4.1.0
+Requires:         python3-lxml >= 4.2.3
 Requires:         python3-ldap
 Requires:         python3-memcached
 Requires:         python3-migrate >= 0.13.0
@@ -362,6 +362,7 @@ Requires:         python3-paste
 Requires:         python3-paste-deploy >= 1.5.0
 Requires:         python3-netifaces >= 0.10.4
 Requires:         python3-retrying
+Requires:         python3-PyYAML >= 3.13
 
 %description -n   python3-nova
 %{common_desc}
