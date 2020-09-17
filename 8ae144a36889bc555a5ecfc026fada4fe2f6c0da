@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36634803_137a1b94",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2020-09-17T09:58:38Z",
+      "side": 1,
+      "message": "we are still in 2.22.0, updating to 2.23.0 is wip (fails some unit tests).",
+      "range": {
+        "startLine": 347,
+        "startChar": 18,
+        "endLine": 347,
+        "endChar": 44
+      },
+      "revId": "8ae144a36889bc555a5ecfc026fada4fe2f6c0da",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240bfe99_42f20a0d",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2020-09-17T09:58:38Z",
+      "side": 1,
+      "message": "lxml was updated to support python 3.8\n\nhttps://github.com/openstack/nova/commit/e905400ca077933563972b6ea73177c22408a8fe\n\ncentos8 is still python 3.6 so let\u0027s keep using lxml 4.2.3 included in CentOS BaseOS.",
+      "range": {
+        "startLine": 357,
+        "startChar": 34,
+        "endLine": 357,
+        "endChar": 39
+      },
+      "revId": "8ae144a36889bc555a5ecfc026fada4fe2f6c0da",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a605bca_731b60a1",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2020-09-17T09:58:38Z",
+      "side": 1,
+      "message": "We don\u0027t support windows and xen drivers, so we can skip these two as runtime requirements.",
+      "range": {
+        "startLine": 366,
+        "startChar": 4,
+        "endLine": 367,
+        "endChar": 44
+      },
+      "revId": "8ae144a36889bc555a5ecfc026fada4fe2f6c0da",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
