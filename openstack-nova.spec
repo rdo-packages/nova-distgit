@@ -131,7 +131,7 @@ BuildRequires:    python3-paramiko
 BuildRequires:    python3-babel
 
 BuildRequires:    python3-lxml
-BuildRequires:    python3-websockify
+BuildRequires:    python3-websockify >= 0.9.0
 
 
 # remove old service subpackage
@@ -242,7 +242,7 @@ Summary:          OpenStack Nova noVNC proxy service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         novnc
-Requires:         python3-websockify
+Requires:         python3-websockify >= 0.9.0
 
 
 %description novncproxy
@@ -255,7 +255,7 @@ VNC traffic over browser websockets connections.
 Summary:          OpenStack Nova Spice HTML5 console access service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python3-websockify
+Requires:         python3-websockify >= 0.9.0
 
 %description spicehtml5proxy
 %{common_desc}
@@ -267,7 +267,7 @@ spice HTML5 console access service to Virtual Machines.
 Summary:          OpenStack Nova serial console access service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python3-websockify
+Requires:         python3-websockify >= 0.9.0
 
 %description serialproxy
 %{common_desc}
