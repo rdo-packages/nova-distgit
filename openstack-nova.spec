@@ -25,7 +25,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          21.1.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -133,7 +133,7 @@ BuildRequires:    python3-paramiko
 BuildRequires:    python3-babel
 
 BuildRequires:    python3-lxml
-BuildRequires:    python3-websockify
+BuildRequires:    python3-websockify >= 0.9.0
 
 
 # remove old service subpackage
@@ -244,7 +244,7 @@ Summary:          OpenStack Nova noVNC proxy service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         novnc
-Requires:         python3-websockify
+Requires:         python3-websockify >= 0.9.0
 
 
 %description novncproxy
@@ -257,7 +257,7 @@ VNC traffic over browser websockets connections.
 Summary:          OpenStack Nova Spice HTML5 console access service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python3-websockify
+Requires:         python3-websockify >= 0.9.0
 
 %description spicehtml5proxy
 %{common_desc}
@@ -269,7 +269,7 @@ spice HTML5 console access service to Virtual Machines.
 Summary:          OpenStack Nova serial console access service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python3-websockify
+Requires:         python3-websockify >= 0.9.0
 
 %description serialproxy
 %{common_desc}
@@ -754,6 +754,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Sep 18 2020 Tobias Urdin <tobias.urdin@binero.com> 1:21.1.0-2
+- Require python3-websockify >= 0.9.0
+
 * Thu Aug 27 2020 RDO <dev@lists.rdoproject.org> 1:21.1.0-1
 - Update to 21.1.0
 
