@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8daf54fa_c92190cb",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2020-10-05T21:38:07Z",
+      "side": 1,
+      "message": "please drop ?rhosp part i.e. let\u0027s do this always for rhel\u003d\u003d8\nOnly next RHEL will have python \u003e\u003d 3.7",
+      "revId": "7b95c05f20b9f6605bdce05488b59ddf5b2b88e5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
