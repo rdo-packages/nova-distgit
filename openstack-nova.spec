@@ -362,7 +362,11 @@ Requires:         python3-paste
 Requires:         python3-paste-deploy >= 1.5.0
 Requires:         python3-netifaces >= 0.10.4
 Requires:         python3-retrying
+%if 0%{?rhosp} && 0%{?rhel} == 8
+Requires:         python3-PyYAML
+%else
 Requires:         python3-PyYAML >= 3.13
+%endif
 
 %description -n   python3-nova
 %{common_desc}
