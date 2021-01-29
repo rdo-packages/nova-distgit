@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "276e45c6_bc6733c3",
+        "filename": "nova_logging.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2021-01-29T11:00:15Z",
+      "side": 1,
+      "message": "is these new config specific to RDO? saying so i see upstream code has a sample config https://github.com/openstack/nova/blob/master/etc/nova/logging_sample.conf, wouldn\u0027t be better to update upstream and ship it so it can be consumed in nova rpm. Saying so if the upstream file updates then those updates will not be auto picked in package or plan is to manually update these files, anyway that\u0027s up to nova maintainers how they want to go with it.",
+      "revId": "9a60aef979e8bb16039c3ce7359150507d5e4358",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
