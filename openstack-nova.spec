@@ -59,6 +59,7 @@ Source38:         nova_migration_identity
 Source39:         nova_migration_authorized_keys
 Source40:         nova_migration-rootwrap.conf
 Source41:         nova_migration-rootwrap_cold_migration
+Source42:         nova_logging.conf
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 Source101:        https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz.asc
@@ -516,6 +517,7 @@ install -d -m 755 %{buildroot}%{_sysconfdir}/nova/migration
 install -p -D -m 600 %{SOURCE38} %{buildroot}%{_sysconfdir}/nova/migration/identity
 install -p -D -m 644 %{SOURCE39} %{buildroot}%{_sysconfdir}/nova/migration/authorized_keys
 install -p -D -m 640 %{SOURCE40} %{buildroot}%{_sysconfdir}/nova/migration/rootwrap.conf
+install -p -D -m 640 %{SOURCE42} %{buildroot}%{_sysconfdir}/nova/logging.conf
 install -d -m 755 %{buildroot}%{_sysconfdir}/nova/migration/rootwrap.d
 install -p -D -m 640 %{SOURCE41} %{buildroot}%{_sysconfdir}/nova/migration/rootwrap.d/cold_migration.filters
 
@@ -689,6 +691,7 @@ exit 0
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/api-paste.ini
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/rootwrap.conf
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/policy.json
+%config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/logging.conf
 %config(noreplace) %{_sysconfdir}/logrotate.d/openstack-nova
 %config(noreplace) %{_sysconfdir}/sudoers.d/nova
 
