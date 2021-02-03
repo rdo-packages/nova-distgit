@@ -16,6 +16,24 @@
       "revId": "9a60aef979e8bb16039c3ce7359150507d5e4358",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a617abcd_1d8aa32b",
+        "filename": "nova_logging.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2021-02-03T12:26:54Z",
+      "side": 1,
+      "message": "Yeah lets not ship another version of that here and reuse the sample.",
+      "parentUuid": "276e45c6_bc6733c3",
+      "revId": "9a60aef979e8bb16039c3ce7359150507d5e4358",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
