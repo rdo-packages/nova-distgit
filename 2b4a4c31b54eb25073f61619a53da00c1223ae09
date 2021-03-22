@@ -1,0 +1,9 @@
+Code-Review+1: Lon Hohberger <lon@metamorphism.com>
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Workflow+1: Alfredo Moralejo <amoralej@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Mon, 22 Mar 2021 11:12:15 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/nova-distgit/+/32575
+Project: openstack/nova-distgit
+Branch: refs/heads/rpm-master
