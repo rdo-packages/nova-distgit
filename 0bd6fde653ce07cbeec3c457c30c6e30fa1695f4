@@ -1,0 +1,9 @@
+Code-Review+2: Yatin Karel <ykarel@redhat.com>
+Code-Review+2: Lee Yarwood <lyarwood@redhat.com>
+Workflow+1: Yatin Karel <ykarel@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Tue, 23 Mar 2021 14:43:04 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/nova-distgit/+/32400
+Project: openstack/nova-distgit
+Branch: refs/heads/train-rdo
