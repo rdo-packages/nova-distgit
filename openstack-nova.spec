@@ -307,7 +307,7 @@ Requires:         openssh
 Requires:         sudo
 
 Requires:         python3-paramiko >= 2.7.1
-Requires:         python3-eventlet >= 0.26.1
+Requires:         python3-eventlet >= 0.30.1
 Requires:         python3-iso8601 >= 0.1.11
 Requires:         python3-netaddr >= 0.7.18
 Requires:         python3-boto
@@ -330,11 +330,11 @@ Requires:         python3-microversion-parse >= 0.2.1
 Requires:         python3-neutronclient >= 6.7.0
 Requires:         python3-novaclient >= 2.30.1
 Requires:         python3-openstacksdk >= 0.35.0
-Requires:         python3-os-brick >= 4.2.0
+Requires:         python3-os-brick >= 4.3.1
 Requires:         python3-os-resource-classes >= 0.4.0
 Requires:         python3-os-traits >= 2.5.0
 Requires:         python3-oslo-cache >= 1.26.0
-Requires:         python3-oslo-concurrency >= 4.3.0
+Requires:         python3-oslo-concurrency >= 4.4.0
 Requires:         python3-oslo-config >= 6.8.0
 Requires:         python3-oslo-context >= 3.1.1
 Requires:         python3-oslo-db >= 4.44.0
@@ -346,26 +346,26 @@ Requires:         python3-oslo-policy >= 3.6.0
 Requires:         python3-oslo-privsep >= 2.4.0
 Requires:         python3-oslo-reports >= 1.18.0
 Requires:         python3-oslo-rootwrap >= 5.8.0
-Requires:         python3-oslo-serialization >= 4.0.1
-Requires:         python3-oslo-service >= 2.4.0
+Requires:         python3-oslo-serialization >= 4.1.0
+Requires:         python3-oslo-service >= 2.5.0
 Requires:         python3-oslo-upgradecheck >= 1.3.0
-Requires:         python3-oslo-utils >= 4.7.0
+Requires:         python3-oslo-utils >= 4.8.0
 Requires:         python3-oslo-versionedobjects >= 1.35.0
 Requires:         python3-os-vif >= 1.14.0
 Requires:         python3-oslo-vmware >= 1.16.0
-Requires:         python3-pbr >= 5.5.0
+Requires:         python3-pbr >= 5.5.1
 Requires:         python3-prettytable >= 0.7.1
 Requires:         python3-psutil >= 3.2.2
-Requires:         python3-requests >= 2.23.0
+Requires:         python3-requests >= 2.25.1
 Requires:         python3-rfc3986 >= 1.2.0
 Requires:         python3-taskflow >= 3.8.0
 Requires:         python3-tooz >= 1.58.0
 Requires:         python3-os-service-types >= 1.7.0
-Requires:         python3-dateutil >= 2.6.0
+Requires:         python3-dateutil >= 2.7.0
 Requires:         python3-futurist >= 1.8.0
 
 Requires:         python3-decorator >= 4.1.0
-Requires:         python3-lxml >= 4.2.3
+Requires:         python3-lxml >= 4.5.0
 Requires:         python3-ldap
 Requires:         python3-memcached
 Requires:         python3-migrate >= 0.13.0
