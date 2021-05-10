@@ -163,7 +163,6 @@ Summary:          OpenStack Nova Virtual Machine control service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         curl
-Requires:         iscsi-initiator-utils
 Requires:         iptables
 Requires:         iptables-services
 Requires:         ipmitool
@@ -173,7 +172,6 @@ Requires:         libvirt-daemon-lxc
 %endif
 Requires:         openssh-clients
 Requires:         rsync
-Requires:         lvm2
 Requires:         python3-cinderclient >= 3.3.0
 %if 0%{?rhel} == 8
 Requires:         genisoimage 
@@ -208,8 +206,6 @@ Requires(pre):    libvirt-daemon-driver-secret >= %{libvirt_version}
 Requires(pre):    libvirt-daemon-driver-qemu >= %{libvirt_version}
 Requires(pre):    libvirt-daemon-driver-storage-core >= %{libvirt_version}
 
-Requires:         sg3_utils
-Requires:         sysfsutils
 Requires:         libosinfo
 
 Requires:         python3-libguestfs
