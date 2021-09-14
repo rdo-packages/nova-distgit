@@ -172,7 +172,7 @@ Requires:         libvirt-daemon-lxc
 Requires:         openssh-clients
 Requires:         rsync
 Requires:         python3-cinderclient >= 3.3.0
-Requires:         genisoimage
+Requires:         xorriso
 
 # NOTE-1: From RHEL-8 onwards there is no 'qemu-kvm' vs.
 #         'qemu-kvm-ev|rhev' RPM split, instead there is only one RPM
