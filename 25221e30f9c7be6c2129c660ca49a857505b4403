@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "061dbcde_95564e57",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2021-09-21T08:14:40Z",
+      "side": 1,
+      "message": "python3-dataclasses is requirement only for rhel/centos8 in, centos9 is part of standard python library so we need to have a conditional here.",
+      "range": {
+        "startLine": 374,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 1
+      },
+      "revId": "25221e30f9c7be6c2129c660ca49a857505b4403",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
