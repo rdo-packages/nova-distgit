@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e657924d_86ff8241",
+        "filename": "nova-dist.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2021-09-29T15:51:08Z",
+      "side": 1,
+      "message": "I noticed that when I generate nova.conf and nova-compute samples, that values \"drifts away\" to \u0027openstack\u0027 (in compute config) from \u0027nova\u0027 (in nova.conf). So this to put it back,,,",
+      "revId": "c2d047806e7177199a218835609a603bdf15fc95",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "616b16d1_3caa624b",
+        "filename": "nova-dist.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2021-09-29T15:51:08Z",
+      "side": 1,
+      "message": "ditto, but this time it drifts away from *yaml (in nova.conf) to json in compute config.\nI think it should be json for both, hence this change.",
+      "revId": "c2d047806e7177199a218835609a603bdf15fc95",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
