@@ -128,7 +128,7 @@ Requires:         python3-nova = %{epoch}:%{version}-%{release}
 %{?systemd_ordering}
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
-# Required to build nova.conf.sample
+# Required to build nova.conf.sample and nova-compute.conf.sample
 BuildRequires:    python3-castellan >= 0.16.0
 BuildRequires:    python3-glanceclient
 BuildRequires:    python3-keystonemiddleware
@@ -447,6 +447,19 @@ find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
 %build
 PYTHONPATH=. oslo-config-generator --config-file=etc/nova/nova-config-generator.conf
+# Generate a sample compute config file based on etc/nova/nova-config-generator.conf
+PYTHONPATH=. oslo-config-generator --summarize --wrap-width 80 \
+  --namespace oslo.messaging \
+  --namespace oslo.policy \
+  --namespace oslo.privsep \
+  --namespace oslo.service.periodic_task \
+  --namespace oslo.service.service \
+  --namespace oslo.concurrency \
+  --namespace oslo.reports \
+  --namespace osprofiler \
+  --namespace nova.common \
+  --namespace nova.compute \
+  --output-file etc/nova/nova-compute.conf.sample
 # Generate a sample policy.yaml file for documentation purposes only
 PYTHONPATH=. oslopolicy-sample-generator --config-file=etc/nova/nova-policy-generator.conf
 
@@ -456,17 +469,15 @@ PYTHONPATH=. oslopolicy-sample-generator --config-file=etc/nova/nova-policy-gene
 # (amoralej) we can remove '-D nova' once https://review.openstack.org/#/c/439500/ is merged
 %{__python3} setup.py compile_catalog -d build/lib/nova/locale -D nova
 
-# Avoid http://bugzilla.redhat.com/1059815. Remove when that is closed
-sed -i 's|group/name|group;name|; s|\[DEFAULT\]/|DEFAULT;|' etc/nova/nova.conf.sample
-
 # Programmatically update defaults in sample config
-# which is installed at /etc/nova/nova.conf
+# which is installed at /etc/nova/nova.conf and /etc/nova/nova-compute.conf
 
 #  First we ensure all values are commented in appropriate format.
 #  Since icehouse, there was an uncommented keystone_authtoken section
 #  at the end of the file which mimics but also conflicted with our
 #  distro editing that had been done for many releases.
 sed -i '/^[^#[]/{s/^/#/; s/ //g}; /^#[^ ]/s/ = /=/' etc/nova/nova.conf.sample
+sed -i '/^[^#[]/{s/^/#/; s/ //g}; /^#[^ ]/s/ = /=/' etc/nova/nova-compute.conf.sample
 
 #  TODO: Make this more robust
 #  Note it only edits the first occurrence, so assumes a section ordering in sample
@@ -474,6 +485,7 @@ sed -i '/^[^#[]/{s/^/#/; s/ //g}; /^#[^ ]/s/ = /=/' etc/nova/nova.conf.sample
 while read name eq value; do
   test "$name" && test "$value" || continue
   sed -i "0,/^# *$name=/{s!^# *$name=.*!#$name=$value!}" etc/nova/nova.conf.sample
+  sed -i "0,/^# *$name=/{s!^# *$name=.*!#$name=$value!}" etc/nova/nova-compute.conf.sample
 done < %{SOURCE1}
 
 %install
@@ -505,6 +517,7 @@ install -d -m 700 %{buildroot}%{_sharedstatedir}/nova/.ssh
 install -d -m 755 %{buildroot}%{_sysconfdir}/nova
 install -p -D -m 640 %{SOURCE1} %{buildroot}%{_datarootdir}/nova/nova-dist.conf
 install -p -D -m 640 etc/nova/nova.conf.sample  %{buildroot}%{_sysconfdir}/nova/nova.conf
+install -p -D -m 640 etc/nova/nova-compute.conf.sample %{buildroot}%{_sysconfdir}/nova/nova-compute.conf
 install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/rootwrap.conf
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
 install -d -m 755 %{buildroot}%{_sysconfdir}/nova/migration
@@ -681,6 +694,7 @@ exit 0
 %dir %{_sysconfdir}/nova
 %{_sysconfdir}/nova/release
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova.conf
+%config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova-compute.conf
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/api-paste.ini
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/rootwrap.conf
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/policy.json
