@@ -70,6 +70,47 @@
       "revId": "a61bdf861d77961020eba3206c50f990b2402ab4",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf26ddb7_185eb53b",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-09-30T07:38:59Z",
+      "side": 1,
+      "message": "I mean that, since this file is only meant to be used by nova compute nodes, it could be part of the openstack-nova-compute package instead of openstack-nova-common. You could move it to line 726 in the spec (see below)",
+      "parentUuid": "f3cb30cf_0a6f481d",
+      "range": {
+        "startLine": 697,
+        "startChar": 0,
+        "endLine": 697,
+        "endChar": 77
+      },
+      "revId": "a61bdf861d77961020eba3206c50f990b2402ab4",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b8c23e6_61fa8c3e",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2021-09-30T07:38:59Z",
+      "side": 1,
+      "message": "This is probably a better location for the nova-compute.conf file. By adding it here, it will only be deployed on Nova compute nodes.",
+      "revId": "a61bdf861d77961020eba3206c50f990b2402ab4",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
