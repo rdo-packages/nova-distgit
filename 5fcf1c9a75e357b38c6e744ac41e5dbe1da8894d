@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81bb51e9_d2d80a24",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2021-09-30T08:03:39Z",
+      "side": 1,
+      "message": "I\u0027m likely missing something here but shouldn\u0027t this be listed?\n\n$ wget https://logserver.rdoproject.org/83/35883/2/check/DLRN-rpmbuild-centos8/1ba2492/buildset/centos8/current/openstack-nova-compute-24.1.0-0.20210929160551.e07bb31.el8.noarch.rpm\n$ rpm -ql openstack-nova-compute-24.1.0-0.20210929160551.e07bb31.el8.noarch.rpm\n/usr/bin/nova-compute\n/usr/lib/systemd/system/openstack-nova-compute.service\n/usr/share/nova/rootwrap/compute.filters",
+      "range": {
+        "startLine": 728,
+        "startChar": 0,
+        "endLine": 728,
+        "endChar": 77
+      },
+      "revId": "5fcf1c9a75e357b38c6e744ac41e5dbe1da8894d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
