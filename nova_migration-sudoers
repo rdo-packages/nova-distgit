@@ -1,4 +1,4 @@
 Defaults:nova_migration !requiretty
 
-nova_migration ALL = (nova) NOPASSWD: /usr/bin/nc -U /var/run/libvirt/libvirt-sock
+nova_migration ALL = (nova) NOPASSWD: /usr/bin/nc -U /var/run/libvirt/libvirt-sock, /usr/bin/virt-ssh-helper qemu\:///system
 nova_migration ALL = (root) NOPASSWD: /usr/bin/nova-rootwrap /etc/nova/migration/rootwrap.conf *
