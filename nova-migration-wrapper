@@ -1,7 +1,40 @@
-#!/usr/bin/python2
+#!/usr/libexec/platform-python
 import os
 import sys
 import syslog
+
+# Handle libvirt ssh tunnel script snippet
+# https://github.com/libvirt/libvirt/blob/f0803dae93d62a4b8a2f67f4873c290a76d978b3/src/rpc/virnetsocket.c#L890
+LIBVIRT_SOCK = '/var/run/libvirt/libvirt-sock'
+# Need to keep this in case proxy=netcat is part of the uri string
+LIVE_MIGRATION_TUNNEL_NETCAT = (
+    "if 'nc' -q 2>&1 | grep \"requires an argument\" >/dev/null 2>&1; then "
+    "ARG=-q0;"
+    "else "
+    "ARG=;"
+    "fi;"
+    f"'nc' $ARG -U {LIBVIRT_SOCK}")
+
+# The virt-ssh-helper command string includes the origin netcat one (without the sh)
+LIVE_MIGRATION_VIRT_SSH_HELPER = (
+    "sh -c 'which virt-ssh-helper 1>/dev/null 2>&1; if test $? = 0; then     " \
+    "virt-ssh-helper 'qemu:///system'; " \
+    f"else    {LIVE_MIGRATION_TUNNEL_NETCAT}; fi'")
+# We need to put back the sh in the netcat command
+LIVE_MIGRATION_TUNNEL_NETCAT = f"sh -c '{LIVE_MIGRATION_TUNNEL_NETCAT}'"
+
+COLD_MIGRATION_ROOT = '/var/lib/nova/instances/'
+COLD_MIGRATION_CMDS = [
+    ['mkdir', '-p'],
+    ['rm', '-rf'],
+    ['touch'],
+    ['rm'],
+    ['scp', '-r', '-t'],
+    ['scp', '-r', '-f'],
+    ['scp', '-t'],
+    ['scp', '-f'],
+]
+ROOTWRAP_ARGS = ['/usr/bin/nova-rootwrap', '/etc/nova/migration/rootwrap.conf']
 
 command = os.environ.get('SSH_ORIGINAL_COMMAND')
 ssh_connection = os.environ.get('SSH_CONNECTION')
@@ -26,38 +59,19 @@ def deny_command(args):
     sys.stderr.write('Forbidden\n')
     sys.exit(1)
 
-# Handle libvirt ssh tunnel script snippet
-# https://github.com/libvirt/libvirt/blob/f0803dae93d62a4b8a2f67f4873c290a76d978b3/src/rpc/virnetsocket.c#L890
-libvirt_sock = '/var/run/libvirt/libvirt-sock'
-live_migration_tunnel_cmd = "sh -c 'if 'nc' -q 2>&1 | grep \"requires an argument\" >/dev/null 2>&1; then " \
-                                "ARG=-q0;" \
-                            "else " \
-                                "ARG=;" \
-                            "fi;" \
-                            "'nc' $ARG -U {}'".format(libvirt_sock)
-
-cold_migration_root = '/var/lib/nova/instances/'
-cold_migration_cmds = [
-    ['mkdir', '-p'],
-    ['rm', '-rf'],
-    ['touch'],
-    ['rm'],
-    ['scp', '-r', '-t'],
-    ['scp', '-r', '-f'],
-    ['scp', '-t'],
-    ['scp', '-f'],
-]
-rootwrap_args = ['/usr/bin/nova-rootwrap', '/etc/nova/migration/rootwrap.conf']
-
 def validate_cold_migration_cmd(args):
     target_path = os.path.normpath(args[-1])
     cmd = args[:-1]
-    return cmd in cold_migration_cmds and target_path.startswith(cold_migration_root)
+    return cmd in COLD_MIGRATION_CMDS and target_path.startswith(COLD_MIGRATION_ROOT)
 
+# TODO(dvd): Move this in TripleO, by simply configuring sshd_config.
 # Rules
 args = command.split(' ')
-if command == live_migration_tunnel_cmd:
-    args = ['nc', '-U', libvirt_sock]
+if command == LIVE_MIGRATION_VIRT_SSH_HELPER:
+    args = ['virt-ssh-helper', 'qemu:///system']
+    allow_command('nova', args)
+if command == LIVE_MIGRATION_TUNNEL_NETCAT:
+    args = ['nc', '-U', LIBVIRT_SOCK]
     allow_command('nova', args)
 if validate_cold_migration_cmd(args):
     args = rootwrap_args + args
