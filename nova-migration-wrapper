@@ -11,6 +11,25 @@ if command is None:
 
 syslog.openlog('nova_migration_wrapper')
 
+# Handle libvirt ssh tunnel script snippet
+# https://github.com/libvirt/libvirt/blob/f0803dae93d62a4b8a2f67f4873c290a76d978b3/src/rpc/virnetsocket.c#L890
+libvirt_sock = '/var/run/libvirt/libvirt-sock'
+# Need to keep this in case proxy=netcat is part of the uri string
+live_migration_tunnel_netcat = "if 'nc' -q 2>&1 | grep \"requires an argument\" >/dev/null 2>&1; then " \
+                                "ARG=-q0;" \
+                             "else " \
+                                 "ARG=;" \
+                             "fi;" \
+                             f"'nc' $ARG -U {libvirt_sock}"
+
+# The virt-ssh-helper command string includes the origin netcat one (without the sh)
+live_migration_virt_ssh_helper = "sh -c 'which virt-ssh-helper 1>/dev/null 2>&1; if test $? = 0; then     " \
+                                    "virt-ssh-helper 'qemu:///system'; " \
+                                 f"else    {live_migration_tunnel_netcat}; fi'"
+
+# We need to put back the sh in the netcat command
+live_migration_tunnel_netcat = f"sh -c '{live_migration_tunnel_netcat}'"
+
 def allow_command(user, args):
     syslog.syslog(syslog.LOG_INFO, "Allowing connection='{}' command={} ".format(
         ssh_connection,
@@ -21,20 +40,11 @@ def allow_command(user, args):
 def deny_command(args):
     syslog.syslog(syslog.LOG_ERR, "Denying connection='{}' command={}".format(
         ssh_connection,
-        repr(args)
+        repr(args),
     ))
     sys.stderr.write('Forbidden\n')
     sys.exit(1)
 
-# Handle libvirt ssh tunnel script snippet
-# https://github.com/libvirt/libvirt/blob/f0803dae93d62a4b8a2f67f4873c290a76d978b3/src/rpc/virnetsocket.c#L890
-libvirt_sock = '/var/run/libvirt/libvirt-sock'
-live_migration_tunnel_cmd = "sh -c 'if 'nc' -q 2>&1 | grep \"requires an argument\" >/dev/null 2>&1; then " \
-                                "ARG=-q0;" \
-                            "else " \
-                                "ARG=;" \
-                            "fi;" \
-                            "'nc' $ARG -U {}'".format(libvirt_sock)
 
 cold_migration_root = '/var/lib/nova/instances/'
 cold_migration_cmds = [
@@ -56,7 +66,10 @@ def validate_cold_migration_cmd(args):
 
 # Rules
 args = command.split(' ')
-if command == live_migration_tunnel_cmd:
+if command == live_migration_virt_ssh_helper:
+    args = ['virt-ssh-helper', 'qemu:///system']
+    allow_command('nova', args)
+if command == live_migration_tunnel_netcat:
     args = ['nc', '-U', libvirt_sock]
     allow_command('nova', args)
 if validate_cold_migration_cmd(args):
