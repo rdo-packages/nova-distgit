@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "336760d6_5d88d3bf",
+        "filename": "nova-dist.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2021-10-14T15:34:19Z",
+      "side": 0,
+      "message": "could we not remove it, but switch it to the expected value?\nIIRC, if we do not specify neither, oslo config generator creates different values for it in the nova.conf and nova-compute.conf",
+      "revId": "5fcf1c9a75e357b38c6e744ac41e5dbe1da8894d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
