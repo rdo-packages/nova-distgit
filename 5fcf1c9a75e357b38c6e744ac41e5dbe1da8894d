@@ -16,6 +16,24 @@
       "revId": "5fcf1c9a75e357b38c6e744ac41e5dbe1da8894d",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bec3b82_40192349",
+        "filename": "nova-dist.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 682
+      },
+      "writtenOn": "2021-10-14T16:00:17Z",
+      "side": 0,
+      "message": "Do we need the [oslo_policy] option in nova-compute ?\nMy expectation was that policy enforcement is all implemented in api layer and the parameter is not used in nova-compute. If that observation is true then we should remove oslo_policy options from nova-compute but I might miss something.",
+      "parentUuid": "336760d6_5d88d3bf",
+      "revId": "5fcf1c9a75e357b38c6e744ac41e5dbe1da8894d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
