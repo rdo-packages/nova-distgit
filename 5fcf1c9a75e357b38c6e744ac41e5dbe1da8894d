@@ -34,6 +34,24 @@
       "revId": "5fcf1c9a75e357b38c6e744ac41e5dbe1da8894d",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5326c3f2_64429020",
+        "filename": "nova-dist.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2021-10-15T13:46:30Z",
+      "side": 0,
+      "message": "I\u0027m not certain. Perhaps @Lee could answer to that once he is back.",
+      "parentUuid": "7bec3b82_40192349",
+      "revId": "5fcf1c9a75e357b38c6e744ac41e5dbe1da8894d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
     }
   ]
 }
