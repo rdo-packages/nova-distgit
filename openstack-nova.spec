@@ -192,7 +192,9 @@ Requires:         genisoimage
 #         groups are guaranteed to exist.
 Requires(pre):    qemu-kvm-core >= %{qemu_version}
 Requires(pre):    qemu-kvm-block-rbd >= %{qemu_version}
+%if 0%{?rhel} == 8
 Requires(pre):    qemu-kvm-block-ssh >= %{qemu_version}
+%endif
 Requires(pre):    python3-libvirt >= %{libvirt_version}
 Requires(pre):    libvirt-daemon-driver-nodedev >= %{libvirt_version}
 Requires(pre):    libvirt-daemon-driver-nwfilter >= %{libvirt_version}
