@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9e0cb8b_4f34e73a",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2021-10-18T11:09:02Z",
+      "side": 1,
+      "message": "Thanks; looks good.",
+      "revId": "0c56145476743757415063580ba17ab94c2c2e84",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
