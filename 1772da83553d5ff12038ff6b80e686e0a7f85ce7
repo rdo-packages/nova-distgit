@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cb27a08_754a81de",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 715
+      },
+      "writtenOn": "2021-10-21T15:33:05Z",
+      "side": 1,
+      "message": "nit: extra space",
+      "range": {
+        "startLine": 176,
+        "startChar": 29,
+        "endLine": 176,
+        "endChar": 30
+      },
+      "revId": "1772da83553d5ff12038ff6b80e686e0a7f85ce7",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
