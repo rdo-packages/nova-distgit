@@ -1,0 +1,10 @@
+Code-Review+2: Chandan Kumar <chkumar@redhat.com>
+Code-Review+1: Kashyap Chamarthy <kchamart@redhat.com>
+Code-Review+2: Yatin Karel <ykarel@redhat.com>
+Workflow+1: Yatin Karel <ykarel@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Mon, 25 Oct 2021 12:33:55 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/nova-distgit/+/35979
+Project: openstack/nova-distgit
+Branch: refs/heads/xena-rdo
