@@ -1,0 +1,9 @@
+Code-Review+2: Yatin Karel <ykarel@redhat.com>
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Workflow+1: Alfredo Moralejo <amoralej@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Wed, 27 Oct 2021 15:11:00 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/nova-distgit/+/36433
+Project: openstack/nova-distgit
+Branch: refs/heads/xena-rdo
