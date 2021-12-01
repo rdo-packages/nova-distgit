@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eac2ab04_2de621df",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2021-12-01T12:32:23Z",
+      "side": 1,
+      "message": "this need to be python3\n\nwe have been python 3 only since ussui upstream and train/16 downstream\nmaster will move to centos 9 stream this cycle which does not support python 2 at all.",
+      "range": {
+        "startLine": 1,
+        "startChar": 11,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "4c7d26184bf5e2a48ad63b0b6806a647449bba98",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
