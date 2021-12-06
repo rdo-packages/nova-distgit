@@ -313,7 +313,6 @@ Requires:         python3-paramiko >= 2.7.1
 Requires:         python3-eventlet >= 0.26.1
 Requires:         python3-iso8601 >= 0.1.11
 Requires:         python3-netaddr >= 0.7.18
-Requires:         python3-boto
 Requires:         python3-stevedore >= 1.20.0
 Requires:         python3-sqlalchemy >= 1.2.19
 Requires:         python3-alembic >= 0.8.0
@@ -409,7 +408,6 @@ BuildRequires:    python3-openstackdocstheme
 BuildRequires:    python3-sphinxcontrib-actdiag
 BuildRequires:    python3-sphinxcontrib-seqdiag
 # Required to build module documents
-BuildRequires:    python3-boto
 BuildRequires:    python3-eventlet
 BuildRequires:    python3-barbicanclient
 BuildRequires:    python3-cinderclient
