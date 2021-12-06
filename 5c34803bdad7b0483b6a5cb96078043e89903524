@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ea6bade6_99e84f58",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2021-12-06T17:03:15Z",
+      "side": 1,
+      "message": "Link? More for my own awareness.",
+      "range": {
+        "startLine": 10,
+        "startChar": 28,
+        "endLine": 12,
+        "endChar": 48
+      },
+      "revId": "5c34803bdad7b0483b6a5cb96078043e89903524",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "424b5a96_79ae46a9",
         "filename": "nova-migration-wrapper",
         "patchSetId": 6
@@ -13,6 +36,121 @@
       "writtenOn": "2021-12-06T16:33:37Z",
       "side": 1,
       "message": "nit: We discussed how this is essentially a no-op as there\u0027s logic in the .spec to change this to python 3 anyways, but I\u0027d rather this be done in a separate patch for clarity.",
+      "revId": "5c34803bdad7b0483b6a5cb96078043e89903524",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c35f631a_7f0f3847",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2021-12-06T17:03:15Z",
+      "side": 1,
+      "message": "Can you turn this into a string constant (AFAIK this can\u0027t be a multi-line string as that introduces line breaks breaking the conditional later on right?)?\n\n  LIVE_MIGRATION_TUNNEL_NETCAT \u003d (\n    \"if \u0027nc\u0027 -q 2\u003e\u00261 | grep \\\"requires an argument\\\" \u003e/dev/null 2\u003e\u00261; then\n    \"ARG\u003d-q0;\"\n    \"else\"\n    \"ARG\u003d;\"\n    \"fi;\"\n    f\"\u0027nc\u0027 $ARG -U {libvirt_sock}\")",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 59
+      },
+      "revId": "5c34803bdad7b0483b6a5cb96078043e89903524",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac1fcb77_2552fd9f",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2021-12-06T17:03:15Z",
+      "side": 1,
+      "message": "As above, this is awful to read.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 30
+      },
+      "revId": "5c34803bdad7b0483b6a5cb96078043e89903524",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5389b54b_388e7a71",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2021-12-06T17:03:15Z",
+      "side": 1,
+      "message": "As above.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "5c34803bdad7b0483b6a5cb96078043e89903524",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9be3a757_e7374a1d",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2021-12-06T17:03:15Z",
+      "side": 1,
+      "message": "As above, move these to constants and above the helper functions.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 79
+      },
+      "revId": "5c34803bdad7b0483b6a5cb96078043e89903524",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eff28add_53993563",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 142
+      },
+      "writtenOn": "2021-12-06T17:03:15Z",
+      "side": 1,
+      "message": "Can you add a nice big TODO here that we want to drop all of this and move to something native to TripleO in THT?",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 18
+      },
       "revId": "5c34803bdad7b0483b6a5cb96078043e89903524",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": true
