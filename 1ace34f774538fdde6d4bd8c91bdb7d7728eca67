@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7dc6be8_f7fb182f",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2021-12-07T10:46:36Z",
+      "side": 1,
+      "message": "I don\u0027t think redifining constant works well?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 28
+      },
+      "revId": "1ace34f774538fdde6d4bd8c91bdb7d7728eca67",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": true
+    }
+  ]
+}
