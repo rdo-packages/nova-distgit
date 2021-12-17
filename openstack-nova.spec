@@ -174,7 +174,7 @@ Requires:         openssh-clients
 Requires:         rsync
 Requires:         python3-cinderclient >= 3.3.0
 %if 0%{?rhel} == 8
-Requires:         genisoimage 
+Requires:         genisoimage
 %else
 Requires:         xorriso
 %endif
@@ -322,7 +322,9 @@ Requires:         python3-webob >= 1.8.2
 Requires:         python3-castellan >= 0.16.0
 Requires:         python3-cryptography >= 2.7
 Requires:         python3-cursive >= 0.2.1
+%if 0%{?rhel} == 8
 Requires:         python3-dataclasses >= 0.7
+%endif
 Requires:         python3-glanceclient >= 1:2.8.0
 Requires:         python3-greenlet >= 0.4.13
 Requires:         python3-keystonemiddleware >= 4.20.0
