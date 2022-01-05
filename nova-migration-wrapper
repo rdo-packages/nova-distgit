@@ -3,6 +3,45 @@ import os
 import sys
 import syslog
 
+<<<<<<< HEAD   (23b34b openstack-nova-23.1.0-1)
+=======
+# Handle libvirt ssh tunnel script snippet
+# https://github.com/libvirt/libvirt/blob/f0803dae93d62a4b8a2f67f4873c290a76d978b3/src/rpc/virnetsocket.c#L890
+LIBVIRT_SOCK = '/var/run/libvirt/libvirt-sock'
+# Need to keep this in case proxy=netcat is part of the uri string
+# https://github.com/libvirt/libvirt/blob/108676c225c8aeb49bbbd5b8e55f7dbfedc71ac0/src/rpc/virnetclient.c#L437-L444
+LIVE_MIGRATION_TUNNEL_NETCAT = (
+    "if 'nc' -q 2>&1 | grep \"requires an argument\" >/dev/null 2>&1; then "
+    "ARG=-q0;"
+    "else "
+    "ARG=;"
+    "fi;"
+    f"'nc' $ARG -U {LIBVIRT_SOCK}")
+
+# The virt-ssh-helper command string includes the origin netcat one (without the sh)
+# https://github.com/libvirt/libvirt/blob/108676c225c8aeb49bbbd5b8e55f7dbfedc71ac0/src/rpc/virnetclient.c#L452-L457
+LIVE_MIGRATION_VIRT_SSH_HELPER = (
+    "sh -c 'which virt-ssh-helper 1>/dev/null 2>&1; if test $? = 0; then     " \
+    "virt-ssh-helper 'qemu:///system'; " \
+    f"else    {LIVE_MIGRATION_TUNNEL_NETCAT}; fi'")
+# We need to put back the sh in the netcat command
+LIVE_MIGRATION_TUNNEL_NETCAT_SH = f"sh -c '{LIVE_MIGRATION_TUNNEL_NETCAT}'"
+
+COLD_MIGRATION_ROOT = '/var/lib/nova/instances/'
+COLD_MIGRATION_CMDS = [
+    ['mkdir', '-p'],
+    ['rm', '-rf'],
+    ['touch'],
+    ['rm'],
+    ['scp', '-r', '-t'],
+    ['scp', '-r', '-f'],
+    ['scp', '-t'],
+    ['scp', '-f'],
+    ['/usr/libexec/openssh/sftp-server'],
+]
+ROOTWRAP_ARGS = ['/usr/bin/nova-rootwrap', '/etc/nova/migration/rootwrap.conf']
+
+>>>>>>> CHANGE (70ea06 [centos9] When scp, ssh original cmd is now sftp-server)
 command = os.environ.get('SSH_ORIGINAL_COMMAND')
 ssh_connection = os.environ.get('SSH_CONNECTION')
 if command is None:
@@ -51,8 +90,16 @@ rootwrap_args = ['/usr/bin/nova-rootwrap', '/etc/nova/migration/rootwrap.conf']
 
 def validate_cold_migration_cmd(args):
     target_path = os.path.normpath(args[-1])
+    # We simply remove the last argument to get the command with various args
     cmd = args[:-1]
+<<<<<<< HEAD   (23b34b openstack-nova-23.1.0-1)
     return cmd in cold_migration_cmds and target_path.startswith(cold_migration_root)
+=======
+    cmd_with_args = cmd in COLD_MIGRATION_CMDS and target_path.startswith(COLD_MIGRATION_ROOT)
+    # In the case of a command with no args, cmd will be empty
+    cmd_no_args = not cmd and args in COLD_MIGRATION_CMDS
+    return cmd_with_args or cmd_no_args
+>>>>>>> CHANGE (70ea06 [centos9] When scp, ssh original cmd is now sftp-server)
 
 # Rules
 args = command.split(' ')
