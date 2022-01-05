@@ -7,3 +7,4 @@ copy_file_local_to_remote_recursive: PathFilter, /usr/bin/scp, nova, -r, -t, /va
 copy_file_remote_to_local_recursive: PathFilter, /usr/bin/scp, nova, -r, -f, /var/lib/nova/instances/
 copy_file_local_to_remote: PathFilter, /usr/bin/scp, nova, -t, /var/lib/nova/instances/
 copy_file_remote_to_local: PathFilter, /usr/bin/scp, nova, -f, /var/lib/nova/instances/
+sftp_server: CommandFilter, /usr/libexec/openssh/sftp-server, root
