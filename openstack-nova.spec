@@ -195,6 +195,12 @@ Requires:         xorriso
 #         groups are guaranteed to exist.
 Requires(pre):    qemu-kvm-core >= %{qemu_version}
 Requires(pre):    qemu-kvm-block-rbd >= %{qemu_version}
+# The "hw-display-virtio-vga.so" used to be part of 'qemu-kvm-common'
+# RPM, however now it has moved to its own separate package called
+# 'device-display-virtio-vga'.  Having a _libdir-based Requires (instead
+# of a package-name based Requires) will allow DNF to transparently
+# handle this during updates.
+Requires(pre):  %{_libdir}/qemu-kvm/hw-display-virtio-vga.so
 %if 0%{?rhel} == 8
 Requires(pre):    qemu-kvm-block-ssh >= %{qemu_version}
 %endif
