@@ -75,6 +75,7 @@ BuildRequires:    openstack-macros
 BuildRequires:    intltool
 BuildRequires:    python3-devel
 BuildRequires:    git-core
+BuildRequires:    python3-fixtures
 BuildRequires:    python3-oslo-cache
 BuildRequires:    python3-os-traits
 BuildRequires:    python3-setuptools
@@ -310,6 +311,7 @@ Requires:         sudo
 
 Requires:         python3-paramiko >= 2.7.1
 Requires:         python3-eventlet >= 0.30.1
+Requires:         python3-fixtures >= 3.0.0
 Requires:         python3-iso8601 >= 0.1.11
 Requires:         python3-netaddr >= 0.7.18
 Requires:         python3-stevedore >= 1.20.0
