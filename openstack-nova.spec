@@ -791,3 +791,4 @@ exit 0
 - Update to 21.0.0.0rc2
 
 
+# REMOVEME: error caused by commit https://opendev.org/openstack/nova/commit/184a3c976faed38907af148a533bc6e9faa410f5
