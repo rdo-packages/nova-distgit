@@ -784,3 +784,4 @@ exit 0
 
 %changelog
 
+# REMOVEME: error caused by commit https://opendev.org/openstack/nova/commit/5c7fa6d13938a2ec43dd232993550fd0ee6b9165
