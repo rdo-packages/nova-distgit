@@ -87,7 +87,7 @@ BuildRequires:    python3-oslo-policy
 BuildRequires:    python3-barbicanclient
 BuildRequires:    python3-ddt
 BuildRequires:    python3-ironicclient
-BuildRequires:    python3-os-testr
+BuildRequires:    python3-stestr
 BuildRequires:    python3-os-vif
 BuildRequires:    python3-oslo-rootwrap
 BuildRequires:    python3-oslotest
@@ -170,7 +170,7 @@ Requires:         openssh-clients
 Requires:         rsync
 Requires:         python3-cinderclient >= 3.3.0
 %if 0%{?rhel} == 8
-Requires:         genisoimage 
+Requires:         genisoimage
 %else
 Requires:         xorriso
 %endif
@@ -599,7 +599,7 @@ rm -rf %{buildroot}%{_prefix}/etc/nova
 %if 0%{!?dlrn}
 %check
 # Limit the number of concurrent workers to 2
-OS_TEST_PATH=./nova/tests/unit ostestr -c 2
+OS_TEST_PATH=./nova/tests/unit stestr run --concurrency 2
 %endif
 
 %pre common
