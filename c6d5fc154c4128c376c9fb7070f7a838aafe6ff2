@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "047d642e_de446013",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2022-02-02T17:52:33Z",
+      "side": 1,
+      "message": "this also need a rebase.\nnova does indeed non skip tests.\n\nconcomer of the non-libvirt drivers should still be able to manually install the deps.\nthis will not affact ooo since those other driver are not support but other consomer shoudl install the expictly if the support non-libvirt drivers\n\n+1 for now until we get all of this rebased",
+      "revId": "c6d5fc154c4128c376c9fb7070f7a838aafe6ff2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
