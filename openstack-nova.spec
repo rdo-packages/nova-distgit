@@ -97,7 +97,6 @@ BuildRequires:    python3-testrepository
 BuildRequires:    python3-testresources
 BuildRequires:    python3-testscenarios
 BuildRequires:    python3-tooz
-BuildRequires:    python3-oslo-vmware
 BuildRequires:    python3-cursive
 BuildRequires:    python3-os-service-types
 BuildRequires:    python3-os-resource-classes
@@ -350,7 +349,6 @@ Requires:         python3-oslo-upgradecheck >= 1.3.0
 Requires:         python3-oslo-utils >= 4.8.0
 Requires:         python3-oslo-versionedobjects >= 1.35.0
 Requires:         python3-os-vif >= 1.15.2
-Requires:         python3-oslo-vmware >= 1.16.0
 Requires:         python3-pbr >= 5.5.1
 Requires:         python3-prettytable >= 0.7.1
 Requires:         python3-psutil >= 3.2.2
@@ -371,7 +369,6 @@ Requires:         python3-paste >= 2.0.2
 Requires:         python3-paste-deploy >= 1.5.0
 Requires:         python3-netifaces >= 0.10.4
 Requires:         python3-retrying >= 1.3.3
-Requires:         python3-os-win >= 5.4.0
 Requires:         python3-yaml >= 5.1
 %if 0%{?rhel} == 8
 Requires:         python3-dataclasses >= 0.7
@@ -407,7 +404,6 @@ BuildRequires:    python3-barbicanclient
 BuildRequires:    python3-cinderclient
 BuildRequires:    python3-keystoneclient
 BuildRequires:    python3-neutronclient
-BuildRequires:    python3-os-win
 BuildRequires:    python3-oslo-config
 BuildRequires:    python3-oslo-log
 BuildRequires:    python3-oslo-messaging
