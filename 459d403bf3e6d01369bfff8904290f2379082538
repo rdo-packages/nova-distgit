@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2334032_f565842a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2022-02-02T17:48:31Z",
+      "side": 1,
+      "message": "yep this is simple tech debt removal that should have been done a long time ago.\n\nill tray and revew the proceeding patchs presumable that is the reason for the merge conflict if not this will need a rebase before it can merge",
+      "revId": "459d403bf3e6d01369bfff8904290f2379082538",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
