@@ -81,7 +81,6 @@ BuildRequires:    python3-os-traits
 BuildRequires:    python3-setuptools
 BuildRequires:    python3-netaddr
 BuildRequires:    python3-pbr
-BuildRequires:    python3-six
 BuildRequires:    python3-oslo-i18n
 BuildRequires:    python3-cryptography >= 2.1
 BuildRequires:    python3-oslo-policy
@@ -89,7 +88,6 @@ BuildRequires:    python3-oslo-policy
 BuildRequires:    python3-barbicanclient
 BuildRequires:    python3-ddt
 BuildRequires:    python3-ironicclient
-BuildRequires:    python3-mox3
 BuildRequires:    python3-os-testr
 BuildRequires:    python3-os-vif
 BuildRequires:    python3-oslo-rootwrap
@@ -380,7 +378,6 @@ Requires:         python3-paste >= 2.0.2
 Requires:         python3-paste-deploy >= 1.5.0
 Requires:         python3-netifaces >= 0.10.4
 Requires:         python3-retrying >= 1.3.3
-Requires:         python3-os-xenapi >= 0.3.4
 Requires:         python3-os-win >= 5.4.0
 Requires:         python3-yaml >= 5.1
 %if 0%{?rhel} == 8
@@ -599,22 +596,8 @@ rm -rf %{buildroot}%{_prefix}/etc/nova
 # Until we have a better architecture, let's not run them when under DLRN
 %if 0%{!?dlrn}
 %check
-# create a fake os_xenapi with just enough to load the unit tests
-mkdir -p os_xenapi
-
-touch os_xenapi/__init__.py
-
-cat > os_xenapi/client.py <<EOF
-class session:
-    def XenAPISession():
-        pass
-XenAPI = None
-exception = None
-EOF
-
 # Limit the number of concurrent workers to 2
-OS_TEST_PATH=./nova/tests/unit ostestr -c 2 --black-regex 'xenapi|test_compute_xen'
-rm -rf os_xenapi
+OS_TEST_PATH=./nova/tests/unit ostestr -c 2
 %endif
 
 %pre common
