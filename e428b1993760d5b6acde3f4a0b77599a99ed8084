@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6866033_a38a2ae3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-02-15T15:38:54Z",
+      "side": 1,
+      "message": "This is my first attempt at contributing to RDO, so please be gentle :)\n\nPointers to the libvirt changes that are being proposed and, if accepted, would change the ssh tunnel script in a way that would break the current detection logic:\n\n* https://listman.redhat.com/archives/libvir-list/2022-February/msg00544.html (v2)\n* https://listman.redhat.com/archives/libvir-list/2022-February/msg00477.html (v1)",
+      "revId": "e428b1993760d5b6acde3f4a0b77599a99ed8084",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
