@@ -16,6 +16,92 @@
       "message": "This is my first attempt at contributing to RDO, so please be gentle :)\n\nPointers to the libvirt changes that are being proposed and, if accepted, would change the ssh tunnel script in a way that would break the current detection logic:\n\n* https://listman.redhat.com/archives/libvir-list/2022-February/msg00544.html (v2)\n* https://listman.redhat.com/archives/libvir-list/2022-February/msg00477.html (v1)",
       "revId": "e428b1993760d5b6acde3f4a0b77599a99ed8084",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c537138_b117c59a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 715
+      },
+      "writtenOn": "2022-02-15T17:26:10Z",
+      "side": 1,
+      "message": "Andrea,\n\nThanks a lot for the contribution, we always appreciate outside help. We also appreciate proactive help like this, and the well documented submission.\n\nThere\u0027s a couple of nitpicks that I\u0027ve documented below.\n\nAnd regarding the security concern, I believe the the original way is more secure and let me explain:\n- A rogue ssh client can only execute what it\u0027s able to pass to the remote host.\n- By strictly checking the command, we make sure they can only execute these specific commands.\n- Unless they already have access to the host and can overwrite these commands, their impact is pretty limited\n- By using regex like this, I believe that it\u0027s possible to do something like this:\n        nc +$ARG +-U +/var/run/libvirt/libvirt-sock\"; su -c \"evil commands\"\n\nDon\u0027t get me wrong, I personnaly dislike how it\u0027s done right now and I\u0027m all open for a new way of treating this.\nWe have an open RFE to address this specific problem. By default, we use the internalapi network for live migration\nand it\u0027s expected to be isolated, so I guess we should be good as far as security is concerned. But I\u0027ll let\nmy colleagues chime in here.",
+      "revId": "e428b1993760d5b6acde3f4a0b77599a99ed8084",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54908555_5bbe4c38",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 715
+      },
+      "writtenOn": "2022-02-15T17:26:10Z",
+      "side": 1,
+      "message": "As per the doc [1], this will only match if LIVE_MIGRATION_TUNNEL_HELPER starts at the beginning of line. So sh -c \u0027nc...\u0027 will not match here. We should probably consider using re.search [2] instead.\n\n[1] https://docs.python.org/3/library/re.html#re.match\n[2] https://docs.python.org/3/library/re.html#re.search",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "e428b1993760d5b6acde3f4a0b77599a99ed8084",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d48a0e1_8249768f",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 715
+      },
+      "writtenOn": "2022-02-15T17:26:10Z",
+      "side": 1,
+      "message": "Also, I don\u0027t think this is necessary, just \"if re.match():\" should be enough.",
+      "range": {
+        "startLine": 73,
+        "startChar": 51,
+        "endLine": 73,
+        "endChar": 62
+      },
+      "revId": "e428b1993760d5b6acde3f4a0b77599a99ed8084",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f0ce75b_2437329b",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 715
+      },
+      "writtenOn": "2022-02-15T17:26:10Z",
+      "side": 1,
+      "message": "Same here",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 11
+      },
+      "revId": "e428b1993760d5b6acde3f4a0b77599a99ed8084",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
