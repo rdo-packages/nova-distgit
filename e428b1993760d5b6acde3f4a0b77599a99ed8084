@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07fc502d_59eb12b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-02-15T21:58:38Z",
+      "side": 1,
+      "message": "\u003e And regarding the security concern, I believe the the original way is more secure and let me explain:\n\u003e - A rogue ssh client can only execute what it\u0027s able to pass to the remote host.\n\u003e - By strictly checking the command, we make sure they can only execute these specific commands.\n\u003e - Unless they already have access to the host and can overwrite these commands, their impact is pretty limited\n\u003e - By using regex like this, I believe that it\u0027s possible to do something like this:\n\u003e         nc +$ARG +-U +/var/run/libvirt/libvirt-sock\"; su -c \"evil commands\"\n\nUnless I missed something, that will actually not work because we only look at SSH_ORIGINAL_COMMAND (i.e. the command provided by the ssh client) to decide whether virt-ssh-helper or nc should be used: after that has been determined, the entire script is thrown out and we explicitly call either\n\n    virt-ssh-helper qemu:///system\n\nor\n\n    nc -U /var/run/libvirt/libvirt-sock\n\nSo there is no possibility for a rogue client to inject malicious commands.\n\nI\u0027ve updated the commit message to clarify this further, and of course addressed the nits you pointed out as well.\n\nThanks a lot for your quick and thorough review! :)",
+      "parentUuid": "9c537138_b117c59a",
+      "revId": "e428b1993760d5b6acde3f4a0b77599a99ed8084",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54908555_5bbe4c38",
         "filename": "nova-migration-wrapper",
         "patchSetId": 1
@@ -48,6 +66,30 @@
       "writtenOn": "2022-02-15T17:26:10Z",
       "side": 1,
       "message": "As per the doc [1], this will only match if LIVE_MIGRATION_TUNNEL_HELPER starts at the beginning of line. So sh -c \u0027nc...\u0027 will not match here. We should probably consider using re.search [2] instead.\n\n[1] https://docs.python.org/3/library/re.html#re.match\n[2] https://docs.python.org/3/library/re.html#re.search",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "e428b1993760d5b6acde3f4a0b77599a99ed8084",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84d37300_ecacb6a8",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-02-15T21:58:38Z",
+      "side": 1,
+      "message": "You\u0027re absolutely right :)",
+      "parentUuid": "54908555_5bbe4c38",
       "range": {
         "startLine": 70,
         "startChar": 6,
@@ -94,6 +136,54 @@
       "writtenOn": "2022-02-15T17:26:10Z",
       "side": 1,
       "message": "Same here",
+      "range": {
+        "startLine": 73,
+        "startChar": 6,
+        "endLine": 73,
+        "endChar": 11
+      },
+      "revId": "e428b1993760d5b6acde3f4a0b77599a99ed8084",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "350e5a6c_a3cfb247",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-02-15T21:58:38Z",
+      "side": 1,
+      "message": "Yup :)",
+      "parentUuid": "7d48a0e1_8249768f",
+      "range": {
+        "startLine": 73,
+        "startChar": 51,
+        "endLine": 73,
+        "endChar": 62
+      },
+      "revId": "e428b1993760d5b6acde3f4a0b77599a99ed8084",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8db8ef9_9d6fce22",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-02-15T21:58:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f0ce75b_2437329b",
       "range": {
         "startLine": 73,
         "startChar": 6,
