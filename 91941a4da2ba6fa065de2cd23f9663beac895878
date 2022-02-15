@@ -33,6 +33,23 @@
       "message": "\u003e And regarding the security concern, I believe the the original way is more secure and let me explain:\n\u003e - A rogue ssh client can only execute what it\u0027s able to pass to the remote host.\n\u003e - By strictly checking the command, we make sure they can only execute these specific commands.\n\u003e - Unless they already have access to the host and can overwrite these commands, their impact is pretty limited\n\u003e - By using regex like this, I believe that it\u0027s possible to do something like this:\n\u003e         nc +$ARG +-U +/var/run/libvirt/libvirt-sock\"; su -c \"evil commands\"\n\nUnless I missed something, that will actually not work because we\nonly look at ``SSH_ORIGINAL_COMMAND`` (i.e. the command provided by the\nssh client) to decide whether virt-ssh-helper or nc should be used:\nafter that has been determined, the entire script is thrown out and\nwe explicitly call either `virt-ssh-helper qemu:///system` or `nc -U\n/var/run/libvirt/libvirt-sock`. So there is no possibility for a\nrogue client to inject malicious commands.\n\nI\u0027ve updated the commit message to clarify this further, and of\ncourse addressed the nits you pointed out as well.\n\nThanks a lot for your quick and thorough review! :)",
       "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83384760_7a8d3e61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-02-15T22:00:01Z",
+      "side": 1,
+      "message": "I just realized my comments had been sitting as drafts for hours 🤦\n\nIs it very obvious that this is my first time using Gerrit?",
+      "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
