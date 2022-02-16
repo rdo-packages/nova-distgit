@@ -50,6 +50,24 @@
       "message": "I just realized my comments had been sitting as drafts for hours 🤦\n\nIs it very obvious that this is my first time using Gerrit?",
       "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dc71bff_9f874864",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 715
+      },
+      "writtenOn": "2022-02-16T18:46:19Z",
+      "side": 1,
+      "message": "Please, don\u0027t feel bad, it still happens to me 🤦",
+      "parentUuid": "83384760_7a8d3e61",
+      "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
