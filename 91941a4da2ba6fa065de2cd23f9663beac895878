@@ -1,0 +1,11 @@
+Code-Review+1: David Vallee Delisle <dvd@redhat.com>
+Code-Review+1: Bogdan Dobrelya <bdobreli@redhat.com>
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Code-Review+2: Sean Mooney <smooney@redhat.com>
+Workflow+1: Sean Mooney <smooney@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Tue, 22 Feb 2022 14:36:09 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/nova-distgit/+/39467
+Project: openstack/nova-distgit
+Branch: refs/heads/rpm-master
