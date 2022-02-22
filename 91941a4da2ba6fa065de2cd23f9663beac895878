@@ -85,6 +85,24 @@
       "message": "Wouldn\u0027t be better to have this script in upstream repo?",
       "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72983cc9_ccf23a87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 715
+      },
+      "writtenOn": "2022-02-22T14:10:32Z",
+      "side": 1,
+      "message": "We proposed it recently and it was refused in THT",
+      "parentUuid": "2cc9c339_6c9bd313",
+      "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
