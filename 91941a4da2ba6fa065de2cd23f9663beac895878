@@ -103,6 +103,24 @@
       "parentUuid": "2cc9c339_6c9bd313",
       "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8017d7b_8bb15b6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2022-02-22T14:15:41Z",
+      "side": 1,
+      "message": "yes we would like to remove it from this repo and move it to THT\nit is not something that should be in nova itself as this is a ooo specific script that in a normal nova deployment should not be required.",
+      "parentUuid": "72983cc9_ccf23a87",
+      "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
