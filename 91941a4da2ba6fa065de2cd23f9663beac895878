@@ -138,6 +138,24 @@
       "message": "Thanks a lot everyone! I\u0027m quite impressed by how smooth it was to get my first contribution accepted 😊\n\nA couple of follow-up questions.\n\nI see that the initial implementation of virt-ssh-helper detection (https://review.rdoproject.org/r/c/openstack/nova-distgit/+/36142) was backported to the wallaby and xena releases. Would it make sense to do the same for this change? It should be trivial and I don\u0027t mind doing it.\n\nMore relevant to my interests, what is the project\u0027s policy when it comes to picking up new libvirt versions? I see in the spec file that there is an explicit requirement for libvirt \u003e\u003d 5.0.0, but that doesn\u0027t tell me whether the next release is going to ship with a version newer than 8.0.0 or whether older releases will get rebased libvirt versions over their lifetimes.\n\nIt is important for me to understand that because it sets the timeline for getting my libvirt changes in. Specifically, if old releases are not going to ever get libvirt \u003e 8.0.0 then I don\u0027t need to worry about my changes possibly breaking them.\n\nThanks again!",
       "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "090bd7c2_46c98257",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-02-25T14:03:23Z",
+      "side": 1,
+      "message": "I noticed that I accidentally marked this as \"resolved\" and perhaps that\u0027s causing it to go unnoticed. Replying to unmark it, which is hopefully a reasonable thing to do in such cases. Apologies for the noise!",
+      "parentUuid": "4329ddf3_2c353400",
+      "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
