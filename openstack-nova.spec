@@ -342,6 +342,7 @@ Requires:         python3-oslo-config >= 8.6.0
 Requires:         python3-oslo-context >= 3.1.1
 Requires:         python3-oslo-db >= 10.0.0
 Requires:         python3-oslo-i18n >= 5.0.1
+Requires:         python3-oslo-limit >= 1.5.0
 Requires:         python3-oslo-log >= 4.4.0
 Requires:         python3-oslo-messaging >= 10.3.0
 Requires:         python3-oslo-middleware >= 3.31.0
