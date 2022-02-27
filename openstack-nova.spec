@@ -132,6 +132,7 @@ BuildRequires:    python3-keystonemiddleware
 BuildRequires:    python3-microversion-parse >= 0.2.1
 BuildRequires:    python3-os-brick
 BuildRequires:    python3-oslo-db
+BuildRequires:    python3-oslo-limit
 BuildRequires:    python3-oslo-reports
 BuildRequires:    python3-oslo-service
 BuildRequires:    python3-oslo-versionedobjects
