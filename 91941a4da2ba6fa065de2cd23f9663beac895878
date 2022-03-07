@@ -174,6 +174,24 @@
       "parentUuid": "090bd7c2_46c98257",
       "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fae6f7f_1f2c2e01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2022-03-07T18:35:49Z",
+      "side": 1,
+      "message": "the minium requirement should ideally not exceed the min libvirt/qemu listed in nova. its entirely fine for nova to be used with 8.0.0 \n\nthe current min version for yoga is documented here\nhttps://github.com/openstack/nova/blob/master/nova/virt/libvirt/driver.py#L219-L220\nMIN_LIBVIRT_VERSION \u003d (6, 0, 0)\nMIN_QEMU_VERSION \u003d (4, 2, 0)\n\nso the spec file and and should be update  on master and stable/yoga to libvirt\u003e\u003d6.0.0\n\nthese RPMS can be used in a number of contexts.\nthey will be used downstream as the bases of redhats OSP(openstack platfrom) product where the libvirt and qemu version will be determined by the RHEL product teams. they are directly used upstream by the rdo comunity on censtos stream 8 and centos stream 9.\n\nthe version of libvirt that will be used will depend on the exact os that the pacakge is installed on.\n\ncentos stream 9 support will be backported to stable/wallaby \n\nwith regards to your libvirt changes they woudl need to work with the libvirt supplied on centos 8 and centos 9. im not entirely sure if we need to backport this as i mainly maintain nova not the deployment aspect which this si modifying.\n\nevenutaly i want to see this script removed form this repo and move to tripleo instead as this should not be part fo the nova distgit repo but for now we have not got agreement form them to accpet it there.",
+      "parentUuid": "21732128_c5ce4e28",
+      "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
