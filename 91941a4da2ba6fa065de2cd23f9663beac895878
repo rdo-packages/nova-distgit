@@ -192,6 +192,24 @@
       "parentUuid": "21732128_c5ce4e28",
       "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee7d054a_3d4e08f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-03-08T18:33:27Z",
+      "side": 1,
+      "message": "Thank you for your input Sean!\n\n\u003e the minium requirement should ideally not exceed the min libvirt/qemu listed in nova. its entirely fine for nova to be used with 8.0.0 \n\u003e \n\u003e the current min version for yoga is documented here\n\u003e https://github.com/openstack/nova/blob/master/nova/virt/libvirt/driver.py#L219-L220\n\u003e MIN_LIBVIRT_VERSION \u003d (6, 0, 0)\n\u003e MIN_QEMU_VERSION \u003d (4, 2, 0)\n\u003e \n\u003e so the spec file and and should be update  on master and stable/yoga to libvirt\u003e\u003d6.0.0\n\nTo be clear, the changes I\u0027ve made to the script do not in any way cause the minimum version of libvirt required by nova to increase.\n\n\u003e these RPMS can be used in a number of contexts.\n\u003e they will be used downstream as the bases of redhats OSP(openstack platfrom) product where the libvirt and qemu version will be determined by the RHEL product teams. they are directly used upstream by the rdo comunity on censtos stream 8 and centos stream 9.\n\u003e \n\u003e the version of libvirt that will be used will depend on the exact os that the pacakge is installed on.\n\u003e \n\u003e centos stream 9 support will be backported to stable/wallaby \n\u003e \n\u003e with regards to your libvirt changes they woudl need to work with the libvirt supplied on centos 8 and centos 9.\n\nI understand that the RPMs could be deployed on a number of different OS and have to work against old versions of libvirt. That\u0027s fine, and my changes to the script don\u0027t negatively affect that.\n\nFor the purpose of getting my pending libvirt changes approved, the question is sort of the opposite: do people deploy old versions of RDO on new versions of the OS?\n\nLet\u0027s assume my changes make it into libvirt 8.2.0. How likely is it that someone would deploy an old version of nova, let\u0027s say wallaby, on an OS that\u0027s recent enough to carry libvirt 8.2.0? And if I backport the changes made to the script to wallaby, thus making it compatible with libvirt 8.2.0, how likely is it that someone would deploy an old, unpatched version on an OS that\u0027s recent enough to have libvirt 8.2.0?\n\nAs a parallel, for libvirt itself the expectation is that you won\u0027t use it to drive a version of QEMU that\u0027s more recent than the library. Can it be similarly assumed that you won\u0027t deploy nova against a version of libvirt that is more recent than it is?\n\n\u003e im not entirely sure if we need to backport this as i mainly maintain nova not the deployment aspect which this si modifying.\n\nI think I\u0027m just going to do the backports, submit them and see what happens. It\u0027s just more sane to have fewer variations of the script floating around anyway.\n\n\u003e evenutaly i want to see this script removed form this repo and move to tripleo instead as this should not be part fo the nova distgit repo but for now we have not got agreement form them to accpet it there.\n\nBased on the little understanding I have this makes sense to me.\n\nLet me take this opportunity to stress just how much I appreciate the fact that this uncertainty was not a blocker to get my changes in. Other projects might have required that the script is moved before it can be changed, and as a drive-by contributor I was extremely relieved that this was not the case here 😊",
+      "parentUuid": "1fae6f7f_1f2c2e01",
+      "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
