@@ -210,6 +210,24 @@
       "parentUuid": "1fae6f7f_1f2c2e01",
       "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a745ca3_ef8293f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2022-03-09T14:08:25Z",
+      "side": 1,
+      "message": "yes we need compatibility in both ways\n\nlibvirt is coming from the centos9stream Repos and OpenStack is coming from rdo\n\nwe need to ensure that the same rdo package will work with old and new libvirt.\nfor example, if they did a dnf update but hard marked the rdo packages to be held then it could break.\n\nso no, we cannot make the same assumption for nova and libvirt.\nnova has to support many operating systems so we specify min versions but not max\nwe expect libvirt to maintain a stable API and file bug against it fi they break something outside of a major release.\n\nso if you want to make a breaking change in libvirt it would have to be a 9.0.0 release to follow semver.\n\nin practice, most deployments will have the latest libvirt available in their os.\nthe version of nova that is currently being packaged was primarily developed on ubuntu 20.04 and tesed by RDO on centos 8 and 9. so nova is pretty flexible when it comes to the libvirt version and the rdo package should also be flexible.\n\nim not really sure why libvirt changes you are plannign to make by the way?",
+      "parentUuid": "ee7d054a_3d4e08f5",
+      "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
