@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x4c29ff0e437f3351fd82bdf47c5a3bc787dc7035
+%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 0
@@ -26,7 +26,7 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          24.0.0
+Version:          24.1.0
 Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
@@ -198,7 +198,10 @@ Requires(pre):    qemu-kvm-block-rbd >= %{qemu_version}
 # 'device-display-virtio-vga'.  Having a _libdir-based Requires (instead
 # of a package-name based Requires) will allow DNF to transparently
 # handle this during updates.
-Requires(pre):  %{_libdir}/qemu-kvm/hw-display-virtio-vga.so
+# "hw-display-virtio-vga.so" is not provided for aarch64 so we need to do
+# the requires only for x86_64 and ppc64le using boolean dependencies.
+Requires(pre):   (%{_prefix}/lib64/qemu-kvm/hw-display-virtio-vga.so if (filesystem(x86-64) or filesystem(ppc-64)))
+Requires(pre):   (%{_prefix}/lib64/qemu-kvm/hw-display-virtio-gpu.so if filesystem(aarch-64))
 %if 0%{?rhel} == 8
 Requires(pre):    qemu-kvm-block-ssh >= %{qemu_version}
 %endif
@@ -755,6 +758,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Mar 10 2022 RDO <dev@lists.rdoproject.org> 1:24.1.0-1
+- Update to 24.1.0
+
 * Wed Oct 06 2021 RDO <dev@lists.rdoproject.org> 1:24.0.0-1
 - Update to 24.0.0
 
