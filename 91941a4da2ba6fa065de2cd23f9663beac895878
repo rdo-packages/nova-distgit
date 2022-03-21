@@ -228,6 +228,24 @@
       "parentUuid": "ee7d054a_3d4e08f5",
       "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f265cff_bbaa8902",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-03-21T15:21:45Z",
+      "side": 1,
+      "message": "\u003e we expect libvirt to maintain a stable API and file bug against it fi they break something outside of a major release.\n\u003e \n\u003e so if you want to make a breaking change in libvirt it would have to be a 9.0.0 release to follow semver.\n\nNote that libvirt does *not* follow semver, and the version number simply changes in a predictable fashion along with the predictable release cadence. See https://libvirt.org/downloads.html#primary-release-schedule and https://libvirt.org/downloads.html#release-numbering for details.\n\n\u003e yes we need compatibility in both ways\n\u003e \n\u003e libvirt is coming from the centos9stream Repos and OpenStack is coming from rdo\n\u003e \n\u003e we need to ensure that the same rdo package will work with old and new libvirt.\n\u003e for example, if they did a dnf update but hard marked the rdo packages to be held then it could break.\n\u003e \n\u003e so no, we cannot make the same assumption for nova and libvirt.\n\u003e nova has to support many operating systems so we specify min versions but not max\n\u003e \n\u003e in practice, most deployments will have the latest libvirt available in their os.\n\u003e the version of nova that is currently being packaged was primarily developed on ubuntu 20.04 and tesed by RDO on centos 8 and 9. so nova is pretty flexible when it comes to the libvirt version and the rdo package should also be flexible.\n\nI feel like I haven\u0027t been able to ask my question in a way that\u0027s easy to understand yet. Let\u0027s try going for a different angle :)\n\nRDO releases are not maintained forever, right? There is a point after which they are considered EoL. IIUC Xena is the current release, Wallably is the previous release which is still being maintained, and Yoga the one that\u0027s under development.\n\nConsidering that my changes have already made it into Yoga, once all releases that are older than Yoga go EoL I will be able to safely merge my libvirt changes, since at that point all still-maintained RDO releases are going to be perfectly capable of coping with them.\n\nNow, that point in time might be several years into the future. Not ideal! But \"several years into the future\" is still better than \"never\" ;)\n\nLooking even more closely, are old \"patch levels\" of a maintained release considered supported? For example, if I have installed Wallaby when it was released and never updated it once, is that considered a valid setup? Or is there a cut-off point after which you have to update your installation, even if you stick to the same release?\n\nAssuming the latter, if the backports I have created against Wallaby (https://review.rdoproject.org/r/c/openstack/nova-distgit/+/39346) and Xena (https://review.rdoproject.org/r/c/openstack/nova-distgit/+/39345) are merged - and I don\u0027t see why they wouldn\u0027t - then the time when all supported installations of RDO contain my changes will arrive even sooner.\n\n\u003e im not really sure why libvirt changes you are plannign to make by the way?\n\nThe original motivation for the changes would be https://gitlab.com/libvirt/libvirt/-/issues/273 but overall we\u0027re simply generating a tunnel script that\u0027s more complicated than necessary. Fixing that is hardly urgent stuff, so I don\u0027t mind that much if I will only be able to merge those changes in a year or two! I just want to know that I will eventually be able to do so, and approximately *when* that will be.\n\nThank you again for helping me figure that out :)",
+      "parentUuid": "7a745ca3_ef8293f7",
+      "revId": "91941a4da2ba6fa065de2cd23f9663beac895878",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
