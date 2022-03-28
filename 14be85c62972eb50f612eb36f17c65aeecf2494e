@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48637269_1cef70a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-03-28T09:40:23Z",
+      "side": 1,
+      "message": "Ping. Any reason not to merge this (and https://review.rdoproject.org/r/c/openstack/nova-distgit/+/39346)? Not having different versions of the script floating around sounds like a very good thing to me.",
+      "revId": "14be85c62972eb50f612eb36f17c65aeecf2494e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
