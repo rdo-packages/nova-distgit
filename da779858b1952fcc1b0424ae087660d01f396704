@@ -33,6 +33,24 @@
       "message": "@kashyap, should i add some requirement specific for aarch64? IIUC, hw-display-virtio-gpu.so is used in aarch64? this is added by default or need explicit requirement?",
       "revId": "da779858b1952fcc1b0424ae087660d01f396704",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67a34200_efa2627a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 400
+      },
+      "writtenOn": "2022-03-31T15:46:22Z",
+      "side": 1,
+      "message": "Debian has them enabled:\n\nhttps://packages.debian.org/bullseye-backports/arm64/qemu-system-common/filelist lists:\n\n/usr/lib/aarch64-linux-gnu/qemu/hw-display-virtio-gpu-pci-gl.so\n/usr/lib/aarch64-linux-gnu/qemu/hw-display-virtio-gpu-pci.so\n/usr/lib/aarch64-linux-gnu/qemu/hw-display-virtio-gpu.so\n/usr/lib/aarch64-linux-gnu/qemu/hw-display-virtio-vga-gl.so\n/usr/lib/aarch64-linux-gnu/qemu/hw-display-virtio-vga.so\n/usr/lib/aarch64-linux-gnu/qemu/hw-s390x-virtio-gpu-ccw.so",
+      "parentUuid": "f76a0417_6423e8eb",
+      "revId": "da779858b1952fcc1b0424ae087660d01f396704",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
