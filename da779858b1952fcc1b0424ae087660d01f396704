@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "da779858b1952fcc1b0424ae087660d01f396704",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f76a0417_6423e8eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2022-03-31T13:55:53Z",
+      "side": 1,
+      "message": "@kashyap, should i add some requirement specific for aarch64? IIUC, hw-display-virtio-gpu.so is used in aarch64? this is added by default or need explicit requirement?",
+      "revId": "da779858b1952fcc1b0424ae087660d01f396704",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
