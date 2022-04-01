@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "0ad1d5981307b300ae4e3564dee8dc6486b5e019",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23d80458_3df190ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2022-04-01T16:35:54Z",
+      "side": 1,
+      "message": "squash in https://review.rdoproject.org/r/c/openstack/nova-distgit/+/41175",
+      "revId": "0ad1d5981307b300ae4e3564dee8dc6486b5e019",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
