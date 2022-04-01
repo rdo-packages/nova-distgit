@@ -51,6 +51,24 @@
       "parentUuid": "f76a0417_6423e8eb",
       "revId": "da779858b1952fcc1b0424ae087660d01f396704",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7346d063_3985bb7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2022-04-01T08:05:40Z",
+      "side": 1,
+      "message": "According to https://bugzilla.redhat.com/show_bug.cgi?id\u003d1372901 it seems that virtio-vga is not the right choice for aarch64.",
+      "parentUuid": "67a34200_efa2627a",
+      "revId": "da779858b1952fcc1b0424ae087660d01f396704",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
