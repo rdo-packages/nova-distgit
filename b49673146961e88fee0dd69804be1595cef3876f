@@ -33,6 +33,24 @@
       "message": "This is cool, but another colleague pointed out the \"%ifarch\" macro.  Any reason we can\u0027t use it instead?\n\n    %ifarch x86-64 ppc-64\n    Requires(pre):   (%{_prefix}/lib64/qemu-kvm/hw-display-virtio-gpu.so i\n    %elifarch aarch-64\n    Requires(pre):   (%{_prefix}/lib64/qemu-kvm/hw-display-virtio-vga.so\n    %endif",
       "revId": "b49673146961e88fee0dd69804be1595cef3876f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e303c0b4_d8d462f8",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2022-04-01T12:26:51Z",
+      "side": 1,
+      "message": "%ifarch is only used when building (not installing) packages with arch different to noarch. The goal is to apply differences between packages for different architectures when building them, not when installing them. Actually, in noarch packages, like this one, it doesn\u0027t work",
+      "parentUuid": "bb652a30_7b0427ec",
+      "revId": "b49673146961e88fee0dd69804be1595cef3876f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
