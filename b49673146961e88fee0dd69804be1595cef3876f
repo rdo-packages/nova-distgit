@@ -18,6 +18,23 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff4d635c_60703fb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2022-04-01T12:54:33Z",
+      "side": 1,
+      "message": "Let\u0027s go with the booleans deps.\n\nAside: I wonder why we chose noarch for the packages.  (Because, special-casing architectures like this might come up in the future too.)",
+      "revId": "b49673146961e88fee0dd69804be1595cef3876f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bb652a30_7b0427ec",
@@ -49,6 +66,24 @@
       "side": 1,
       "message": "%ifarch is only used when building (not installing) packages with arch different to noarch. The goal is to apply differences between packages for different architectures when building them, not when installing them. Actually, in noarch packages, like this one, it doesn\u0027t work",
       "parentUuid": "bb652a30_7b0427ec",
+      "revId": "b49673146961e88fee0dd69804be1595cef3876f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f3b187a_bb581374",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 465
+      },
+      "writtenOn": "2022-04-01T12:54:33Z",
+      "side": 1,
+      "message": "Ah-ha, noted.  Okido; let\u0027s go with your boolean options :-)\n\nNice work!",
+      "parentUuid": "e303c0b4_d8d462f8",
       "revId": "b49673146961e88fee0dd69804be1595cef3876f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
