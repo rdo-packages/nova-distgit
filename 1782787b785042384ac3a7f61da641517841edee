@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "1782787b785042384ac3a7f61da641517841edee",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa06ad81_00f6de75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 141
+      },
+      "writtenOn": "2022-04-08T16:06:39Z",
+      "side": 1,
+      "message": "recheck\n\ntimeout while preparing the environment, maybe infra issue?",
+      "revId": "1782787b785042384ac3a7f61da641517841edee",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
