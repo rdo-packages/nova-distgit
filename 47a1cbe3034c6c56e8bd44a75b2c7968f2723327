@@ -67,6 +67,23 @@
       "message": "recheck\n\nMaybe a real issue, but let\u0027s try a recheck\n  - nothing provides /usr/lib/qemu-kvm/hw-display-virtio-vga.so needed by openstack-nova-compute-1:24.1.0-1.el8.noarch",
       "revId": "47a1cbe3034c6c56e8bd44a75b2c7968f2723327",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b9b89bc_9fcf17f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 554
+      },
+      "writtenOn": "2022-04-11T15:45:13Z",
+      "side": 1,
+      "message": "this might need to wait for backporting of https://review.rdoproject.org/r/c/openstack/nova-distgit/+/41230",
+      "revId": "47a1cbe3034c6c56e8bd44a75b2c7968f2723327",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
