@@ -16,6 +16,23 @@
       "message": "thank you for providing backports",
       "revId": "7685fc154a5d064dfb2c9eb8763263bf5031fea6",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a71b556_2c930f41",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-04-14T12:40:47Z",
+      "side": 1,
+      "message": "Polite ping :)\n\nIt would be great to have the backports (this and https://review.rdoproject.org/r/c/openstack/nova-distgit/+/39345) merged.",
+      "revId": "7685fc154a5d064dfb2c9eb8763263bf5031fea6",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
