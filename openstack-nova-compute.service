@@ -10,6 +10,8 @@ TimeoutStartSec=0
 Restart=always
 User=nova
 ExecStart=/usr/bin/nova-compute
+LimitNOFILE=4096
+LimitNOFILESoft=4096
 
 [Install]
 WantedBy=multi-user.target
