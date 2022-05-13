@@ -16,6 +16,23 @@
       "message": "Ping. Any reason not to merge this (and https://review.rdoproject.org/r/c/openstack/nova-distgit/+/39346)? Not having different versions of the script floating around sounds like a very good thing to me.",
       "revId": "14be85c62972eb50f612eb36f17c65aeecf2494e",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07f1c681_4b7434fb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2022-05-13T10:20:03Z",
+      "side": 1,
+      "message": "looks like a clean backport to me\ncherrypicked line is present too  so +2",
+      "revId": "14be85c62972eb50f612eb36f17c65aeecf2494e",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
