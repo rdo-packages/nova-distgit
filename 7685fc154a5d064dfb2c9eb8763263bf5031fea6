@@ -67,6 +67,23 @@
       "message": "And yet another ping 😊",
       "revId": "7685fc154a5d064dfb2c9eb8763263bf5031fea6",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af0eaa4d_a832e018",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2022-05-13T10:22:52Z",
+      "side": 1,
+      "message": "this also looks like a clean backport to me but im unser if we can merge this without the xena one merging so holding +w\n\ni know that ooo and our product downstream is skiping some upstream reelase but these pacakges are shared with other consumers of rdo so we shoudl wait for the xena patch to merge before merging this one",
+      "revId": "7685fc154a5d064dfb2c9eb8763263bf5031fea6",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
