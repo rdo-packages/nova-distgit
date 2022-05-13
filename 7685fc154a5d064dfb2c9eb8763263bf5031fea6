@@ -50,6 +50,23 @@
       "message": "Another polite ping 😊\n\nCan we get this and https://review.rdoproject.org/r/c/openstack/nova-distgit/+/39345 merged please? Thanks!",
       "revId": "7685fc154a5d064dfb2c9eb8763263bf5031fea6",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5298f47d_c5d23c38",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 761
+      },
+      "writtenOn": "2022-05-13T06:17:50Z",
+      "side": 1,
+      "message": "And yet another ping 😊",
+      "revId": "7685fc154a5d064dfb2c9eb8763263bf5031fea6",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
