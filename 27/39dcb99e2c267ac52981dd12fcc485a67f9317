@@ -1,0 +1,10 @@
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Code-Review+2: Joel Capitao <jcapitao@redhat.com>
+Workflow+1: Alfredo Moralejo <amoralej@redhat.com>
+Workflow+1: Joel Capitao <jcapitao@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Mon, 04 Jul 2022 08:39:45 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/nova-distgit/+/43703
+Project: openstack/nova-distgit
+Branch: refs/heads/wallaby-rdo
