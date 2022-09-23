@@ -1,4 +1,4 @@
-%global milestone .0rc1
+%global milestone .0rc2
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
 
@@ -28,16 +28,14 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          26.0.0
-Release:          0.1%{?milestone}%{?dist}
+Release:          0.2%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
 URL:              http://openstack.org/projects/compute/
 Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz
 
-#
-# patches_base=26.0.0.0rc1
-#
+# patches_base=26.0.0.0rc2
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
@@ -773,6 +771,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Sep 23 2022 RDO <dev@lists.rdoproject.org> 1:26.0.0-0.2.0rc1
+- Update to 26.0.0.0rc2
+
 * Mon Sep 19 2022 RDO <dev@lists.rdoproject.org> 1:26.0.0-0.1.0rc1
 - Update to 26.0.0.0rc1
 
