@@ -315,6 +315,7 @@ Requires:         python3-iso8601 >= 0.1.11
 Requires:         python3-netaddr >= 0.7.18
 Requires:         python3-stevedore >= 1.20.0
 Requires:         python3-sqlalchemy >= 1.2.19
+Requires:         python3-sqlalchemy < 1.4.0
 Requires:         python3-alembic >= 0.8.0
 Requires:         python3-routes >= 2.3.1
 Requires:         python3-webob >= 1.8.2
@@ -423,7 +424,7 @@ BuildRequires:    python3-routes
 BuildRequires:    python3-sphinx
 BuildRequires:    python3-sphinxcontrib-actdiag
 BuildRequires:    python3-sphinxcontrib-seqdiag
-BuildRequires:    python3-sqlalchemy
+BuildRequires:    python3-sqlalchemy < 1.4.0
 BuildRequires:    python3-webob
 BuildRequires:    python3-iso8601
 
