@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global with_doc 0
@@ -26,7 +26,7 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          23.2.1
+Version:          23.2.2
 Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
@@ -773,6 +773,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Nov 04 2022 RDO <dev@lists.rdoproject.org> 1:23.2.2-1
+- Update to 23.2.2
+
 * Thu Jun 23 2022 RDO <dev@lists.rdoproject.org> 1:23.2.1-1
 - Update to 23.2.1
 
