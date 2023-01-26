@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "ed2fb0be0c4a4430abd2945a317048d330fad6e2",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a54e686_9af7356f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2023-01-26T15:21:06Z",
+      "side": 1,
+      "message": "the job timed out because of a slow mirror",
+      "revId": "ed2fb0be0c4a4430abd2945a317048d330fad6e2",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
