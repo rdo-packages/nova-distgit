@@ -338,7 +338,7 @@ Requires:         python3-novaclient >= 2.30.1
 Requires:         python3-openstacksdk >= 0.35.0
 Requires:         python3-os-brick >= 5.2
 Requires:         python3-os-resource-classes >= 1.1.0
-Requires:         python3-os-traits >= 2.7.0
+Requires:         python3-os-traits >= 2.9.0
 Requires:         python3-oslo-cache >= 1.26.0
 Requires:         python3-oslo-concurrency >= 5.0.1
 Requires:         python3-oslo-config >= 8.6.0
@@ -347,9 +347,9 @@ Requires:         python3-oslo-db >= 10.0.0
 Requires:         python3-oslo-i18n >= 5.1.0
 Requires:         python3-oslo-limit >= 1.5.0
 Requires:         python3-oslo-log >= 4.6.1
-Requires:         python3-oslo-messaging >= 10.3.0
+Requires:         python3-oslo-messaging >= 14.1.0
 Requires:         python3-oslo-middleware >= 3.31.0
-Requires:         python3-oslo-policy >= 3.7.0
+Requires:         python3-oslo-policy >= 3.11.0
 Requires:         python3-oslo-privsep >= 2.6.2
 Requires:         python3-oslo-reports >= 1.18.0
 Requires:         python3-oslo-rootwrap >= 5.15.0
@@ -358,7 +358,7 @@ Requires:         python3-oslo-service >= 2.8.0
 Requires:         python3-oslo-upgradecheck >= 1.3.0
 Requires:         python3-oslo-utils >= 4.12.1
 Requires:         python3-oslo-versionedobjects >= 1.35.0
-Requires:         python3-os-vif >= 1.15.2
+Requires:         python3-os-vif >= 3.1.0
 Requires:         python3-pbr >= 5.8.0
 Requires:         python3-prettytable >= 0.7.1
 Requires:         python3-psutil >= 3.2.2
@@ -379,6 +379,7 @@ Requires:         python3-paste-deploy >= 1.5.0
 Requires:         python3-netifaces >= 0.10.4
 Requires:         python3-retrying >= 1.3.3
 Requires:         python3-yaml >= 5.1
+Requires:         python3-packaging >= 20.9
 
 %description -n   python3-nova
 %{common_desc}
