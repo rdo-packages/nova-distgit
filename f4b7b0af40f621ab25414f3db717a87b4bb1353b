@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14103071_4e71225d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2023-06-22T15:21:18Z",
+      "side": 1,
+      "message": "If we hit any problems with the authorized_keys file access, there is https://review.rdoproject.org/r/c/openstack/nova-distgit/+/48944 to help with that.\nBut as far as lvm works, and the issue has been verified, we may not going to need it.",
+      "revId": "f4b7b0af40f621ab25414f3db717a87b4bb1353b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
