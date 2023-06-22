@@ -750,7 +750,7 @@ exit 0
 %dir %attr(0700, nova, nova) %{_sharedstatedir}/nova/.ssh
 %attr(0600, nova, nova) %{_sharedstatedir}/nova/.ssh/config
 %dir %{_sysconfdir}/nova/migration
-%config(noreplace) %attr(0640, root, nova_migration) %{_sysconfdir}/nova/migration/authorized_keys
+%config(noreplace) %attr(0644, root, nova_migration) %{_sysconfdir}/nova/migration/authorized_keys
 %config(noreplace) %attr(0600, nova, nova) %{_sysconfdir}/nova/migration/identity
 %config(noreplace) %attr(0640, root, root) %{_sysconfdir}/nova/migration/rootwrap.conf
 %dir %{_sysconfdir}/nova/migration/rootwrap.d
