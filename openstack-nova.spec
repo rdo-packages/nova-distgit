@@ -788,3 +788,4 @@ exit 0
 - Update to 25.0.0
 
 
+# REMOVEME: error caused by commit https://opendev.org/openstack/nova/commit/2fbc99b31a7de2c8c1d8e7b46ef95f628a413ba5
