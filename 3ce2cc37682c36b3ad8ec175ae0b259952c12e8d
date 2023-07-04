@@ -16,6 +16,23 @@
       "message": "it should be cleared by https://review.rdoproject.org/r/c/rdoinfo/+/49147 once it\u0027s merged and build available in -testing repo",
       "revId": "3ce2cc37682c36b3ad8ec175ae0b259952c12e8d",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b9d972_508d8b3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 757
+      },
+      "writtenOn": "2023-07-04T13:28:18Z",
+      "side": 1,
+      "message": "recheck",
+      "revId": "3ce2cc37682c36b3ad8ec175ae0b259952c12e8d",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
