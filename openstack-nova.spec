@@ -2,6 +2,12 @@
 %global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order bashate psycopg2-binary types-paramiko
+# Exclude sphinx from BRs if docs are disabled
+%if ! 0%{?with_doc}
+%global excluded_brs %{excluded_brs} sphinx openstackdocstheme
+%endif
 %global with_doc 0
 %global rhosp 0
 %if 0%{?rhosp} == 0
@@ -30,7 +36,7 @@ Version:          XXX
 Release:          XXX
 Summary:          OpenStack Compute (nova)
 
-License:          ASL 2.0
+License:          Apache-2.0
 URL:              http://openstack.org/projects/compute/
 Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz
 
@@ -74,35 +80,8 @@ BuildRequires:  /usr/bin/gpgv2
 BuildRequires:    openstack-macros
 BuildRequires:    intltool
 BuildRequires:    python3-devel
+BuildRequires:    pyproject-rpm-macros
 BuildRequires:    git-core
-BuildRequires:    python3-oslo-cache
-BuildRequires:    python3-os-traits
-BuildRequires:    python3-setuptools
-BuildRequires:    python3-netaddr
-BuildRequires:    python3-pbr
-BuildRequires:    python3-oslo-i18n
-BuildRequires:    python3-cryptography >= 2.1
-BuildRequires:    python3-oslo-policy
-# Required for unit tests
-BuildRequires:    python3-barbicanclient
-BuildRequires:    python3-ddt
-BuildRequires:    python3-ironicclient
-BuildRequires:    python3-stestr
-BuildRequires:    python3-os-vif
-BuildRequires:    python3-oslo-rootwrap
-BuildRequires:    python3-oslotest
-BuildRequires:    python3-osprofiler
-BuildRequires:    python3-subunit
-BuildRequires:    python3-testrepository
-BuildRequires:    python3-testresources
-BuildRequires:    python3-testscenarios
-BuildRequires:    python3-tooz
-BuildRequires:    python3-cursive
-BuildRequires:    python3-os-service-types
-BuildRequires:    python3-os-resource-classes
-
-BuildRequires:    python3-requests-mock
-BuildRequires:    /usr/bin/pathfix.py
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
@@ -117,31 +96,11 @@ Requires:         openstack-nova-migration = %{epoch}:%{version}-%{release}
 
 %package common
 Summary:          Components common to all OpenStack Nova services
-Obsoletes:        openstack-nova-cert <= 1:16.0.0-1
-# nova-cells has been retired in train
-Obsoletes:        openstack-nova-cells < 1:20.0.0
 
 Requires:         python3-nova = %{epoch}:%{version}-%{release}
 %{?systemd_ordering}
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
-# Required to build nova.conf.sample and nova-compute.conf.sample
-BuildRequires:    python3-castellan >= 0.16.0
-BuildRequires:    python3-glanceclient
-BuildRequires:    python3-keystonemiddleware
-BuildRequires:    python3-microversion-parse >= 0.2.1
-BuildRequires:    python3-os-brick
-BuildRequires:    python3-oslo-db
-BuildRequires:    python3-oslo-reports
-BuildRequires:    python3-oslo-service
-BuildRequires:    python3-oslo-versionedobjects
-BuildRequires:    python3-paramiko
-# Required to compile translation files
-BuildRequires:    python3-babel
-
-BuildRequires:    python3-lxml
-BuildRequires:    python3-websockify >= 0.9.0
-
 
 # remove old service subpackage
 Obsoletes: %{name}-objectstore
@@ -163,17 +122,10 @@ Requires:         iptables
 Requires:         iptables-services
 Requires:         ipmitool
 Requires:         /usr/bin/virsh
-%if 0%{?rhel}==0
-Requires:         libvirt-daemon-lxc
-%endif
 Requires:         openssh-clients
 Requires:         rsync
 Requires:         python3-cinderclient >= 3.3.0
-%if 0%{?rhel} == 8
-Requires:         genisoimage
-%else
 Requires:         xorriso
-%endif
 
 # NOTE-1: From RHEL-8 onwards there is no 'qemu-kvm' vs.
 #         'qemu-kvm-ev|rhev' RPM split, instead there is only one RPM
@@ -201,9 +153,6 @@ Requires(pre):    qemu-kvm-block-rbd >= %{qemu_version}
 # the requires only for x86_64 and ppc64le using boolean dependencies.
 Requires(pre):   (%{_prefix}/lib64/qemu-kvm/hw-display-virtio-vga.so if (filesystem(x86-64) or filesystem(ppc-64)))
 Requires(pre):   (%{_prefix}/lib64/qemu-kvm/hw-display-virtio-gpu.so if filesystem(aarch-64))
-%if 0%{?rhel} == 8
-Requires(pre):    qemu-kvm-block-ssh >= %{qemu_version}
-%endif
 Requires(pre):    python3-libvirt >= %{libvirt_version}
 Requires(pre):    libvirt-daemon-driver-nodedev >= %{libvirt_version}
 Requires(pre):    libvirt-daemon-driver-nwfilter >= %{libvirt_version}
@@ -264,7 +213,6 @@ Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         novnc
 Requires:         python3-websockify >= 0.9.0
 
-
 %description novncproxy
 %{common_desc}
 
@@ -287,8 +235,6 @@ spice HTML5 console access service to Virtual Machines.
 Summary:          OpenStack Nova serial console access service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python3-websockify >= 0.9.0
-
 %description serialproxy
 %{common_desc}
 
@@ -307,79 +253,11 @@ This package contains scripts and config to support VM migration in Nova.
 
 %package -n       python3-nova
 Summary:          Nova Python libraries
-%{?python_provide:%python_provide python3-nova}
 
 Requires:         openssl
 # Require openssh for ssh-keygen
 Requires:         openssh
 Requires:         sudo
-
-Requires:         python3-paramiko >= 2.7.1
-Requires:         python3-eventlet >= 0.30.1
-Requires:         python3-iso8601 >= 0.1.11
-Requires:         python3-netaddr >= 0.7.18
-Requires:         python3-stevedore >= 1.20.0
-Requires:         python3-sqlalchemy >= 1.4.13
-Requires:         python3-alembic >= 1.5.0
-Requires:         python3-routes >= 2.3.1
-Requires:         python3-webob >= 1.8.2
-Requires:         python3-castellan >= 0.16.0
-Requires:         python3-cryptography >= 2.7
-Requires:         python3-cursive >= 0.2.1
-Requires:         python3-glanceclient >= 1:2.8.0
-Requires:         python3-greenlet >= 0.4.15
-Requires:         python3-keystonemiddleware >= 4.20.0
-Requires:         python3-keystoneauth1 >= 3.16.0
-Requires:         python3-jinja2 >= 2.10
-Requires:         python3-jsonschema >= 3.2.0
-Requires:         python3-microversion-parse >= 0.2.1
-Requires:         python3-neutronclient >= 7.1.0
-Requires:         python3-novaclient >= 2.30.1
-Requires:         python3-openstacksdk >= 0.35.0
-Requires:         python3-os-brick >= 5.2
-Requires:         python3-os-resource-classes >= 1.1.0
-Requires:         python3-os-traits >= 2.9.0
-Requires:         python3-oslo-cache >= 1.26.0
-Requires:         python3-oslo-concurrency >= 5.0.1
-Requires:         python3-oslo-config >= 8.6.0
-Requires:         python3-oslo-context >= 3.4.0
-Requires:         python3-oslo-db >= 10.0.0
-Requires:         python3-oslo-i18n >= 5.1.0
-Requires:         python3-oslo-limit >= 1.5.0
-Requires:         python3-oslo-log >= 4.6.1
-Requires:         python3-oslo-messaging >= 14.1.0
-Requires:         python3-oslo-middleware >= 3.31.0
-Requires:         python3-oslo-policy >= 3.11.0
-Requires:         python3-oslo-privsep >= 2.6.2
-Requires:         python3-oslo-reports >= 1.18.0
-Requires:         python3-oslo-rootwrap >= 5.15.0
-Requires:         python3-oslo-serialization >= 4.2.0
-Requires:         python3-oslo-service >= 2.8.0
-Requires:         python3-oslo-upgradecheck >= 1.3.0
-Requires:         python3-oslo-utils >= 4.12.1
-Requires:         python3-oslo-versionedobjects >= 1.35.0
-Requires:         python3-os-vif >= 3.1.0
-Requires:         python3-pbr >= 5.8.0
-Requires:         python3-prettytable >= 0.7.1
-Requires:         python3-psutil >= 3.2.2
-Requires:         python3-requests >= 2.25.1
-Requires:         python3-rfc3986 >= 1.2.0
-Requires:         python3-tooz >= 1.58.0
-Requires:         python3-os-service-types >= 1.7.0
-Requires:         python3-dateutil >= 2.7.0
-Requires:         python3-futurist >= 1.8.0
-
-Requires:         python3-decorator >= 4.1.0
-Requires:         python3-lxml >= 4.5.0
-Requires:         python3-ldap
-Requires:         python3-memcached
-Requires:         python3-migrate >= 0.13.0
-Requires:         python3-paste >= 2.0.2
-Requires:         python3-paste-deploy >= 1.5.0
-Requires:         python3-netifaces >= 0.10.4
-Requires:         python3-retrying >= 1.3.3
-Requires:         python3-yaml >= 5.1
-Requires:         python3-packaging >= 20.9
 
 %description -n   python3-nova
 %{common_desc}
@@ -388,7 +266,6 @@ This package contains the nova Python library.
 
 %package -n python3-nova-tests
 Summary:        Nova tests
-%{?python_provide:%python_provide python3-nova-tests}
 Requires:       openstack-nova = %{epoch}:%{version}-%{release}
 
 %description -n python3-nova-tests
@@ -401,33 +278,6 @@ This package contains the nova Python library.
 Summary:          Documentation for OpenStack Compute
 
 BuildRequires:    graphviz
-# Required by build_sphinx for man and doc building
-BuildRequires:    python3-openstackdocstheme
-BuildRequires:    python3-sphinxcontrib-actdiag
-BuildRequires:    python3-sphinxcontrib-seqdiag
-# Required to build module documents
-BuildRequires:    python3-eventlet
-BuildRequires:    python3-barbicanclient
-BuildRequires:    python3-cinderclient
-BuildRequires:    python3-keystoneclient
-BuildRequires:    python3-neutronclient
-BuildRequires:    python3-oslo-config
-BuildRequires:    python3-oslo-log
-BuildRequires:    python3-oslo-messaging
-BuildRequires:    python3-oslo-utils
-BuildRequires:    python3-rfc3986 >= 1.1.0
-BuildRequires:    python3-routes
-BuildRequires:    python3-sphinx
-BuildRequires:    python3-sphinxcontrib-actdiag
-BuildRequires:    python3-sphinxcontrib-seqdiag
-BuildRequires:    python3-sqlalchemy
-BuildRequires:    python3-webob
-BuildRequires:    python3-iso8601
-
-BuildRequires:    python3-redis
-BuildRequires:    python3-zmq
-BuildRequires:    python3-migrate
-
 %description      doc
 %{common_desc}
 
@@ -445,11 +295,39 @@ find . \( -name .gitignore -o -name .placeholder \) -delete
 
 find nova -name \*.py -exec sed -i '/\/usr\/bin\/env python/{d;q}' {} +
 
-# Remove the requirements file so that pbr hooks don't add it
-# to distutils requiers_dist config
-%py_req_cleanup
+
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+
+# Disable extra zvm from automatic BRs
+sed -i '/^  zvm.*/d' tox.ini
+
+# requirements-override-centos C9S is providing packaging-20.9 while nova introduced >=21.0 with
+# no justification
+sed -i 's/^packaging.*/packaging>=20.9/g' requirements.txt
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+# Automatic BR generation
+%generate_buildrequires
+%if 0%{?with_doc}
+  %pyproject_buildrequires -t -e %{default_toxenv},docs
+%else
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%endif
 
 %build
+%pyproject_wheel
+
 PYTHONPATH=. oslo-config-generator --config-file=etc/nova/nova-config-generator.conf
 # Generate a sample compute config file based on etc/nova/nova-config-generator.conf
 PYTHONPATH=. oslo-config-generator --summarize --wrap-width 80 \
@@ -466,12 +344,6 @@ PYTHONPATH=. oslo-config-generator --summarize --wrap-width 80 \
   --output-file etc/nova/nova-compute.conf.sample
 # Generate a sample policy.yaml file for documentation purposes only
 PYTHONPATH=. oslopolicy-sample-generator --config-file=etc/nova/nova-policy-generator.conf
-
-%{py3_build}
-
-# Generate i18n files
-# (amoralej) we can remove '-D nova' once https://review.openstack.org/#/c/439500/ is merged
-%{__python3} setup.py compile_catalog -d build/lib/nova/locale -D nova
 
 # Programmatically update defaults in sample config
 # which is installed at /etc/nova/nova.conf and /etc/nova/nova-compute.conf
@@ -493,15 +365,52 @@ while read name eq value; do
 done < %{SOURCE1}
 
 %install
-%{py3_install}
+%pyproject_install
 
-export PYTHONPATH=.
+# Generate config files
+
+PYTHONPATH="%{buildroot}/%{python3_sitelib}" oslo-config-generator --config-file=etc/nova/nova-config-generator.conf
+# Generate a sample compute config file based on etc/nova/nova-config-generator.conf
+PYTHONPATH="%{buildroot}/%{python3_sitelib}" oslo-config-generator --summarize --wrap-width 80 \
+  --namespace oslo.messaging \
+  --namespace oslo.policy \
+  --namespace oslo.privsep \
+  --namespace oslo.service.periodic_task \
+  --namespace oslo.service.service \
+  --namespace oslo.concurrency \
+  --namespace oslo.reports \
+  --namespace osprofiler \
+  --namespace nova.common \
+  --namespace nova.compute \
+  --output-file etc/nova/nova-compute.conf.sample
+# Generate a sample policy.yaml file for documentation purposes only
+PYTHONPATH="%{buildroot}/%{python3_sitelib}" oslopolicy-sample-generator --config-file=etc/nova/nova-policy-generator.conf
+
+# Programmatically update defaults in sample config
+# which is installed at /etc/nova/nova.conf and /etc/nova/nova-compute.conf
+
+#  First we ensure all values are commented in appropriate format.
+#  Since icehouse, there was an uncommented keystone_authtoken section
+#  at the end of the file which mimics but also conflicted with our
+#  distro editing that had been done for many releases.
+sed -i '/^[^#[]/{s/^/#/; s/ //g}; /^#[^ ]/s/ = /=/' etc/nova/nova.conf.sample
+sed -i '/^[^#[]/{s/^/#/; s/ //g}; /^#[^ ]/s/ = /=/' etc/nova/nova-compute.conf.sample
+
+#  TODO: Make this more robust
+#  Note it only edits the first occurrence, so assumes a section ordering in sample
+#  and also doesn't support multi-valued variables like dhcpbridge_flagfile.
+while read name eq value; do
+  test "$name" && test "$value" || continue
+  sed -i "0,/^# *$name=/{s!^# *$name=.*!#$name=$value!}" etc/nova/nova.conf.sample
+  sed -i "0,/^# *$name=/{s!^# *$name=.*!#$name=$value!}" etc/nova/nova-compute.conf.sample
+done < %{SOURCE1}
+
+# Generate i18n files
+%{__python3} setup.py compile_catalog -d %{buildroot}%{python3_sitelib}/nova/locale -D nova
+
 %if 0%{?with_doc}
-sphinx-build -b html doc/source doc/build/html
+%tox -e docs
 rm -rf doc/build/html/.{doctrees,buildinfo}
-%endif
-
-%if 0%{?with_doc}
 sphinx-build -b man doc/source doc/build/man
 mkdir -p %{buildroot}%{_mandir}/man1
 install -p -D -m 644 doc/build/man/*.1 %{buildroot}%{_mandir}/man1/
@@ -606,7 +515,7 @@ rm -rf %{buildroot}%{_prefix}/etc/nova
 %if 0%{!?dlrn}
 %check
 # Limit the number of concurrent workers to 2
-OS_TEST_PATH=./nova/tests/unit stestr run --concurrency 2
+%tox -e %{default_toxenv} -- -- --concurrency 2
 %endif
 
 %pre common
@@ -755,7 +664,7 @@ exit 0
 %files -n python3-nova
 %license LICENSE
 %{python3_sitelib}/nova
-%{python3_sitelib}/nova-*.egg-info
+%{python3_sitelib}/nova-*.dist-info
 %exclude %{python3_sitelib}/nova/tests
 
 %files -n python3-nova-tests
