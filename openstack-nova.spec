@@ -518,11 +518,9 @@ rm -rf %{buildroot}%{_prefix}/etc/nova
 
 # FIXME(jpena): unit tests are taking too long in the current DLRN infra
 # Until we have a better architecture, let's not run them when under DLRN
-%if 0%{!?dlrn}
 %check
 # Limit the number of concurrent workers to 2
 %tox -e %{default_toxenv} -- -- --concurrency 2
-%endif
 
 %pre common
 getent group nova >/dev/null || groupadd -r nova --gid 162
