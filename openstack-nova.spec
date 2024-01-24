@@ -56,7 +56,6 @@ Source32:         openstack-nova-os-compute-api.service
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
-Source34:         policy.json
 
 Source35:         nova_migration-sudoers
 Source36:         nova-ssh-config
@@ -446,9 +445,6 @@ install -p -D -m 640 %{SOURCE40} %{buildroot}%{_sysconfdir}/nova/migration/rootw
 install -d -m 755 %{buildroot}%{_sysconfdir}/nova/migration/rootwrap.d
 install -p -D -m 640 %{SOURCE41} %{buildroot}%{_sysconfdir}/nova/migration/rootwrap.d/cold_migration.filters
 
-# Install empty policy.json file to cover rpm updates with untouched policy files.
-install -p -D -m 640 %{SOURCE34} %{buildroot}%{_sysconfdir}/nova/policy.json
-
 # Install version info file
 cat > %{buildroot}%{_sysconfdir}/nova/release <<EOF
 [Nova]
@@ -598,7 +594,6 @@ exit 0
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova.conf
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/api-paste.ini
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/rootwrap.conf
-%config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/policy.json
 %config(noreplace) %{_sysconfdir}/logrotate.d/openstack-nova
 %config(noreplace) %{_sysconfdir}/sudoers.d/nova
 
