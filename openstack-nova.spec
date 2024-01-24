@@ -34,7 +34,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          29.0.0
-Release:          0.1%{?milestone}%{?dist}
+Release:          0.2%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          Apache-2.0
@@ -61,7 +61,6 @@ Source32:         openstack-nova-os-compute-api.service
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
 Source30:         openstack-nova-novncproxy.sysconfig
-Source34:         policy.json
 
 Source35:         nova_migration-sudoers
 Source36:         nova-ssh-config
@@ -451,9 +450,6 @@ install -p -D -m 640 %{SOURCE40} %{buildroot}%{_sysconfdir}/nova/migration/rootw
 install -d -m 755 %{buildroot}%{_sysconfdir}/nova/migration/rootwrap.d
 install -p -D -m 640 %{SOURCE41} %{buildroot}%{_sysconfdir}/nova/migration/rootwrap.d/cold_migration.filters
 
-# Install empty policy.json file to cover rpm updates with untouched policy files.
-install -p -D -m 640 %{SOURCE34} %{buildroot}%{_sysconfdir}/nova/policy.json
-
 # Install version info file
 cat > %{buildroot}%{_sysconfdir}/nova/release <<EOF
 [Nova]
@@ -603,7 +599,6 @@ exit 0
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova.conf
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/api-paste.ini
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/rootwrap.conf
-%config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/policy.json
 %config(noreplace) %{_sysconfdir}/logrotate.d/openstack-nova
 %config(noreplace) %{_sysconfdir}/sudoers.d/nova
 
@@ -689,6 +684,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Mar 20 2024 Alfredo Moralejo <amoralej@redhat.com> 1:29.0.0-0.2.0rc1
+- Stop installing policy.json
+
 * Tue Mar 19 2024 RDO <dev@lists.rdoproject.org> 1:29.0.0-0.1.0rc1
 - Update to 29.0.0.0rc1
 
