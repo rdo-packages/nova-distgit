@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f2a76ab_3e2ee5b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2024-03-20T11:15:46Z",
+      "side": 1,
+      "message": "yep takashi is correct on both fronts this is not used by default anymore and we have had policy in code for a very long time so we do not need it in the rpm",
+      "revId": "60a6c9392d57eade49a0cc4598f0fd34dd6658c3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
