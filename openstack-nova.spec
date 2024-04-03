@@ -1,4 +1,3 @@
-%global milestone .0rc1
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0x2ef3fe0ec2b075ab7458b5f8b702b20b13df2318
 
@@ -33,16 +32,14 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          29.0.0
-Release:          0.2%{?milestone}%{?dist}
+Version:          29.0.1
+Release:          1%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          Apache-2.0
 URL:              http://openstack.org/projects/compute/
 Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz
 
-#
-# patches_base=29.0.0.0rc1
 #
 
 Source1:          nova-dist.conf
@@ -684,6 +681,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Apr 03 2024 RDO <dev@lists.rdoproject.org> 1:29.0.1-1
+- Update to 29.0.1
+
 * Wed Mar 20 2024 Alfredo Moralejo <amoralej@redhat.com> 1:29.0.0-0.2.0rc1
 - Stop installing policy.json
 
