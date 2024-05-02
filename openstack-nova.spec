@@ -15,8 +15,8 @@
 %else
 %global distro     Red Hat
 %endif
-%global qemu_version     3.1.0
-%global libvirt_version  5.0.0
+%global qemu_version     5.2.0
+%global libvirt_version  7.0.0
 
 %global common_desc \
 OpenStack Compute (codename Nova) is open source software designed to \
