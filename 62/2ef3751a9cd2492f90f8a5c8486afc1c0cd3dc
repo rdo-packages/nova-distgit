@@ -1,0 +1,10 @@
+Code-Review+2: Sean Mooney <smooney@redhat.com>
+Code-Review+2: Kashyap Chamarthy <kchamart@redhat.com>
+Workflow+1: Alfredo Moralejo <amoralej@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Tue, 14 May 2024 10:18:30 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/nova-distgit/+/53096
+Project: openstack/nova-distgit
+Branch: refs/heads/rpm-master
