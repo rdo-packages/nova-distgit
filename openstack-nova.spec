@@ -504,9 +504,6 @@ mv %{buildroot}%{python3_sitelib}/nova/locale %{buildroot}%{_datadir}/locale
 %find_lang nova --all-name
 
 # Remove unneeded in production stuff
-rm -f %{buildroot}%{_bindir}/nova-debug
-rm -fr %{buildroot}%{python3_sitelib}/run_tests.*
-rm -f %{buildroot}%{_bindir}/nova-combined
 rm -f %{buildroot}/usr/share/doc/nova/README*
 
 # Remove duplicated configuration files deployed at /usr/etc
