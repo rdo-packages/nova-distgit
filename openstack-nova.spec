@@ -27,7 +27,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          27.3.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          ASL 2.0
@@ -332,7 +332,7 @@ Requires:         python3-glanceclient >= 1:2.8.0
 Requires:         python3-greenlet >= 0.4.15
 Requires:         python3-keystonemiddleware >= 4.20.0
 Requires:         python3-keystoneauth1 >= 3.16.0
-Requires:         python3-jinja2 >= 2.10
+Requires:         python3-jinja2 >= 3.0.0
 Requires:         python3-jsonschema >= 3.2.0
 Requires:         python3-microversion-parse >= 0.2.1
 Requires:         python3-neutronclient >= 7.1.0
@@ -771,6 +771,9 @@ exit 0
 %endif
 
 %changelog
+* Tue May 21 2024 Tobias Urdin <tobias.urdin@binero.com> 1:27.3.0-2
+- Fix jinja2 requires
+
 * Tue May 14 2024 RDO <dev@lists.rdoproject.org> 1:27.3.0-1
 - Update to 27.3.0
 
