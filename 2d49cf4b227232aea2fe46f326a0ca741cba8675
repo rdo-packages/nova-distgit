@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca8816c2_bfa2e10a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2024-05-21T10:22:29Z",
+      "side": 1,
+      "message": "IMO, this workaround is not the best way as it\u0027s adding a \"fake\" minimal version. The explanation of the issue is:\n\n1. The ci node has python3-jinja2-2.11 installed from CentOS repo as requirement for cloud-init.\n2. We add RDO antelope repos. RDO repo contains python3-jinja2-3.0.1 as required for some packages as oslo_middleware.\n3. python3-oslo-middleware has requirement on jinja2\u003e\u003d3.0.0 since 5.1.1-2 but 5.1.1-1 is available in the repo.\n4. nova real minimal version of jinja2 is 2.10 as in requirements.txt.\n5. When trying to install nova (or other service) \"dnf install openstack-nova\", dnf prefers to install python3-oslo-messaging 5.1.1-1 and skip jinja2 update. That\u0027s by design behavior of dnf: \"Note that the use of the newest available version is only guaranteed for the packages directly requested (e.g. as a command line arguments), and the solver may use older versions of dependencies to meet their requirements.\"\n\nSo the actual issue is that we need to update python3-oslo-middleware to the non-buggy version.\n\nPart of the problem is that package python3-jinja2 is provided in two different repos, centos and RDO as we required major version update which is not provided in centos repos.\n\nIMO, the best solution for this is running \"dnf update\" or \"dnf distro-sync\" right after adding RDO repos. that will update python3-jinja2 to 3.0.1 so that all the rest of the packages will be installed from latest versions.\n\nAn alternative would be to remove python-oslo-middleware-5.1.1-1.el9s from CloudSIG official repo so that it would be forced to install -2 and update jinja2. However, removing old packages is usually considered a good practice and I\u0027d prefer to leave only for extreme cases.\n\nThere may be other options, like doing \"dnf install python3-oslo-middleware\" first, etc.. but those are ad-hoc workarounds difficult to maintain IMO",
+      "revId": "2d49cf4b227232aea2fe46f326a0ca741cba8675",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
