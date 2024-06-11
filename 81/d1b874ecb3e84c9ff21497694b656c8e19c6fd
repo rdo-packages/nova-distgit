@@ -1,0 +1,8 @@
+Workflow+1: Karolina Kula <kkula@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Code-Review+2: Karolina Kula <kkula@redhat.com>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Tue, 11 Jun 2024 10:44:11 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/nova-distgit/+/53424
+Project: openstack/nova-distgit
+Branch: refs/heads/caracal-rdo
