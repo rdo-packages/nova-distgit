@@ -33,6 +33,23 @@
       "message": "unit tests are passing with this patch https://review.rdoproject.org/zuul/build/ebd987a4e6734166b095f6849db4fa4a/logs",
       "revId": "3592932c5af38dc3a22d3508a8f7c1d55afd8518",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f67c44f_42fc5bd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2024-08-27T21:03:12Z",
+      "side": 1,
+      "message": "note that this regress the secuirty posture of the resultant RPMs\nby installing build time only dependence for nova unit tests when generating the runtime requires.\n\n\nthis will increase the attack surface by pulling in software that is not required and blot and contianer generated form these rpms.\n\nif i look at a recent rpm \n\n```\n20:43:17]⬢ [rockylinux-toolbox:9] ➜ rpm -qipl  ./openstack-nova-29.1.0-0.20240826215115.01b207e.el9.src.rpm --requires |tb\nhttps://termbin.com/ahpb\n```\nwe can see its depending on \n\npython3dist(coverage) \u003e\u003d 4.4.1\npython3dist(ddt) \u003e\u003d 1.2.1\npython3dist(fixtures) \u003e\u003d 3\npython3dist(oslotest) \u003e\u003d 3.8\npython3dist(requests-mock) \u003e\u003d 1.2\npython3dist(stestr) \u003e\u003d 2\npython3dist(testresources) \u003e\u003d 2\npython3dist(testscenarios) \u003e\u003d 0.4\npython3dist(testtools) \u003e\u003d 2.5\npython3dist(tox-current-env) \u003e\u003d 0.0.6\n\nits also pulled in packaging deps \n\npython3dist(setuptools) \u003e\u003d 40.8\npython3dist(wheel)\npython3dist(pbr) \u003e\u003d 2\npython3dist(pbr) \u003e\u003d 5.8\npython3dist(pip) \u003e\u003d 19\n\n\ni may have missed some but that seam like a pretty big regression to me espically if this has been done to all the packages",
+      "revId": "3592932c5af38dc3a22d3508a8f7c1d55afd8518",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
