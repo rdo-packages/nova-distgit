@@ -16,6 +16,23 @@
       "message": "the minium requirement  has been raised in nova and this is required for a cve so remvoing this is not a valid fix.\n\nwe need a new release of oslo.utils in rdo.",
       "revId": "8587ea096e6dbec01fcc24241b5126f4de893bad",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "987216ec_ca8d35fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2024-08-27T19:54:24Z",
+      "side": 1,
+      "message": "this likely need to wait for https://review.rdoproject.org/r/c/openstack/oslo-utils-distgit/+/54191 then it will be resolved.",
+      "revId": "8587ea096e6dbec01fcc24241b5126f4de893bad",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
