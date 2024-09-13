@@ -161,7 +161,9 @@ Requires(pre):    libvirt-daemon-driver-storage-core >= %{libvirt_version}
 
 Requires:         libosinfo
 
+%if 0%{?rhosp} == 0
 Requires:         python3-libguestfs
+%endif
 Requires:         python3-libvirt
 
 
