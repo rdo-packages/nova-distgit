@@ -80,6 +80,30 @@
       },
       "revId": "45b7239a7a7ea6210f7f01b0a01c8ecf7bfd8c0b",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "333bed29_53a1f4a2",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2024-09-13T17:14:25Z",
+      "side": 1,
+      "message": "well its technally optional there too but we dont want to break existing rdo usesr that might be using file injection as its techianlly still a thing in nova.",
+      "parentUuid": "b7ab7926_51cbaf31",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 21
+      },
+      "revId": "45b7239a7a7ea6210f7f01b0a01c8ecf7bfd8c0b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
