@@ -101,9 +101,6 @@ Requires:         python3-nova = %{epoch}:%{version}-%{release}
 Requires(pre):    shadow-utils
 BuildRequires:    systemd
 
-# remove old service subpackage
-Obsoletes: %{name}-objectstore
-
 
 %description common
 %{common_desc}
