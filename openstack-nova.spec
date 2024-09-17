@@ -117,10 +117,6 @@ Summary:          OpenStack Nova Virtual Machine control service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         curl
-Requires:         iptables
-Requires:         iptables-services
-Requires:         ipmitool
-Requires:         /usr/bin/virsh
 Requires:         openssh-clients
 Requires:         rsync
 Requires:         python3-cinderclient >= 3.3.0
