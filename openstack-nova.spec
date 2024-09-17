@@ -120,7 +120,6 @@ Requires:         ipmitool
 Requires:         /usr/bin/virsh
 Requires:         openssh-clients
 Requires:         rsync
-Requires:         python3-cinderclient >= 3.3.0
 Requires:         xorriso
 
 # NOTE-1: From RHEL-8 onwards there is no 'qemu-kvm' vs.
@@ -186,7 +185,6 @@ to run Virtual Machines in the cloud.
 Summary:          OpenStack Nova API services
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python3-cinderclient >= 3.3.0
 
 %description api
 %{common_desc}
@@ -209,7 +207,6 @@ Summary:          OpenStack Nova noVNC proxy service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
 Requires:         novnc
-Requires:         python3-websockify >= 0.9.0
 
 %description novncproxy
 %{common_desc}
@@ -221,7 +218,6 @@ VNC traffic over browser websockets connections.
 Summary:          OpenStack Nova Spice HTML5 console access service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         python3-websockify >= 0.9.0
 
 %description spicehtml5proxy
 %{common_desc}
