@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1159853f_495411d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 682
+      },
+      "writtenOn": "2024-09-18T14:07:12Z",
+      "side": 1,
+      "message": "rebased to resolve merge conflict (because RDO gerrit requires rebase on master)...",
+      "revId": "c39e5659e88fe2373d95ea45ce7da0b1ea672a65",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
