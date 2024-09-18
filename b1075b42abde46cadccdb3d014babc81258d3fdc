@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd0dedb7_1649758c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 635
+      },
+      "writtenOn": "2024-09-18T07:12:39Z",
+      "side": 1,
+      "message": "Those deps are indeed provided by python3-nova provided in -common",
+      "revId": "b1075b42abde46cadccdb3d014babc81258d3fdc",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
