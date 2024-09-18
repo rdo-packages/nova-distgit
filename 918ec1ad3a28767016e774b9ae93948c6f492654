@@ -22,6 +22,30 @@
       },
       "revId": "918ec1ad3a28767016e774b9ae93948c6f492654",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb12e835_228283ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2024-09-18T13:44:14Z",
+      "side": 1,
+      "message": "i would not expect it to be installed by installing nova.\n\nit could be a recommened package for the debug usecase but not requried you cant actully use virsh form the nova_comptue containers created by tripleo you have to use the nova_libvirt contianer or the module virt* contianer which have virsh by proxy of having libvirt installed.\n\nfor redhat next gen installer libvirt is install directly on the host and having virsh for debuging woudl not make sense there either.\n\nso i agree with takashi that this should be removed from the rpm deps",
+      "parentUuid": "21d84fb8_e019aa7a",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "918ec1ad3a28767016e774b9ae93948c6f492654",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
