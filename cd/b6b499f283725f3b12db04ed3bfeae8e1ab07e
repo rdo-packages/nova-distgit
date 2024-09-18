@@ -1,0 +1,8 @@
+Workflow+1: Joel Capitao <jcapitao@redhat.com>
+Code-Review+2: Joel Capitao <jcapitao@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Wed, 18 Sep 2024 10:41:51 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/nova-distgit/+/54434
+Project: openstack/nova-distgit
+Branch: refs/heads/rpm-master
