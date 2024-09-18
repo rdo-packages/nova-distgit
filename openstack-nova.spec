@@ -418,10 +418,7 @@ install -p -D -m 644 doc/build/man/*.1 %{buildroot}%{_mandir}/man1/
 
 # Setup directories
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova
-install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/buckets
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/instances
-install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/keys
-install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/networks
 install -d -m 755 %{buildroot}%{_sharedstatedir}/nova/tmp
 install -d -m 750 %{buildroot}%{_localstatedir}/log/nova
 install -d -m 700 %{buildroot}%{_sharedstatedir}/nova/.ssh
@@ -604,10 +601,7 @@ exit 0
 
 %defattr(-, nova, nova, -)
 %dir %{_sharedstatedir}/nova
-%dir %{_sharedstatedir}/nova/buckets
 %dir %{_sharedstatedir}/nova/instances
-%dir %{_sharedstatedir}/nova/keys
-%dir %{_sharedstatedir}/nova/networks
 %dir %{_sharedstatedir}/nova/tmp
 
 %files compute
