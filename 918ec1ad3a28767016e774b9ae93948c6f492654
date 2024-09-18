@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21d84fb8_e019aa7a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2024-09-18T13:19:24Z",
+      "side": 1,
+      "message": "I\u0027d say virsh was requirement for convenience to have it in compute nodes for debugging or adminstration tasks, but i would like some nova maintainer to provide feedback here.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "918ec1ad3a28767016e774b9ae93948c6f492654",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
