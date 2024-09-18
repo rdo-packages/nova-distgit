@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e13d8d43_cbeada61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2024-09-18T13:51:48Z",
+      "side": 1,
+      "message": "that was removed like 10 year ago or more so ya... this is not needed.",
+      "revId": "84f8572794ba0a23f404ac35bd0dac22a0c8a1e0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09bb3afa_3e256e8a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2024-09-18T13:51:48Z",
+      "side": 1,
+      "message": "this also changed a vey long time ago, it predates our use of in tree releasenotes so it was at least a decade ago.",
+      "revId": "84f8572794ba0a23f404ac35bd0dac22a0c8a1e0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f00488f_7c83d08d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2024-09-18T13:51:48Z",
+      "side": 1,
+      "message": "nova network was remvoed 5 years ago in ussuri\nso yes this can be remvoed.",
+      "revId": "84f8572794ba0a23f404ac35bd0dac22a0c8a1e0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
