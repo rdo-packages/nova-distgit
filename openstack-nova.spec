@@ -1,5 +1,6 @@
+%global milestone .0rc1
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
+%global sources_gpg_sign 0xf8675126e2411e7748dd46662fc2093e4682645f
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # we are excluding some BRs from automatic generator
@@ -32,13 +33,17 @@ Name:             openstack-nova
 # Liberty semver reset
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
-Version:          XXX
-Release:          XXX
+Version:          30.0.0
+Release:          0.1%{?milestone}%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          Apache-2.0
 URL:              http://openstack.org/projects/compute/
 Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz
+
+#
+# patches_base=30.0.0.0rc1
+#
 
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
@@ -661,4 +666,7 @@ exit 0
 %endif
 
 %changelog
+* Mon Sep 23 2024 RDO <dev@lists.rdoproject.org> 1:30.0.0-0.1.0rc1
+- Update to 30.0.0.0rc1
+
 
