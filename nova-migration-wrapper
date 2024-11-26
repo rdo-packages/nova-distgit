@@ -28,6 +28,10 @@ COLD_MIGRATION_CMDS = [
     ['scp', '-r', '-f'],
     ['scp', '-t'],
     ['scp', '-f'],
+    ['scp', '-r', '-C', '-t'],
+    ['scp', '-r', '-C', '-f'],
+    ['scp', '-C', '-f'],
+    ['scp', '-C', '-t'],
     ['/usr/libexec/openssh/sftp-server'],
 ]
 ROOTWRAP_ARGS = ['/usr/bin/nova-rootwrap', '/etc/nova/migration/rootwrap.conf']
