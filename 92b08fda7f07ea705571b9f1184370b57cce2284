@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a90eec7e_db62620d",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 356
+      },
+      "writtenOn": "2024-11-26T14:23:37Z",
+      "side": 1,
+      "message": "This needs to be the command on the server side, not client side. E.g client `scp -r ` -\u003e server `scp -r -t` (IIRC)",
+      "revId": "92b08fda7f07ea705571b9f1184370b57cce2284",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
