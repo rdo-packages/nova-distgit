@@ -105,6 +105,24 @@
       "parentUuid": "668a2f42_63d5d1d1",
       "revId": "92b08fda7f07ea705571b9f1184370b57cce2284",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e69ea9e1_59ce6ed8",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2024-11-27T13:55:32Z",
+      "side": 1,
+      "message": "I believe we still need [\u0027scp\u0027, \u0027-C\u0027, \u0027-r\u0027] [1], do we?\n\n[1] https://review.opendev.org/c/openstack/nova/+/684393/6/nova/tests/unit/virt/libvirt/volume/test_remotefs.py",
+      "parentUuid": "fb6c4766_5561051e",
+      "revId": "92b08fda7f07ea705571b9f1184370b57cce2284",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
