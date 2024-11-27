@@ -34,6 +34,24 @@
       "parentUuid": "5459bb9d_412fe875",
       "revId": "369b7bf859b87b8b646dea3dd95d72b9d57c1b75",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5659e8f6_1deb68de",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2024-11-27T15:21:33Z",
+      "side": 1,
+      "message": "I don\u0027t understand this client vs server separation very well, sorry",
+      "parentUuid": "91f82635_4a505982",
+      "revId": "369b7bf859b87b8b646dea3dd95d72b9d57c1b75",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
