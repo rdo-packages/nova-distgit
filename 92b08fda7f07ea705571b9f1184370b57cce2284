@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12d30201_6ea7ba81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2024-11-27T13:53:39Z",
+      "side": 1,
+      "message": "thanks! I hope that looks correct now",
+      "revId": "92b08fda7f07ea705571b9f1184370b57cce2284",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a90eec7e_db62620d",
@@ -68,6 +85,24 @@
       "side": 1,
       "message": "I would guess `[\u0027scp\u0027, \u0027-r\u0027, \u0027-C\u0027, \u0027-t\u0027], [\u0027scp\u0027, \u0027-r\u0027, \u0027-C\u0027, \u0027-f\u0027], [\u0027scp\u0027, \u0027-C\u0027, \u0027-t\u0027], [\u0027scp\u0027, \u0027-C\u0027, \u0027-f\u0027]`. You\u0027ll need to test it to confirm exactly what is run on the server side for scp to/from/recursive-to/recursive-from.",
       "parentUuid": "452de66b_83f5e924",
+      "revId": "92b08fda7f07ea705571b9f1184370b57cce2284",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb6c4766_5561051e",
+        "filename": "nova-migration-wrapper",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2024-11-27T13:53:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "668a2f42_63d5d1d1",
       "revId": "92b08fda7f07ea705571b9f1184370b57cce2284",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
