@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5459bb9d_412fe875",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 411
+      },
+      "writtenOn": "2024-11-27T14:12:05Z",
+      "side": 1,
+      "message": "According to https://bugzilla.redhat.com/show_bug.cgi?id\u003d2328624#c3, we should also allow -O option?..",
+      "revId": "369b7bf859b87b8b646dea3dd95d72b9d57c1b75",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
