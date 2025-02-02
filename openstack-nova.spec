@@ -297,10 +297,6 @@ sed -i /^requires.*virtualenv.*/d tox.ini
 # Disable extra zvm from automatic BRs
 sed -i '/^  zvm.*/d' tox.ini
 
-# requirements-override-centos C9S is providing packaging-20.9 while nova introduced >=21.0 with
-# no justification
-sed -i 's/^packaging.*/packaging>=20.9/g' requirements.txt
-
 # Do not run linters
 rm -f nova/tests/unit/test_hacking.py
 
