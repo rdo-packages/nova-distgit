@@ -33,7 +33,7 @@ Name:             openstack-nova
 # https://review.openstack.org/#/q/I6a35fa0dda798fad93b804d00a46af80f08d475c,n,z
 Epoch:            1
 Version:          29.2.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          OpenStack Compute (nova)
 
 License:          Apache-2.0
@@ -90,6 +90,7 @@ Requires:         openstack-nova-api = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-novncproxy = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-migration = %{epoch}:%{version}-%{release}
+Requires:         python3-oslo-policy >= 4.3.0
 
 
 %description
@@ -681,6 +682,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Feb 13 2025 Tobias Urdin <tobias.urdin@binero.com> 1:29.2.0-2
+- Add requires python3-oslo-policy >= 4.3.0
+
 * Thu Aug 08 2024 RDO <dev@lists.rdoproject.org> 1:29.2.0-1
 - Update to 29.2.0
 
