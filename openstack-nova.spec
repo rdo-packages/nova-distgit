@@ -113,7 +113,6 @@ between all the OpenStack nova services.
 Summary:          OpenStack Nova Virtual Machine control service
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
-Requires:         curl
 Requires:         openssh-clients
 Requires:         rsync
 Requires:         xorriso
