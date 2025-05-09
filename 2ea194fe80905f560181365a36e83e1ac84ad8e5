@@ -18,6 +18,23 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce2c0d1d_0713e44d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2025-05-09T12:27:44Z",
+      "side": 1,
+      "message": "Looks like CI failed because nova recently dropped support for Python 3.9. We probably need to drop the centos9 jobs here.",
+      "revId": "2ea194fe80905f560181365a36e83e1ac84ad8e5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4eae5254_bb7a79ad",
