@@ -12,4 +12,3 @@ ExecStart=/usr/bin/nova-conductor
 
 [Install]
 WantedBy=multi-user.target
-

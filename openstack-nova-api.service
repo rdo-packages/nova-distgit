@@ -8,8 +8,7 @@ NotifyAccess=all
 TimeoutStartSec=0
 Restart=always
 User=nova
-ExecStart=/usr/bin/nova-api
+ExecStart=/usr/bin/uwsgi --plugin python3 --ini /etc/nova/api-uwsgi.ini
 
 [Install]
 WantedBy=multi-user.target
-
