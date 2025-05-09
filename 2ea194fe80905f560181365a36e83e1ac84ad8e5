@@ -35,6 +35,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "715425ab_3b5f6de9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2025-05-09T12:28:25Z",
+      "side": 1,
+      "message": "Also reported with https://review.rdoproject.org/r/c/openstack/nova-distgit/+/57519",
+      "parentUuid": "ce2c0d1d_0713e44d",
+      "revId": "2ea194fe80905f560181365a36e83e1ac84ad8e5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4eae5254_bb7a79ad",
