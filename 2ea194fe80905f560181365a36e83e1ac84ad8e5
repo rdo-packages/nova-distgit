@@ -55,6 +55,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0759c0e7_a37abe24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2025-05-09T12:39:34Z",
+      "side": 1,
+      "message": "the other option is to remvoe \n\nhttps://github.com/rdo-packages/nova-distgit/blob/rpm-master/openstack-nova-api.service\nhttps://github.com/rdo-packages/nova-distgit/blob/rpm-master/openstack-nova-metadata-api.service\nand \nhttps://github.com/rdo-packages/nova-distgit/blob/rpm-master/openstack-nova-os-compute-api.service\nentrily \n\nthe -1 is because you did not update the last of the which is actully the nova rest api\n\nnova-api was the combined rest and metadta api which we dont suprpot in uwsgi.\nit was only supproted with eventlet-webserver\n\nnova-api is nolonger a delvierbale of the nova project so i think you should be removing that from the rpm entirly but updateing `openstack-nova-os-compute-api.service` and  `openstack-nova-metadata-api.service` makes sesne\n\nthey way you have updated nova-api will not be a drop in replacement for anyone that was previouly nova-api console script form nova.",
+      "revId": "2ea194fe80905f560181365a36e83e1ac84ad8e5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4eae5254_bb7a79ad",
         "filename": "nova-api-uwsgi.ini",
         "patchSetId": 1
@@ -66,6 +83,23 @@
       "writtenOn": "2025-05-09T12:19:40Z",
       "side": 1,
       "message": "FYI, this is copied verbatim from a recent DevStack install. It could almost certainly be improved.",
+      "revId": "2ea194fe80905f560181365a36e83e1ac84ad8e5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a53ae01_fce6e1bc",
+        "filename": "openstack-nova-metadata-api.service",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2025-05-09T12:39:34Z",
+      "side": 1,
+      "message": "while you have added support for the uwsgi\nthe rpm does not require it\n\ni dont think a wsgi runtime shoudl be a direct hard dep by listing uwsgi as a requried dep  but i wonder if we shoudl have it in suggested or recommend?",
       "revId": "2ea194fe80905f560181365a36e83e1ac84ad8e5",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
