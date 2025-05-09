@@ -12,4 +12,3 @@ ExecStart=/usr/bin/nova-scheduler
 
 [Install]
 WantedBy=multi-user.target
-

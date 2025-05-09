@@ -43,7 +43,6 @@ Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.t
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
 
-Source10:         openstack-nova-api.service
 Source12:         openstack-nova-compute.service
 Source15:         openstack-nova-scheduler.service
 Source25:         openstack-nova-metadata-api.service
@@ -64,6 +63,9 @@ Source38:         nova_migration_identity
 Source39:         nova_migration_authorized_keys
 Source40:         nova_migration-rootwrap.conf
 Source41:         nova_migration-rootwrap_cold_migration
+
+Source50:         nova-api-uwsgi.ini
+Source51:         nova-metadata-uwsgi.ini
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 Source101:        https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz.asc
@@ -84,7 +86,6 @@ BuildRequires:    git-core
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
-Requires:         openstack-nova-api = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-conductor = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-novncproxy = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-migration = %{epoch}:%{version}-%{release}
@@ -413,7 +414,7 @@ install -d -m 700 %{buildroot}%{_sharedstatedir}/nova/.ssh
 # Install config files
 install -d -m 755 %{buildroot}%{_sysconfdir}/nova
 install -p -D -m 640 %{SOURCE1} %{buildroot}%{_datarootdir}/nova/nova-dist.conf
-install -p -D -m 640 etc/nova/nova.conf.sample  %{buildroot}%{_sysconfdir}/nova/nova.conf
+install -p -D -m 640 etc/nova/nova.conf.sample %{buildroot}%{_sysconfdir}/nova/nova.conf
 install -p -D -m 640 etc/nova/nova-compute.conf.sample %{buildroot}%{_sysconfdir}/nova/nova-compute.conf
 install -p -D -m 640 etc/nova/rootwrap.conf %{buildroot}%{_sysconfdir}/nova/rootwrap.conf
 install -p -D -m 640 etc/nova/api-paste.ini %{buildroot}%{_sysconfdir}/nova/api-paste.ini
@@ -433,7 +434,6 @@ package = %{release}
 EOF
 
 # Install initscripts for Nova services
-install -p -D -m 644 %{SOURCE10} %{buildroot}%{_unitdir}/openstack-nova-api.service
 install -p -D -m 644 %{SOURCE12} %{buildroot}%{_unitdir}/openstack-nova-compute.service
 install -p -D -m 644 %{SOURCE15} %{buildroot}%{_unitdir}/openstack-nova-scheduler.service
 install -p -D -m 644 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata-api.service
@@ -449,6 +449,10 @@ rm -f %{buildroot}%{_bindir}/nova-network
 # Install sudoers
 install -p -D -m 440 %{SOURCE24} %{buildroot}%{_sysconfdir}/sudoers.d/nova
 install -p -D -m 440 %{SOURCE35} %{buildroot}%{_sysconfdir}/sudoers.d/nova_migration
+
+# Install uWSGI config files
+install -p -D -m 644 %{SOURCE50} %{buildroot}%{_sysconfdir}/nova/api-uwsgi.ini
+install -p -D -m 644 %{SOURCE51} %{buildroot}%{_sysconfdir}/nova/metadata-uwsgi.ini
 
 # Install nova ssh client config for migration
 install -p -D -m 600 %{SOURCE36} %{buildroot}%{_sharedstatedir}/nova/.ssh/config
@@ -602,8 +606,6 @@ exit 0
 %{_unitdir}/openstack-nova-scheduler.service
 
 %files api
-%{_bindir}/nova-api*
-%{_bindir}/nova-metadata-wsgi
 %{_unitdir}/openstack-nova-*api.service
 
 %files conductor

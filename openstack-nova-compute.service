@@ -13,4 +13,3 @@ ExecStart=/usr/bin/nova-compute
 
 [Install]
 WantedBy=multi-user.target
-
