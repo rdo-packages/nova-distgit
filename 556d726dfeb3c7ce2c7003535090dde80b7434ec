@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0577312_3c24f610",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2025-05-12T14:51:36Z",
+      "side": 1,
+      "message": "+1 for adding it for the nova-api rpm specificly",
+      "revId": "556d726dfeb3c7ce2c7003535090dde80b7434ec",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
