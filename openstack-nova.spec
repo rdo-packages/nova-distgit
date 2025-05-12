@@ -177,6 +177,8 @@ to run Virtual Machines in the cloud.
 Summary:          OpenStack Nova API services
 
 Requires:         openstack-nova-common = %{epoch}:%{version}-%{release}
+Recommends:       uwsgi
+Recommends:       uwsgi-plugin-python3
 
 %description api
 %{common_desc}
