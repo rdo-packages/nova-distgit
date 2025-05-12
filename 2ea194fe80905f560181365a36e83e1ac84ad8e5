@@ -70,6 +70,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e09a7a0_f7e6df7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2025-05-12T12:16:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0759c0e7_a37abe24",
+      "revId": "2ea194fe80905f560181365a36e83e1ac84ad8e5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4eae5254_bb7a79ad",
@@ -100,6 +118,24 @@
       "writtenOn": "2025-05-09T12:39:34Z",
       "side": 1,
       "message": "while you have added support for the uwsgi\nthe rpm does not require it\n\ni dont think a wsgi runtime shoudl be a direct hard dep by listing uwsgi as a requried dep  but i wonder if we shoudl have it in suggested or recommend?",
+      "revId": "2ea194fe80905f560181365a36e83e1ac84ad8e5",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "608c1d97_cdb66677",
+        "filename": "openstack-nova-metadata-api.service",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 244
+      },
+      "writtenOn": "2025-05-12T12:16:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a53ae01_fce6e1bc",
       "revId": "2ea194fe80905f560181365a36e83e1ac84ad8e5",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
