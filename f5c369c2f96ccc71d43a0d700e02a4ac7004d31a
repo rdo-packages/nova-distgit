@@ -16,6 +16,23 @@
       "message": "nova dropped support for 3.9 on master which is why the c9s jobs failed.\n\nhttps://softwarefactory-project.io/zuul/t/rdoproject.org/build/f21caa5c36bc44d9a8d88be214afc061/log/buildset/centos9/repos/02/3b/023be4f5615255d06f61b393605da1308f045220_dev/build.log.gz#1517\n\nthats expected so the c9s jobs need to be remvoed on master or moved to at least py 3.10\n\nover all i think this makes sense",
       "revId": "f5c369c2f96ccc71d43a0d700e02a4ac7004d31a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f4e1ab2_784addec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 85
+      },
+      "writtenOn": "2025-05-15T14:00:36Z",
+      "side": 1,
+      "message": "hmm why Sean and gibi do not have +2 here...",
+      "revId": "f5c369c2f96ccc71d43a0d700e02a4ac7004d31a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
