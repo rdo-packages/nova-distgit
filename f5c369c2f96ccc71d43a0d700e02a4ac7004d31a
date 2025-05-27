@@ -33,6 +33,24 @@
       "message": "hmm why Sean and gibi do not have +2 here...",
       "revId": "f5c369c2f96ccc71d43a0d700e02a4ac7004d31a",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b98e0fd7_e36d054a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2025-05-27T18:15:28Z",
+      "side": 1,
+      "message": "i used to util recently wehre i asked for them to be remvoed. tl;dr when i was steping down as ua in septermber i also gave them up because i had too much on my plate and then i was asked to move teams so i asked artom to find someone else to review changes to this on behoalf of our team.\n\nyou could read tahtm but my time to review in rdo is pretty limitted so it more a case of \"if someone asks me to review i will\" but im not going to have tiem to do this reguraly. \n\ngibi may be in a similar situation. we should bring this up to make sure that there are enough active nova experts aviable to review.",
+      "parentUuid": "1f4e1ab2_784addec",
+      "revId": "f5c369c2f96ccc71d43a0d700e02a4ac7004d31a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
