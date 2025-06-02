@@ -341,6 +341,11 @@ Requires:         python3-openstacksdk >= 0.35.0
 Requires:         python3-os-brick >= 5.2
 Requires:         python3-os-resource-classes >= 1.1.0
 Requires:         python3-os-traits >= 2.9.0
+%if 0%{?rhosp} == 0
+Requires:         python3-os-traits >= 2.9.0
+%else
+Requires:         python3-os-traits >= 3.4.0
+%endif
 Requires:         python3-oslo-cache >= 1.26.0
 Requires:         python3-oslo-concurrency >= 5.0.1
 Requires:         python3-oslo-config >= 8.6.0
