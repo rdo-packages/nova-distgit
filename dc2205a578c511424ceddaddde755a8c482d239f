@@ -18,6 +18,24 @@
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "367d2679_5c07f156",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 935
+      },
+      "writtenOn": "2025-06-03T11:54:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2fc7fd73_7c668bba",
+      "revId": "dc2205a578c511424ceddaddde755a8c482d239f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3e5ad51_204d89be",
