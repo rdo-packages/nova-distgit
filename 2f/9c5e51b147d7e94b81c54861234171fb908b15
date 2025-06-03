@@ -1,0 +1,9 @@
+Code-Review+2: Artom Lifshitz <alifshit@redhat.com>
+Workflow+1: Artom Lifshitz <alifshit@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Code-Review+1: Sean Mooney <smooney@redhat.com>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Tue, 03 Jun 2025 12:58:26 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/nova-distgit/+/57752
+Project: openstack/nova-distgit
+Branch: refs/heads/antelope-rdo
