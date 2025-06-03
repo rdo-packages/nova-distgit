@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fc7fd73_7c668bba",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2025-06-03T09:44:32Z",
+      "side": 1,
+      "message": "this is not required its already defiend on line 6",
+      "revId": "dc2205a578c511424ceddaddde755a8c482d239f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e5ad51_204d89be",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2025-06-03T09:44:32Z",
+      "side": 1,
+      "message": "this makes more sense\n\nwe cant bump it for the comunity release but dowstream this file is directly imported so we can use the rhosp guard to reflect the upstream vs downstream dep.",
+      "revId": "dc2205a578c511424ceddaddde755a8c482d239f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
