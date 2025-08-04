@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "953f6b01_0c00993f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 974
+      },
+      "writtenOn": "2025-08-04T10:05:08Z",
+      "side": 1,
+      "message": "!\n```\nerror: Bad file: /home/zuul-worker/rpmbuild/SOURCES/clean-on-delete.py: No such file or directory\n    line 152: It\u0027s not recommended to have unversioned Obsoletes: Obsoletes: openstack-nova-objectstore\n    Bad file: /home/zuul-worker/rpmbuild/SOURCES/clean-on-delete.py: No such file or directory\n+ rpmbuild_output\u003d\u0027setting SOURCE_DATE_EPOCH\u003d1729728000\n\n```",
+      "revId": "2575366c60bfa50115c2d45f6c8d3d5176ff8224",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
