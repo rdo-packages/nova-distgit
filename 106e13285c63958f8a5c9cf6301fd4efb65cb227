@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "804f06f7_9728b84d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 974
+      },
+      "writtenOn": "2025-08-04T09:34:13Z",
+      "side": 1,
+      "message": "wrong branch",
+      "revId": "106e13285c63958f8a5c9cf6301fd4efb65cb227",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c25afd93_bdadec52",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 974
+      },
+      "writtenOn": "2025-08-04T09:34:13Z",
+      "side": 1,
+      "message": "this will place script in /usr/bin \n\n---\n\nthis is mostly for me only to remeber, noting as it took me time to understand\n\n`_bindir` is /usr/bin\nwhile\n`_datarootdir` is /usr/share\n\n`Install -p -D` copies the clean-on-delete to `/usr/bin/clean-on-delete`",
+      "range": {
+        "startLine": 464,
+        "startChar": 47,
+        "endLine": 464,
+        "endChar": 54
+      },
+      "revId": "106e13285c63958f8a5c9cf6301fd4efb65cb227",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
