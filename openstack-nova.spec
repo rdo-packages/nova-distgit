@@ -61,6 +61,9 @@ Source38:         nova_migration_identity
 Source39:         nova_migration_authorized_keys
 Source40:         nova_migration-rootwrap.conf
 Source41:         nova_migration-rootwrap_cold_migration
+%if 0%{?rhosp} == 1
+Source42:         contrib/bin/clean-on-delete.py
+%endif
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 Source101:        https://tarballs.openstack.org/nova/nova-%{upstream_version}.tar.gz.asc
@@ -573,6 +576,11 @@ install -p -D -m 600 %{SOURCE36} %{buildroot}%{_sharedstatedir}/nova/.ssh/config
 # Install nova migration ssh wrapper command
 install -p -D -m 755 %{SOURCE37} %{buildroot}%{_bindir}/nova-migration-wrapper
 
+%if 0%{?rhosp} == 1
+# Install nova downstream-only nvme cleanup script
+install -p -D -m 755 %{SOURCE42} %{buildroot}%{_bindir}/clean-on-delete
+%endif
+
 # Install logrotate
 install -p -D -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/logrotate.d/openstack-nova
 
@@ -717,6 +725,9 @@ exit 0
 
 %files compute
 %{_bindir}/nova-compute
+%if 0%{?rhosp} == 1
+%{_bindir}/clean-on-delete
+%endif
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova-compute.conf
