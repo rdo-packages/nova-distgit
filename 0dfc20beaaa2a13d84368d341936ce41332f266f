@@ -16,6 +16,23 @@
       "message": "i don\u0027t believe this is correct. to propose directly to antelope without first going though master epoxy ectra\n\nthis will cause a regression for future OSP release downstream.",
       "revId": "0dfc20beaaa2a13d84368d341936ce41332f266f",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74ae1129_0f82d64c",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 8
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 600
+      },
+      "writtenOn": "2025-08-06T12:28:07Z",
+      "side": 1,
+      "message": "this proably should have `-m 755`",
+      "revId": "0dfc20beaaa2a13d84368d341936ce41332f266f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
