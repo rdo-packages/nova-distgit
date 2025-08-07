@@ -456,6 +456,18 @@ install -p -D -m 600 %{SOURCE36} %{buildroot}%{_sharedstatedir}/nova/.ssh/config
 # Install nova migration ssh wrapper command
 install -p -D -m 755 %{SOURCE37} %{buildroot}%{_bindir}/nova-migration-wrapper
 
+%if 0%{?rhosp} == 1
+# Install nova contrib scripts to /usr/share/openstack-nova/contrib
+if [ -d contrib/bin ]; then
+  install -d -m 755 %{buildroot}%{_datarootdir}/openstack-nova/contrib
+  for nova_binary in contrib/bin/*; do
+    bin_name=$(basename "$nova_binary")
+    install_name=${bin_name%.py}
+    install -p -m 755 "$nova_binary" %{buildroot}%{_datarootdir}/openstack-nova/contrib/${install_name}
+  done
+fi
+%endif
+
 # Install logrotate
 install -p -D -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/logrotate.d/openstack-nova
 
@@ -470,7 +482,7 @@ mkdir -p %{buildroot}%{_datarootdir}/nova/rootwrap/
 install -p -D -m 644 etc/nova/rootwrap.d/* %{buildroot}%{_datarootdir}/nova/rootwrap/
 
 # Install novncproxy service options template
-install -d %{buildroot}%{_sysconfdir}/sysconfig
+install -d -m 755 %{buildroot}%{_sysconfdir}/sysconfig
 install -p -m 0644 %{SOURCE30} %{buildroot}%{_sysconfdir}/sysconfig/openstack-nova-novncproxy
 
 # Install i18n .mo files (.po and .pot are not required)
@@ -593,6 +605,11 @@ exit 0
 
 %files compute
 %{_bindir}/nova-compute
+%if 0%{?rhosp} == 1
+# All nova contrib scripts - includes future scripts
+%dir %{_datarootdir}/openstack-nova/contrib
+%{_datarootdir}/openstack-nova/contrib/*
+%endif
 %{_unitdir}/openstack-nova-compute.service
 %{_datarootdir}/nova/rootwrap/compute.filters
 %config(noreplace) %attr(-, root, nova) %{_sysconfdir}/nova/nova-compute.conf
