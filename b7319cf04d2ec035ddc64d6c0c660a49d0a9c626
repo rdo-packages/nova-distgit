@@ -52,6 +52,24 @@
       "parentUuid": "a632882a_b965f203",
       "revId": "b7319cf04d2ec035ddc64d6c0c660a49d0a9c626",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19d67355_e67068e9",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 974
+      },
+      "writtenOn": "2025-08-11T09:00:50Z",
+      "side": 1,
+      "message": "reverted this change\nso for now,this patch is only to fix CI error\n\nhttps://logserver.rdoproject.org/175/rdoproject.org/175df1287c5d405b9b0b437d35eed11a/job-output.txt\n\n```\nINFO:dlrn-build-mock:DEBUG: error: invalid command \u0027compile_catalog\u0027\nINFO:dlrn-build-mock:DEBUG: RPM build warnings:\nINFO:dlrn-build-mock:DEBUG: RPM build errors:\nINFO:dlrn-build-mock:DEBUG: error: Bad exit status from /var/tmp/rpm-tmp.5kdeXj (%install)\nINFO:dlrn-build-mock:DEBUG:     source_date_epoch_from_changelog set but %changelog is missing\nINFO:dlrn-build-mock:DEBUG:     Bad exit status from /var/tmp/rpm-tmp.5kdeXj (%install)\nINFO:dlrn-build-mock:DEBUG: Child return code was: 1\nINFO:dlrn-build-mock:INFO: EXCEPTION: [Error(\"Command failed: \n--noprep  --target x86_64 /builddir/build/SPECS/openstack-nova.spec\u0027\n\nINFO:dlrn-build-mock:Traceback (most recent call last):\nINFO:dlrn-build-mock:  File \"/usr/lib/python3.12/site-packages/mockbuild/trace_decorator.py\", line 93, in trace\nINFO:dlrn-build-mock:    result \u003d func(*args, **kw)\nINFO:dlrn-build-mock:             ^^^^^^^^^^^^^^^^^\nINFO:dlrn-build-mock:  File \"/usr/lib/python3.12/site-packages/mockbuild/util.py\", line 610, in do_with_status\nINFO:dlrn-build-mock:    raise exception.Error(\"Command failed: \n\n\nINFO:dlrn-build-mock:mockbuild.exception.Error: Command failed:\nINFO:dlrn-build-mock: # bash --login -c \u0027/usr/bin/rpmbuild -ba --noprep  --target x86_64 /builddir/build/SPECS/openstack-nova.spec\u0027\nINFO:dlrn-build-mock:\nINFO:dlrn-build-mock:Finish: rpmbuild openstack-nova-31.1.0-0.20250811060209.507b45e.el10.src.rpm\nINFO:dlrn-build-mock:Finish: build phase for openstack-nova-31.1.0-0.20250811060209.507b45e.el10.src.rpm\nINFO:dlrn-build-mock:ERROR: Exception(/home/zuul-worker/src/softwarefactory-project.io/DLRN/data/repos/50/7b/507b45e89351b5c9ebb7820be16fae4d2a8dc851_dev/openstack-nova-31.1.0-0.20250811060209.507b45e.el10.src.rpm) Config(dlrn-centos-stream-10-x86_64-1) 1 minutes 37 seconds\n\n\n```",
+      "parentUuid": "a632882a_b965f203",
+      "revId": "b7319cf04d2ec035ddc64d6c0c660a49d0a9c626",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
