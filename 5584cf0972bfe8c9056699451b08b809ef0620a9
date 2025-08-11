@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b473fee6_b387488a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 974
+      },
+      "writtenOn": "2025-08-11T09:33:21Z",
+      "side": 1,
+      "message": "CI issue fixed now -\nby https://review.rdoproject.org/r/c/openstack/nova-distgit/+/58097",
+      "revId": "5584cf0972bfe8c9056699451b08b809ef0620a9",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
