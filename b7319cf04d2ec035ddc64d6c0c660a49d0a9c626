@@ -16,6 +16,24 @@
       "message": "why this change, looks unrelated as per commit message",
       "revId": "b7319cf04d2ec035ddc64d6c0c660a49d0a9c626",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a632882a_b965f203",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 974
+      },
+      "writtenOn": "2025-08-11T08:37:22Z",
+      "side": 1,
+      "message": "yeah, this is unrealted, I could mention it in commit msg, will do if/when respin\n\nthe reason for this is to provide executable permission to new sysonfig  dir, its a same pattern followed throughout the spec.",
+      "parentUuid": "eb5e0312_41ac9622",
+      "revId": "b7319cf04d2ec035ddc64d6c0c660a49d0a9c626",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
