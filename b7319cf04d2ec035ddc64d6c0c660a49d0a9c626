@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb5e0312_41ac9622",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2025-08-11T08:32:26Z",
+      "side": 1,
+      "message": "why this change, looks unrelated as per commit message",
+      "revId": "b7319cf04d2ec035ddc64d6c0c660a49d0a9c626",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
