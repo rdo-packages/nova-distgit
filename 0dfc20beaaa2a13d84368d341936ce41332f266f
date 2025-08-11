@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e1980419_cb091c98",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 974
+      },
+      "writtenOn": "2025-08-11T10:15:55Z",
+      "side": 1,
+      "message": "proposed to master, \nbackported upto antelope here: https://review.rdoproject.org/r/q/topic:nova-contrib-packaging\n\nthis will abandoned",
+      "parentUuid": "fd3b9db3_3dc86169",
+      "revId": "0dfc20beaaa2a13d84368d341936ce41332f266f",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74ae1129_0f82d64c",
         "filename": "openstack-nova.spec",
         "patchSetId": 8
