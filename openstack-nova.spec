@@ -81,6 +81,7 @@ BuildRequires:    intltool
 BuildRequires:    python3-devel
 BuildRequires:    pyproject-rpm-macros
 BuildRequires:    git-core
+BuildRequires:    python3-babel
 
 Requires:         openstack-nova-compute = %{epoch}:%{version}-%{release}
 Requires:         openstack-nova-scheduler = %{epoch}:%{version}-%{release}
@@ -470,7 +471,7 @@ mkdir -p %{buildroot}%{_datarootdir}/nova/rootwrap/
 install -p -D -m 644 etc/nova/rootwrap.d/* %{buildroot}%{_datarootdir}/nova/rootwrap/
 
 # Install novncproxy service options template
-install -d %{buildroot}%{_sysconfdir}/sysconfig
+install -d -m 755 %{buildroot}%{_sysconfdir}/sysconfig
 install -p -m 0644 %{SOURCE30} %{buildroot}%{_sysconfdir}/sysconfig/openstack-nova-novncproxy
 
 # Install i18n .mo files (.po and .pot are not required)
