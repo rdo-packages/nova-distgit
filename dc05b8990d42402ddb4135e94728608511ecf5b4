@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97eb4fdd_79a7b33a",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 935
+      },
+      "writtenOn": "2025-08-14T13:57:10Z",
+      "side": 1,
+      "message": "do you have a pointer to downstream (you can point me to it privately) that we set this to 1 explicitly? So far the examples are only hinting that downstream it is non 0. \n\nIn general we should have a way downstream to do a build with this change before we merge this to verify that this change is valid.",
+      "revId": "dc05b8990d42402ddb4135e94728608511ecf5b4",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
