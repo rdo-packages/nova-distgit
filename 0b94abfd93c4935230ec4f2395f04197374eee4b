@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4937ccb_42c528b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2025-08-18T06:50:05Z",
+      "side": 1,
+      "message": "As noticed this is being added to include a script from a recent upstream repo https://opendev.org/openstack/nova-contrib/src/commit/7650481568b87913c2c6b825612d95e4a5c6c08c/clean-on-delete.py \n\n- Is there any Reason that new package is not being packaged so any new changes to that script also get\u0027s pulled in automatically and also get\u0027s applied to all future RHOSP releases?\n- Since there is no next release branches downstream yet, how this changes will be ensured for rhoso-19, rhoso-2.*? \n- How this new script will be executed and from where? Any reason these standalone script not put into bin locations like other binaries? as accordingly can be handled in setup.cfg itself like other scripts\n\nAlso do explain why only downstream only in commit message and add respective Jira/LP bugs",
+      "revId": "0b94abfd93c4935230ec4f2395f04197374eee4b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    }
+  ]
+}
