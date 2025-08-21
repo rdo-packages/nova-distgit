@@ -34,6 +34,24 @@
       "parentUuid": "97eb4fdd_79a7b33a",
       "revId": "dc05b8990d42402ddb4135e94728608511ecf5b4",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e7cc733_bbd2dfd4",
+        "filename": "openstack-nova.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 974
+      },
+      "writtenOn": "2025-08-21T05:46:44Z",
+      "side": 1,
+      "message": "tested with downstream scratch build, script is placed in correct path.\n\n```\n$ rpm -ql openstack-nova-compute-27.5.2-18.0.20250815124721.c1c6d67.el9osttrunk.noarch.rpm\n/etc/nova/nova-compute.conf\n...\n/usr/share/openstack-nova/contrib\n/usr/share/openstack-nova/contrib/clean-on-delete                   \u003c------------ \n```",
+      "parentUuid": "1deac29a_8255a9fb",
+      "revId": "dc05b8990d42402ddb4135e94728608511ecf5b4",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
