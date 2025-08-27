@@ -43,15 +43,12 @@ Source0:          https://tarballs.openstack.org/nova/nova-%{upstream_version}.t
 Source1:          nova-dist.conf
 Source6:          nova.logrotate
 
-Source10:         openstack-nova-api.service
 Source12:         openstack-nova-compute.service
 Source15:         openstack-nova-scheduler.service
-Source25:         openstack-nova-metadata-api.service
 Source26:         openstack-nova-conductor.service
 Source28:         openstack-nova-spicehtml5proxy.service
 Source29:         openstack-nova-novncproxy.service
 Source31:         openstack-nova-serialproxy.service
-Source32:         openstack-nova-os-compute-api.service
 
 Source22:         nova-ifc-template
 Source24:         nova-sudoers
@@ -434,7 +431,6 @@ package = %{release}
 EOF
 
 # Install initscripts for Nova services
-install -p -D -m 644 %{SOURCE10} %{buildroot}%{_unitdir}/openstack-nova-api.service
 install -p -D -m 644 %{SOURCE12} %{buildroot}%{_unitdir}/openstack-nova-compute.service
 install -p -D -m 644 %{SOURCE15} %{buildroot}%{_unitdir}/openstack-nova-scheduler.service
 install -p -D -m 644 %{SOURCE25} %{buildroot}%{_unitdir}/openstack-nova-metadata-api.service
@@ -517,8 +513,6 @@ exit 0
 %systemd_post %{name}-compute.service
 %post scheduler
 %systemd_post %{name}-scheduler.service
-%post api
-%systemd_post %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %post conductor
 %systemd_post %{name}-conductor.service
 %post novncproxy
@@ -532,8 +526,6 @@ exit 0
 %systemd_preun %{name}-compute.service
 %preun scheduler
 %systemd_preun %{name}-scheduler.service
-%preun api
-%systemd_preun %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %preun conductor
 %systemd_preun %{name}-conductor.service
 %preun novncproxy
@@ -547,8 +539,6 @@ exit 0
 %systemd_postun_with_restart %{name}-compute.service
 %postun scheduler
 %systemd_postun_with_restart %{name}-scheduler.service
-%postun api
-%systemd_postun_with_restart %{name}-api.service %{name}-metadata-api.service %{name}-os-compute-api.service
 %postun conductor
 %systemd_postun_with_restart %{name}-conductor.service
 %postun novncproxy
@@ -603,9 +593,8 @@ exit 0
 %{_unitdir}/openstack-nova-scheduler.service
 
 %files api
-%{_bindir}/nova-api*
+%{_bindir}/nova-api-wsgi
 %{_bindir}/nova-metadata-wsgi
-%{_unitdir}/openstack-nova-*api.service
 
 %files conductor
 %{_bindir}/nova-conductor
