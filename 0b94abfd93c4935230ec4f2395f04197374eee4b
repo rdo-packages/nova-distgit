@@ -104,6 +104,24 @@
       "parentUuid": "a9198bd2_a69a4db4",
       "revId": "0b94abfd93c4935230ec4f2395f04197374eee4b",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "766f2bc7_f8512743",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 935
+      },
+      "writtenOn": "2025-08-29T08:35:46Z",
+      "side": 1,
+      "message": "@Yatin\n\u003e It is put into a specific bin location by the rpm install.\n\nYeah that is my mistake. I should have said put in a specific directory and that directory. It does not need to be /usr/bin or /bin. Actually we intentionally not want to but it into a bin dir that is in the PATH as it is not expected to be started from a terminal manually.",
+      "parentUuid": "e55ecf41_99813860",
+      "revId": "0b94abfd93c4935230ec4f2395f04197374eee4b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
