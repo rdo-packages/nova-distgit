@@ -68,6 +68,24 @@
       "parentUuid": "a4937ccb_42c528b8",
       "revId": "0b94abfd93c4935230ec4f2395f04197374eee4b",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9198bd2_a69a4db4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2025-08-29T04:49:50Z",
+      "side": 1,
+      "message": "@gibi thx for sharing insights around the plan in downstream discussion but in downstream discussion you mentioned these files need to be located in bin directory but this patch is putting instead those under /usr/share/openstack-nova/contrib/",
+      "parentUuid": "c7584927_50af16ad",
+      "revId": "0b94abfd93c4935230ec4f2395f04197374eee4b",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
