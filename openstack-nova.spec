@@ -687,3 +687,4 @@ exit 0
 - Update to 30.0.0.0rc1
 
 
+# REMOVEME: error caused by commit https://opendev.org/openstack/nova/commit/c9cc98c4e8819f7da5dc26203efbdbf85b8abffd
