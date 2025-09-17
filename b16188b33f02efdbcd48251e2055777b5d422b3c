@@ -16,6 +16,23 @@
       "message": "recheck environmental issue. \n\n```\n2025-09-15 11:31:14.450566 | cloud-centos-9-stream | 2025-09-15 11:31:14,450 INFO:dlrn-build:Errors during downloading metadata for repository \u0027baseos\u0027:\n2025-09-15 11:31:14.450678 | cloud-centos-9-stream | 2025-09-15 11:31:14,450 INFO:dlrn-build:  - Downloading successful, but checksum doesn\u0027t match. Calculated: 4b79578103b0113b069da644589a83a639d1e867a0493b8a1eb4d3f24cbdc2cf1f87bddc7afa3881e2a727fe001893c592c28b1e9df2d5a914902e057577706f(sha512)  Expected: 829ff74685ce21183156b68e655983a25112c08d6c5f35fe29fff00dd38a573159c66d6432750faf13b483aec2aabf2dff0333d7a0f2e451a2ddfba15153aa09(sha512)\n2025-09-15 11:31:14.450786 | cloud-centos-9-stream | 2025-09-15 11:31:14,450 INFO:dlrn-build:Error: Failed to download metadata for repo \u0027baseos\u0027: Cannot download repomd.xml: Cannot download repodata/repomd.xml: All mirrors were tried\n2025-09-15 11:31:14.450889 | cloud-centos-9-stream | 2025-09-15 11:31:14,450 INFO:dlrn-build:\n2025-09-15 11:31:14.504550 | cloud-centos-9-stream | 2025-09-15 11:31:14,504 INFO:dlrn-build:+ finalize\n2025-09-15 11:31:14.504695 | cloud-centos-9-stream | 2025-09-15 11:31:14,504 INFO:dlrn-build:+ rm -rf /tmp/tmp.V4QoJX0kV4\n```",
       "revId": "b16188b33f02efdbcd48251e2055777b5d422b3c",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c68bae_0b1c4c7e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 935
+      },
+      "writtenOn": "2025-09-17T12:48:33Z",
+      "side": 1,
+      "message": "recheck POST_FAILURE",
+      "revId": "b16188b33f02efdbcd48251e2055777b5d422b3c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7"
     }
   ]
 }
